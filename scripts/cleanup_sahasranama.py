@@ -12,27 +12,15 @@ import json
 import csv
 from typing import List, Dict, Optional
 
-# Config - source filenames (exact names in workspace)
+
+# Config for Mahakali Sahasranama
 ROOT = os.path.dirname(os.path.dirname(__file__))
 SRC_DIR = ROOT
 
-FILES = {
-    'en_oneline': os.path.join(SRC_DIR, 'kalabhairava_sahasranama(1000)_onelinemeanings.txt'),
-    'en_elab'  : os.path.join(SRC_DIR, 'kalabhairava_sahasranama(1000)_withelaborations.txt'),
-    'hi_oneline': os.path.join(SRC_DIR, 'kalabhairava_sahasranama(1000)_HINDI_onelinemeanings.txt'),
-    'hi_elab'  : os.path.join(SRC_DIR, 'kalabhairava_sahasranama(1000)_HINDI_withelaborations.txt'),
-}
+MAHAKALI_FILE = os.path.join(SRC_DIR, 'mahakali1000nameswebsite', 'adyamahakali_sahasranama(1000)_withelaborations.txt')
+MAHAKALI_JSON = os.path.join(SRC_DIR, 'mahakali1000nameswebsite', 'mahakali_sahasranama_meanings.json')
 
-OUTFILES = {
-    'en_oneline_clean': os.path.join(SRC_DIR, 'kalabhairava_sahasranama_1000_onelinemeanings.txt'),
-    'en_elab_clean': os.path.join(SRC_DIR, 'kalabhairava_sahasranama_1000_withelaborations.txt'),
-    'hi_oneline_clean': os.path.join(SRC_DIR, 'kalabhairava_sahasranama_1000_HINDI_onelinemeanings.txt'),
-    'hi_elab_clean': os.path.join(SRC_DIR, 'kalabhairava_sahasranama_1000_HINDI_withelaborations.txt'),
-    'json': os.path.join(SRC_DIR, 'sahasranama_meanings.json'),
-    'csv': os.path.join(SRC_DIR, 'sahasranama_meanings.csv'),
-}
-
-NUM_HEADER_RE = re.compile(r'^\s*(\d+)\)\s*(.+)$')
+NUM_HEADER_RE = re.compile(r'^\s*(\d+)[\).]\s*(.+)$')
 ONE_LINE_SPLIT_RE = re.compile(r'\s*:\s*')
 ELAB_MARKER_RE = re.compile(r'(?i)\bELABORATION\b|व्याख्या|विस्तार')
 
@@ -194,38 +182,24 @@ def write_csv(path: str, records: List[Dict]):
 
 
 def main():
-    print('Parsing sources...')
-    en_oneline = parse_oneliners(FILES['en_oneline'])
-    en_elab = parse_elaborations(FILES['en_elab'])
-    hi_oneline = parse_oneliners(FILES['hi_oneline'])
-    hi_elab = parse_elaborations(FILES['hi_elab'])
 
-    merged = merge_records(en_oneline, en_elab, hi_oneline, hi_elab)
+    print('Parsing Mahakali Sahasranama source...')
+    mahakali_entries = parse_elaborations(MAHAKALI_FILE)
 
-    print(f'Found indices: {len(merged)} entries (unique indices).')
+    # Convert to list for JSON output
+    mahakali_list = []
+    for idx in sorted(mahakali_entries.keys()):
+        entry = mahakali_entries[idx]
+        mahakali_list.append({
+            'index': idx,
+            'name': entry.get('name', ''),
+            'short': entry.get('short', ''),
+            'elaboration': entry.get('elaboration', ''),
+        })
 
-    # Write cleaned outputs
-    write_clean_oneliners(OUTFILES['en_oneline_clean'], merged, 'english')
-    write_clean_elabs(OUTFILES['en_elab_clean'], merged, 'english')
-    write_clean_oneliners(OUTFILES['hi_oneline_clean'], merged, 'hindi')
-    write_clean_elabs(OUTFILES['hi_elab_clean'], merged, 'hindi')
-    write_json(OUTFILES['json'], merged)
-    write_csv(OUTFILES['csv'], merged)
-
-    # Summary
-    counts = {
-        'en_oneline': len(en_oneline),
-        'en_elab': len(en_elab),
-        'hi_oneline': len(hi_oneline),
-        'hi_elab': len(hi_elab),
-        'merged': len(merged),
-    }
-    print('Write complete. Counts:')
-    for k, v in counts.items():
-        print(f'  {k}: {v}')
-    print('\nOutputs:')
-    for k, v in OUTFILES.items():
-        print(f'  {k}: {v}')
+    print(f'Found {len(mahakali_list)} Mahakali names.')
+    write_json(MAHAKALI_JSON, mahakali_list)
+    print(f'Mahakali Sahasranama JSON written to: {MAHAKALI_JSON}')
 
 
 if __name__ == '__main__':
