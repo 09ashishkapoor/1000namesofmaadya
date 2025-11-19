@@ -1,3 +1,7 @@
+
+> NOTICE: This repository was cleaned up — the canonical, production-ready website is now under the `site/` folder.
+> Duplicate site builds and raw exports were moved to `archive/`. See `archive/README.md` for details.
+
 # ॥ Maa Ādya Mahākālī Sahasranāma ॥
 
 A beautiful, interactive website displaying the 1,072 sacred names of Maa Ādya Mahākālī with detailed meanings and elaborations in both English and Hindi.
