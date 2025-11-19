@@ -1,5 +1,5 @@
 /**
- * Kālabhairava Sahasranāma - Pure Vanilla JS Application
+ * Ādya Mahākālī Sahasranāma - Pure Vanilla JS Application
  * Mobile-first, lightweight, fast
  */
 
@@ -71,7 +71,7 @@
       elements.loadingState.classList.remove('hidden');
       elements.errorState.classList.add('hidden');
       
-      const response = await fetch('/sahasranama_meanings.json');
+      const response = await fetch('mahakali_sahasranama_meanings.json');
       if (!response.ok) throw new Error('Failed to load sacred names');
       
       state.data = await response.json();
@@ -259,7 +259,7 @@
       `;
     } else {
       elements.statsDisplay.innerHTML = `
-        📿 Displaying the sacred <strong>${totalNames}</strong> names of <strong>Śrī Kālabhairava</strong>
+        📿 Displaying the sacred <strong>${totalNames}</strong> names of <strong>Maa Ādya Mahākālī</strong>
       `;
     }
   }
