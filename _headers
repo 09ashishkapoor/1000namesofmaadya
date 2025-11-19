@@ -1,2 +1,7 @@
-*.json
+/sahasranama_meanings.json
   X-Robots-Tag: noindex, nofollow
+
+# If you need to target other JSON files, add explicit paths here.
+# Example:
+# /another-file.json
+#   X-Robots-Tag: noindex, nofollow
