@@ -30,6 +30,7 @@
   --color-crimson: #dc143c;
   --color-blood-red: #8b0000;
   --color-divine-gold: #ffd700;
+  --color-gold: #DAA520;
   --color-smoke: rgba(255, 255, 255, 0.1);
   
   /* Spacing */
@@ -215,6 +216,20 @@ body[data-theme="light"] .landing-overlay {
   color: var(--color-crimson);
   font-family: 'Noto Sans Devanagari', 'Arial Unicode MS', serif;
   font-size: 1.1em;
+}
+
+.title-line-mahakali {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-crimson);
+  font-family: 'Noto Sans Devanagari', 'Arial Unicode MS', serif;
+  font-size: 1.1em;
+}
+
+.title-line-sahasranama {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-gold);
 }
 
 @media (min-width: 768px) {
@@ -709,6 +724,29 @@ body[data-theme="light"] .names-overlay {
   font-size: 0.9375rem;
   line-height: 1.7;
   white-space: pre-wrap;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+/* Scrollbar styling for elaboration content */
+.elaboration-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.elaboration-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.elaboration-content::-webkit-scrollbar-thumb {
+  background: var(--color-crimson);
+  border-radius: 4px;
+}
+
+.elaboration-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-blood-red);
 }
 
 body[data-theme="light"] .elaboration-content {
@@ -853,6 +891,14 @@ body[data-theme="light"] .elaboration-content {
 :focus-visible {
   outline: 2px solid var(--color-crimson);
   outline-offset: 2px;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+  /* Adjust layouts for mobile */
 }
 
 /* ============================================
