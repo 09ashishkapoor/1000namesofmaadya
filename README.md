@@ -20,6 +20,18 @@ A beautiful, interactive website displaying the 1,072 sacred names of Maa Ādya 
 
 Visit: **https://09ashishkapoor.github.io/1000namesofmaadya/**
 
+**Developer notes:**
+
+- Canonical deploy branch: `main`. Cloudflare Pages is configured to publish from `main`.
+- CI Validation: A GitHub Action (`Validate Site Build`) runs on pushes and PRs to `main` and will fail if required files are missing or if `sw.js` contains precache entries for non-existent `assets/` paths.
+- How to update the site safely:
+	1. Make changes on a feature branch and open a PR against `main`.
+	2. Ensure the validation workflow passes on your PR (it checks `index.html`, `app.js`, `styles.css`, `navigation.*`, `sahasranama_meanings.json`, and `sw.js`).
+	3. If you regenerate `sw.js`, make sure the precache list references only files present in the repo root.
+	4. After merge, Cloudflare Pages will redeploy automatically.
+
+If you're uncertain, open a PR and ask for a quick review before merging.
+
 ## 📁 Files
 
 - `index.html` - Main webpage
