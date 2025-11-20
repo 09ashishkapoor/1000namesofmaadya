@@ -70,10 +70,12 @@
 
     <!-- Preload critical resources (only small manifest, not full 13MB file) -->
     <link rel="preload" href="data_manifest.json" as="fetch" crossorigin="anonymous">
-    <link rel="preload" href="data_chunk_1.json" as="fetch" crossorigin="anonymous">
-    
-    <!-- Stylesheet - Load critical CSS immediately (minified) -->
-    <link rel="stylesheet" href="styles.min.css">
+    <!-- Preload hero image to improve LCP (background image used in critical area) -->
+    <link rel="preload" href="MaaAdyaKali_5.webp" as="image">
+
+    <!-- Load stylesheet non-blocking: preload + onload pattern with noscript fallback -->
+    <link rel="preload" href="styles.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.min.css"></noscript>
     
     <!-- Inline critical CSS for above-the-fold content -->
     <style>

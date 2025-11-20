@@ -131,17 +131,24 @@
   
   // Preload remaining chunks in background (non-blocking)
   async function preloadRemainingChunks() {
+    // Start chunk fetches in a staggered parallel fashion to avoid
+    // blocking the main thread and to make better use of network.
+    const preloadPromises = [];
     for (let i = 2; i <= state.totalChunks; i++) {
-      await loadChunk(i);
-      
-      // Update display if user is still on page
-      if (state.dataLoaded && state.searchQuery === '') {
-        updateStats();
-      }
-      
-      // Small delay to avoid blocking
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Stagger start times to avoid a burst of simultaneous requests
+      const delay = (i - 2) * 120; // 120ms between starts
+      const p = new Promise(resolve => {
+        setTimeout(async () => {
+          await loadChunk(i);
+          // Update display occasionally while preloading
+          if (state.dataLoaded && state.searchQuery === '') updateStats();
+          resolve();
+        }, delay);
+      });
+      preloadPromises.push(p);
     }
+
+    await Promise.allSettled(preloadPromises);
     console.log('✅ All chunks loaded');
   }
   
