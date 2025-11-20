@@ -53,58 +53,84 @@
   
   function setupScrollDetection() {
     let ticking = false;
-    
+    let namesSection = document.getElementById('names-section');
+    const upButton = document.getElementById('nav-up-button');
+    const downButton = document.getElementById('nav-down-button');
+
+    // If buttons aren't present yet, bail — they should exist after createNavigationButtons
+    if (!upButton || !downButton) return;
+
+    // Cache measured position. Recomputed on resize or when DOM changes.
+    let namesSectionTop = null;
+    let lastState = null; // track previous inNamesSection state to avoid redundant writes
+
+    function computeNamesTop() {
+      namesSection = document.getElementById('names-section');
+      if (!namesSection) return null;
+      // Use getBoundingClientRect once and add scrollY — reading this infrequently is fine.
+      const rectTop = namesSection.getBoundingClientRect().top + window.scrollY;
+      namesSectionTop = Math.round(rectTop);
+      return namesSectionTop;
+    }
+
+    // Debounced resize handler to recompute the top value
+    let resizeTimer = null;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        computeNamesTop();
+        // Force an immediate update after recomputing
+        requestUpdate();
+      }, 120);
+    }
+
     function updateNavigation() {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      
-      // Try to find the names section (React renders it dynamically)
-      const namesSection = document.getElementById('names-section');
-      
-      if (!namesSection) {
-        // If section not found yet, check again soon
-        setTimeout(updateNavigation, 500);
-        return;
+
+      // If we haven't measured yet, attempt to compute. If still missing, try again later.
+      if (namesSectionTop === null) {
+        if (computeNamesTop() === null) {
+          // Section not in DOM yet; retry later but not on every scroll.
+          setTimeout(requestUpdate, 500);
+          ticking = false;
+          return;
+        }
       }
-      
-      const namesSectionTop = namesSection.offsetTop;
-      const upButton = document.getElementById('nav-up-button');
-      const downButton = document.getElementById('nav-down-button');
-      
-      if (!upButton || !downButton) return;
-      
-      // Determine which button to show
+
+      // Determine which button to show using the cached measurement
       const threshold = namesSectionTop - (windowHeight * 0.3);
       const inNamesSection = scrollPosition > threshold;
-      
-      if (inNamesSection) {
-        // Show UP button (red)
-        upButton.classList.remove('hidden');
-        downButton.classList.add('hidden');
-      } else {
-        // Show DOWN button (orange)
-        upButton.classList.add('hidden');
-        downButton.classList.remove('hidden');
+
+      // Only modify classlist when state changes to avoid unnecessary style recalcs
+      if (inNamesSection !== lastState) {
+        if (inNamesSection) {
+          upButton.classList.remove('hidden');
+          downButton.classList.add('hidden');
+        } else {
+          upButton.classList.add('hidden');
+          downButton.classList.remove('hidden');
+        }
+        lastState = inNamesSection;
       }
-      
+
       ticking = false;
     }
-    
+
     function requestUpdate() {
       if (!ticking) {
         window.requestAnimationFrame(updateNavigation);
         ticking = true;
       }
     }
-    
-    // Listen to scroll events
+
+    // Listen to scroll and resize
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate, { passive: true });
-    
-    // Initial update
-    setTimeout(updateNavigation, 100);
-    setTimeout(updateNavigation, 1000);
-    setTimeout(updateNavigation, 2000);
+    window.addEventListener('resize', onResize, { passive: true });
+
+    // Initial measure & update
+    computeNamesTop();
+    requestUpdate();
   }
   
   function scrollToTop() {
