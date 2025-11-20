@@ -5,3 +5,17 @@
 # Example:
 # /another-file.json
 #   X-Robots-Tag: noindex, nofollow
+
+# Cache rules for static assets to improve CDN performance
+# Keep conservative TTLs since files are not fingerprinted
+/site.min.css
+  Cache-Control: public, max-age=604800
+
+/navigation.js
+  Cache-Control: public, max-age=604800
+
+/app.js
+  Cache-Control: public, max-age=604800
+
+/MaaAdyaKali_5.png
+  Cache-Control: public, max-age=2592000, immutable
