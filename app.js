@@ -12,11 +12,15 @@
     filteredData: [],
     displayedData: [],
     currentPage: 0,
-    pageSize: 30,
+    pageSize: 11,
     searchQuery: '',
     language: 'english',
     expandedItems: new Set(),
-    theme: localStorage.getItem('theme') || 'dark'
+    theme: localStorage.getItem('theme') || 'dark',
+    // Lazy loading
+    loadedChunks: new Set(),
+    totalChunks: 0,
+    dataLoaded: false
   };
   
   // DOM Elements
@@ -46,8 +50,18 @@
   }
   
   function setupEventListeners() {
-    // Search
-    elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
+    // Search — provide immediate UI feedback, run expensive filtering debounced
+    const debouncedFilter = debounce(() => {
+      handleSearchDebounced();
+    }, 100);
+
+    elements.searchInput.addEventListener('input', (e) => {
+      // update simple UI state immediately to improve input-to-next-paint
+      state.searchQuery = e.target.value.toLowerCase().trim();
+      updateClearButton();
+      // run the heavier filtering/rendering on a short debounce
+      debouncedFilter();
+    });
     
     // Language
     elements.languageSelect.addEventListener('change', handleLanguageChange);
@@ -65,29 +79,73 @@
     elements.loadMoreBtn.addEventListener('click', loadMoreNames);
   }
   
-  // Load Data
+  // Load Data - Lazy loading with chunks
   async function loadData() {
     try {
       elements.loadingState.classList.remove('hidden');
       elements.errorState.classList.add('hidden');
       
-      const response = await fetch('mahakali_sahasranama_meanings.json');
-      if (!response.ok) throw new Error('Failed to load sacred names');
+      // Load manifest first (tiny file)
+      const manifestResponse = await fetch('data_manifest.json');
+      if (!manifestResponse.ok) throw new Error('Failed to load manifest');
       
-      state.data = await response.json();
-      state.filteredData = [...state.data];
+      const manifest = await manifestResponse.json();
+      state.totalChunks = manifest.chunks;
       
+      // Load only first chunk initially (fast!)
+      await loadChunk(1);
+      
+      state.dataLoaded = true;
       renderNames();
       updateStats();
       
       elements.loadingState.classList.add('hidden');
+      
+      // Preload remaining chunks in background
+      preloadRemainingChunks();
+      
     } catch (error) {
       showError(error.message);
       elements.loadingState.classList.add('hidden');
     }
   }
   
-  // Render Names
+  // Load a specific chunk
+  async function loadChunk(chunkNum) {
+    if (state.loadedChunks.has(chunkNum)) return;
+    
+    try {
+      const response = await fetch(`data_chunk_${chunkNum}.json`);
+      if (!response.ok) throw new Error(`Failed to load chunk ${chunkNum}`);
+      
+      const chunkData = await response.json();
+      state.data = [...state.data, ...chunkData];
+      state.filteredData = [...state.data];
+      state.loadedChunks.add(chunkNum);
+      
+      console.log(`✅ Loaded chunk ${chunkNum}/${state.totalChunks} (${chunkData.length} names)`);
+    } catch (error) {
+      console.error(`Error loading chunk ${chunkNum}:`, error);
+    }
+  }
+  
+  // Preload remaining chunks in background (non-blocking)
+  async function preloadRemainingChunks() {
+    for (let i = 2; i <= state.totalChunks; i++) {
+      await loadChunk(i);
+      
+      // Update display if user is still on page
+      if (state.dataLoaded && state.searchQuery === '') {
+        updateStats();
+      }
+      
+      // Small delay to avoid blocking
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    console.log('✅ All chunks loaded');
+  }
+  
+  // Render Names - Optimized to reduce blocking time
   function renderNames() {
     try {
       const start = 0;
@@ -96,10 +154,8 @@
       
       elements.namesGrid.innerHTML = '';
       
-      state.displayedData.forEach((entry, index) => {
-        const card = createNameCard(entry, index);
-        elements.namesGrid.appendChild(card);
-      });
+      // Render in chunks to avoid blocking the main thread
+      renderInChunks(state.displayedData, 0);
       
       // Show/hide load more button
       if (state.displayedData.length < state.filteredData.length) {
@@ -107,12 +163,31 @@
       } else {
         elements.loadMoreBtn.classList.add('hidden');
       }
-      
-      // Animate cards
-      animateCards();
     } catch (error) {
       console.error('Error rendering names:', error);
       throw error;
+    }
+  }
+  
+  // Render cards in chunks to prevent blocking
+  function renderInChunks(data, startIndex, chunkSize = 10) {
+    const endIndex = Math.min(startIndex + chunkSize, data.length);
+    
+    for (let i = startIndex; i < endIndex; i++) {
+      const card = createNameCard(data[i], i);
+      elements.namesGrid.appendChild(card);
+    }
+    
+    if (endIndex < data.length) {
+      // Use requestIdleCallback if available, otherwise setTimeout
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => renderInChunks(data, endIndex, chunkSize));
+      } else {
+        setTimeout(() => renderInChunks(data, endIndex, chunkSize), 0);
+      }
+    } else {
+      // All cards rendered, animate them
+      animateCards();
     }
   }
   
@@ -188,13 +263,13 @@
   }
   
   // Search & Filter
-  function handleSearch(e) {
-    state.searchQuery = e.target.value.toLowerCase().trim();
+  // Called after short debounce to do heavier work
+  function handleSearchDebounced() {
     state.currentPage = 0;
+    // Do filtering and rendering — these are the heavier steps
     filterData();
     renderNames();
     updateStats();
-    updateClearButton();
   }
   
   function filterData() {

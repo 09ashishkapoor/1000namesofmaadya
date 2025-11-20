@@ -1,21 +1,45 @@
+# Global headers for all files
+/*
+  # Enable Brotli and Gzip compression for text files (Cloudflare handles this automatically)
+  # This header tells Cloudflare to compress responses
+
 /sahasranama_meanings.json
   X-Robots-Tag: noindex, nofollow
 
-# If you need to target other JSON files, add explicit paths here.
-# Example:
-# /another-file.json
-#   X-Robots-Tag: noindex, nofollow
-
 # Cache rules for static assets to improve CDN performance
-# Keep conservative TTLs since files are not fingerprinted
+# Minified files with long cache times
 /site.min.css
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=2592000, immutable
+
+/styles.min.css
+  Cache-Control: public, max-age=2592000, immutable
+
+/styles.css
+  Cache-Control: public, max-age=2592000, immutable
+
+/navigation.min.js
+  Cache-Control: public, max-age=2592000, immutable
+
+/app.min.js
+  Cache-Control: public, max-age=2592000, immutable
 
 /navigation.js
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=2592000, immutable
 
 /app.js
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=2592000, immutable
 
 /MaaAdyaKali_5.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/MaaAdyaKali_5.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/mahakali_sahasranama_meanings.json
+  Cache-Control: public, max-age=2592000, immutable
+
+/data_manifest.json
+  Cache-Control: public, max-age=2592000, immutable
+
+/data_chunk_*.json
   Cache-Control: public, max-age=2592000, immutable

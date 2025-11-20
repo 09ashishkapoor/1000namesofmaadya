@@ -17,6 +17,9 @@
   color: white;
   opacity: 1;
   transform: scale(1);
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* UP button - Red gradient */
@@ -90,8 +93,8 @@
 /* Ensure buttons are above everything */
 .nav-button {
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
   touch-action: manipulation;
 }
 
