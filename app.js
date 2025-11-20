@@ -89,26 +89,31 @@
   
   // Render Names
   function renderNames() {
-    const start = 0;
-    const end = (state.currentPage + 1) * state.pageSize;
-    state.displayedData = state.filteredData.slice(start, end);
-    
-    elements.namesGrid.innerHTML = '';
-    
-    state.displayedData.forEach((entry, index) => {
-      const card = createNameCard(entry, index);
-      elements.namesGrid.appendChild(card);
-    });
-    
-    // Show/hide load more button
-    if (state.displayedData.length < state.filteredData.length) {
-      elements.loadMoreBtn.classList.remove('hidden');
-    } else {
-      elements.loadMoreBtn.classList.add('hidden');
+    try {
+      const start = 0;
+      const end = (state.currentPage + 1) * state.pageSize;
+      state.displayedData = state.filteredData.slice(start, end);
+      
+      elements.namesGrid.innerHTML = '';
+      
+      state.displayedData.forEach((entry, index) => {
+        const card = createNameCard(entry, index);
+        elements.namesGrid.appendChild(card);
+      });
+      
+      // Show/hide load more button
+      if (state.displayedData.length < state.filteredData.length) {
+        elements.loadMoreBtn.classList.remove('hidden');
+      } else {
+        elements.loadMoreBtn.classList.add('hidden');
+      }
+      
+      // Animate cards
+      animateCards();
+    } catch (error) {
+      console.error('Error rendering names:', error);
+      throw error;
     }
-    
-    // Animate cards
-    animateCards();
   }
   
   function createNameCard(entry, index) {
@@ -117,9 +122,9 @@
     card.style.animationDelay = `${(index % state.pageSize) * 0.05}s`;
     
     const isExpanded = state.expandedItems.has(entry.index);
-    const name = state.language === 'english' ? entry.english_name : entry.hindi_name;
-    const oneLine = state.language === 'english' ? entry.english_one_line : entry.hindi_one_line;
-    const elaboration = state.language === 'english' ? entry.english_elaboration : entry.hindi_elaboration;
+    const name = state.language === 'english' ? (entry.english_name || '') : (entry.hindi_name || '');
+    const oneLine = state.language === 'english' ? (entry.english_one_line || '') : (entry.hindi_one_line || '');
+    const elaboration = state.language === 'english' ? (entry.english_elaboration || '') : (entry.hindi_elaboration || '');
     
     card.innerHTML = `
       <div class="card-header">
@@ -240,7 +245,7 @@
     
     // Smooth scroll to new content
     setTimeout(() => {
-      const newCard = elements.namesGrid.querySelector(`.name-card:nth-child(${state.displayedData.length - state.pageSize + 1})`);
+      const newCard = elements.namesGrid.querySelector(`.name-card:nth-child(${state.currentPage * state.pageSize + 1})`);
       if (newCard) {
         newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
