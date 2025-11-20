@@ -43,3 +43,8 @@
 
 /data_chunk_*.json
   Cache-Control: public, max-age=2592000, immutable
+
+# Ensure robots.txt served as plain text with a healthy edge cache
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

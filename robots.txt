@@ -1,0 +1,8 @@
+# robots.txt for https://1000namesofmakali.com
+# Allow all user agents to crawl the site. Adjust Disallow rules if you need to block paths.
+
+User-agent: *
+Disallow:
+
+# Point to your sitemap to help crawlers discover content
+Sitemap: https://1000namesofmakali.com/sitemap.xml
