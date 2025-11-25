@@ -362,8 +362,9 @@ body[data-theme="light"] .landing-overlay {
   height: 3rem;
   border-radius: var(--radius-full);
   background: var(--color-smoke);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  /* Optimized: removed backdrop-filter */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* backdrop-filter: blur(10px); */
   border: none;
   cursor: pointer;
   display: flex;
@@ -483,8 +484,9 @@ body[data-theme="light"] .names-overlay {
 /* Controls Panel */
 .controls-panel {
   background: var(--color-smoke);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  /* Optimized: removed backdrop-filter */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* backdrop-filter: blur(10px); */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
@@ -658,8 +660,9 @@ body[data-theme="light"] .names-overlay {
 /* Name Card */
 .name-card {
   background: var(--color-smoke);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  /* Optimized: removed backdrop-filter for performance */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* backdrop-filter: blur(10px); */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   transition: all var(--transition-normal);
@@ -696,8 +699,8 @@ body[data-theme="light"] .names-overlay {
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-crimson);
-  background: var(--color-surface);
+  color: #ffffff;
+  background: #8b0000; /* Blood Red - AAA Contrast (>7:1) */
   border-radius: var(--radius-full);
 }
 
@@ -839,6 +842,9 @@ body[data-theme="light"] .elaboration-content {
   margin-top: var(--spacing-xl);
   padding: var(--spacing-xl) 1rem;
   border-top: 1px solid var(--color-smoke);
+  position: relative;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media (min-width: 768px) {

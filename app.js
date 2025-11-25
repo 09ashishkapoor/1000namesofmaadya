@@ -101,8 +101,13 @@
       
       elements.loadingState.classList.add('hidden');
       
-      // Preload remaining chunks in background
-      preloadRemainingChunks();
+      // Preload remaining chunks in background - Defer to avoid TBT
+      // Wait for main thread to settle or user interaction
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => preloadRemainingChunks());
+      } else {
+        setTimeout(preloadRemainingChunks, 2000);
+      }
       
     } catch (error) {
       showError(error.message);
@@ -179,11 +184,14 @@
   // Render cards in chunks to prevent blocking
   function renderInChunks(data, startIndex, chunkSize = 10) {
     const endIndex = Math.min(startIndex + chunkSize, data.length);
+    const fragment = document.createDocumentFragment();
     
     for (let i = startIndex; i < endIndex; i++) {
       const card = createNameCard(data[i], i);
-      elements.namesGrid.appendChild(card);
+      fragment.appendChild(card);
     }
+    
+    elements.namesGrid.appendChild(fragment);
     
     if (endIndex < data.length) {
       // Use requestIdleCallback if available, otherwise setTimeout
@@ -323,11 +331,32 @@
   
   function loadMoreNames() {
     state.currentPage++;
-    renderNames();
     
-    // Smooth scroll to new content
+    // Calculate new data slice
+    const start = state.currentPage * state.pageSize;
+    const end = (state.currentPage + 1) * state.pageSize;
+    const newItems = state.filteredData.slice(start, end);
+    
+    // Append to displayed data
+    state.displayedData = [...state.displayedData, ...newItems];
+    
+    // Render only the new items (append them)
+    renderInChunks(newItems, 0);
+    
+    // Update load more button visibility
+    if (state.displayedData.length < state.filteredData.length) {
+      elements.loadMoreBtn.classList.remove('hidden');
+    } else {
+      elements.loadMoreBtn.classList.add('hidden');
+    }
+    
+    // Smooth scroll to first new card after a slight delay to allow rendering to start
     setTimeout(() => {
-      const newCard = elements.namesGrid.querySelector(`.name-card:nth-child(${state.currentPage * state.pageSize + 1})`);
+      // The first new card will be at index 'start' in the total list (0-based), 
+      // which corresponds to the child node at that index in namesGrid.
+      // +1 because nth-child is 1-based.
+      const newCardIndex = start + 1;
+      const newCard = elements.namesGrid.querySelector(`.name-card:nth-child(${newCardIndex})`);
       if (newCard) {
         newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
