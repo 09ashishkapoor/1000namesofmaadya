@@ -67,9 +67,15 @@
     function computeNamesTop() {
       namesSection = document.getElementById('names-section');
       if (!namesSection) return null;
-      // Use getBoundingClientRect once and add scrollY — reading this infrequently is fine.
-      const rectTop = namesSection.getBoundingClientRect().top + window.scrollY;
-      namesSectionTop = Math.round(rectTop);
+      // Optimization: Use offsetTop which causes less layout thrashing than getBoundingClientRect
+      // when just needing the top position relative to the document
+      let el = namesSection;
+      let top = 0;
+      while (el) {
+        top += el.offsetTop;
+        el = el.offsetParent;
+      }
+      namesSectionTop = top;
       return namesSectionTop;
     }
 
