@@ -31,7 +31,7 @@
   --color-blood-red: #8b0000;
   --color-divine-gold: #ffd700;
   --color-gold: #DAA520;
-  --color-smoke: rgba(255, 255, 255, 0.1);
+  --color-smoke: rgba(0, 0, 0, 0.55);
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -68,7 +68,7 @@ body[data-theme="light"] {
   --color-text-primary: #1a1a1a;
   --color-text-secondary: #4a4a4a;
   --color-text-muted: #808080;
-  --color-smoke: rgba(0, 0, 0, 0.1);
+  --color-smoke: rgba(255, 255, 255, 0.95);
 }
 
 /* ============================================
@@ -714,7 +714,7 @@ body[data-theme="light"] .names-overlay {
 
 .card-meaning {
   font-size: 0.9375rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-style: italic;
   margin-bottom: var(--spacing-md);
   line-height: 1.6;
@@ -769,10 +769,10 @@ body[data-theme="light"] .names-overlay {
 
 .elaboration-content {
   padding: var(--spacing-md);
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--color-surface-elevated);
   border-left: 4px solid var(--color-crimson);
   border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-size: 0.9375rem;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -802,7 +802,8 @@ body[data-theme="light"] .names-overlay {
 }
 
 body[data-theme="light"] .elaboration-content {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-text-primary);
 }
 
 /* Load More */
