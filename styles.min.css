@@ -60,16 +60,7 @@
  --z-tooltip:2000;
 }
 
-/* Light Theme */
-body[data-theme="light"]{
- --color-bg:#f5f5f5;
- --color-surface:#ffffff;
- --color-surface-elevated:#f0f0f0;
- --color-text-primary:#1a1a1a;
- --color-text-secondary:#4a4a4a;
- --color-text-muted:#808080;
- --color-smoke:rgba(0,0,0,0.1);
-}
+/* Light theme overrides removed — theme support stripped */
 
 /* ============================================
  RESET & BASE
@@ -132,10 +123,7 @@ body::after{
  z-index:-1;
 }
 
-/* Light theme background */
-body[data-theme="light"]::after{
- background-color:rgba(255,255,255,0.7);
-}
+/* Light theme overlay removed */
 
 /* ============================================
  LANDING PAGE
@@ -166,9 +154,7 @@ body[data-theme="light"]::after{
  z-index:1;
 }
 
-body[data-theme="light"] .landing-overlay{
- background:rgba(255,255,255,0.8);
-}
+/* Light landing overlay removed */
 
 .landing-content{
  position:relative;
@@ -375,9 +361,7 @@ body[data-theme="light"] .landing-overlay{
  z-index:1;
 }
 
-body[data-theme="light"] .names-overlay{
- background:rgba(255,255,255,0.75);
-}
+/* Light names overlay removed */
 
 .container{
  position:relative;
@@ -757,9 +741,7 @@ body[data-theme="light"] .names-overlay{
  background:var(--color-blood-red);
 }
 
-body[data-theme="light"] .elaboration-content{
- background:rgba(0,0,0,0.05);
-}
+/* Light elaboration content styles removed */
 
 /* Load More */
 .load-more-container{
