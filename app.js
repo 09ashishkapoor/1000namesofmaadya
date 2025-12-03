@@ -16,7 +16,6 @@
     searchQuery: '',
     language: 'english',
     expandedItems: new Set(),
-    theme: localStorage.getItem('theme') || 'dark',
     // Lazy loading
     loadedChunks: new Set(),
     totalChunks: 0,
@@ -30,7 +29,6 @@
   function init() {
     cacheDOMElements();
     setupEventListeners();
-    applyTheme(state.theme);
     loadData();
     console.log('✅ App initialized');
   }
@@ -39,7 +37,6 @@
     elements.searchInput = document.getElementById('search-input');
     elements.languageSelect = document.getElementById('language-select');
     elements.clearBtn = document.getElementById('clear-btn');
-    elements.themeToggle = document.getElementById('theme-toggle');
     elements.exploreBtn = document.getElementById('explore-btn');
     elements.namesGrid = document.getElementById('names-grid');
     elements.loadMoreBtn = document.getElementById('load-more-btn');
@@ -68,9 +65,6 @@
     
     // Clear
     elements.clearBtn.addEventListener('click', handleClear);
-    
-    // Theme
-    elements.themeToggle.addEventListener('click', toggleTheme);
     
     // Explore button
     elements.exploreBtn.addEventListener('click', scrollToNames);
@@ -377,27 +371,6 @@
       elements.statsDisplay.innerHTML = `
         📿 Displaying the sacred <strong>${totalNames}</strong> names of <strong>Maa Ādya Mahākālī</strong>
       `;
-    }
-  }
-  
-  // Theme
-  function toggleTheme() {
-    state.theme = state.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(state.theme);
-    localStorage.setItem('theme', state.theme);
-  }
-  
-  function applyTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
-    const sunIcon = elements.themeToggle.querySelector('.sun-icon');
-    const moonIcon = elements.themeToggle.querySelector('.moon-icon');
-    
-    if (theme === 'dark') {
-      sunIcon.classList.remove('hidden');
-      moonIcon.classList.add('hidden');
-    } else {
-      sunIcon.classList.add('hidden');
-      moonIcon.classList.remove('hidden');
     }
   }
   

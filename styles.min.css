@@ -348,44 +348,7 @@ body[data-theme="light"] .landing-overlay{
  animation:bounce 2s ease-in-out infinite;
 }
 
-/* Theme Toggle */
-.theme-toggle{
- position:fixed;
- top:1.5rem;
- right:1.5rem;
- z-index:var(--z-sticky);
- width:3rem;
- height:3rem;
- border-radius:var(--radius-full);
- background:var(--color-smoke);
- -webkit-backdrop-filter:blur(10px);
- backdrop-filter:blur(10px);
- border:none;
- cursor:pointer;
- display:flex;
- align-items:center;
- justify-content:center;
- color:var(--color-text-primary);
- box-shadow:0 2px 10px rgba(0,0,0,0.2);
- transition:all var(--transition-normal);
- -webkit-tap-highlight-color:transparent;
-}
-
-.theme-toggle:hover{
- transform:scale(1.1);
-}
-
-.theme-toggle:active{
- transform:scale(0.95);
-}
-
-.theme-toggle .sun-icon{
- color:var(--color-divine-gold);
-}
-
-.theme-toggle .moon-icon{
- color:var(--color-text-primary);
-}
+/* Theme Toggle removed (not used) */
 
 /* ============================================
  NAMES SECTION
@@ -975,7 +938,7 @@ body[data-theme="light"] .elaboration-content{
  .om-symbol{font-size:3rem;}
  .subtitle-gold{font-size:1rem;}
  .explore-button{padding:0.6rem 1rem;font-size:0.95rem;}
- .theme-toggle{width:2.5rem;height:2.5rem;top:1rem;right:1rem;}
+ /* Removed small-screen theme-toggle sizing */
  .landing-content{padding:0 0.5rem;}
  .container{padding:0 0.5rem;}
  #search-input{padding-left:2.5rem;}
@@ -996,7 +959,6 @@ body[data-theme="light"] .elaboration-content{
  color:black;
 }
  
- .theme-toggle,
  .nav-button,
  .explore-button,
  .scroll-hint{
