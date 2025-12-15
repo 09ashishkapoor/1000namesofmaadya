@@ -737,7 +737,8 @@ body::after {
  display:flex;
  align-items:center;
  justify-content:space-between;
- padding:0.75rem 1rem;
+ padding:1rem 1.25rem;
+ min-height:48px;
  font-size:0.9375rem;
  font-weight:600;
  color:var(--color-text-primary);
@@ -747,6 +748,7 @@ body::after {
  cursor:pointer;
  transition:all var(--transition-fast);
  -webkit-tap-highlight-color:transparent;
+ margin-bottom:0.75rem;
  }
 
 .toggle-btn:hover {
@@ -818,10 +820,12 @@ body::after {
 .load-more-container {
  text-align:center;
  margin-top:var(--spacing-lg);
+ padding:1rem;
  }
 
 .btn-primary {
- padding:1rem 2rem;
+ padding:1rem 2.5rem;
+ min-height:48px;
  font-size:1rem;
  font-weight:600;
  color:white;
@@ -832,6 +836,9 @@ body::after {
  box-shadow:0 4px 20px rgba(220, 20, 60, 0.4);
  transition:all var(--transition-normal);
  -webkit-tap-highlight-color:transparent;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
  }
 
 .btn-primary:hover {

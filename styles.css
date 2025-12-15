@@ -163,6 +163,7 @@ body::after {
   max-width: 90%;
   width: 100%;
   animation: fadeSlideUp 1s ease-out;
+  padding-top: 60px;
 }
 
 @media (min-width: 768px) {
@@ -200,6 +201,9 @@ body::after {
   align-items: center;
   gap: 0.3rem;
   animation: titleFadeIn 1.2s ease-out;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .title-line-main {
@@ -229,6 +233,11 @@ body::after {
   letter-spacing: 0.08em;
   position: relative;
   text-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  hyphens: none;
+  padding-top: 0.15em;
 }
 
 .title-line-sub {
@@ -258,6 +267,9 @@ body::after {
   margin-top: 0.3rem;
   position: relative;
   text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .title-description {
@@ -271,6 +283,9 @@ body::after {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 @media (min-width: 480px) {
@@ -1150,7 +1165,8 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
+  min-height: 48px;
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -1160,6 +1176,7 @@ body::after {
   cursor: pointer;
   transition: all var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
+  margin-bottom: 0.75rem;
 }
 
 .toggle-btn:hover {
@@ -1230,10 +1247,12 @@ body::after {
 .load-more-container {
   text-align: center;
   margin-top: var(--spacing-lg);
+  padding: 1rem;
 }
 
 .btn-primary {
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
+  min-height: 48px;
   font-size: 1rem;
   font-weight: 600;
   color: white;
@@ -1244,6 +1263,9 @@ body::after {
   box-shadow: 0 4px 20px rgba(220, 20, 60, 0.4);
   transition: all var(--transition-normal);
   -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary:hover {
@@ -1723,10 +1745,10 @@ body::after {
 
 /* Very small phones: Improve wrapping and reduce padding for <= 400px widths */
 @media (max-width: 400px) {
-  .main-title { font-size: 2rem; padding: 0 0.5rem; margin-bottom: var(--spacing-sm); }
+  .main-title { font-size: 1.75rem; padding: 0 0.5rem; margin-bottom: var(--spacing-sm); line-height: 1.2; }
   .om-symbol { font-size: 3rem; }
   .subtitle-gold { font-size: 1rem; }
-  .title-description { font-size: 0.95rem; margin-bottom: var(--spacing-lg); }
+  .title-description { font-size: 0.9rem; margin-bottom: var(--spacing-lg); line-height: 1.5; padding: 0 0.75rem; }
   .explore-button { padding: 0.75rem 1.5rem; font-size: 0.95rem; min-height: 44px; }
   .landing-content { padding: 0 0.5rem; }
   .container { padding: 0 0.5rem; }
@@ -1741,6 +1763,8 @@ body::after {
   .significance-text { font-size: 0.9375rem; }
   .dedication-text { font-size: 1.1rem; }
   .dedication-mantra { font-size: 1rem; }
+  .title-line-main { letter-spacing: 0.04em; }
+  .title-line-sub { letter-spacing: 0.06em; font-size: 0.7em; }
 
   /* Prevent long names or Sanskrit compounds from overflowing */
   .card-name,
@@ -1748,10 +1772,42 @@ body::after {
   .section-title,
   .subtitle,
   .footer-text,
-  .elaboration-content {
+  .elaboration-content,
+  .main-title,
+  .title-line-main,
+  .title-line-sub,
+  .title-description {
     overflow-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
+  }
+}
+
+/* Small phones: 401px to 640px */
+@media (min-width: 401px) and (max-width: 640px) {
+  .main-title { 
+    font-size: 2.25rem; 
+    padding: 0 0.75rem; 
+    line-height: 1.15;
+  }
+  .title-line-main { 
+    letter-spacing: 0.05em; 
+  }
+  .title-line-sub { 
+    letter-spacing: 0.08em; 
+    font-size: 0.72em; 
+  }
+  .title-description { 
+    font-size: 1rem; 
+    line-height: 1.6; 
+    padding: 0 1rem; 
+  }
+  .landing-content { 
+    padding: 0 0.75rem; 
+  }
+  .explore-button { 
+    min-height: 48px; 
+    padding: 0.875rem 1.75rem; 
   }
 }
 

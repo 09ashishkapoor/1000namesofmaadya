@@ -14,8 +14,31 @@
     // Set up scroll detection
     setupScrollDetection();
     
+    // Listen for language changes
+    window.addEventListener('storage', updateNavigationText);
+    
     console.log('✅ Navigation system initialized');
   }
+  
+  // Update navigation button text when language changes
+  function updateNavigationText() {
+    const lang = localStorage.getItem('preferredLanguage') || 'english';
+    const upButton = document.getElementById('nav-up-button');
+    const downButton = document.getElementById('nav-down-button');
+    
+    if (upButton && typeof getTranslation === 'function') {
+      upButton.setAttribute('aria-label', getTranslation(lang, 'navigation.backToTop'));
+      upButton.setAttribute('title', getTranslation(lang, 'navigation.backToTopTitle'));
+    }
+    
+    if (downButton && typeof getTranslation === 'function') {
+      downButton.setAttribute('aria-label', getTranslation(lang, 'navigation.goToNames'));
+      downButton.setAttribute('title', getTranslation(lang, 'navigation.goToNamesTitle'));
+    }
+  }
+  
+  // Expose updateNavigationText globally for cross-script communication
+  window.updateNavigationText = updateNavigationText;
   
   function createNavigationButtons() {
     // Create UP arrow button
@@ -28,8 +51,8 @@
         <polyline points="5 12 12 5 19 12"></polyline>
       </svg>
     `;
-    upButton.setAttribute('aria-label', 'Back to top');
-    upButton.setAttribute('title', 'Back to landing page');
+    upButton.setAttribute('aria-label', getTranslation(localStorage.getItem('preferredLanguage') || 'english', 'navigation.backToTop'));
+    upButton.setAttribute('title', getTranslation(localStorage.getItem('preferredLanguage') || 'english', 'navigation.backToTopTitle'));
     upButton.onclick = scrollToTop;
     
     // Create DOWN arrow button
@@ -42,8 +65,8 @@
         <polyline points="19 12 12 19 5 12"></polyline>
       </svg>
     `;
-    downButton.setAttribute('aria-label', 'Go to names');
-    downButton.setAttribute('title', 'Explore sacred names');
+    downButton.setAttribute('aria-label', getTranslation(localStorage.getItem('preferredLanguage') || 'english', 'navigation.goToNames'));
+    downButton.setAttribute('title', getTranslation(localStorage.getItem('preferredLanguage') || 'english', 'navigation.goToNamesTitle'));
     downButton.onclick = scrollToNames;
     
     // Add to body
