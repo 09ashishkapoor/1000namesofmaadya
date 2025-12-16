@@ -707,10 +707,8 @@
                 })
                 .catch(error => {
                     console.warn('Could not load version info:', error);
-                    // Keep defaults if fetch fails
-                    if (versionElement) {
-                        versionElement.textContent = 'V1.1';
-                    }
+                    // Do not overwrite the existing version text on fetch failure.
+                    // The HTML default (or any runtime-updated value) should be preserved.
                     if (lastUpdatedElement) {
                         lastUpdatedElement.textContent = new Date().toLocaleDateString('en-US', { 
                             year: 'numeric', 
