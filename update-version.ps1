@@ -65,26 +65,70 @@ if ($explicitDate -and ($explicitDate -match '^\d{4}-\d{2}-\d{2}$')) {
     $newDate = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd')
 }
 
+# Capture previous values for targeted replacements
+$prevVersion = if ($json.version) { $json.version.ToString() } else { '' }
+$prevBuildDate = if ($json.buildDate) { $json.buildDate.ToString() } else { '' }
+ 
 # Apply changes
 $json.version = $newVersion
 $json.buildDate = $newDate
-
+ 
 try {
     ($json | ConvertTo-Json -Depth 10) | Set-Content -Path $versionFile -Encoding UTF8
 } catch {
     Write-Error "Failed to write $($versionFile): $_"
     exit 4
 }
-
+ 
+# Perform conservative replacements across common web/project files
+$scriptRoot = $PSScriptRoot
+$searchExtensions = @('*.html','*.js','*.css','*.md')
+$files = Get-ChildItem -Path $scriptRoot -Recurse -Include $searchExtensions -File -ErrorAction SilentlyContinue
+ 
+foreach ($f in $files) {
+    try {
+        $content = Get-Content -Raw -Path $f.FullName -Encoding UTF8
+    } catch {
+        Write-Warning ("Unable to read {0}: {1}" -f $f.FullName, $_)
+        continue
+    }
+ 
+    $updated = $content
+ 
+    # Replace any "Vx.y(.z)?" occurrences with the new V + version
+    $updated = [regex]::Replace($updated, '\bV[0-9]+(?:\.[0-9]+){0,2}\b', 'V' + $newVersion, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+ 
+    # If previous non-prefixed numeric version is present (e.g., in README), replace only exact matches of previous version
+    if ($prevVersion -ne '') {
+        $escapedPrev = [regex]::Escape($prevVersion)
+        $updated = [regex]::Replace($updated, "(?<![0-9])$escapedPrev(?![0-9])", $newVersion)
+    }
+ 
+    # Replace previous build date occurrences with new date (only if previous date was present)
+    if ($prevBuildDate -ne '') {
+        $escapedDate = [regex]::Escape($prevBuildDate)
+        $updated = [regex]::Replace($updated, $escapedDate, $newDate)
+    }
+ 
+    if ($updated -ne $content) {
+        try {
+            Set-Content -Path $f.FullName -Value $updated -Encoding UTF8
+            Write-Host "Updated static references in: $($f.FullName)"
+        } catch {
+            Write-Warning ("Failed to write updates to {0}: {1}" -f $f.FullName, $_)
+        }
+    }
+}
+ 
 # Output human readable result and JSON confirmation
 Write-Host "New Version: $newVersion"
 Write-Host "New Build Date (UTC): $newDate"
-
+ 
 try {
     $out = $json | Select-Object version, buildDate | ConvertTo-Json -Depth 2
     Write-Output $out
 } catch {
-    Write-Error "Unable to output confirmation JSON: $_"
+    Write-Error ("Unable to output confirmation JSON: {0}" -f $_)
 }
-
+ 
 exit 0
