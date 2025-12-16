@@ -30,11 +30,20 @@ jobs:
       - name: Read current version
         id: read_version
         run: |
+          # Prefer version.json; if missing, try to derive from the latest git tag;
+          # if neither is available, fall back to 0.0 so the auto-increment still works.
           if [ -f version.json ]; then
-            CURRENT_VERSION=$(node -p "require('./version.json').version")
+            CURRENT_VERSION=$(node -e "console.log(require('./version.json').version)")
             echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
           else
-            echo "current=1.1" >> $GITHUB_OUTPUT
+            # Try to get latest annotated tag (strip leading 'v' if present)
+            TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            if [ -n "$TAG" ]; then
+              TAG=${TAG#v}
+              echo "current=$TAG" >> $GITHUB_OUTPUT
+            else
+              echo "current=0.0" >> $GITHUB_OUTPUT
+            fi
           fi
       
       - name: Increment version
