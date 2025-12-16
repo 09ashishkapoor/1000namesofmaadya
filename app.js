@@ -309,7 +309,7 @@
       }
       
       if (footerVersion) {
-        const versionNum = versionNumber ? versionNumber.textContent : 'V1.11.0';
+        const versionNum = versionNumber ? versionNumber.textContent : 'V1.13.0';
         const lastUpd = lastUpdated ? lastUpdated.textContent : 'Loading...';
         footerVersion.innerHTML = `${versionText} <span id="version-number">${versionNum}</span> | ${lastUpdatedText} <span id="last-updated">${lastUpd}</span>`;
         footerText.appendChild(footerVersion);
@@ -839,5 +839,7 @@
   }
   
 })();
+
+
 
 
