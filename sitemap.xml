@@ -3,11 +3,20 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://1000namesofmakali.com/</loc>
-    <lastmod>2025-12-03</lastmod>
+    <lastmod>2025-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://1000namesofmakali.com/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://1000namesofmakali.com/"/>
+  </url>
+  <url>
+    <loc>https://1000namesofmakali.com/?lang=hi</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://1000namesofmakali.com/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/?lang=hi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://1000namesofmakali.com/"/>
   </url>
 </urlset>

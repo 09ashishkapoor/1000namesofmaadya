@@ -69,8 +69,8 @@ Five key benefits with icons:
 
 #### JavaScript Version Loader
 - Fetches version.json on page load
-- Displays version in footer as "Version V1.16.0"
-- Falls back to default V1.16.0 if fetch fails
+- Displays version in footer as "Version V1.17.0"
+- Falls back to default V1.17.0 if fetch fails
 - Located in footer with monospace font styling
 
 #### GitHub Action for Auto-Increment
@@ -164,7 +164,8 @@ git commit -m "Update documentation [skip version]"
 ---
 
 **Last Updated:** January 27, 2025
-**Current Version:** V1.16.0
+**Current Version:** V1.17.0
+
 
 
 

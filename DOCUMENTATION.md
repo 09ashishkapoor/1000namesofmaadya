@@ -1,4 +1,4 @@
-# íµ‰ï¸ ÅšrÄ« KÄlabhairava SahasranÄma Website - Complete Documentation
+# ï¿½ï¿½ï¿½ï¸ ÅšrÄ« KÄlabhairava SahasranÄma Website - Complete Documentation
 
 ## Project Overview
 
@@ -10,11 +10,11 @@ A beautiful, mobile-first website showcasing the 1000 sacred names of Lord KÄla
 
 ---
 
-## í³‚ File Structure
+## ï¿½ï¿½ï¿½ File Structure
 
 ```
 kalabhairavaNamavali_website/
-â”œâ”€â”€ site/                              # íº€ PRODUCTION WEBSITE
+â”œâ”€â”€ site/                              # ï¿½ï¿½ï¿½ PRODUCTION WEBSITE
 â”‚   â”œâ”€â”€ index.html                     # Main entry point (cache v=6)
 â”‚   â”œâ”€â”€ styles.css                     # Mobile-first styles
 â”‚   â”œâ”€â”€ navigation.css                 # Navigation arrows
@@ -78,7 +78,7 @@ kalabhairavaNamavali_website/
 
 ---
 
-## í¾¯ Technical Architecture
+## ï¿½ï¿½ï¿½ Technical Architecture
 
 ### CSS Pseudo-Element Background System
 
@@ -218,7 +218,7 @@ function handleSearch(query) {
 
 ---
 
-## íº€ Quick Start Guide
+## ï¿½ï¿½ï¿½ Quick Start Guide
 
 ### Run Locally
 
@@ -236,7 +236,7 @@ npx http-server -p 8080
 php -S localhost:8080
 
 # Open browser
-# â†’ http://localhost:8080
+# â†’ http://localhost:8010
 ```
 
 ### Deploy to Production
@@ -257,7 +257,7 @@ scp -r site/* user@server.com:/var/www/html/
 
 ---
 
-## í¾¨ Customization Guide
+## ï¿½ï¿½ï¿½ Customization Guide
 
 ### Change Theme Colors
 
@@ -311,7 +311,7 @@ body::before {
 
 ---
 
-## í°› Troubleshooting
+## ï¿½ï¿½ï¿½ Troubleshooting
 
 ### Background Image Not Showing
 
@@ -376,7 +376,7 @@ body::before {
 
 ---
 
-## í³Š Browser Compatibility
+## ï¿½ï¿½ï¿½ Browser Compatibility
 
 | Browser | Version | Status |
 |---------|---------|--------|
@@ -398,7 +398,7 @@ body::before {
 
 ---
 
-## í´ Security Considerations
+## ï¿½ï¿½ï¿½ Security Considerations
 
 - âœ… No external dependencies (no supply chain attacks)
 - âœ… No eval() or unsafe code execution
@@ -419,7 +419,7 @@ body::before {
 
 ---
 
-## í³ˆ Performance Benchmarks
+## ï¿½ï¿½ï¿½ Performance Benchmarks
 
 Tested on: Intel i5-10400 @ 2.9GHz, 16GB RAM, Windows 11
 
@@ -443,7 +443,7 @@ Tested on: Intel i5-10400 @ 2.9GHz, 16GB RAM, Windows 11
 
 ---
 
-## í¾“ Code Patterns & Best Practices
+## ï¿½ï¿½ï¿½ Code Patterns & Best Practices
 
 ### 1. Mobile-First CSS
 
@@ -507,7 +507,7 @@ input.addEventListener('input', (e) => {
 
 ---
 
-## í³ Data Structure
+## ï¿½ï¿½ï¿½ Data Structure
 
 ### JSON Format (`sahasranama_meanings.json`)
 
@@ -540,7 +540,7 @@ input.addEventListener('input', (e) => {
 
 ---
 
-## í´„ Migration History
+## ï¿½ï¿½ï¿½ Migration History
 
 ### From React to Vanilla JS
 
@@ -549,7 +549,7 @@ input.addEventListener('input', (e) => {
 **Changes:**
 - âŒ Removed: React, Vite, framer-motion, TypeScript, Tailwind CSS
 - âœ… Added: Pure HTML5, CSS3, Vanilla JavaScript
-- í³‰ Bundle size: 328KB â†’ 50KB (85% reduction)
+- ï¿½ï¿½ï¿½ Bundle size: 328KB â†’ 50KB (85% reduction)
 - âš¡ Performance: 50% faster initial load
 
 **Key Fixes Applied:**
@@ -560,7 +560,7 @@ input.addEventListener('input', (e) => {
 
 ---
 
-## í±¨â€í²» Developer Notes
+## ï¿½ï¿½ï¿½â€ï¿½ï¿½ï¿½ Developer Notes
 
 ### Adding New Features
 
@@ -590,7 +590,7 @@ function createNameCard(name) {
   return `
     <div class="name-card">
       <button onclick="toggleFavorite(${name.index})" class="fav-btn">
-        ${isFavorite ? 'â¤ï¸' : 'í´'}
+        ${isFavorite ? 'â¤ï¸' : 'ï¿½ï¿½ï¿½'}
       </button>
       <!-- ...rest of card -->
     </div>
@@ -615,7 +615,7 @@ function createNameCard(name) {
 
 ---
 
-## í³„ Credits & License
+## ï¿½ï¿½ï¿½ Credits & License
 
 **Developer:** Kaliputra Ashish  
 **Dedicated to:** Shri Praveen Radhakrishnan and Khyapa Parampara  
@@ -630,7 +630,7 @@ function createNameCard(name) {
 
 ---
 
-## í¶˜ Getting Help
+## ï¿½ï¿½ï¿½ Getting Help
 
 1. **Check this documentation first** - Most questions are answered here
 2. **Browser console** - Look for error messages (F12)
@@ -640,7 +640,7 @@ function createNameCard(name) {
 
 ---
 
-## í³Œ Version History
+## ï¿½ï¿½ï¿½ Version History
 
 | Version | Date | Changes |
 |---------|------|---------|
@@ -652,7 +652,7 @@ function createNameCard(name) {
 
 ---
 
-íµ‰ï¸ **Hari Om Tat Sat** íµ‰ï¸
+ï¿½ï¿½ï¿½ï¸ **Hari Om Tat Sat** ï¿½ï¿½ï¿½ï¸
 
 **Last Updated:** January 20, 2025  
 **Status:** âœ… Production Ready  

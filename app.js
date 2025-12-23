@@ -34,7 +34,17 @@
     currentPage: 0,
     pageSize: 11,
     searchQuery: '',
-    language: getFromStorage('preferredLanguage', 'english'),
+    language: (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      if (langParam === 'hi' || langParam === 'hindi') return 'hindi';
+      if (langParam === 'en' || langParam === 'english') return 'english';
+      return getFromStorage('preferredLanguage', 'english');
+    })(),
+    searchQuery: (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return (urlParams.get('q') || '').toLowerCase().trim();
+    })(),
     expandedItems: new Set(),
     // Lazy loading
     loadedChunks: new Set(),
@@ -70,6 +80,12 @@
     if (languageSelect) {
       languageSelect.value = state.language;
     }
+
+    // Set search input if q parameter is present
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && state.searchQuery) {
+      searchInput.value = state.searchQuery;
+    }
     
     // Update all UI text with current language after DOM is ready
     if (document.readyState === 'loading') {
@@ -102,6 +118,12 @@
       if (metaDesc) {
         metaDesc.setAttribute('content', description);
       }
+    }
+
+    // Update canonical URL
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.href = lang === 'hindi' ? 'https://1000namesofmakali.com/?lang=hi' : 'https://1000namesofmakali.com/';
     }
     
     // Update Open Graph tags
@@ -309,7 +331,7 @@
       }
       
       if (footerVersion) {
-        const versionNum = versionNumber ? versionNumber.textContent : 'V1.16.0';
+        const versionNum = versionNumber ? versionNumber.textContent : 'V1.17.0';
         const lastUpd = lastUpdated ? lastUpdated.textContent : 'Loading...';
         footerVersion.innerHTML = `${versionText} <span id="version-number">${versionNum}</span> | ${lastUpdatedText} <span id="last-updated">${lastUpd}</span>`;
         footerText.appendChild(footerVersion);
@@ -839,6 +861,7 @@
   }
   
 })();
+
 
 
 
