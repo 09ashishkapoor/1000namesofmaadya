@@ -68,6 +68,20 @@ if ($explicitDate -and ($explicitDate -match '^\d{4}-\d{2}-\d{2}$')) {
 # Capture previous values for targeted replacements
 $prevVersion = if ($json.version) { $json.version.ToString() } else { '' }
 $prevBuildDate = if ($json.buildDate) { $json.buildDate.ToString() } else { '' }
+
+# Helper to get long date format (e.g., "December 16, 2025")
+function Get-LongDate($dateStr) {
+    if ($dateStr -match '^\d{4}-\d{2}-\d{2}$') {
+        try {
+            $dt = [DateTime]::ParseExact($dateStr, "yyyy-MM-dd", $null)
+            return $dt.ToString("MMMM d, yyyy")
+        } catch { return $null }
+    }
+    return $null
+}
+
+$prevLongDate = Get-LongDate $prevBuildDate
+$newLongDate = Get-LongDate $newDate
  
 # Apply changes
 $json.version = $newVersion
@@ -108,6 +122,12 @@ foreach ($f in $files) {
     if ($prevBuildDate -ne '') {
         $escapedDate = [regex]::Escape($prevBuildDate)
         $updated = [regex]::Replace($updated, $escapedDate, $newDate)
+    }
+
+    # Replace long date format (e.g., "December 16, 2025")
+    if ($prevLongDate -and $newLongDate) {
+        $escapedLongDate = [regex]::Escape($prevLongDate)
+        $updated = [regex]::Replace($updated, $escapedLongDate, $newLongDate)
     }
  
     if ($updated -ne $content) {

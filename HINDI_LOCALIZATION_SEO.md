@@ -64,24 +64,19 @@ This document outlines all SEO improvements made after adding Hindi localization
 - Better social sharing experience for Hindi-speaking users
 - Increased engagement from Hindi social media users
 
-### 5. ✅ Hindi FAQ Schema (Structured Data)
+### 5. ✅ Bilingual FAQ Schema (Structured Data)
 **File Modified:** `index.html`
 
 **What Changed:**
-- Added separate FAQ Schema in Hindi (`inLanguage: "hi"`)
-- Added 5 common Hindi questions with answers:
-  1. "आद्या महाकाली के 1000 नाम क्या हैं?"
-  2. "आद्या महाकाली सहस्रनाम में कितने नाम हैं?"
-  3. "आद्या महाकाली के 1000 नाम अर्थ सहित कहां मिल सकते हैं?"
-  4. "आद्या महाकाली सहस्रनाम का अर्थ क्या है?"
-  5. "आद्या महाकाली सहस्रनाम जप के क्या लाभ हैं?"
-- Existing English FAQ schema marked with `inLanguage: "en"`
+- Merged English and Hindi FAQ schemas into a single `FAQPage` object
+- Combined 4 English questions and 5 Hindi questions into one `mainEntity` array
+- This avoids the "Duplicate field 'FAQPage'" error in Google Search Console while maintaining bilingual coverage
 
 **Impact:**
-- **Featured Snippets:** High chance of appearing in Google's featured snippets for Hindi queries
-- **Voice Search:** Better optimization for Hindi voice searches on Google Assistant
-- **Rich Results:** Potential to show FAQ rich results in Hindi SERPs
-- **Bilingual Coverage:** Website now targets both English and Hindi search queries effectively
+- **Rich Results:** Resolves validation errors for Google Search rich results
+- **Featured Snippets:** High chance of appearing in Google's featured snippets for both English and Hindi queries
+- **Voice Search:** Better optimization for voice searches in both languages
+- **Bilingual Coverage:** Website now targets both English and Hindi search queries effectively without schema errors
 
 ### 6. ✅ Existing Multilingual SEO (Already Implemented)
 **No changes needed - already optimized:**
