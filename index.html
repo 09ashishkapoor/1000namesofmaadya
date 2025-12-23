@@ -167,12 +167,11 @@
     }
     </script>
 
-    <!-- FAQ Schema to help with featured snippets (English) -->
+    <!-- FAQ Schema to help with featured snippets (Bilingual) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "inLanguage": "en",
       "mainEntity": [{
         "@type": "Question",
         "name": "What is Adya Mahakali 1000 Names?",
@@ -201,17 +200,7 @@
           "@type": "Answer",
           "text": "Adya Mahakali Sahasranama means 'the thousand names of Adya Mahakali' in Sanskrit. 'Adya' means primordial or first, 'Mahakali' refers to the great form of Goddess Kali, and 'Sahasranama' means thousand names. This sacred text helps devotees understand the various aspects, qualities, and divine attributes of Maa Adya Mahakali."
         }
-      }]
-    }
-    </script>
-
-    <!-- FAQ Schema to help with featured snippets (Hindi) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "inLanguage": "hi",
-      "mainEntity": [{
+      }, {
         "@type": "Question",
         "name": "आद्या महाकाली के 1000 नाम क्या हैं?",
         "acceptedAnswer": {
@@ -668,7 +657,7 @@
                 Connect on Instagram: <a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener noreferrer" style="color:#ffd700;text-decoration:none;font-weight:600;">@ashishkaliputra</a>
             </div>
                 <div class="footer-version" style="margin-top:1rem;font-size:0.85rem;color:#ffd700;font-family:monospace;opacity:0.85;">
-                Version <span id="version-number">V1.13.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
+                Version <span id="version-number">V1.16.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
             </div>
         </div>
     </footer>
@@ -689,28 +678,33 @@
             fetch('version.json')
                 .then(response => response.json())
                 .then(data => {
+                    // Re-query elements in case app.js replaced them
+                    const vEl = document.getElementById('version-number');
+                    const luEl = document.getElementById('last-updated');
+
                     // Update version
-                    if (versionElement) {
-                        versionElement.textContent = 'V' + data.version;
+                    if (vEl) {
+                        vEl.textContent = 'V' + data.version;
                     }
                     
                     // Update last updated date
-                    if (lastUpdatedElement && data.buildDate) {
+                    if (luEl && data.buildDate) {
                         const date = new Date(data.buildDate + 'T00:00:00');
                         const formattedDate = date.toLocaleDateString('en-US', { 
                             year: 'numeric', 
                             month: 'long', 
                             day: 'numeric' 
                         });
-                        lastUpdatedElement.textContent = formattedDate;
+                        luEl.textContent = formattedDate;
                     }
                 })
                 .catch(error => {
                     console.warn('Could not load version info:', error);
                     // Do not overwrite the existing version text on fetch failure.
                     // The HTML default (or any runtime-updated value) should be preserved.
-                    if (lastUpdatedElement) {
-                        lastUpdatedElement.textContent = new Date().toLocaleDateString('en-US', { 
+                    const luEl = document.getElementById('last-updated');
+                    if (luEl) {
+                        luEl.textContent = new Date().toLocaleDateString('en-US', { 
                             year: 'numeric', 
                             month: 'long', 
                             day: 'numeric' 
@@ -722,6 +716,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 
