@@ -26,7 +26,7 @@ Visit: **https://09ashishkapoor.github.io/1000namesofmaadya/**
 - CI Validation: A GitHub Action (`Validate Site Build`) runs on pushes and PRs to `main` and will fail if required files are missing or if `sw.js` contains precache entries for non-existent `assets/` paths.
 - How to update the site safely:
 	1. Make changes on a feature branch and open a PR against `main`.
-	2. Ensure the validation workflow passes on your PR (it checks `index.html`, `app.js`, `styles.css`, `navigation.*`, `sahasranama_meanings.json`, and `sw.js`).
+	2. Ensure the validation workflow passes on your PR (it checks `index.html`, `app.js`, `styles.css`, `navigation.*`, and `mahakali_sahasranama_meanings.json`).
 	3. If you regenerate `sw.js`, make sure the precache list references only files present in the repo root.
 	4. After merge, Cloudflare Pages will redeploy automatically.
 
@@ -57,7 +57,7 @@ python -m http.server 8080
 
 3. Open in browser:
 ```
-http://localhost:8080
+http://localhost:8010
 ```
 
 ## 📊 Data Quality

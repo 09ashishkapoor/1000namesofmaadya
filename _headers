@@ -3,7 +3,7 @@
   # Enable Brotli and Gzip compression for text files (Cloudflare handles this automatically)
   # This header tells Cloudflare to compress responses
 
-/sahasranama_meanings.json
+/mahakali_sahasranama_meanings.json
   X-Robots-Tag: noindex, nofollow
 
 # Cache rules for static assets to improve CDN performance
