@@ -7,13 +7,13 @@ const translations = {
   english: {
     // SEO Meta Tags
     seo: {
-      title: 'Adya Mahakali Sahasranama',
+      title: 'Adya Mahakali 1000 Names - Complete Sahasranama with Meanings in English & Hindi',
       description: 'Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. Explore all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and spiritual insights for devotion and chanting.'
     },
     
     // Landing Page
     landing: {
-      titleMain: 'Adya Mahakali',
+      titleMain: 'Adya Mahakali 1000 Names',
       titleSub: 'Sahasranāma',
       titleDescription: 'Complete collection of 1000+ sacred names with English & Hindi meanings',
       descriptionText: 'Explore the profound meanings and essence of <strong>Maa Ādya Mahākālī</strong> through searchable names, detailed translations, and comprehensive elaborations.',
@@ -98,12 +98,12 @@ const translations = {
   
   hindi: {    // SEO Meta Tags
     seo: {
-      title: 'आद्या महाकाली सहस्रनाम',
+      title: 'आद्या महाकाली के १००० नाम - संपूर्ण सहस्रनाम अंग्रेजी और हिंदी अर्थों के साथ',
       description: 'आद्या महाकाली के १००० नाम (सहस्रनाम) अंग्रेजी और हिंदी में विस्तृत अर्थों के साथ। माँ आद्या महाकाली के सभी १०००+ पवित्र नामों का अनुवाद, व्याख्या और भक्ति व जप के लिए आध्यात्मिक ज्ञान।'
     },
         // Landing Page
     landing: {
-      titleMain: 'आद्या महाकाली',
+      titleMain: 'आद्या महाकाली के १००० नाम',
       titleSub: 'सहस्रनामावली',
       titleDescription: 'अंग्रेजी और हिंदी अर्थों के साथ १०००+ पवित्र नामों का पूरा संग्रह',
       descriptionText: 'खोजने योग्य नामों (Searchable names), साफ़-सुथरे अनुवाद और विस्तृत व्याख्याओं के ज़रिए <strong>माँ आद्या महाकाली</strong> के गहरे अर्थों और उनके सार को जानें।',
