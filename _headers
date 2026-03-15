@@ -5,6 +5,7 @@
 
 /mahakali_sahasranama_meanings.json
   X-Robots-Tag: noindex, nofollow
+  Cache-Control: public, max-age=2592000, immutable
 
 # Cache rules for static assets to improve CDN performance
 # Minified files with long cache times
@@ -34,9 +35,6 @@
 
 /MaaAdyaKali_5.webp
   Cache-Control: public, max-age=31536000, immutable
-
-/mahakali_sahasranama_meanings.json
-  Cache-Control: public, max-age=2592000, immutable
 
 /data_manifest.json
   Cache-Control: public, max-age=2592000, immutable
