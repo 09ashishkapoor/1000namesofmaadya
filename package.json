@@ -3,9 +3,14 @@
   "version": "1.1.0",
   "private": true,
   "devDependencies": {
+    "@astrojs/cloudflare": "^13.1.7",
+    "astro": "^6.1.4",
     "husky": "^8.0.0"
   },
   "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "bump-version": "node scripts/bump-version.js"
   }
 }
