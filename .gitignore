@@ -18,3 +18,13 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Node
+node_modules/
+
+# Astro
+dist/
+.astro/
+
+# Wrangler / Cloudflare local dev
+.wrangler/
