@@ -33,7 +33,6 @@
     displayedData: [],
     currentPage: 0,
     pageSize: 11,
-    searchQuery: '',
     language: (function() {
       const urlParams = new URLSearchParams(window.location.search);
       const langParam = urlParams.get('lang');
@@ -46,6 +45,7 @@
       return (urlParams.get('q') || '').toLowerCase().trim();
     })(),
     expandedItems: new Set(),
+    searchPanelOpen: false,
     // Lazy loading
     loadedChunks: new Set(),
     totalChunks: 0,
@@ -183,19 +183,14 @@
       const span = exploreBtn.querySelector('span');
       if (span) span.textContent = getTranslation(lang, 'landing.exploreButton');
     }
-    
-    const ebookLabel = document.querySelector('.ebook-label');
-    if (ebookLabel) ebookLabel.textContent = getTranslation(lang, 'landing.ebookLabel');
-    
-    const ebookDesc = document.querySelector('.ebook-description');
-    if (ebookDesc) ebookDesc.textContent = getTranslation(lang, 'landing.ebookDescription');
-    
-    const ebookLink = document.querySelector('.ebook-link');
-    if (ebookLink) {
-      // Find the text node (not the SVG)
-      const textNodes = Array.from(ebookLink.childNodes).filter(node => node.nodeType === 3);
-      if (textNodes.length > 0) {
-        textNodes[0].textContent = getTranslation(lang, 'landing.ebookLink') + ' ';
+
+    const learnBtn = document.getElementById('learn-btn');
+    if (learnBtn) {
+      const span = learnBtn.querySelector('span');
+      if (span) {
+        span.textContent = getTranslation(lang, 'landing.learnButton');
+      } else {
+        learnBtn.textContent = getTranslation(lang, 'landing.learnButton');
       }
     }
     
@@ -210,7 +205,7 @@
     }
     
     // About section
-    const aboutTitle = document.querySelector('#about-section h2');
+    const aboutTitle = document.querySelector('#about-section header h2');
     if (aboutTitle) aboutTitle.textContent = getTranslation(lang, 'about.sectionTitle');
     
     const aboutSubtitle = document.querySelector('#about-section header p');
@@ -245,12 +240,20 @@
     
     const namesSubtitle = document.querySelector('.section-subtitle');
     if (namesSubtitle) namesSubtitle.textContent = getTranslation(lang, 'names.sectionSubtitle');
+
+    const readingModeTitle = document.querySelector('.reading-mode-title');
+    if (readingModeTitle) readingModeTitle.textContent = getTranslation(lang, 'names.readingModeTitle');
+
+    const readingModeText = document.querySelector('.reading-mode-text');
+    if (readingModeText) readingModeText.textContent = getTranslation(lang, 'names.readingModeText');
     
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
       searchInput.placeholder = getTranslation(lang, 'names.searchPlaceholder');
       searchInput.setAttribute('aria-label', getTranslation(lang, 'names.searchAriaLabel'));
     }
+
+    updateSearchToggleButton();
     
     const languageSelect = document.getElementById('language-select');
     if (languageSelect) {
@@ -266,8 +269,11 @@
     const errorTitle = document.querySelector('#error-state h3');
     if (errorTitle) errorTitle.textContent = getTranslation(lang, 'names.errorTitle');
     
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    if (loadMoreBtn) loadMoreBtn.textContent = getTranslation(lang, 'names.loadMoreButton');
+    const prevPageBtn = document.getElementById('prev-page-btn');
+    if (prevPageBtn) prevPageBtn.textContent = getTranslation(lang, 'names.previousButton');
+
+    const nextPageBtn = document.getElementById('next-page-btn');
+    if (nextPageBtn) nextPageBtn.textContent = getTranslation(lang, 'names.nextButton');
     
     // eBook promo section
     const ebookBadge = document.querySelector('.ebook-promo-badge');
@@ -331,7 +337,7 @@
       }
       
       if (footerVersion) {
-        const versionNum = versionNumber ? versionNumber.textContent : 'V1.19.0';
+        const versionNum = versionNumber ? versionNumber.textContent : 'V1.21.0';
         const lastUpd = lastUpdated ? lastUpdated.textContent : 'Loading...';
         footerVersion.innerHTML = `${versionText} <span id="version-number">${versionNum}</span> | ${lastUpdatedText} <span id="last-updated">${lastUpd}</span>`;
         footerText.appendChild(footerVersion);
@@ -342,6 +348,8 @@
     if (state.dataLoaded) {
       updateStats();
     }
+
+    updateReadingProgress();
   }
   
   function cacheDOMElements() {
@@ -350,8 +358,13 @@
     elements.languagePillBtns = document.querySelectorAll('.language-pill-btn');
     elements.clearBtn = document.getElementById('clear-btn');
     elements.exploreBtn = document.getElementById('explore-btn');
+    elements.learnBtn = document.getElementById('learn-btn');
+    elements.searchToggleBtn = document.getElementById('search-toggle-btn');
+    elements.searchPanel = document.getElementById('search-panel');
     elements.namesGrid = document.getElementById('names-grid');
-    elements.loadMoreBtn = document.getElementById('load-more-btn');
+    elements.prevPageBtn = document.getElementById('prev-page-btn');
+    elements.nextPageBtn = document.getElementById('next-page-btn');
+    elements.readingProgress = document.getElementById('reading-progress');
     elements.loadingState = document.getElementById('loading-state');
     elements.errorState = document.getElementById('error-state');
     elements.errorMessage = document.getElementById('error-message');
@@ -364,16 +377,20 @@
       handleSearchDebounced();
     }, 100);
 
-    elements.searchInput.addEventListener('input', (e) => {
-      // update simple UI state immediately to improve input-to-next-paint
-      state.searchQuery = e.target.value.toLowerCase().trim();
-      updateClearButton();
-      // run the heavier filtering/rendering on a short debounce
-      debouncedFilter();
-    });
+    if (elements.searchInput) {
+      elements.searchInput.addEventListener('input', (e) => {
+        // update simple UI state immediately to improve input-to-next-paint
+        state.searchQuery = e.target.value.toLowerCase().trim();
+        updateClearButton();
+        // run the heavier filtering/rendering on a short debounce
+        debouncedFilter();
+      });
+    }
     
     // Language
-    elements.languageSelect.addEventListener('change', handleLanguageChange);
+    if (elements.languageSelect) {
+      elements.languageSelect.addEventListener('change', handleLanguageChange);
+    }
     
     // Language pill toggle buttons
     if (elements.languagePillBtns && elements.languagePillBtns.length > 0) {
@@ -403,13 +420,135 @@
     }
     
     // Clear
-    elements.clearBtn.addEventListener('click', handleClear);
+    if (elements.clearBtn) {
+      elements.clearBtn.addEventListener('click', handleClear);
+    }
     
     // Explore button
-    elements.exploreBtn.addEventListener('click', scrollToNames);
-    
-    // Load more
-    elements.loadMoreBtn.addEventListener('click', loadMoreNames);
+    if (elements.exploreBtn) {
+      elements.exploreBtn.addEventListener('click', scrollToNames);
+    }
+
+    if (elements.learnBtn) {
+      elements.learnBtn.addEventListener('click', scrollToAbout);
+    }
+
+    if (elements.searchToggleBtn) {
+      elements.searchToggleBtn.addEventListener('click', toggleSearchPanel);
+    }
+
+    if (elements.prevPageBtn) {
+      elements.prevPageBtn.addEventListener('click', goToPreviousPage);
+    }
+
+    if (elements.nextPageBtn) {
+      elements.nextPageBtn.addEventListener('click', goToNextPage);
+    }
+
+    window.addEventListener('resize', debounce(syncSearchPanelForViewport, 100), { passive: true });
+    syncSearchPanelForViewport();
+  }
+
+  function isDesktopViewport() {
+    return window.innerWidth >= 768;
+  }
+
+  function syncSearchPanelForViewport() {
+    if (!elements.searchPanel) return;
+
+    if (isDesktopViewport()) {
+      setSearchPanelOpen(true, false);
+    } else if (state.searchQuery) {
+      setSearchPanelOpen(true, false);
+    } else {
+      setSearchPanelOpen(state.searchPanelOpen, false);
+    }
+  }
+
+  function setSearchPanelOpen(isOpen, shouldFocusInput = false) {
+    if (!elements.searchPanel || !elements.searchToggleBtn) return;
+
+    state.searchPanelOpen = isDesktopViewport() ? true : isOpen;
+    elements.searchPanel.classList.toggle('mobile-collapsed', !state.searchPanelOpen);
+    elements.searchPanel.classList.toggle('is-open', state.searchPanelOpen);
+    elements.searchToggleBtn.setAttribute('aria-expanded', String(state.searchPanelOpen));
+    updateSearchToggleButton();
+
+    if (shouldFocusInput && state.searchPanelOpen && elements.searchInput) {
+      elements.searchInput.focus();
+    }
+  }
+
+  function updateSearchToggleButton() {
+    if (!elements.searchToggleBtn) return;
+
+    const labelKey = getSearchPanelToggleLabel();
+    elements.searchToggleBtn.textContent = getTranslation(state.language, labelKey);
+  }
+
+  function getSearchPanelToggleLabel() {
+    return state.searchPanelOpen ? 'names.hideSearchButton' : 'names.showSearchButton';
+  }
+
+  function toggleSearchPanel() {
+    if (isDesktopViewport()) return;
+
+    setSearchPanelOpen(!state.searchPanelOpen, !state.searchPanelOpen);
+  }
+
+  function scrollToResultsTop() {
+    if (elements.namesGrid) {
+      elements.namesGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function updatePagination() {
+    if (!elements.prevPageBtn || !elements.nextPageBtn) return;
+
+    const hasPreviousPage = state.currentPage > 0;
+    const hasNextPage = ((state.currentPage + 1) * state.pageSize) < state.filteredData.length;
+
+    elements.prevPageBtn.classList.toggle('hidden', !hasPreviousPage);
+    elements.nextPageBtn.classList.toggle('hidden', !hasNextPage);
+    elements.prevPageBtn.disabled = !hasPreviousPage;
+    elements.nextPageBtn.disabled = !hasNextPage;
+
+    updateReadingProgress();
+  }
+
+  function updateReadingProgress() {
+    if (!elements.readingProgress) return;
+
+    const total = state.filteredData.length;
+    if (!total || !state.displayedData.length) {
+      elements.readingProgress.innerHTML = '';
+      return;
+    }
+
+    const start = (state.currentPage * state.pageSize) + 1;
+    const end = Math.min(start + state.displayedData.length - 1, total);
+    const template = getTranslation(state.language, 'names.pageStatus');
+
+    elements.readingProgress.innerHTML = template
+      .replace('{start}', start)
+      .replace('{end}', end)
+      .replace('{total}', total);
+  }
+
+  function goToPreviousPage() {
+    if (state.currentPage === 0) return;
+
+    state.currentPage -= 1;
+    renderNames();
+    scrollToResultsTop();
+  }
+
+  function goToNextPage() {
+    if (((state.currentPage + 1) * state.pageSize) >= state.filteredData.length) return;
+
+    state.currentPage += 1;
+    renderNames();
+    scrollToResultsTop();
   }
   
   // Load Data - Lazy loading with chunks
@@ -493,8 +632,8 @@
   // Render Names - Optimized to reduce blocking time
   function renderNames() {
     try {
-      const start = 0;
-      const end = (state.currentPage + 1) * state.pageSize;
+      const start = state.currentPage * state.pageSize;
+      const end = start + state.pageSize;
       state.displayedData = state.filteredData.slice(start, end);
       
       elements.namesGrid.innerHTML = '';
@@ -502,12 +641,7 @@
       // Render in chunks to avoid blocking the main thread
       renderInChunks(state.displayedData, 0);
       
-      // Show/hide load more button
-      if (state.displayedData.length < state.filteredData.length) {
-        elements.loadMoreBtn.classList.remove('hidden');
-      } else {
-        elements.loadMoreBtn.classList.add('hidden');
-      }
+      updatePagination();
     } catch (error) {
       console.error('Error rendering names:', error);
       throw error;
@@ -553,6 +687,9 @@
     const name = state.language === 'english' ? (entry.english_name || '') : (entry.hindi_name || '');
     const oneLine = state.language === 'english' ? (entry.english_one_line || '') : (entry.hindi_one_line || '');
     const elaboration = state.language === 'english' ? (entry.english_elaboration || '') : (entry.hindi_elaboration || '');
+    const detailMarkup = [oneLine ? `<p class="card-meaning">${oneLine}</p>` : '', elaboration ? `<div class="elaboration-copy">${elaboration}</div>` : '']
+      .filter(Boolean)
+      .join('');
     
     card.innerHTML = `
       <div class="card-header">
@@ -560,9 +697,7 @@
       </div>
       
       <h3 class="card-name">${name}</h3>
-      
-      <p class="card-meaning">${oneLine}</p>
-      
+
       <button class="toggle-btn" data-index="${entry.index}">
         <span>${isExpanded ? getTranslation(state.language, 'names.hideButton') : getTranslation(state.language, 'names.revealButton')}</span>
         <svg class="chevron ${isExpanded ? 'rotated' : ''}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -571,7 +706,7 @@
       </button>
       
       <div class="elaboration ${isExpanded ? 'expanded' : ''}" data-index="${entry.index}">
-        <div class="elaboration-content">${elaboration}</div>
+        <div class="elaboration-content">${detailMarkup}</div>
       </div>
     `;
     
@@ -619,6 +754,9 @@
   // Called after short debounce to do heavier work
   function handleSearchDebounced() {
     state.currentPage = 0;
+    if (state.searchQuery) {
+      setSearchPanelOpen(true, false);
+    }
     // Do filtering and rendering — these are the heavier steps
     filterData();
     renderNames();
@@ -777,42 +915,7 @@
     elements.clearBtn.disabled = !state.searchQuery;
   }
   
-  function loadMoreNames() {
-    state.currentPage++;
-    
-    // Calculate new data slice
-    const start = state.currentPage * state.pageSize;
-    const end = (state.currentPage + 1) * state.pageSize;
-    const newItems = state.filteredData.slice(start, end);
-    
-    // Append to displayed data
-    state.displayedData = [...state.displayedData, ...newItems];
-    
-    // Render only the new items (append them)
-    renderInChunks(newItems, 0);
-    
-    // Update load more button visibility
-    if (state.displayedData.length < state.filteredData.length) {
-      elements.loadMoreBtn.classList.remove('hidden');
-    } else {
-      elements.loadMoreBtn.classList.add('hidden');
-    }
-    
-    // Smooth scroll to first new card after a slight delay to allow rendering to start
-    setTimeout(() => {
-      // The first new card will be at index 'start' in the total list (0-based), 
-      // which corresponds to the child node at that index in namesGrid.
-      // +1 because nth-child is 1-based.
-      const newCardIndex = start + 1;
-      const newCard = elements.namesGrid.querySelector(`.name-card:nth-child(${newCardIndex})`);
-      if (newCard) {
-        newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
-  }
-  
   function updateStats() {
-    const totalNames = state.data.length;
     const filteredCount = state.filteredData.length;
     
     if (state.searchQuery) {
@@ -830,6 +933,13 @@
     const namesSection = document.getElementById('names-section');
     if (namesSection) {
       namesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function scrollToAbout() {
+    const aboutSection = document.getElementById('about-section');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
   
@@ -861,6 +971,8 @@
   }
   
 })();
+
+
 
 
 

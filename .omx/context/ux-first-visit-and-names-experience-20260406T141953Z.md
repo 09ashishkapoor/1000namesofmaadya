@@ -1,0 +1,26 @@
+# Context Snapshot
+
+- task statement: Improve the website UX, especially first-visit landing experience and a better way to display the 1000 names; user asked to plan and be asked questions.
+- desired outcome: A clarified UX direction and planning inputs for a first-time-visitor-friendly landing page plus a more usable names browsing experience.
+- known facts/evidence:
+  - Repo is a static site with `index.html`, `app.js`, `styles.css`, `translations.js`, and `navigation.js` at root.
+  - Landing page currently includes hero/title, title description, a descriptive paragraph, a significance paragraph, ebook promo, dedication section, then a long about section before the names section.
+  - Names section already supports search, language switching, lazy loading, and expandable elaborations.
+  - English landing copy is text-heavy and likely creates first-visit friction.
+  - There are 1072 names, so display strategy matters more than raw scrolling.
+- constraints:
+  - User asked for planning/questions, not implementation yet.
+  - Ralph is active but planning is not complete; implementation-focused work must wait.
+  - Site is bilingual (English/Hindi), so UX decisions likely affect both languages.
+  - Need to preserve devotional tone while improving usability.
+- unknowns/open questions:
+  - Primary audience intent: chanting, study, browsing, searching by meaning, or daily practice.
+  - Whether the about/significance content should be shortened, collapsed, or moved lower.
+  - Preferred names browsing model: cards, grouped sections, progressive reveal, guided modes, alphabetical/thematic clusters, etc.
+  - Whether first visit should prioritize action (start exploring) over explanation.
+  - Mobile-vs-desktop priority and SEO sensitivity for any content simplification.
+- likely codebase touchpoints:
+  - `index.html`
+  - `translations.js`
+  - `styles.css`
+  - `app.js`

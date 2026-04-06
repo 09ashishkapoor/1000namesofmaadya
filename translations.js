@@ -19,7 +19,8 @@ const translations = {
       descriptionText: 'Explore the profound meanings and essence of <strong>Maa Ādya Mahākālī</strong> through searchable names, detailed translations, and comprehensive elaborations.',
       significanceTitle: 'Significance',
       significanceText: 'Chanting the <em>AdyaMahakali Sahasranama</em> brings you closer to Maa Adya, removes fear, grants protection, annihilates ego, and awakens latent Shakti Vidya in your heart.',
-      exploreButton: 'Explore Sacred Names',
+      exploreButton: 'Start Reading',
+      learnButton: 'Learn About This Text',
       ebookLabel: '📥 FREE PDF eBOOKS',
       ebookDescription: 'Download complete Mahakali Sahasranama with meanings — same content as this website, optimized for reading offline',
       ebookLink: 'Visit jaikhyapaparampara.com',
@@ -51,8 +52,12 @@ const translations = {
     names: {
       sectionTitle: 'Adya Mahakali 1000 Names - Search, Learn & Connect with Each Sacred Name',
       sectionSubtitle: 'Dive deep into the profound meanings and spiritual essence of Maa Ādya Mahākālī through searchable names, detailed translations, and comprehensive elaborations. Explore all 1000+ names of Adya Mahakali with meanings in English and Hindi.',
+      readingModeTitle: 'Begin the Sahasran?ma',
+      readingModeText: 'Read the sacred names in a calm sequence of 11 at a time. Tap any name to reveal its meaning and elaboration.',
       searchPlaceholder: 'Search names or meanings...',
       searchAriaLabel: 'Search sacred names',
+      showSearchButton: 'Search Names',
+      hideSearchButton: 'Hide Search',
       languageSelectLabel: 'Select translation language',
       clearButton: 'Clear',
       statsDefault: '📿 Displaying the sacred <strong>1072</strong> names of <strong>Maa Ādya Mahākālī</strong> - Complete Adya Mahakali 1000 Names Collection',
@@ -61,7 +66,9 @@ const translations = {
       errorTitle: 'Error Loading Sacred Names',
       revealButton: 'Reveal Elaboration',
       hideButton: 'Hide Elaboration',
-      loadMoreButton: 'Load More Names'
+      previousButton: 'Previous 11',
+      nextButton: 'Next 11',
+      pageStatus: 'Showing <strong>{start}</strong>-<strong>{end}</strong> of <strong>{total}</strong>'
     },
     
     // Navigation
@@ -141,8 +148,12 @@ const translations = {
     names: {
       sectionTitle: 'आद्या महाकाली १००० नाम - खोजें, सीखें और हर पवित्र नाम से जुड़ें',
       sectionSubtitle: 'खोजने योग्य नामों, साफ़ अनुवादों और विस्तृत व्याख्याओं के ज़रिए माँ आद्या महाकाली के गहरे अर्थों और आध्यात्मिक सार में डूब जाएं। अंग्रेजी और हिंदी अर्थों के साथ आद्या महाकाली के सभी १०००+ नामों को देखें।',
+      readingModeTitle: '???????? ????? ???? ????',
+      readingModeText: '??-?? ????? ?? ???? ???? ??? ??? ????? ???? ?? ??? ?? ??? ???? ???? ???? ?? ??????? ???????? ??????',
       searchPlaceholder: 'नाम या अर्थ खोजें...',
       searchAriaLabel: 'पवित्र नाम खोजें',
+      showSearchButton: '??? ?????',
+      hideSearchButton: '??? ??????',
       languageSelectLabel: 'अनुवाद की भाषा चुनें',
       clearButton: 'Clear',
       statsDefault: '📿 <strong>माँ आद्या महाकाली</strong> के <strong>१०७२</strong> पवित्र नाम दिखाए जा रहे हैं - संपूर्ण आद्या महाकाली १००० नाम संग्रह',

@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+        <meta charset="UTF-8">
         <!-- Google tag (gtag.js) - Deferred to avoid blocking FCP/LCP -->
         <script>
             // Minimal inline config to defer gtag loading
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);} 
+            function gtag(){dataLayer.push(arguments);}
             gtag('consent', 'default', {'analytics_storage': 'granted'});
         </script>
         <!-- Load gtag asynchronously after page interactive (not render-blocking) -->
@@ -17,32 +18,31 @@
             } else {
                 loadGoogleAnalytics();
             }
-            
+
             function loadGoogleAnalytics() {
                 const script = document.createElement('script');
                 script.async = true;
                 script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RZK1GR4K8H';
                 document.head.appendChild(script);
-                
+
                 // Config gtag after script loads
                 script.onload = function() {
                     gtag('config', 'G-RZK1GR4K8H', {'send_page_view': true});
                 };
             }
         </script>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Description (Optimized for "Adya Mahakali 1000 Names" search query) -->
     <meta name="description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. Explore all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and spiritual insights for devotion and chanting.">
-    
-    
+
+
     <!-- Canonical URL (Crucial for SEO ranking) -->
     <link rel="canonical" href="https://1000namesofmakali.com/">
-    
+
     <!-- Keywords: Includes both Search Terms (English) and Scholarly Terms (IAST) -->
     <meta name="keywords" content="Adya Mahakali 1000 Names, Adya Mahakali Sahasranama, Adya Kali 1000 Names, Mahakali 1000 Names, Kali Sahasranama, Kali Sahasranamam, 1008 names of Kali, 1000 names of Kali, Adya Mahakali names list, Adya Kali Sahasranamavali, Adya Stotram, Smashana Kali, Aghora Kali, Bhadrakali, Dakshina Kali, Guhyakali, Devi, Shakti, Adi Shakti, Durga, Parvati, Tantra, Shakta tradition, Kali worship, Kali Mantra, Kali Japa, Stotram, Stuti, devotional chanting, spiritual liberation, Moksha, Bhakti, Sanskrit texts, Hindi translation, English translation, Kali meaning, Hindu Goddess, Mahākālī, Kālī, Ādyā Kālī, Sahasranāma">
-    
+
     <!-- Mobile App Settings -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,7 +50,7 @@
     <meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama">
     <meta name="author" content="Kaliputra Ashish">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph / Social Media (Optimized for search) -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_IN">
@@ -64,14 +64,14 @@
     <link rel="alternate" hreflang="en" href="https://1000namesofmakali.com/">
     <link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/?lang=hi">
     <link rel="alternate" hreflang="x-default" href="https://1000namesofmakali.com/">
-    
+
     <!-- Twitter Card (Optimized) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Adya Mahakali 1000 Names - Complete Sahasranama">
     <meta name="twitter:description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. All 1000+ sacred names with translations.">
     <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp">
     <meta name="twitter:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali">
-    
+
     <!-- Structured Data (JSON-LD) - Enhanced for SEO -->
     <script type="application/ld+json">
     {
@@ -236,7 +236,7 @@
         "url": "https://1000namesofmakali.com/"
       },
       "datePublished": "2025-01-27",
-      "dateModified": "2026-03-15",
+      "dateModified": "2026-04-06",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://1000namesofmakali.com/#about-section"
@@ -248,14 +248,14 @@
       }
     }
     </script>
-    
+
     <link rel="icon" type="image/webp" href="/MaaAdyaKali_5.webp">
     <link rel="apple-touch-icon" href="/MaaAdyaKali_5.webp">
-    
+
     <!-- Site Name near Favicon -->
     <meta name="application-name" content="Adya Mahakali Sahasranama">
     <meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama">
-    
+
     <!-- Additional SEO Meta Tags -->
     <meta name="geo.region" content="IN">
     <meta name="geo.placename" content="India">
@@ -264,10 +264,10 @@
     <meta name="distribution" content="Global">
     <meta name="rating" content="General">
     <meta name="revisit-after" content="7 days">
-    
+
     <!-- Page Title: Optimized for "Adya Mahakali 1000 Names" search query -->
     <title>Adya Mahakali 1000 Names - Complete Sahasranama with Meanings in English &amp; Hindi</title>
-    
+
     <!-- Remove web fonts entirely to fix LCP - use system fonts only -->
     <!-- Google Fonts causing 90s render delay - disabled for now -->
 
@@ -277,9 +277,9 @@
     <link rel="preload" href="MaaAdyaKali_5.webp" as="image">
 
     <!-- Load stylesheet non-blocking: preload + onload pattern with noscript fallback -->
-    <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="styles.css"></noscript>
-    
+    <link rel="preload" href="styles.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.min.css"></noscript>
+
     <!-- Inline critical CSS for above-the-fold content -->
     <style>
     /* Critical CSS - with font fallbacks to prevent FOIT (Flash of Invisible Text) */
@@ -313,7 +313,7 @@
     @media(min-width:641px) and (max-width:1024px){.nav-button{width:54px;height:54px}}
     .nav-button{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;animation:fadeScaleIn 0.3s cubic-bezier(0.4,0,0.2,1)}
     @keyframes fadeScaleIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-    
+
     /* Pulse animation for first-time visitors */
     @keyframes languagePulse{
         0%, 100%{box-shadow:0 2px 10px rgba(0,0,0,0.5), 0 0 0 0 rgba(220,20,60,0.7)}
@@ -323,7 +323,7 @@
         0%, 100%{box-shadow:0 1px 4px rgba(220,20,60,0.4)}
         50%{box-shadow:0 1px 8px rgba(220,20,60,0.8), 0 0 12px rgba(255,215,0,0.4)}
     }
-    
+
      /* Floating Language Selector - Pill Toggle */
      /* Use fixed positioning with bottom placement on mobile to avoid title overlap.
          On larger screens, keep at top-right. This ensures no collision with
@@ -353,7 +353,7 @@
     </style>
 </head>
 <body>
-    
+
     <!-- Floating Language Selector -->
     <div class="floating-language-selector">
         <div class="language-pill-toggle">
@@ -361,12 +361,12 @@
             <button type="button" class="language-pill-btn" data-lang="hindi">🇮🇳 हिन्दी</button>
         </div>
     </div>
-    
+
     <!-- Landing Page Section -->
     <main>
     <section id="landing-page" class="landing-section" itemscope itemtype="https://schema.org/WebPage">
         <div class="landing-overlay"></div>
-        
+
         <!-- Landing Content -->
         <div class="landing-content">
             <!-- H1 optimized for "Adya Mahakali 1000 Names" search query -->
@@ -374,147 +374,22 @@
                 <span class="title-line-main">Adya Mahakali 1000 Names</span>
                 <span class="title-line-sub">Sahasranāma</span>
             </h1>
-            
+
             <p class="title-description">
                 Complete collection of 1000+ sacred names with English & Hindi meanings
             </p>
-            
-            <!-- Landing Page Description -->
-            <div class="landing-description">
-                <p class="description-text">
-                    Explore the profound meanings and essence of <strong>Maa Ādya Mahākālī</strong> through searchable names, detailed translations, and comprehensive elaborations.
-                </p>
-                
-                <div class="significance-box">
-                    <div class="significance-header">
-                        <svg class="significance-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                        <h2 class="significance-title">Significance</h2>
-                    </div>
-                    <p class="significance-text">
-                        Chanting the <em>AdyaMahakali Sahasranama</em> brings you closer to Maa Adya, removes fear, grants protection, annihilates ego, and awakens latent Shakti Vidya in your heart.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- CTA Button -->
-            <button id="explore-btn" class="explore-button">
-                <span>Explore Sacred Names</span>
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <polyline points="19 12 12 19 5 12"></polyline>
-                </svg>
-            </button>
 
-            <!-- Free eBook Download Banner -->
-            <div class="ebook-banner">
-                <div class="ebook-banner-content">
-                    <svg class="ebook-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <div class="landing-hero-actions">
+                <button id="explore-btn" class="explore-button">
+                    <span>Explore Sacred Names</span>
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
-                    <div class="ebook-text">
-                        <span class="ebook-label">📥 FREE PDF eBOOKS</span>
-                        <p class="ebook-description">Download complete Mahakali Sahasranama with meanings — same content as this website, optimized for reading offline</p>
-                        <a href="https://www.jaikhyapaparampara.com" target="_blank" rel="noopener noreferrer" class="ebook-link">
-                            Visit jaikhyapaparampara.com
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dedication-section">
-                <p class="dedication-text">
-                    Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong>
-                </p>
-                <p class="dedication-mantra">
-                    Om Shri Gurubhyo Namaha, Jai Khyapa Parampara <span title="Namaste">🙏</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about-section" class="about-section" style="padding: 4rem 1.5rem; background: rgba(0, 0, 0, 0.6); position: relative;">
-        <div class="container" style="max-width: 900px; margin: 0 auto;">
-            <header style="text-align: center; margin-bottom: 3rem;">
-                <h2 style="color: #ffffff; font-size: 2rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">The Power of Adya Mahakali Sahasranama</h2>
-                <p style="color: #f5f5f5; font-size: 1.1rem; line-height: 1.7;">Understanding the significance and benefits of chanting the 1000 sacred names</p>
-            </header>
-            
-            <div style="display: grid; gap: 2.5rem;">
-                <!-- Who is Ma Adya Mahakali -->
-                <article style="background: rgba(220, 20, 60, 0.1); border: 1px solid rgba(220, 20, 60, 0.3); border-radius: 0.75rem; padding: 2rem;">
-                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Who is Ma Adya Mahakali?</h3>
-                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">
-                        <strong style="color: #dc143c;">Maa Adya Mahakali</strong> is the primordial creator, representing the ultimate reality and the source of all creation. "Adya" means "primordial" or "first," signifying her status as the original, unmanifested form of creative feminine energy. She is the embodiment of time, transformation, and the eternal cycle of creation, preservation, and dissolution.
-                    </p>
-                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin: 0;">
-                        As Mahakali, she transcends all forms and limitations, representing the absolute truth beyond duality. She is worshipped as the destroyer of ignorance, ego, and all internal negative forces, guiding bhaktas towards self-realization and oneness.
-                    </p>
-                </article>
-                
-                <!-- Benefits of Chanting -->
-                <article style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 0.75rem; padding: 2rem;">
-                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Benefits of Chanting</h3>
-                    <div style="display: grid; gap: 1.25rem;">
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">✨</span>
-                            <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Spiritual Protection</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
-                                    Chanting the Sahasranama creates a protective shield around the devotee, warding off negative energies, evil influences, and spiritual obstacles on the path to enlightenment.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🔥</span>
-                            <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Destruction of Internal Enemies</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
-                                    Regular chanting helps eliminate internal enemies such as ego (ahamkara), anger (krodha), greed (lobha), attachment (moha), and ignorance (avidya), leading to inner purification and spiritual growth.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🕉️</span>
-                            <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Removal of Fear</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
-                                    The sacred vibrations of these names help dissolve fear, anxiety, and mental afflictions, instilling courage, confidence, and inner strength in the devotee.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🌟</span>
-                            <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Divine Grace and Blessings</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
-                                    Regular practice invites the divine grace of Maa Adya Mahakali, bringing peace, prosperity, wisdom, and spiritual fulfillment into one's life now and in future births serving her.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">💫</span>
-                            <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Awakening of Spiritual Consciousness</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
-                                    Through continuous chanting, one's spiritual consciousness awakens, deepening awareness of the divine connection and unlocking latent spiritual potential within oneself.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+                </button>
+                <button id="learn-btn" class="learn-button">
+                    <span>Learn About This Text</span>
+                </button>
             </div>
         </div>
     </section>
@@ -522,7 +397,7 @@
     <!-- Names Explorer Section -->
     <section id="names-section" class="names-section">
         <div class="names-overlay"></div>
-        
+
         <div class="container">
             <!-- Header -->
             <header class="names-header">
@@ -532,53 +407,64 @@
                     Dive deep into the profound meanings and spiritual essence of Maa Ādya Mahākālī through searchable names, detailed translations, and comprehensive elaborations. Explore all 1000+ names of Adya Mahakali with meanings in English and Hindi.
                 </p>
             </header>
-            
+
+            <div class="reading-mode-intro">
+                <h3 class="reading-mode-title">Begin the Sahasranāma</h3>
+                <p class="reading-mode-text">Read the sacred names in a calm sequence of 11 at a time. Tap any name to reveal its meaning and elaboration.</p>
+            </div>
+
             <!-- Controls -->
             <div class="controls-panel">
-                <!-- Search -->
-                <div class="search-box">
-                    <svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" id="search-input" placeholder="Search names or meanings..." autocomplete="off" aria-label="Search sacred names">
-                </div>
-                
-                <!-- Filters Row -->
-                <div class="filters-row">
+                <div class="controls-top-row">
+                    <button id="search-toggle-btn" class="btn-secondary search-toggle-btn" type="button" aria-expanded="false" aria-controls="search-panel">Search Names</button>
                     <select id="language-select" class="language-select" aria-label="Select translation language">
                         <option value="english">🇬🇧 English</option>
                         <option value="hindi">🇮🇳 हिन्दी</option>
                     </select>
-                    
-                    <button id="clear-btn" class="btn-secondary" disabled>Clear</button>
                 </div>
-                
-                <!-- Stats -->
-                <div class="stats-display" id="stats-display" role="status">
-                    📿 Displaying the sacred <strong>1072</strong> names of <strong>Maa Ādya Mahākālī</strong> - Complete Adya Mahakali 1000 Names Collection
+
+                <div id="search-panel" class="search-panel mobile-collapsed">
+                    <!-- Search -->
+                    <div class="search-box">
+                        <svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search names or meanings..." autocomplete="off" aria-label="Search sacred names">
+                    </div>
+
+                    <!-- Filters Row -->
+                    <div class="filters-row">
+                        <button id="clear-btn" class="btn-secondary" disabled>Clear</button>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="stats-display" id="stats-display" role="status">
+                        📿 Displaying the sacred <strong>1072</strong> names of <strong>Maa Ādya Mahākālī</strong> - Complete Adya Mahakali 1000 Names Collection
+                    </div>
                 </div>
             </div>
-            
+
             <!-- Loading State -->
             <div id="loading-state" class="loading-state">
                 <div class="loader"></div>
                 <p>Loading sacred names...</p>
             </div>
-            
+
             <!-- Error State -->
             <div id="error-state" class="error-state hidden" role="alert">
                 <div class="error-icon">⚠️</div>
                 <h3>Error Loading Sacred Names</h3>
                 <p id="error-message"></p>
             </div>
-            
+
             <!-- Names Grid -->
             <div id="names-grid" class="names-grid"></div>
-            
-            <!-- Load More Button -->
-            <div class="load-more-container">
-                <button id="load-more-btn" class="btn-primary hidden">Load More Names</button>
+
+            <div class="load-more-container reading-pagination">
+                <button id="prev-page-btn" class="btn-secondary hidden" type="button">Previous 11</button>
+                <div id="reading-progress" class="reading-progress" aria-live="polite"></div>
+                <button id="next-page-btn" class="btn-primary hidden" type="button">Next 11</button>
             </div>
 
             <!-- eBook Download Promo Section -->
@@ -590,8 +476,8 @@
                             <h3 class="ebook-promo-title">Download Free PDF eBooks</h3>
                         </div>
                         <p class="ebook-promo-text">
-                            Explore the complete collection of <strong>Maa Ādya Mahākālī Sahasranāma</strong> as beautifully formatted PDF ebooks. 
-                            These free downloads contain all 1000+ sacred names with English translations and Hindi elaborations — the same comprehensive 
+                            Explore the complete collection of <strong>Maa Ādya Mahākālī Sahasranāma</strong> as beautifully formatted PDF ebooks.
+                            These free downloads contain all 1000+ sacred names with English translations and Hindi elaborations — the same comprehensive
                             content available on this website, optimized for offline reading and printing.
                         </p>
                         <ul class="ebook-features">
@@ -618,6 +504,112 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about-section" class="about-section" style="padding: 4rem 1.5rem; background: rgba(0, 0, 0, 0.6); position: relative;">
+        <div class="container" style="max-width: 900px; margin: 0 auto;">
+            <div class="landing-description about-intro-block">
+                <p class="description-text">
+                    Explore the profound meanings and essence of <strong>Maa Ādya Mahākālī</strong> through searchable names, detailed translations, and comprehensive elaborations.
+                </p>
+
+                <div class="significance-box">
+                    <div class="significance-header">
+                        <svg class="significance-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <h2 class="significance-title">Significance</h2>
+                    </div>
+                    <p class="significance-text">
+                        Chanting the <em>AdyaMahakali Sahasranama</em> brings you closer to Maa Adya, removes fear, grants protection, annihilates ego, and awakens latent Shakti Vidya in your heart.
+                    </p>
+                </div>
+            </div>
+
+            <div class="dedication-section about-dedication">
+                <p class="dedication-text">
+                    Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong>
+                </p>
+                <p class="dedication-mantra">
+                    Om Shri Gurubhyo Namaha, Jai Khyapa Parampara <span title="Namaste">🙏</span>
+                </p>
+            </div>
+
+            <header style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #ffffff; font-size: 2rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">The Power of Adya Mahakali Sahasranama</h2>
+                <p style="color: #f5f5f5; font-size: 1.1rem; line-height: 1.7;">Understanding the significance and benefits of chanting the 1000 sacred names</p>
+            </header>
+
+            <div style="display: grid; gap: 2.5rem;">
+                <!-- Who is Ma Adya Mahakali -->
+                <article style="background: rgba(220, 20, 60, 0.1); border: 1px solid rgba(220, 20, 60, 0.3); border-radius: 0.75rem; padding: 2rem;">
+                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Who is Ma Adya Mahakali?</h3>
+                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">
+                        <strong style="color: #dc143c;">Maa Adya Mahakali</strong> is the primordial creator, representing the ultimate reality and the source of all creation. "Adya" means "primordial" or "first," signifying her status as the original, unmanifested form of creative feminine energy. She is the embodiment of time, transformation, and the eternal cycle of creation, preservation, and dissolution.
+                    </p>
+                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin: 0;">
+                        As Mahakali, she transcends all forms and limitations, representing the absolute truth beyond duality. She is worshipped as the destroyer of ignorance, ego, and all internal negative forces, guiding bhaktas towards self-realization and oneness.
+                    </p>
+                </article>
+
+                <!-- Benefits of Chanting -->
+                <article style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 0.75rem; padding: 2rem;">
+                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Benefits of Chanting</h3>
+                    <div style="display: grid; gap: 1.25rem;">
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">✨</span>
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Spiritual Protection</h4>
+                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
+                                    Chanting the Sahasranama creates a protective shield around the devotee, warding off negative energies, evil influences, and spiritual obstacles on the path to enlightenment.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🔥</span>
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Destruction of Internal Enemies</h4>
+                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
+                                    Regular chanting helps eliminate internal enemies such as ego (ahamkara), anger (krodha), greed (lobha), attachment (moha), and ignorance (avidya), leading to inner purification and spiritual growth.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🕉️</span>
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Removal of Fear</h4>
+                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
+                                    The sacred vibrations of these names help dissolve fear, anxiety, and mental afflictions, instilling courage, confidence, and inner strength in the devotee.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🌟</span>
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Divine Grace and Blessings</h4>
+                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
+                                    Regular practice invites the divine grace of Maa Adya Mahakali, bringing peace, prosperity, wisdom, and spiritual fulfillment into one's life now and in future births serving her.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">💫</span>
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Awakening of Spiritual Consciousness</h4>
+                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">
+                                    Through continuous chanting, one's spiritual consciousness awakens, deepening awareness of the divine connection and unlocking latent spiritual potential within oneself.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     </main>
     <!-- Footer -->
     <footer class="site-footer">
@@ -634,23 +626,23 @@
                 Connect on Instagram: <a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener noreferrer" style="color:#ffd700;text-decoration:none;font-weight:600;">@ashishkaliputra</a>
             </div>
                 <div class="footer-version" style="margin-top:1rem;font-size:0.85rem;color:#ffd700;font-family:monospace;opacity:0.85;">
-                Version <span id="version-number">V1.19.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
+                Version <span id="version-number">V1.21.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
             </div>
         </div>
     </footer>
-    
+
     <!-- Scripts: Deferred to avoid render-blocking -->
     <!-- Load translations.js with defer to avoid render-blocking (130ms savings) -->
     <script src="translations.js" defer></script>
     <script src="navigation.js" defer></script>
     <script src="app.js" defer></script>
-    
+
     <!-- Version Number and Last Updated Loader -->
     <script>
     (function() {
         const versionElement = document.getElementById('version-number');
         const lastUpdatedElement = document.getElementById('last-updated');
-        
+
         if (versionElement || lastUpdatedElement) {
             fetch('version.json')
                 .then(response => response.json())
@@ -663,14 +655,14 @@
                     if (vEl) {
                         vEl.textContent = 'V' + data.version;
                     }
-                    
+
                     // Update last updated date
                     if (luEl && data.buildDate) {
                         const date = new Date(data.buildDate + 'T00:00:00');
-                        const formattedDate = date.toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         });
                         luEl.textContent = formattedDate;
                     }
@@ -681,10 +673,10 @@
                     // The HTML default (or any runtime-updated value) should be preserved.
                     const luEl = document.getElementById('last-updated');
                     if (luEl) {
-                        luEl.textContent = new Date().toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
+                        luEl.textContent = new Date().toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         });
                     }
                 });
