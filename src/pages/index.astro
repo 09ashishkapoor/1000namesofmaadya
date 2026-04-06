@@ -1,5 +1,9 @@
 ---
 // Adya Mahakali Sahasranama - Astro page
+const assetVersion = Date.now().toString(36);
+function versionedAsset(path) {
+    return `${path}?v=${assetVersion}`;
+}
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -272,13 +276,13 @@
     <title>Adya Mahakali 1000 Names - Complete Sahasranama with Meanings in English &amp; Hindi</title>
 
     <!-- Preload critical resources (only small manifest, not full 13MB file) -->
-    <link rel="preload" href="/data_manifest.json" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href={versionedAsset('/data_manifest.json')} as="fetch" crossorigin="anonymous">
     <!-- Preload hero image to improve LCP (background image used in critical area) -->
     <link rel="preload" href="/MaaAdyaKali_5.webp" as="image">
 
     <!-- Load stylesheet non-blocking: preload + onload pattern with noscript fallback -->
-    <link rel="preload" href="/styles.min.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/styles.min.css"></noscript>
+    <link rel="preload" href={versionedAsset('/styles.min.css')} as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href={versionedAsset('/styles.min.css')}></noscript>
 
     <!-- Inline critical CSS for above-the-fold content -->
     <style is:global>
@@ -604,9 +608,12 @@
     </footer>
 
     <!-- Scripts: Deferred to avoid render-blocking -->
-    <script src="/translations.js" defer data-cfasync="false" is:inline></script>
-    <script src="/navigation.js" defer data-cfasync="false" is:inline></script>
-    <script src="/app.js" defer data-cfasync="false" is:inline></script>
+    <script is:inline define:vars={{ assetVersion }}>
+        window.__ASSET_VERSION__ = assetVersion;
+    </script>
+    <script src={versionedAsset('/translations.js')} defer data-cfasync="false" is:inline></script>
+    <script src={versionedAsset('/navigation.js')} defer data-cfasync="false" is:inline></script>
+    <script src={versionedAsset('/app.js')} defer data-cfasync="false" is:inline></script>
 
     <!-- Version Number and Last Updated Loader -->
     <script is:inline>
@@ -615,7 +622,11 @@
         const lastUpdatedElement = document.getElementById('last-updated');
 
         if (versionElement || lastUpdatedElement) {
-            fetch('/version.json')
+            const versionAssetUrl = window.__ASSET_VERSION__
+                ? `/version.json?v=${encodeURIComponent(window.__ASSET_VERSION__)}`
+                : '/version.json';
+
+            fetch(versionAssetUrl)
                 .then(response => response.json())
                 .then(data => {
                     const vEl = document.getElementById('version-number');
