@@ -288,6 +288,14 @@ body::after {
   hyphens: auto;
 }
 
+.landing-hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: var(--spacing-lg);
+}
+
 @media (min-width: 480px) {
   .main-title {
     font-size: 3.5rem;
@@ -523,6 +531,13 @@ body::after {
   .dedication-mantra {
     font-size: 1.5rem;
   }
+
+  .landing-hero-actions {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
 }
 
 
@@ -585,10 +600,12 @@ body::after {
   box-shadow: 0 6px 25px rgba(220, 20, 60, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
   transition: all var(--transition-normal);
   -webkit-tap-highlight-color: transparent;
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
+  margin-top: 0;
+  margin-bottom: 0;
   position: relative;
   overflow: hidden;
+  min-width: min(100%, 280px);
+  justify-content: center;
 }
 
 .explore-button::before {
@@ -629,139 +646,37 @@ body::after {
   transform: translateY(-2px);
 }
 
-
-/* eBook Download Banner */
-.ebook-banner {
-  margin-top: var(--spacing-xl);
-  margin-bottom: var(--spacing-lg);
-  animation: fadeSlideUp 1s ease-out 0.5s both;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ebook-banner-content {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-md);
-  background: linear-gradient(135deg, rgba(220, 20, 60, 0.15) 0%, rgba(139, 0, 0, 0.15) 100%);
-  border: 2px solid var(--color-crimson);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(220, 20, 60, 0.2);
-}
-
-.ebook-banner-content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: shimmer 3s infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-.ebook-icon {
-  flex-shrink: 0;
-  color: var(--color-divine-gold);
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
-  margin-top: 0.25rem;
-}
-
-.ebook-text {
-  flex: 1;
-  position: relative;
-  z-index: 1;
-}
-
-.ebook-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--color-crimson);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.ebook-description {
-  font-size: 0.9375rem;
-  color: var(--color-text-primary);
-  margin: 0.5rem 0 0.75rem 0;
-  line-height: 1.5;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.ebook-link {
+.learn-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  font-size: 0.9375rem;
+  justify-content: center;
+  padding: 0.95rem 1.6rem;
+  min-height: 48px;
+  min-width: min(100%, 280px);
+  font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--color-crimson) 0%, var(--color-blood-red) 100%);
-  border: none;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-full);
-  text-decoration: none;
-  transition: all var(--transition-normal);
-  box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-normal);
+  white-space: nowrap;
 }
 
-.ebook-link:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
+.learn-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.55);
 }
 
-.ebook-link:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.ebook-link svg {
-  width: 16px;
-  height: 16px;
-  stroke-width: 2.5;
+.learn-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.28);
+  outline-offset: 3px;
 }
 
 @media (max-width: 640px) {
-  .ebook-banner-content {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
-  }
-
-  .ebook-icon {
-    margin-top: 0;
-  }
-
-  .ebook-description {
-    font-size: 0.875rem;
-  }
-
-  .ebook-link {
-    width: 100%;
-    justify-content: center;
-    padding: 0.75rem 1rem;
-  }
-  
   .landing-description {
     margin: var(--spacing-lg) auto;
     padding: 0 1rem;
@@ -782,16 +697,11 @@ body::after {
     font-size: 1rem;
     min-height: 48px;
     margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 0;
   }
   
   .dedication-section {
     margin: var(--spacing-lg) auto var(--spacing-md);
-  }
-  
-  .ebook-banner {
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
   }
 }
 
@@ -859,6 +769,28 @@ body::after {
   animation: fadeSlideUp 0.8s ease-out;
 }
 
+.reading-mode-intro {
+  max-width: 720px;
+  margin: 0 auto var(--spacing-lg);
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.reading-mode-title {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.reading-mode-text {
+  color: #f5f5f5;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -923,9 +855,42 @@ body::after {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+.controls-top-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.search-toggle-btn {
+  width: 100%;
+}
+
+.search-panel.mobile-collapsed {
+  display: none;
+}
+
+.search-panel.is-open {
+  display: block;
+}
+
 @media (min-width: 768px) {
   .controls-panel {
     padding: var(--spacing-lg);
+  }
+
+  .controls-top-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .search-toggle-btn {
+    display: none;
+  }
+
+  .search-panel.mobile-collapsed {
+    display: block;
   }
 }
 
@@ -973,6 +938,10 @@ body::after {
   gap: var(--spacing-sm);
   flex-wrap: wrap;
   margin-bottom: var(--spacing-md);
+}
+
+.filters-row .btn-secondary {
+  width: 100%;
 }
 
 .language-select {
@@ -1105,8 +1074,34 @@ body::after {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeSlideUp 0.4s ease-out forwards;
-  border: 1px solid rgba(220, 20, 60, 0.1);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(220, 20, 60, 0.16);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
+  background-image:
+    radial-gradient(circle at top center, rgba(255, 215, 0, 0.08), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(220, 20, 60, 0.04));
+  position: relative;
+  overflow: hidden;
+}
+
+.name-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  width: 76%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.75), transparent);
+  opacity: 0.85;
+}
+
+.name-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -35% auto;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(220, 20, 60, 0.09), transparent 68%);
+  pointer-events: none;
 }
 
 .name-card.visible {
@@ -1116,8 +1111,8 @@ body::after {
 
 .name-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(220, 20, 60, 0.2);
-  border-color: rgba(220, 20, 60, 0.3);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(220, 20, 60, 0.22);
+  border-color: rgba(255, 215, 0, 0.22);
 }
 
 @media (max-width: 767px) {
@@ -1130,32 +1125,37 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0.75rem;
 }
 
 .card-index {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.8rem;
   font-size: 0.75rem;
   font-weight: 700;
   color: #ffffff;
-  background: #8b0000; /* Blood Red - AAA Contrast (>7:1) */
+  background: linear-gradient(135deg, #8b0000 0%, #b22222 55%, #daa520 100%);
   border-radius: var(--radius-full);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+  letter-spacing: 0.03em;
 }
 
 .card-name {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0;
   line-height: 1.3;
+  letter-spacing: 0.01em;
+  font-family: Georgia, 'Times New Roman', serif;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
 
 .card-meaning {
   font-size: 0.9375rem;
   color: var(--color-text-primary);
   font-style: italic;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0.85rem;
   line-height: 1.6;
 }
 
@@ -1170,17 +1170,20 @@ body::after {
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-text-primary);
-  background: var(--color-surface);
+  background: linear-gradient(180deg, rgba(36, 36, 36, 0.96), rgba(28, 28, 28, 0.96));
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
+  border: 1px solid rgba(220, 20, 60, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .toggle-btn:hover {
-  background: var(--color-surface-elevated);
+  background: linear-gradient(180deg, rgba(44, 44, 44, 0.98), rgba(34, 34, 34, 0.98));
+  border-color: rgba(255, 215, 0, 0.18);
 }
 
 .toggle-btn:active {
@@ -1210,7 +1213,7 @@ body::after {
 
 .elaboration-content {
   padding: var(--spacing-md);
-  background: var(--color-surface-elevated);
+  background: linear-gradient(180deg, rgba(42, 42, 42, 0.98), rgba(26, 26, 26, 0.98));
   border-left: 4px solid var(--color-crimson);
   border-radius: var(--radius-sm);
   color: var(--color-text-primary);
@@ -1221,6 +1224,15 @@ body::after {
   overflow-y: auto;
   overflow-x: hidden;
   word-wrap: break-word;
+  box-shadow: inset 0 1px 0 rgba(255, 215, 0, 0.05);
+}
+
+.elaboration-copy {
+  color: var(--color-text-primary);
+}
+
+.elaboration-copy {
+  margin-top: 0.75rem;
 }
 
 /* Scrollbar styling for elaboration content */
@@ -1243,11 +1255,34 @@ body::after {
 }
 
 
-/* Load More */
-.load-more-container {
-  text-align: center;
+/* Reading Pagination */
+.reading-pagination {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: stretch;
   margin-top: var(--spacing-lg);
-  padding: 1rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.reading-progress {
+  text-align: center;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.about-intro-block {
+  margin-top: 0;
+  margin-bottom: var(--spacing-xl);
+}
+
+.about-dedication {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
 }
 
 .btn-primary {
@@ -1275,6 +1310,22 @@ body::after {
 
 .btn-primary:active {
   transform: translateY(0) scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .filters-row .btn-secondary {
+    width: auto;
+  }
+
+  .reading-pagination {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reading-progress {
+    min-width: 240px;
+  }
 }
 
 /* ============================================
@@ -1750,6 +1801,7 @@ body::after {
   .subtitle-gold { font-size: 1rem; }
   .title-description { font-size: 0.9rem; margin-bottom: var(--spacing-lg); line-height: 1.5; padding: 0 0.75rem; }
   .explore-button { padding: 0.75rem 1.5rem; font-size: 0.95rem; min-height: 44px; }
+  .learn-button { min-height: 44px; padding: 0.75rem 1.1rem; font-size: 0.95rem; min-width: 100%; }
   .landing-content { padding: 0 0.5rem; }
   .container { padding: 0 0.5rem; }
   #search-input { padding-left: 2.5rem; }
@@ -1763,6 +1815,9 @@ body::after {
   .significance-text { font-size: 0.9375rem; }
   .dedication-text { font-size: 1.1rem; }
   .dedication-mantra { font-size: 1rem; }
+  .reading-mode-intro { padding: 0.875rem 1rem; margin-bottom: var(--spacing-md); }
+  .reading-pagination { gap: 0.65rem; }
+  .reading-progress { padding: 0.75rem 0.85rem; font-size: 0.9rem; }
   .title-line-main { letter-spacing: 0.04em; }
   .title-line-sub { letter-spacing: 0.06em; font-size: 0.7em; }
 
@@ -1808,6 +1863,13 @@ body::after {
   .explore-button { 
     min-height: 48px; 
     padding: 0.875rem 1.75rem; 
+  }
+  .learn-button {
+    min-height: 48px;
+    min-width: 100%;
+  }
+  .reading-mode-intro {
+    margin-bottom: var(--spacing-md);
   }
 }
 
