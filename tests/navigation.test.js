@@ -139,7 +139,7 @@ function createEnvironment({ language = 'english', storageUnavailable = false } 
 }
 
 function runNavigationScript(env) {
-  const scriptPath = path.join(__dirname, '..', 'navigation.js');
+  const scriptPath = path.join(__dirname, '..', 'public', 'navigation.js');
   const source = fs.readFileSync(scriptPath, 'utf8');
   vm.runInNewContext(source, env.context, { filename: 'navigation.js' });
 }

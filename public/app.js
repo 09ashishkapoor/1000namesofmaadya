@@ -5,6 +5,16 @@
 
 (function() {
   'use strict';
+
+  const assetVersion = (typeof window !== 'undefined' && typeof window.__ASSET_VERSION__ === 'string')
+    ? window.__ASSET_VERSION__.trim()
+    : '';
+
+  function getAssetUrl(path) {
+    if (!assetVersion) return path;
+    const separator = path.includes('?') ? '&' : '?';
+    return `${path}${separator}v=${encodeURIComponent(assetVersion)}`;
+  }
   
   // Safe localStorage access for incognito mode
   function getFromStorage(key, defaultValue) {
@@ -558,7 +568,7 @@
       elements.errorState.classList.add('hidden');
       
       // Load manifest first (tiny file)
-      const manifestResponse = await fetch('data_manifest.json');
+      const manifestResponse = await fetch(getAssetUrl('/data_manifest.json'));
       if (!manifestResponse.ok) throw new Error('Failed to load manifest');
       
       const manifest = await manifestResponse.json();
@@ -592,7 +602,7 @@
     if (state.loadedChunks.has(chunkNum)) return;
     
     try {
-      const response = await fetch(`data_chunk_${chunkNum}.json`);
+      const response = await fetch(getAssetUrl(`/data_chunk_${chunkNum}.json`));
       if (!response.ok) throw new Error(`Failed to load chunk ${chunkNum}`);
       
       const chunkData = await response.json();
