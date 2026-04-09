@@ -1,27 +1,71 @@
-# Maa Ādya Mahākālī Sahasranāma
+﻿# ॥ Maa Ādya Mahākālī Sahasranāma ॥
 
-A public Astro website for exploring the 1,072 sacred names of Maa Ādya Mahākālī with English and Hindi meanings, elaborations, and a searchable reading experience.
+[![Live Site](https://img.shields.io/badge/Live%20Site-1000namesofmakali.com-crimson?style=flat-square&logo=cloudflare)](https://1000namesofmakali.com/)
+[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-## Highlights
+A devotional, bilingual web experience presenting all **1,072 sacred names** of Maa Ādya Mahākālī — the primordial form of the Divine Mother — with detailed meanings and spiritual elaborations in both English and Hindi (Devanāgarī).
 
-- 1,072 names with detailed English and Hindi content
-- Fast client-side search and browsing
-- Responsive layout for desktop and mobile
-- Static Astro build with all site assets served from `public/`
-- SEO-focused metadata and structured content
+---
 
 ## Live Site
 
-Visit the deployed website at:
+**[https://1000namesofmakali.com/](https://1000namesofmakali.com/)**
 
-https://1000namesofmakali.com/
+---
+
+## Features
+
+- **1,072 Complete Names** — every name with full elaboration and meaning
+- **Bilingual Content** — toggle between English and Hindi (Devanāgarī script)
+- **Fast Client-Side Search** — find any name or meaning instantly
+- **Chunked JSON Loading** — large dataset split across multiple files for fast initial load
+- **Responsive Design** — works on desktop, tablet, and mobile
+- **Glassmorphism UI** — dark divine aesthetic with smooth animations
+- **Quick Navigation** — scroll-to-top/bottom controls and smooth paging
+- **Static Build** — zero server-side runtime; hosted on Cloudflare Pages
+- **SEO-Ready** — structured metadata, sitemap, and `robots.txt`
+
+---
 
 ## Tech Stack
 
-- Astro
-- Vanilla JavaScript
-- HTML and CSS
-- Static JSON content in `public/`
+| Layer | Technology |
+|---|---|
+| Framework | [Astro](https://astro.build) (static output) |
+| Deployment | Cloudflare Pages |
+| Scripting | Vanilla JavaScript (ES modules) |
+| Styling | Plain CSS with custom properties |
+| Data | Static JSON (`public/data_chunk_*.json`) |
+| Testing | Node.js test scripts |
+
+---
+
+## Project Structure
+
+```
+├── src/
+│   ├── layouts/          # Shared Astro layout components
+│   └── pages/
+│       └── index.astro   # Main page template and markup
+├── public/
+│   ├── app.js / app.min.js         # Core application logic
+│   ├── navigation.js / *.min.*     # Navigation controls
+│   ├── styles.css / *.min.css      # Stylesheets
+│   ├── data_chunk_1-6.json         # Chunked name dataset (1,072 entries)
+│   ├── data_manifest.json          # Chunk index for progressive loading
+│   ├── mahakali_sahasranama_meanings.json  # Full dataset (reference)
+│   ├── translations.js             # Language toggle logic
+│   ├── sitemap.xml                 # SEO sitemap
+│   └── robots.txt                  # Crawler rules
+├── scripts/
+│   └── bump-version.js             # Version bump utility
+└── tests/
+    ├── navigation.test.js          # Navigation behaviour checks
+    └── ux-structure.test.js        # UI structure assertions
+```
+
+---
 
 ## Getting Started
 
@@ -42,6 +86,8 @@ npm install
 npm run dev
 ```
 
+Open [http://localhost:4321](http://localhost:4321) in your browser.
+
 ### Build for production
 
 ```bash
@@ -54,19 +100,33 @@ npm run build
 npm run preview
 ```
 
-## Project Structure
-
-- `src/pages/index.astro` - Main Astro page and markup
-- `public/` - Static JavaScript, CSS, images, JSON data, and site files
-- `scripts/` - Data processing and maintenance utilities
-- `tests/` - Structure and navigation checks
+---
 
 ## Data Notes
 
-- The core names dataset contains 1,072 entries
-- The site includes bilingual content in English and Hindi
-- Large data files are checked into `public/` so the site can be rebuilt and served statically
+- The dataset contains **1,072 entries** — each with a Sanskrit name, transliteration, English meaning, Hindi meaning, and a full spiritual elaboration.
+- Data is split into six chunks (`data_chunk_1.json` – `data_chunk_6.json`) indexed by `data_manifest.json`. This keeps the initial page load fast while the full ~13 MB dataset loads progressively.
+- All data files are checked into `public/` so the static build is fully self-contained and requires no external API.
+
+---
+
+## Contributing
+
+Contributions are welcome. If you notice an error in a name, meaning, or transliteration, please open an issue or submit a pull request with the correction and a brief explanation.
+
+For larger changes (design, features), please open an issue first to discuss the approach.
+
+---
+
+## Dedication
+
+This site is dedicated to GuruShreshta Maa Ādya Mahākālī and My Guru Shri Praveen RadhaKrishnan.
+
+> *"Jai Ma Adya Mahakali, Jai Kalabhairava baba , Jai Ma Krishna,*
+> *Jai Khyapa Parampara"*
+
+---
 
 ## License
 
-MIT
+[MIT](LICENSE)
