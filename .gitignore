@@ -15,6 +15,8 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
+ehthumbs.db
 
 # Logs
 *.log
@@ -28,3 +30,31 @@ dist/
 
 # Wrangler / Cloudflare local dev
 .wrangler/
+
+# oh-my-codex (internal tooling, not for public)
+.omx/
+
+# Local convenience scripts
+start-server.bat
+start-server-and-open.bat
+update-version.bat
+update-version.ps1
+
+# Working notes
+namecorrection.txt
+
+# Alternate/old READMEs
+README.mahakali.md
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OMX agent scaffolds
+AGENTS.md
+scripts/AGENTS.md
+.github/AGENTS.md
+
+# GitHub Copilot / AI agent configs
+.github/agents/
