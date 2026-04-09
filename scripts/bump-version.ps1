@@ -31,10 +31,14 @@ $newObj | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 -Path $vfile
 Write-Output "version.json updated to $newVersion ($buildDate)"
 
 # Stage and commit
-try {
-    git add public/version.json
-    git commit -m "chore: auto-increment version to $newVersion [skip version]" | Out-Null
-    Write-Output "Committed version bump to $newVersion"
-} catch {
-    Write-Warning "No commit made (maybe no changes) or git not available: $_"
+if ($env:BUMP_VERSION_COMMIT -eq 'false') {
+    Write-Output "Skipping git commit because BUMP_VERSION_COMMIT=false."
+} else {
+    try {
+        git add public/version.json
+        git commit -m "chore: auto-increment version to $newVersion [skip version]" | Out-Null
+        Write-Output "Committed version bump to $newVersion"
+    } catch {
+        Write-Warning "No commit made (maybe no changes) or git not available: $_"
+    }
 }

@@ -34,13 +34,18 @@ const newObj = {
 fs.writeFileSync(vfile, JSON.stringify(newObj, null, 2) + '\n', 'utf8');
 console.log(`version.json updated to ${newVersion} (${today})`);
 
-// commit if changed
-try {
-  execSync('git add public/version.json', { stdio: 'inherit' });
-  // commit with skip tag to avoid retriggering workflows
-  execSync(`git commit -m "chore: auto-increment version to ${newVersion} [skip version]"`, { stdio: 'inherit' });
-  console.log('Committed version bump.');
-} catch (err) {
-  // if no changes or commit failed, show message and exit 0 to avoid hook failure
-  console.log('No commit made (maybe no changes or commit failed).', err.message || '');
+const shouldCommit = process.env.BUMP_VERSION_COMMIT !== 'false';
+
+if (!shouldCommit) {
+  console.log('Skipping git commit because BUMP_VERSION_COMMIT=false.');
+} else {
+  try {
+    execSync('git add public/version.json', { stdio: 'inherit' });
+    // commit with skip tag to avoid retriggering workflows
+    execSync(`git commit -m "chore: auto-increment version to ${newVersion} [skip version]"`, { stdio: 'inherit' });
+    console.log('Committed version bump.');
+  } catch (err) {
+    // if no changes or commit failed, show message and exit 0 to avoid hook failure
+    console.log('No commit made (maybe no changes or commit failed).', err.message || '');
+  }
 }
