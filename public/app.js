@@ -327,6 +327,7 @@
       // Preserve existing elements while updating text
       const footerMantra = footerText.querySelector('.footer-mantra');
       const footerSocial = footerText.querySelector('.footer-social');
+      const footerRepo = footerText.querySelector('.footer-repo');
       const footerVersion = footerText.querySelector('.footer-version');
       const versionNumber = document.getElementById('version-number');
       const lastUpdated = document.getElementById('last-updated');
@@ -344,6 +345,10 @@
         footerSocial.innerHTML = `${connectText} `;
         if (instagramLink) footerSocial.appendChild(instagramLink);
         footerText.appendChild(footerSocial);
+      }
+
+      if (footerRepo) {
+        footerText.appendChild(footerRepo);
       }
       
       if (footerVersion) {
