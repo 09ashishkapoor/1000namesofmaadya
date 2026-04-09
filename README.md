@@ -1,66 +1,72 @@
+# Maa Ādya Mahākālī Sahasranāma
 
-> NOTICE: This repository was cleaned up — the canonical, production-ready website is now under the `site/` folder.
-> Duplicate site builds and raw exports were moved to `archive/`. See `archive/README.md` for details.
+A public Astro website for exploring the 1,072 sacred names of Maa Ādya Mahākālī with English and Hindi meanings, elaborations, and a searchable reading experience.
 
-# ॥ Maa Ādya Mahākālī Sahasranāma ॥
+## Highlights
 
-A beautiful, interactive website displaying the 1,072 sacred names of Maa Ādya Mahākālī with detailed meanings and elaborations in both English and Hindi.
+- 1,072 names with detailed English and Hindi content
+- Fast client-side search and browsing
+- Responsive layout for desktop and mobile
+- Static Astro build with all site assets served from `public/`
+- SEO-focused metadata and structured content
 
-## ✨ Features
+## Live Site
 
-- **1,072 Complete Names** - All names with comprehensive elaborations
-- **Bilingual Support** - Toggle between English and Hindi
-- **Beautiful Design** - Glassmorphism UI with divine imagery
-- **Smooth Navigation** - Quick scroll to top/bottom with elegant buttons
-- **Responsive Layout** - Works perfectly on all devices
-- **Search Functionality** - Find names easily
-- **Dark Theme** - Easy on the eyes with divine aesthetics
+Visit the deployed website at:
 
-## 🚀 Live Website
+https://1000namesofmakali.com/
 
-Visit: **https://1000namesofmaadya.pages.dev**
+## Tech Stack
 
-## 🌐 Local Development
+- Astro
+- Vanilla JavaScript
+- HTML and CSS
+- Static JSON content in `public/`
 
-1. Clone the repository:
-```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/1000namesofmaadya.git
-cd 1000namesofmaadya
-```
+## Getting Started
 
-2. Install dependencies:
+### Prerequisites
+
+- Node.js 18 or newer
+- npm
+
+### Install
+
 ```bash
 npm install
 ```
 
-3. Start the dev server:
+### Run locally
+
 ```bash
 npm run dev
 ```
 
-4. Or serve the static files directly:
+### Build for production
+
 ```bash
-python -m http.server 8080
+npm run build
 ```
 
-## 📁 Project Structure
+### Preview the production build
 
-- `index.html` - Main webpage
-- `public/` - Static assets (JS, CSS, data JSON, images)
-- `src/pages/` - Astro page templates
-- `scripts/` - Data processing and build utility scripts
-- `tests/` - Test suite
+```bash
+npm run preview
+```
 
-## 📊 Data Quality
+## Project Structure
 
-- **Total Entries**: 1,072
-- **Complete Elaborations**: 100%
-- **Bilingual Content**: English + Hindi (Devanagari)
+- `src/pages/index.astro` - Main Astro page and markup
+- `public/` - Static JavaScript, CSS, images, JSON data, and site files
+- `scripts/` - Data processing and maintenance utilities
+- `tests/` - Structure and navigation checks
 
-## 🙏 Dedication
+## Data Notes
 
-This website is dedicated to Maa Ādya Mahākālī and all her devotees seeking to understand her divine names and qualities.
+- The core names dataset contains 1,072 entries
+- The site includes bilingual content in English and Hindi
+- Large data files are checked into `public/` so the site can be rebuilt and served statically
 
-## 📝 License
+## License
 
-Created with devotion for spiritual seekers worldwide.
+MIT
