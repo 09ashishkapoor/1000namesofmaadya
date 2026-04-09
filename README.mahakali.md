@@ -1,7 +1,3 @@
-
-> NOTICE: This repository was cleaned up — the canonical, production-ready website is now under the `site/` folder.
-> Duplicate site builds and raw exports were moved to `archive/`. See `archive/README.md` for details.
-
 # ॥ Maa Ādya Mahākālī Sahasranāma ॥
 
 A beautiful, interactive website displaying the 1,072 sacred names of Maa Ādya Mahākālī with detailed meanings and elaborations in both English and Hindi.
@@ -18,44 +14,42 @@ A beautiful, interactive website displaying the 1,072 sacred names of Maa Ādya 
 
 ## 🚀 Live Website
 
-Visit: **https://1000namesofmaadya.pages.dev**
+Visit: **https://09ashishkapoor.github.io/1000namesofmaadya/**
+
+## 📁 Files
+
+- `index.html` - Main webpage
+- `app.js` - Application logic and data loading
+- `styles.css` - Main styling
+- `navigation.js` - Navigation controls
+- `navigation.css` - Navigation styling
+- `mahakali_sahasranama_meanings.json` - Complete dataset (1,072 names)
+- `MaaAdyaKali_5.png` - Divine background image
 
 ## 🌐 Local Development
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/1000namesofmaadya.git
+git clone https://github.com/09ashishkapoor/1000namesofmaadya.git
 cd 1000namesofmaadya
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the dev server:
-```bash
-npm run dev
-```
-
-4. Or serve the static files directly:
+2. Start a local server:
 ```bash
 python -m http.server 8080
 ```
 
-## 📁 Project Structure
-
-- `index.html` - Main webpage
-- `public/` - Static assets (JS, CSS, data JSON, images)
-- `src/pages/` - Astro page templates
-- `scripts/` - Data processing and build utility scripts
-- `tests/` - Test suite
+3. Open in browser:
+```
+http://localhost:8010
+```
 
 ## 📊 Data Quality
 
 - **Total Entries**: 1,072
 - **Complete Elaborations**: 100%
 - **Bilingual Content**: English + Hindi (Devanagari)
+- **JSON Size**: ~13 MB (comprehensive elaborations)
 
 ## 🙏 Dedication
 
