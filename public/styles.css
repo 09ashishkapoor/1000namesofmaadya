@@ -1904,6 +1904,13 @@ body::after {
   }
 }
 
+mark {
+  background: none;
+  color: var(--color-crimson);
+
+  text-shadow: 0 0 6px rgba(220, 20, 60, 0.4);
+}
+
 /* ============================================
    PRINT STYLES
    ============================================ */

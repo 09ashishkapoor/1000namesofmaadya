@@ -616,7 +616,7 @@ function versionedAsset(path) {
     </script>
     <script src={versionedAsset('/translations.js')} defer data-cfasync="false" is:inline></script>
     <script src={versionedAsset('/navigation.js')} defer data-cfasync="false" is:inline></script>
-    <script src={versionedAsset('/app.js')} defer data-cfasync="false" is:inline></script>
+    <script type="module" src={versionedAsset('/app.js')} defer data-cfasync="false" is:inline></script>
 
     <!-- Version Number and Last Updated Loader -->
     <script is:inline>

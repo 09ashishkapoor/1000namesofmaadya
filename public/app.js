@@ -2,6 +2,7 @@
  * Ādya Mahākālī Sahasranāma - Pure Vanilla JS Application
  * Mobile-first, lightweight, fast
  */
+import { searchEntries } from "./search.js";
 
 (function() {
   'use strict';
@@ -692,6 +693,81 @@
       }
     }
   }
+
+  function highlight(text, query) {
+    if (!text || !query) return text;
+
+    const tokens = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+    let result = text;
+
+    for (const token of tokens) {
+      if (!token) continue;
+
+      // 1. exact word
+      let regex = new RegExp(`\\b(${token})\\b`, 'gi');
+      if (regex.test(result)) {
+        result = result.replace(regex, '<mark>$1</mark>');
+        continue;
+      }
+
+      // 2. word start (but only highlight the token itself)
+      regex = new RegExp(`\\b(${token})`, 'gi');
+      if (regex.test(result)) {
+        result = result.replace(regex, '<mark>$1</mark>');
+        continue;
+      }
+
+      // 3. fallback contains (ONLY if token is long enough)
+      if (token.length >= 3) {
+        regex = new RegExp(`(${token})`, 'gi');
+        result = result.replace(regex, '<mark>$1</mark>');
+      }
+    }
+
+    return result;
+  }
+
+  function highlightFuzzy(text, query) {
+    if (!text || !query) return text;
+
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+
+    let t = 0;
+    let q = 0;
+
+    const matchIndexes = new Set();
+
+    while (t < lowerText.length && q < lowerQuery.length) {
+      if (lowerText[t] === lowerQuery[q]) {
+        matchIndexes.add(t);
+        q++;
+      }
+      t++;
+    }
+
+    // if not all query chars matched, fallback to normal highlight
+    if (q !== lowerQuery.length) {
+      return highlight(text, query); // your existing exact highlight
+    }
+
+    // rebuild string with <mark>
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+      if (matchIndexes.has(i)) {
+        result += `<mark>${text[i]}</mark>`;
+      } else {
+        result += text[i];
+      }
+    }
+
+    return result;
+  }
   
   function createNameCard(entry, index) {
     const card = document.createElement('div');
@@ -699,9 +775,21 @@
     card.style.animationDelay = `${(index % state.pageSize) * 0.05}s`;
     
     const isExpanded = state.expandedItems.has(entry.index);
-    const name = state.language === 'english' ? (entry.english_name || '') : (entry.hindi_name || '');
-    const oneLine = state.language === 'english' ? (entry.english_one_line || '') : (entry.hindi_one_line || '');
-    const elaboration = state.language === 'english' ? (entry.english_elaboration || '') : (entry.hindi_elaboration || '');
+    const rawName = state.language === 'english'
+      ? (entry.english_name || '')
+      : (entry.hindi_name || '');
+
+    const rawOneLine = state.language === 'english'
+      ? (entry.english_one_line || '')
+      : (entry.hindi_one_line || '');
+
+    const rawElaboration = state.language === 'english'
+      ? (entry.english_elaboration || '')
+      : (entry.hindi_elaboration || '');
+
+    const name = highlightFuzzy(rawName, state.searchQuery);
+    const oneLine = highlight(rawOneLine, state.searchQuery);
+    const elaboration = highlight(rawElaboration, state.searchQuery);
     const detailMarkup = [oneLine ? `<p class="card-meaning">${oneLine}</p>` : '', elaboration ? `<div class="elaboration-copy">${elaboration}</div>` : '']
       .filter(Boolean)
       .join('');
@@ -779,26 +867,11 @@
   }
   
   function filterData() {
-    if (!state.searchQuery) {
-      state.filteredData = [...state.data];
-      return;
-    }
-    
-    state.filteredData = state.data.filter(entry => {
-      const searchFields = [
-        entry.english_name,
-        entry.english_one_line,
-        entry.english_elaboration,
-        entry.hindi_name,
-        entry.hindi_one_line,
-        entry.hindi_elaboration,
-        entry.index.toString()
-      ];
-      
-      return searchFields.some(field => 
-        field && field.toLowerCase().includes(state.searchQuery)
-      );
-    });
+    state.filteredData = searchEntries(
+      state.data,
+      state.searchQuery,
+      state.language
+    );
   }
   
   function handleLanguageChange(e) {
