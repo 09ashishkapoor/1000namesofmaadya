@@ -9,7 +9,7 @@ if (!fs.existsSync(vfile)) {
   process.exit(1);
 }
 
-const raw = fs.readFileSync(vfile, 'utf8');
+const raw = fs.readFileSync(vfile, 'utf8').replace(/^\uFEFF/, '');
 let obj;
 try {
   obj = JSON.parse(raw);
