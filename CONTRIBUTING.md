@@ -3,11 +3,10 @@
 Thanks for helping improve this site. A few rules and tips to avoid accidental breakage:
 
 1. Canonical deploy branch
-   - `main` is the canonical deploy branch. Cloudflare Pages publishes from `main`.
+   - `main` is the canonical branch for site changes.
 
 2. Make changes via pull requests
    - Create a feature branch and open a PR against `main` for review.
-   - The repository includes an auto-version workflow that runs on pushes to `main`.
 
 3. Project structure
    - `src/pages/index.astro` is the Astro page template (source of truth for HTML).
@@ -19,7 +18,7 @@ Thanks for helping improve this site. A few rules and tips to avoid accidental b
    - Keep raw exports and large intermediate files out of the repo. Do not commit very large binaries to the main history.
 
 5. If the site breaks
-   - Open a PR with the fix and reference the failing deployment logs.
+   - Open a PR with the fix and reference the failing build output or browser console errors.
    - If urgent, contact a repository maintainer to push a hotfix branch/merge.
 
 Thanks — small, deliberate changes keep the site stable for everyone.

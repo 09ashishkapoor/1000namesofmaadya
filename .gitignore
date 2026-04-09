@@ -50,6 +50,16 @@ README.mahakali.md
 .env
 .env.*
 !.env.example
+*.local
+.envrc
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.csr
 
 # OMX agent scaffolds
 AGENTS.md
@@ -58,3 +68,16 @@ scripts/AGENTS.md
 
 # GitHub Copilot / AI agent configs
 .github/agents/
+
+# Local scratch and temp files
+.history/
+.cache/
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.orig
+*.rej
+*.pid
+*.code-workspace

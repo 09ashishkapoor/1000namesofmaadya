@@ -57,46 +57,21 @@ Five key benefits with icons:
 - Mobile-optimized with responsive CSS
 - Beautiful card-based design with borders and backgrounds
 
-### 4. Automatic Version Number System ✅
+### 4. Version Metadata ✅
 **Location:** Footer section
 
 **Components:**
 
 #### version.json File
-- Stores current version number (starting at 1.1)
-- Includes build date
-- Format: `{"version": "1.1", "buildDate": "2025-01-27"}`
+- Stores current version number and build date
+- Loaded by the site at runtime for display in the footer
+- Can be updated manually when releasing a new build
 
 #### JavaScript Version Loader
 - Fetches version.json on page load
-- Displays version in footer as "Version V1.21.0"
-- Falls back to default V1.21.0 if fetch fails
+- Displays the version in the footer
+- Falls back to a default version if fetch fails
 - Located in footer with monospace font styling
-
-#### GitHub Action for Auto-Increment
-**File:** `.github/workflows/auto-version-increment.yml`
-
-**How It Works:**
-1. Triggers on push to `main` branch
-2. Ignores commits that only change `version.json` (prevents infinite loops)
-3. Ignores documentation-only changes
-4. Reads current version from `version.json`
-5. Increments minor version (e.g., 1.1 → 1.2)
-6. Updates `version.json` with new version and current date
-7. Commits and pushes the update back to repository
-8. Uses `[skip version]` tag to prevent triggering itself
-
-**Features:**
-- Prevents infinite loops by ignoring version.json changes
-- Only increments on actual code/content changes
-- Automatically updates build date
-- Uses semantic versioning (major.minor)
-
-**To Skip Version Increment:**
-Add `[skip version]` to your commit message:
-```bash
-git commit -m "Update documentation [skip version]"
-```
 
 ## File Changes Summary
 
@@ -115,12 +90,8 @@ git commit -m "Update documentation [skip version]"
 ### New Files Created:
 1. **version.json**
    - Stores version information
-   - Current version: 1.1
 
-2. **.github/workflows/auto-version-increment.yml**
-   - GitHub Action for automatic version incrementing
-
-3. **NEW_FEATURES.md** (this file)
+2. **NEW_FEATURES.md** (this file)
    - Documentation of new features
 
 ## Testing Checklist
@@ -132,25 +103,18 @@ git commit -m "Update documentation [skip version]"
 - [x] Version number displays in footer
 - [x] Version number loads from version.json
 - [x] Site name appears in browser tab
-- [x] GitHub Action workflow file created
+- [x] Version metadata displays correctly
 
 ## Next Steps
 
-1. **Test Version Increment:**
-   - Make a small change to any code file
-   - Commit and push to `main` branch
-   - Verify that GitHub Action increments version automatically
-   - Check that version.json is updated
-
-2. **Verify on Production:**
+1. **Verify on Production:**
    - Deploy to production
    - Check that version number displays correctly
    - Verify About section is accessible and readable
 
-3. **Monitor:**
-   - Check GitHub Actions tab for workflow runs
-   - Verify version increments are working as expected
-   - Monitor for any issues with the auto-increment system
+2. **Monitor:**
+   - Confirm the footer version matches the current release metadata
+   - Check for any broken asset or content references
 
 ## Notes
 
