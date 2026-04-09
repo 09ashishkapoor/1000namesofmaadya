@@ -4,7 +4,7 @@
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$vfile = Join-Path $repoRoot 'version.json'
+$vfile = Join-Path $repoRoot 'public/version.json'
 
 if (-not (Test-Path $vfile)) {
     Write-Error "version.json not found at $vfile"
@@ -32,7 +32,7 @@ Write-Output "version.json updated to $newVersion ($buildDate)"
 
 # Stage and commit
 try {
-    git add version.json
+    git add public/version.json
     git commit -m "chore: auto-increment version to $newVersion [skip version]" | Out-Null
     Write-Output "Committed version bump to $newVersion"
 } catch {

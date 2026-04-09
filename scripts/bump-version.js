@@ -2,7 +2,7 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const vfile = path.join(__dirname, '..', 'version.json');
+const vfile = path.join(__dirname, '..', 'public', 'version.json');
 
 if (!fs.existsSync(vfile)) {
   console.error('version.json not found.');
@@ -36,7 +36,7 @@ console.log(`version.json updated to ${newVersion} (${today})`);
 
 // commit if changed
 try {
-  execSync('git add version.json', { stdio: 'inherit' });
+  execSync('git add public/version.json', { stdio: 'inherit' });
   // commit with skip tag to avoid retriggering workflows
   execSync(`git commit -m "chore: auto-increment version to ${newVersion} [skip version]"`, { stdio: 'inherit' });
   console.log('Committed version bump.');
