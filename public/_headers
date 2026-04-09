@@ -8,26 +8,16 @@
   Cache-Control: public, max-age=2592000, immutable
 
 # Cache rules for static assets to improve CDN performance
-# Minified files with long cache times
 /site.min.css
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /styles.min.css
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
-/styles.css
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
 /navigation.min.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /app.min.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/navigation.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/app.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /translations.js
