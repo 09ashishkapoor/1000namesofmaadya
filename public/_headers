@@ -14,7 +14,13 @@
 /styles.min.css
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+/navigation.js
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 /navigation.min.js
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/app.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /app.min.js
