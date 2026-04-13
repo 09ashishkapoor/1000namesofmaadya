@@ -1,9 +1,26 @@
 ---
 // Adya Mahakali Sahasranama - Astro page
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 const assetVersion = Date.now().toString(36);
 function versionedAsset(path) {
     return `${path}?v=${assetVersion}`;
 }
+
+const firstChunkEntries = JSON.parse(
+    readFileSync(join(process.cwd(), 'public', 'data_chunk_1.json'), 'utf8')
+);
+const dataManifest = JSON.parse(
+    readFileSync(join(process.cwd(), 'public', 'data_manifest.json'), 'utf8')
+);
+const firstPageEntries = firstChunkEntries.slice(0, 11);
+const initialNamesPayload = {
+    entries: firstPageEntries,
+    totalEntries: dataManifest.total,
+    totalChunks: dataManifest.chunks,
+    chunkSize: dataManifest.chunk_size
+};
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +55,31 @@ function versionedAsset(path) {
                 };
             }
         </script>
+    <script is:inline>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const langParam = params.get('lang');
+            let lang = 'english';
+
+            if (langParam === 'hi' || langParam === 'hindi') {
+                lang = 'hindi';
+            } else if (langParam === 'en' || langParam === 'english') {
+                lang = 'english';
+            } else {
+                try {
+                    const stored = localStorage.getItem('preferredLanguage');
+                    if (stored === 'hindi' || stored === 'english') {
+                        lang = stored;
+                    }
+                } catch (error) {
+                    // Ignore storage access issues during first paint.
+                }
+            }
+
+            document.documentElement.dataset.uiLang = lang;
+            document.documentElement.lang = lang === 'hindi' ? 'hi' : 'en';
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Description (Optimized for "Adya Mahakali 1000 Names" search query) -->
@@ -317,6 +359,14 @@ function versionedAsset(path) {
     @media(min-width:641px) and (max-width:1024px){.nav-button{width:54px;height:54px}}
     .nav-button{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;animation:fadeScaleIn 0.3s cubic-bezier(0.4,0,0.2,1)}
     @keyframes fadeScaleIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+    .language-copy--hindi{display:none}
+    .language-copy--block{display:block}
+    html[data-ui-lang="hindi"] .language-copy--english{display:none !important}
+    html[data-ui-lang="hindi"] .language-copy--hindi{display:inline !important}
+    html[data-ui-lang="hindi"] .language-copy--block.language-copy--hindi{display:block !important}
+    html[data-ui-lang="english"] .language-copy--english{display:inline !important}
+    html[data-ui-lang="english"] .language-copy--block.language-copy--english{display:block !important}
+    html[data-ui-lang="english"] .language-copy--hindi{display:none !important}
 
     /* Pulse animation for first-time visitors */
     @keyframes languagePulse{
@@ -438,7 +488,7 @@ function versionedAsset(path) {
             </div>
 
             <!-- Loading State -->
-            <div id="loading-state" class="loading-state">
+            <div id="loading-state" class="loading-state hidden">
                 <div class="loader"></div>
                 <p>Loading sacred names...</p>
             </div>
@@ -451,12 +501,55 @@ function versionedAsset(path) {
             </div>
 
             <!-- Names Grid -->
-            <div id="names-grid" class="names-grid"></div>
+            <div id="names-grid" class="names-grid" data-prerendered="true">
+                {firstPageEntries.map((entry, index) => (
+                    <div
+                        class="name-card visible"
+                        data-prerendered="true"
+                        style={`animation-delay: ${(index % 11) * 0.05}s`}
+                    >
+                        <div class="card-header">
+                            <span class="card-index">#{entry.index}</span>
+                        </div>
+
+                        <h3 class="card-name">
+                            <span class="language-copy language-copy--english">{entry.english_name}</span>
+                            <span class="language-copy language-copy--hindi">{entry.hindi_name}</span>
+                        </h3>
+
+                        <button class="toggle-btn" data-index={entry.index} data-prerendered="true" type="button">
+                            <span class="toggle-btn-label">
+                                <span class="language-copy language-copy--english">Reveal Elaboration</span>
+                                <span class="language-copy language-copy--hindi">विस्तार से देखें</span>
+                            </span>
+                            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+
+                        <div class="elaboration" data-index={entry.index}>
+                            <div class="elaboration-content">
+                                <p class="card-meaning">
+                                    <span class="language-copy language-copy--english">{entry.english_one_line}</span>
+                                    <span class="language-copy language-copy--hindi">{entry.hindi_one_line}</span>
+                                </p>
+                                <div class="elaboration-copy">
+                                    <span class="language-copy language-copy--english language-copy--block">{entry.english_elaboration}</span>
+                                    <span class="language-copy language-copy--hindi language-copy--block">{entry.hindi_elaboration}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
             <div class="load-more-container reading-pagination">
                 <button id="prev-page-btn" class="btn-secondary hidden" type="button">Previous 11</button>
-                <div id="reading-progress" class="reading-progress" aria-live="polite"></div>
-                <button id="next-page-btn" class="btn-primary hidden" type="button">Next 11</button>
+                <div id="reading-progress" class="reading-progress" aria-live="polite">
+                    <span class="language-copy language-copy--english">Showing <strong>1</strong>-<strong>11</strong> of <strong>{dataManifest.total}</strong></span>
+                    <span class="language-copy language-copy--hindi">दिखा रहे हैं <strong>1</strong>-<strong>11</strong> / <strong>{dataManifest.total}</strong></span>
+                </div>
+                <button id="next-page-btn" class="btn-primary" type="button">Next 11</button>
             </div>
 
             <!-- eBook Download Promo Section -->
@@ -611,8 +704,9 @@ function versionedAsset(path) {
     </footer>
 
     <!-- Scripts: Deferred to avoid render-blocking -->
-    <script is:inline define:vars={{ assetVersion }}>
+    <script is:inline define:vars={{ assetVersion, initialNamesPayload }}>
         window.__ASSET_VERSION__ = assetVersion;
+        window.__INITIAL_NAMES_PAYLOAD__ = initialNamesPayload;
     </script>
     <script src={versionedAsset('/translations.js')} defer data-cfasync="false" is:inline></script>
     <script src={versionedAsset('/navigation.js')} defer data-cfasync="false" is:inline></script>

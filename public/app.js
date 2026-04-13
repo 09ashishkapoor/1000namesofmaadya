@@ -2,7 +2,6 @@
  * Ādya Mahākālī Sahasranāma - Pure Vanilla JS Application
  * Mobile-first, lightweight, fast
  */
-import { searchEntries } from "./search.js";
 
 (function() {
   'use strict';
@@ -10,6 +9,13 @@ import { searchEntries } from "./search.js";
   const assetVersion = (typeof window !== 'undefined' && typeof window.__ASSET_VERSION__ === 'string')
     ? window.__ASSET_VERSION__.trim()
     : '';
+  const initialNamesPayload = (typeof window !== 'undefined' && window.__INITIAL_NAMES_PAYLOAD__)
+    ? window.__INITIAL_NAMES_PAYLOAD__
+    : null;
+  const initialEntries = Array.isArray(initialNamesPayload?.entries) ? initialNamesPayload.entries : [];
+  let searchEntriesFn = null;
+  let searchModulePromise = null;
+  let fullDataLoadPromise = null;
 
   function getAssetUrl(path) {
     if (!assetVersion) return path;
@@ -36,21 +42,28 @@ import { searchEntries } from "./search.js";
       return false;
     }
   }
+
+  function getInitialLanguagePreference() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+    if (langParam === 'hi' || langParam === 'hindi') return 'hindi';
+    if (langParam === 'en' || langParam === 'english') return 'english';
+    return getFromStorage('preferredLanguage', 'english');
+  }
+
+  function applyDocumentLanguage(lang) {
+    document.documentElement.lang = lang === 'hindi' ? 'hi' : 'en';
+    document.documentElement.dataset.uiLang = lang;
+  }
   
   // State
   const state = {
-    data: [],
-    filteredData: [],
-    displayedData: [],
+    data: [...initialEntries],
+    filteredData: [...initialEntries],
+    displayedData: initialEntries.slice(0, 11),
     currentPage: 0,
     pageSize: 11,
-    language: (function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const langParam = urlParams.get('lang');
-      if (langParam === 'hi' || langParam === 'hindi') return 'hindi';
-      if (langParam === 'en' || langParam === 'english') return 'english';
-      return getFromStorage('preferredLanguage', 'english');
-    })(),
+    language: getInitialLanguagePreference(),
     searchQuery: (function() {
       const urlParams = new URLSearchParams(window.location.search);
       return (urlParams.get('q') || '').toLowerCase().trim();
@@ -59,8 +72,13 @@ import { searchEntries } from "./search.js";
     searchPanelOpen: false,
     // Lazy loading
     loadedChunks: new Set(),
-    totalChunks: 0,
-    dataLoaded: false
+    totalChunks: Number(initialNamesPayload?.totalChunks || 0),
+    chunkSize: Number(initialNamesPayload?.chunkSize || 0),
+    totalEntries: Number(initialNamesPayload?.totalEntries || initialEntries.length || 0),
+    dataLoaded: initialEntries.length > 0,
+    fullDataReady: false,
+    fullDataRequested: false,
+    usePrerenderedPageOne: initialEntries.length > 0
   };
   
   // DOM Elements
@@ -71,21 +89,37 @@ import { searchEntries } from "./search.js";
     initializeLocalization();
     cacheDOMElements();
     setupEventListeners();
-    // Defer data loading to requestIdleCallback to avoid blocking critical rendering
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        loadData();
-        console.log('✅ App initialized - Data loading started');
-      }, { timeout: 2000 }); // Timeout ensures loading starts even if idle callback doesn't fire
+
+    if (state.data.length > 0) {
+      elements.loadingState.classList.add('hidden');
+      renderNames();
+      updateStats();
+      console.log('✅ App initialized - Adopted prerendered first page');
+
+      if (state.searchQuery) {
+        setSearchPanelOpen(true, false);
+        void handleSearchDebounced();
+      }
     } else {
-      // Fallback for browsers without requestIdleCallback
-      setTimeout(loadData, 0);
-      console.log('✅ App initialized - Data loading started (fallback)');
+      // Fallback path when bootstrap data is unavailable
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          void loadData();
+          console.log('✅ App initialized - Data loading started');
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(() => {
+          void loadData();
+        }, 0);
+        console.log('✅ App initialized - Data loading started (fallback)');
+      }
     }
   }
   
   // Initialize Localization
   function initializeLocalization() {
+    applyDocumentLanguage(state.language);
+
     // Set language selectors to match stored preference
     const languageSelect = document.getElementById('language-select');
     if (languageSelect) {
@@ -114,7 +148,7 @@ import { searchEntries } from "./search.js";
     const lang = state.language;
     
     // Update HTML lang attribute
-    document.documentElement.lang = lang === 'hindi' ? 'hi' : 'en';
+    applyDocumentLanguage(lang);
     
     // Update page title
     const title = getTranslation(lang, 'seo.title');
@@ -376,11 +410,123 @@ import { searchEntries } from "./search.js";
     elements.errorMessage = document.getElementById('error-message');
     elements.statsDisplay = document.getElementById('stats-display');
   }
+
+  function getTotalAvailableCount() {
+    if (state.searchQuery) return state.filteredData.length;
+    return state.fullDataReady ? state.filteredData.length : (state.totalEntries || state.filteredData.length);
+  }
+
+  function mergeEntries(existingEntries, incomingEntries) {
+    const byIndex = new Map();
+    [...existingEntries, ...incomingEntries].forEach((entry) => {
+      if (entry && typeof entry.index === 'number') {
+        byIndex.set(entry.index, entry);
+      }
+    });
+
+    return Array.from(byIndex.values()).sort((a, b) => a.index - b.index);
+  }
+
+  async function ensureSearchModule() {
+    if (searchEntriesFn) return searchEntriesFn;
+    if (!searchModulePromise) {
+      searchModulePromise = import(getAssetUrl('/search.js'))
+        .then((mod) => {
+          searchEntriesFn = mod.searchEntries;
+          return searchEntriesFn;
+        });
+    }
+    return searchModulePromise;
+  }
+
+  async function ensureManifestMetadata() {
+    if (state.totalChunks && state.chunkSize) {
+      return;
+    }
+
+    const manifestResponse = await fetch(getAssetUrl('/data_manifest.json'));
+    if (!manifestResponse.ok) throw new Error('Failed to load manifest');
+
+    const manifest = await manifestResponse.json();
+    state.totalEntries = manifest.total || state.totalEntries;
+    state.totalChunks = manifest.chunks || state.totalChunks;
+    state.chunkSize = manifest.chunk_size || state.chunkSize;
+  }
+
+  async function ensureChunkLoaded(chunkNum) {
+    if (state.loadedChunks.has(chunkNum)) return;
+
+    await ensureManifestMetadata();
+    const response = await fetch(getAssetUrl(`/data_chunk_${chunkNum}.json`));
+    if (!response.ok) throw new Error(`Failed to load chunk ${chunkNum}`);
+
+    const chunkData = await response.json();
+    state.data = mergeEntries(state.data, chunkData);
+    if (!state.searchQuery) {
+      state.filteredData = [...state.data];
+    }
+    state.loadedChunks.add(chunkNum);
+  }
+
+  async function ensureAllDataLoaded() {
+    if (state.fullDataReady) return;
+    if (!fullDataLoadPromise) {
+      state.fullDataRequested = true;
+      fullDataLoadPromise = (async () => {
+        await ensureManifestMetadata();
+        const chunkNumbers = Array.from({ length: state.totalChunks }, (_, idx) => idx + 1);
+        await Promise.all(chunkNumbers.map((chunkNum) => ensureChunkLoaded(chunkNum)));
+        state.filteredData = [...state.data];
+        state.dataLoaded = true;
+        state.fullDataReady = true;
+      })();
+    }
+
+    await fullDataLoadPromise;
+  }
+
+  async function ensurePageData(pageIndex) {
+    const startIndex = pageIndex * state.pageSize;
+    if (state.data.length > startIndex) return;
+
+    const safeChunkSize = state.chunkSize || 200;
+    const requiredChunk = Math.floor(startIndex / safeChunkSize) + 1;
+    await ensureChunkLoaded(requiredChunk);
+    state.dataLoaded = true;
+  }
+
+  function setProgressMessage(message) {
+    if (elements.readingProgress) {
+      elements.readingProgress.textContent = message;
+    }
+  }
+
+  function setStatsMessage(message) {
+    if (elements.statsDisplay) {
+      elements.statsDisplay.textContent = message;
+    }
+  }
+
+  async function prepareSearchExperience() {
+    setStatsMessage(state.language === 'hindi' ? 'खोज तैयार की जा रही है…' : 'Preparing search…');
+    await Promise.all([ensureSearchModule(), ensureAllDataLoaded()]);
+  }
+
+  function adoptPrerenderedFirstPage() {
+    state.displayedData = state.filteredData.slice(0, state.pageSize);
+    const toggleButtons = elements.namesGrid.querySelectorAll('.toggle-btn[data-prerendered="true"]');
+    toggleButtons.forEach((button) => {
+      if (button.dataset.bound === 'true') return;
+      const index = Number(button.dataset.index);
+      button.addEventListener('click', () => toggleElaboration(index));
+      button.dataset.bound = 'true';
+    });
+  }
   
   function setupEventListeners() {
     // Search — provide immediate UI feedback, run expensive filtering debounced
     const debouncedFilter = debounce(() => {
-      handleSearchDebounced();
+      void handleSearchDebounced();
     }, 100);
 
     if (elements.searchInput) {
@@ -499,7 +645,18 @@ import { searchEntries } from "./search.js";
   function toggleSearchPanel() {
     if (isDesktopViewport()) return;
 
-    setSearchPanelOpen(!state.searchPanelOpen, !state.searchPanelOpen);
+    const willOpen = !state.searchPanelOpen;
+    setSearchPanelOpen(willOpen, willOpen);
+    if (willOpen && !state.fullDataRequested) {
+      void prepareSearchExperience()
+        .then(() => {
+          updateStats();
+        })
+        .catch((error) => {
+          console.error('Error preparing search:', error);
+          showError(error.message);
+        });
+    }
   }
 
   function scrollToResultsTop() {
@@ -512,7 +669,7 @@ import { searchEntries } from "./search.js";
     if (!elements.prevPageBtn || !elements.nextPageBtn) return;
 
     const hasPreviousPage = state.currentPage > 0;
-    const hasNextPage = ((state.currentPage + 1) * state.pageSize) < state.filteredData.length;
+    const hasNextPage = ((state.currentPage + 1) * state.pageSize) < getTotalAvailableCount();
 
     elements.prevPageBtn.classList.toggle('hidden', !hasPreviousPage);
     elements.nextPageBtn.classList.toggle('hidden', !hasNextPage);
@@ -525,7 +682,7 @@ import { searchEntries } from "./search.js";
   function updateReadingProgress() {
     if (!elements.readingProgress) return;
 
-    const total = state.filteredData.length;
+    const total = getTotalAvailableCount();
     if (!total || !state.displayedData.length) {
       elements.readingProgress.innerHTML = '';
       return;
@@ -549,10 +706,28 @@ import { searchEntries } from "./search.js";
     scrollToResultsTop();
   }
 
-  function goToNextPage() {
-    if (((state.currentPage + 1) * state.pageSize) >= state.filteredData.length) return;
+  async function goToNextPage() {
+    if (((state.currentPage + 1) * state.pageSize) >= getTotalAvailableCount()) return;
 
-    state.currentPage += 1;
+    const nextPage = state.currentPage + 1;
+    const nextStartIndex = nextPage * state.pageSize;
+
+    if (!state.searchQuery && !state.fullDataReady && state.data.length <= nextStartIndex) {
+      setProgressMessage(state.language === 'hindi' ? 'अगले नाम लोड हो रहे हैं…' : 'Loading next names…');
+      elements.nextPageBtn.disabled = true;
+      try {
+        await ensurePageData(nextPage);
+      } catch (error) {
+        console.error('Error loading next page:', error);
+        showError(error.message);
+        updateReadingProgress();
+        elements.nextPageBtn.disabled = false;
+        return;
+      }
+    }
+
+    state.usePrerenderedPageOne = false;
+    state.currentPage = nextPage;
     renderNames();
     scrollToResultsTop();
   }
@@ -562,82 +737,29 @@ import { searchEntries } from "./search.js";
     try {
       elements.loadingState.classList.remove('hidden');
       elements.errorState.classList.add('hidden');
-      
-      // Load manifest first (tiny file)
-      const manifestResponse = await fetch(getAssetUrl('/data_manifest.json'));
-      if (!manifestResponse.ok) throw new Error('Failed to load manifest');
-      
-      const manifest = await manifestResponse.json();
-      state.totalChunks = manifest.chunks;
-      
-      // Load only first chunk initially (fast!)
-      await loadChunk(1);
-      
+
+      await ensureChunkLoaded(1);
       state.dataLoaded = true;
+      state.totalEntries = Math.max(state.totalEntries, state.data.length);
+      state.filteredData = [...state.data];
       renderNames();
       updateStats();
-      
       elements.loadingState.classList.add('hidden');
-      
-      // Preload remaining chunks in background - Defer to avoid TBT
-      // Wait for main thread to settle or user interaction
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => preloadRemainingChunks());
-      } else {
-        setTimeout(preloadRemainingChunks, 2000);
-      }
-      
     } catch (error) {
       showError(error.message);
       elements.loadingState.classList.add('hidden');
     }
   }
   
-  // Load a specific chunk
-  async function loadChunk(chunkNum) {
-    if (state.loadedChunks.has(chunkNum)) return;
-    
-    try {
-      const response = await fetch(getAssetUrl(`/data_chunk_${chunkNum}.json`));
-      if (!response.ok) throw new Error(`Failed to load chunk ${chunkNum}`);
-      
-      const chunkData = await response.json();
-      state.data = [...state.data, ...chunkData];
-      state.filteredData = [...state.data];
-      state.loadedChunks.add(chunkNum);
-      
-      console.log(`✅ Loaded chunk ${chunkNum}/${state.totalChunks} (${chunkData.length} names)`);
-    } catch (error) {
-      console.error(`Error loading chunk ${chunkNum}:`, error);
-    }
-  }
-  
-  // Preload remaining chunks in background (non-blocking)
-  async function preloadRemainingChunks() {
-    // Start chunk fetches in a staggered parallel fashion to avoid
-    // blocking the main thread and to make better use of network.
-    const preloadPromises = [];
-    for (let i = 2; i <= state.totalChunks; i++) {
-      // Stagger start times to avoid a burst of simultaneous requests
-      const delay = (i - 2) * 120; // 120ms between starts
-      const p = new Promise(resolve => {
-        setTimeout(async () => {
-          await loadChunk(i);
-          // Update display occasionally while preloading
-          if (state.dataLoaded && state.searchQuery === '') updateStats();
-          resolve();
-        }, delay);
-      });
-      preloadPromises.push(p);
-    }
-
-    await Promise.allSettled(preloadPromises);
-    console.log('✅ All chunks loaded');
-  }
-  
   // Render Names - Optimized to reduce blocking time
   function renderNames() {
     try {
+      if (state.usePrerenderedPageOne && state.currentPage === 0 && !state.searchQuery && elements.namesGrid?.dataset.prerendered === 'true') {
+        adoptPrerenderedFirstPage();
+        updatePagination();
+        return;
+      }
+
       const start = state.currentPage * state.pageSize;
       const end = start + state.pageSize;
       state.displayedData = state.filteredData.slice(start, end);
@@ -722,6 +844,15 @@ import { searchEntries } from "./search.js";
     return result;
   }
 
+  function getToggleButtonLabelMarkup(isExpanded) {
+    const englishKey = isExpanded ? 'names.hideButton' : 'names.revealButton';
+    const hindiKey = englishKey;
+    return `
+      <span class="language-copy language-copy--english">${getTranslation('english', englishKey)}</span>
+      <span class="language-copy language-copy--hindi">${getTranslation('hindi', hindiKey)}</span>
+    `;
+  }
+
   function highlightFuzzy(text, query) {
     if (!text || !query) return text;
 
@@ -792,7 +923,7 @@ import { searchEntries } from "./search.js";
       <h3 class="card-name">${name}</h3>
 
       <button class="toggle-btn" data-index="${entry.index}">
-        <span>${isExpanded ? getTranslation(state.language, 'names.hideButton') : getTranslation(state.language, 'names.revealButton')}</span>
+        <span class="toggle-btn-label">${getToggleButtonLabelMarkup(isExpanded)}</span>
         <svg class="chevron ${isExpanded ? 'rotated' : ''}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -821,16 +952,18 @@ import { searchEntries } from "./search.js";
     const elaboration = document.querySelector(`.elaboration[data-index="${index}"]`);
     const toggleBtn = document.querySelector(`.toggle-btn[data-index="${index}"]`);
     const chevron = toggleBtn.querySelector('.chevron');
-    const span = toggleBtn.querySelector('span');
+    const label = toggleBtn.querySelector('.toggle-btn-label');
     
     if (state.expandedItems.has(index)) {
       elaboration.classList.add('expanded');
       chevron.classList.add('rotated');
-      span.textContent = getTranslation(state.language, 'names.hideButton');
     } else {
       elaboration.classList.remove('expanded');
       chevron.classList.remove('rotated');
-      span.textContent = getTranslation(state.language, 'names.revealButton');
+    }
+
+    if (label) {
+      label.innerHTML = getToggleButtonLabelMarkup(state.expandedItems.has(index));
     }
   }
   
@@ -845,18 +978,31 @@ import { searchEntries } from "./search.js";
   
   // Search & Filter
   // Called after short debounce to do heavier work
-  function handleSearchDebounced() {
+  async function handleSearchDebounced() {
     state.currentPage = 0;
     if (state.searchQuery) {
       setSearchPanelOpen(true, false);
+      try {
+        await prepareSearchExperience();
+      } catch (error) {
+        console.error('Error loading deferred search experience:', error);
+        showError(error.message);
+        return;
+      }
     }
     // Do filtering and rendering — these are the heavier steps
-    filterData();
+    await filterData();
     renderNames();
     updateStats();
   }
   
-  function filterData() {
+  async function filterData() {
+    if (!state.searchQuery) {
+      state.filteredData = [...state.data];
+      return;
+    }
+
+    const searchEntries = await ensureSearchModule();
     state.filteredData = searchEntries(
       state.data,
       state.searchQuery,
@@ -873,6 +1019,7 @@ import { searchEntries } from "./search.js";
   function applyLanguageChange(newLang, { syncSelect = false } = {}) {
     state.language = newLang;
     setToStorage('preferredLanguage', state.language);
+    applyDocumentLanguage(state.language);
     updateLanguagePillButtons();
 
     if (syncSelect && elements.languageSelect) {
@@ -1006,7 +1153,9 @@ import { searchEntries } from "./search.js";
   function showError(message) {
     elements.errorState.classList.remove('hidden');
     elements.errorMessage.textContent = message;
-    elements.namesGrid.innerHTML = '';
+    if (!state.displayedData.length) {
+      elements.namesGrid.innerHTML = '';
+    }
   }
   
   // Utility: Debounce
