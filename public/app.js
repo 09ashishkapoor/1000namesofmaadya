@@ -161,204 +161,194 @@ import { searchEntries } from "./search.js";
     
     console.log(`✅ SEO meta tags updated for ${lang}`);
   }
-  
-  // Update UI Text based on current language
-  function updateUIText() {
-    const lang = state.language;
-    
-    // Update SEO meta tags first
-    updateSEOMetaTags();
-    
-    // Landing page title
-    const titleMain = document.querySelector('.title-line-main');
-    if (titleMain) titleMain.textContent = getTranslation(lang, 'landing.titleMain');
-    
-    const titleSub = document.querySelector('.title-line-sub');
-    if (titleSub) titleSub.textContent = getTranslation(lang, 'landing.titleSub');
-    
-    // Landing page
-    const titleDesc = document.querySelector('.title-description');
-    if (titleDesc) titleDesc.textContent = getTranslation(lang, 'landing.titleDescription');
-    
-    const descText = document.querySelector('.description-text');
-    if (descText) descText.innerHTML = getTranslation(lang, 'landing.descriptionText');
-    
-    const sigTitle = document.querySelector('.significance-title');
-    if (sigTitle) sigTitle.textContent = getTranslation(lang, 'landing.significanceTitle');
-    
-    const sigText = document.querySelector('.significance-text');
-    if (sigText) sigText.innerHTML = getTranslation(lang, 'landing.significanceText');
-    
+
+  function setTextContent(selector, translationKey) {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.textContent = getTranslation(state.language, translationKey);
+    }
+  }
+
+  function setInnerHtml(selector, translationKey) {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.innerHTML = getTranslation(state.language, translationKey);
+    }
+  }
+
+  function updateLandingText() {
+    setTextContent('.title-line-main', 'landing.titleMain');
+    setTextContent('.title-line-sub', 'landing.titleSub');
+    setTextContent('.title-description', 'landing.titleDescription');
+    setInnerHtml('.description-text', 'landing.descriptionText');
+    setTextContent('.significance-title', 'landing.significanceTitle');
+    setInnerHtml('.significance-text', 'landing.significanceText');
+
     const exploreBtn = document.getElementById('explore-btn');
     if (exploreBtn) {
       const span = exploreBtn.querySelector('span');
-      if (span) span.textContent = getTranslation(lang, 'landing.exploreButton');
+      if (span) span.textContent = getTranslation(state.language, 'landing.exploreButton');
     }
 
     const learnBtn = document.getElementById('learn-btn');
     if (learnBtn) {
       const span = learnBtn.querySelector('span');
       if (span) {
-        span.textContent = getTranslation(lang, 'landing.learnButton');
+        span.textContent = getTranslation(state.language, 'landing.learnButton');
       } else {
-        learnBtn.textContent = getTranslation(lang, 'landing.learnButton');
+        learnBtn.textContent = getTranslation(state.language, 'landing.learnButton');
       }
     }
-    
-    const dedicationText = document.querySelector('.dedication-text');
-    if (dedicationText) dedicationText.innerHTML = getTranslation(lang, 'landing.dedicationText');
-    
+
+    setInnerHtml('.dedication-text', 'landing.dedicationText');
+
     const dedicationMantra = document.querySelector('.dedication-mantra');
     if (dedicationMantra) {
       const emoji = dedicationMantra.querySelector('span[title]');
       const emojiHTML = emoji ? emoji.outerHTML : '';
-      dedicationMantra.innerHTML = getTranslation(lang, 'landing.dedicationMantra') + ' ' + emojiHTML;
+      dedicationMantra.innerHTML = `${getTranslation(state.language, 'landing.dedicationMantra')} ${emojiHTML}`;
     }
-    
-    // About section
-    const aboutTitle = document.querySelector('#about-section header h2');
-    if (aboutTitle) aboutTitle.textContent = getTranslation(lang, 'about.sectionTitle');
-    
-    const aboutSubtitle = document.querySelector('#about-section header p');
-    if (aboutSubtitle) aboutSubtitle.textContent = getTranslation(lang, 'about.sectionSubtitle');
-    
+  }
+
+  function updateAboutText() {
+    setTextContent('#about-section header h2', 'about.sectionTitle');
+    setTextContent('#about-section header p', 'about.sectionSubtitle');
+
     const aboutArticles = document.querySelectorAll('#about-section article');
     if (aboutArticles.length >= 1) {
       const whoIsTitle = aboutArticles[0].querySelector('h3');
-      if (whoIsTitle) whoIsTitle.textContent = getTranslation(lang, 'about.whoIsTitle');
-      
+      if (whoIsTitle) whoIsTitle.textContent = getTranslation(state.language, 'about.whoIsTitle');
+
       const paragraphs = aboutArticles[0].querySelectorAll('p');
-      if (paragraphs[0]) paragraphs[0].innerHTML = getTranslation(lang, 'about.whoIsContent1');
-      if (paragraphs[1]) paragraphs[1].textContent = getTranslation(lang, 'about.whoIsContent2');
+      if (paragraphs[0]) paragraphs[0].innerHTML = getTranslation(state.language, 'about.whoIsContent1');
+      if (paragraphs[1]) paragraphs[1].textContent = getTranslation(state.language, 'about.whoIsContent2');
     }
-    
+
     if (aboutArticles.length >= 2) {
       const benefitsTitle = aboutArticles[1].querySelector('h3');
-      if (benefitsTitle) benefitsTitle.textContent = getTranslation(lang, 'about.benefitsTitle');
-      
+      if (benefitsTitle) benefitsTitle.textContent = getTranslation(state.language, 'about.benefitsTitle');
+
       const benefitItems = aboutArticles[1].querySelectorAll('div[style*="display: flex"]');
       for (let i = 0; i < benefitItems.length && i < 5; i++) {
         const h4 = benefitItems[i].querySelector('h4');
         const p = benefitItems[i].querySelector('p');
-        if (h4) h4.textContent = getTranslation(lang, `about.benefit${i+1}Title`);
-        if (p) p.textContent = getTranslation(lang, `about.benefit${i+1}Text`);
+        if (h4) h4.textContent = getTranslation(state.language, `about.benefit${i + 1}Title`);
+        if (p) p.textContent = getTranslation(state.language, `about.benefit${i + 1}Text`);
       }
     }
-    
-    // Names section
-    const namesTitle = document.querySelector('.section-title');
-    if (namesTitle) namesTitle.textContent = getTranslation(lang, 'names.sectionTitle');
-    
-    const namesSubtitle = document.querySelector('.section-subtitle');
-    if (namesSubtitle) namesSubtitle.textContent = getTranslation(lang, 'names.sectionSubtitle');
+  }
 
-    const readingModeTitle = document.querySelector('.reading-mode-title');
-    if (readingModeTitle) readingModeTitle.textContent = getTranslation(lang, 'names.readingModeTitle');
+  function updateNamesSectionText() {
+    setTextContent('.section-title', 'names.sectionTitle');
+    setTextContent('.section-subtitle', 'names.sectionSubtitle');
+    setTextContent('.reading-mode-title', 'names.readingModeTitle');
+    setTextContent('.reading-mode-text', 'names.readingModeText');
 
-    const readingModeText = document.querySelector('.reading-mode-text');
-    if (readingModeText) readingModeText.textContent = getTranslation(lang, 'names.readingModeText');
-    
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
-      searchInput.placeholder = getTranslation(lang, 'names.searchPlaceholder');
-      searchInput.setAttribute('aria-label', getTranslation(lang, 'names.searchAriaLabel'));
+      searchInput.placeholder = getTranslation(state.language, 'names.searchPlaceholder');
+      searchInput.setAttribute('aria-label', getTranslation(state.language, 'names.searchAriaLabel'));
     }
 
     updateSearchToggleButton();
-    
+
     const languageSelect = document.getElementById('language-select');
     if (languageSelect) {
-      languageSelect.setAttribute('aria-label', getTranslation(lang, 'names.languageSelectLabel'));
+      languageSelect.setAttribute('aria-label', getTranslation(state.language, 'names.languageSelectLabel'));
     }
-    
+
     const clearBtn = document.getElementById('clear-btn');
-    if (clearBtn) clearBtn.textContent = getTranslation(lang, 'names.clearButton');
-    
+    if (clearBtn) clearBtn.textContent = getTranslation(state.language, 'names.clearButton');
+
     const loadingState = document.querySelector('#loading-state p');
-    if (loadingState) loadingState.textContent = getTranslation(lang, 'names.loadingText');
-    
+    if (loadingState) loadingState.textContent = getTranslation(state.language, 'names.loadingText');
+
     const errorTitle = document.querySelector('#error-state h3');
-    if (errorTitle) errorTitle.textContent = getTranslation(lang, 'names.errorTitle');
-    
+    if (errorTitle) errorTitle.textContent = getTranslation(state.language, 'names.errorTitle');
+
     const prevPageBtn = document.getElementById('prev-page-btn');
-    if (prevPageBtn) prevPageBtn.textContent = getTranslation(lang, 'names.previousButton');
+    if (prevPageBtn) prevPageBtn.textContent = getTranslation(state.language, 'names.previousButton');
 
     const nextPageBtn = document.getElementById('next-page-btn');
-    if (nextPageBtn) nextPageBtn.textContent = getTranslation(lang, 'names.nextButton');
-    
-    // eBook promo section
-    const ebookBadge = document.querySelector('.ebook-promo-badge');
-    if (ebookBadge) ebookBadge.textContent = getTranslation(lang, 'ebook.badge');
-    
-    const ebookTitle = document.querySelector('.ebook-promo-title');
-    if (ebookTitle) ebookTitle.textContent = getTranslation(lang, 'ebook.title');
-    
-    const ebookText = document.querySelector('.ebook-promo-text');
-    if (ebookText) ebookText.innerHTML = getTranslation(lang, 'ebook.description');
-    
+    if (nextPageBtn) nextPageBtn.textContent = getTranslation(state.language, 'names.nextButton');
+  }
+
+  function updateEbookText() {
+    setTextContent('.ebook-promo-badge', 'ebook.badge');
+    setTextContent('.ebook-promo-title', 'ebook.title');
+    setInnerHtml('.ebook-promo-text', 'ebook.description');
+
     const ebookFeatures = document.querySelectorAll('.ebook-features li');
     if (ebookFeatures.length >= 5) {
-      ebookFeatures[0].innerHTML = getTranslation(lang, 'ebook.feature1');
-      ebookFeatures[1].innerHTML = getTranslation(lang, 'ebook.feature2');
-      ebookFeatures[2].innerHTML = getTranslation(lang, 'ebook.feature3');
-      ebookFeatures[3].innerHTML = getTranslation(lang, 'ebook.feature4');
-      ebookFeatures[4].innerHTML = getTranslation(lang, 'ebook.feature5');
+      ebookFeatures[0].innerHTML = getTranslation(state.language, 'ebook.feature1');
+      ebookFeatures[1].innerHTML = getTranslation(state.language, 'ebook.feature2');
+      ebookFeatures[2].innerHTML = getTranslation(state.language, 'ebook.feature3');
+      ebookFeatures[3].innerHTML = getTranslation(state.language, 'ebook.feature4');
+      ebookFeatures[4].innerHTML = getTranslation(state.language, 'ebook.feature5');
     }
-    
+
     const ebookCtaBtn = document.querySelector('.ebook-cta-btn');
     if (ebookCtaBtn) {
       const textNodes = Array.from(ebookCtaBtn.childNodes).filter(node => node.nodeType === 3);
       if (textNodes.length > 0) {
-        textNodes[0].textContent = getTranslation(lang, 'ebook.ctaButton') + ' ';
+        textNodes[0].textContent = `${getTranslation(state.language, 'ebook.ctaButton')} `;
       }
     }
-    
-    const ebookPromoFooter = document.querySelector('.ebook-promo-footer');
-    if (ebookPromoFooter) ebookPromoFooter.innerHTML = getTranslation(lang, 'ebook.footerText');
-    
-    // Footer
-    const footerText = document.querySelector('.footer-text');
-    if (footerText) {
-      const developedText = getTranslation(lang, 'footer.developedBy');
-      const dedicatedText = getTranslation(lang, 'footer.dedicatedTo');
-      const connectText = getTranslation(lang, 'footer.connectInstagram');
-      const versionText = getTranslation(lang, 'footer.version');
-      const lastUpdatedText = getTranslation(lang, 'footer.lastUpdated');
-      
-      // Preserve existing elements while updating text
-      const footerMantra = footerText.querySelector('.footer-mantra');
-      const footerSocial = footerText.querySelector('.footer-social');
-      const footerRepo = footerText.querySelector('.footer-repo');
-      const footerVersion = footerText.querySelector('.footer-version');
-      const versionNumber = document.getElementById('version-number');
-      const lastUpdated = document.getElementById('last-updated');
-      
-      // Reconstruct footer with preserved elements
-      footerText.innerHTML = `
-        ${developedText}<br>
-        ${dedicatedText}<br>
-        ${footerMantra ? footerMantra.outerHTML : '<span class="footer-mantra">Jai Ma Krishna<br>Jai Mā Ādya Mahākālī<br>Jai Kālabhairava</span>'}
-      `;
-      
-      // Re-append social and version
-      if (footerSocial) {
-        const instagramLink = footerSocial.querySelector('a');
-        footerSocial.innerHTML = `${connectText} `;
-        if (instagramLink) footerSocial.appendChild(instagramLink);
-        footerText.appendChild(footerSocial);
-      }
 
-      if (footerRepo) {
-        footerText.appendChild(footerRepo);
-      }
-      
-      if (footerVersion) {
-        const versionNum = versionNumber ? versionNumber.textContent : 'V1.21.0';
-        const lastUpd = lastUpdated ? lastUpdated.textContent : 'Loading...';
-        footerVersion.innerHTML = `${versionText} <span id="version-number">${versionNum}</span> | ${lastUpdatedText} <span id="last-updated">${lastUpd}</span>`;
-        footerText.appendChild(footerVersion);
-      }
+    setInnerHtml('.ebook-promo-footer', 'ebook.footerText');
+  }
+
+  function updateFooterText() {
+    const footerText = document.querySelector('.footer-text');
+    if (!footerText) return;
+
+    const developedText = getTranslation(state.language, 'footer.developedBy');
+    const dedicatedText = getTranslation(state.language, 'footer.dedicatedTo');
+    const connectText = getTranslation(state.language, 'footer.connectInstagram');
+    const versionText = getTranslation(state.language, 'footer.version');
+    const lastUpdatedText = getTranslation(state.language, 'footer.lastUpdated');
+
+    const footerMantra = footerText.querySelector('.footer-mantra');
+    const footerSocial = footerText.querySelector('.footer-social');
+    const footerRepo = footerText.querySelector('.footer-repo');
+    const footerVersion = footerText.querySelector('.footer-version');
+    const versionNumber = document.getElementById('version-number');
+    const lastUpdated = document.getElementById('last-updated');
+
+    footerText.innerHTML = `
+      ${developedText}<br>
+      ${dedicatedText}<br>
+      ${footerMantra ? footerMantra.outerHTML : '<span class="footer-mantra">Jai Ma Krishna<br>Jai Mā Ādya Mahākālī<br>Jai Kālabhairava</span>'}
+    `;
+
+    if (footerSocial) {
+      const instagramLink = footerSocial.querySelector('a');
+      footerSocial.innerHTML = `${connectText} `;
+      if (instagramLink) footerSocial.appendChild(instagramLink);
+      footerText.appendChild(footerSocial);
     }
+
+    if (footerRepo) {
+      footerText.appendChild(footerRepo);
+    }
+
+    if (footerVersion) {
+      const versionNum = versionNumber ? versionNumber.textContent : 'V1.21.0';
+      const lastUpd = lastUpdated ? lastUpdated.textContent : 'Loading...';
+      footerVersion.innerHTML = `${versionText} <span id="version-number">${versionNum}</span> | ${lastUpdatedText} <span id="last-updated">${lastUpd}</span>`;
+      footerText.appendChild(footerVersion);
+    }
+  }
+  
+  // Update UI Text based on current language
+  function updateUIText() {
+    // Update SEO meta tags first
+    updateSEOMetaTags();
+    updateLandingText();
+    updateAboutText();
+    updateNamesSectionText();
+    updateEbookText();
+    updateFooterText();
     
     // Update stats display
     if (state.dataLoaded) {
@@ -408,32 +398,7 @@ import { searchEntries } from "./search.js";
       elements.languageSelect.addEventListener('change', handleLanguageChange);
     }
     
-    // Language pill toggle buttons
-    if (elements.languagePillBtns && elements.languagePillBtns.length > 0) {
-      console.log(`✅ Found ${elements.languagePillBtns.length} language pill buttons`);
-      elements.languagePillBtns.forEach(btn => {
-        btn.addEventListener('click', handleLanguagePillClick);
-      });
-      // Update initial state
-      updateLanguagePillButtons();
-      // Show pulse animation for first-time visitors
-      showFirstVisitPulse();
-    } else {
-      console.warn('⚠️ Language pill buttons not found, retrying...');
-      // Retry after a short delay in case DOM hasn't fully loaded
-      setTimeout(() => {
-        elements.languagePillBtns = document.querySelectorAll('.language-pill-btn');
-        if (elements.languagePillBtns && elements.languagePillBtns.length > 0) {
-          console.log(`✅ Found ${elements.languagePillBtns.length} language pill buttons on retry`);
-          elements.languagePillBtns.forEach(btn => {
-            btn.addEventListener('click', handleLanguagePillClick);
-          });
-          updateLanguagePillButtons();
-          // Show pulse animation for first-time visitors
-          showFirstVisitPulse();
-        }
-      }, 100);
-    }
+    initializeLanguagePillButtons();
     
     // Clear
     if (elements.clearBtn) {
@@ -463,6 +428,31 @@ import { searchEntries } from "./search.js";
 
     window.addEventListener('resize', debounce(syncSearchPanelForViewport, 100), { passive: true });
     syncSearchPanelForViewport();
+  }
+
+  function bindLanguagePillButtons(buttons, contextLabel) {
+    elements.languagePillBtns = buttons;
+    console.log(`✅ Found ${buttons.length} language pill buttons${contextLabel}`);
+    buttons.forEach(btn => {
+      btn.addEventListener('click', handleLanguagePillClick);
+    });
+    updateLanguagePillButtons();
+    showFirstVisitPulse();
+  }
+
+  function initializeLanguagePillButtons() {
+    if (elements.languagePillBtns && elements.languagePillBtns.length > 0) {
+      bindLanguagePillButtons(elements.languagePillBtns, '');
+      return;
+    }
+
+    console.warn('⚠️ Language pill buttons not found, retrying...');
+    setTimeout(() => {
+      const retryButtons = document.querySelectorAll('.language-pill-btn');
+      if (retryButtons && retryButtons.length > 0) {
+        bindLanguagePillButtons(retryButtons, ' on retry');
+      }
+    }, 100);
   }
 
   function isDesktopViewport() {
@@ -873,26 +863,29 @@ import { searchEntries } from "./search.js";
       state.language
     );
   }
-  
-  function handleLanguageChange(e) {
-    state.language = e.target.value;
-    
-    // Save preference to localStorage (if available)
-    setToStorage('preferredLanguage', state.language);
-    
-    // Sync pill buttons
-    updateLanguagePillButtons();
-    
-    // Update SEO meta tags and UI text
-    updateUIText();
-    
-    // Re-render name cards
-    renderNames();
-    
-    // Notify navigation about language change (since storage event doesn't fire in same tab)
+
+  function notifyNavigationLanguageChange() {
     if (window.updateNavigationText && typeof window.updateNavigationText === 'function') {
       window.updateNavigationText();
     }
+  }
+
+  function applyLanguageChange(newLang, { syncSelect = false } = {}) {
+    state.language = newLang;
+    setToStorage('preferredLanguage', state.language);
+    updateLanguagePillButtons();
+
+    if (syncSelect && elements.languageSelect) {
+      elements.languageSelect.value = state.language;
+    }
+
+    updateUIText();
+    renderNames();
+    notifyNavigationLanguageChange();
+  }
+  
+  function handleLanguageChange(e) {
+    applyLanguageChange(e.target.value);
     
     console.log(`✅ Language changed to ${state.language}`);
   }
@@ -912,30 +905,8 @@ import { searchEntries } from "./search.js";
       console.log('ℹ️ Language already selected');
       return; // Already selected
     }
-    
-    state.language = newLang;
-    
-    // Save preference to localStorage (if available)
-    setToStorage('preferredLanguage', state.language);
-    
-    // Update pill buttons
-    updateLanguagePillButtons();
-    
-    // Sync dropdown selector
-    if (elements.languageSelect) {
-      elements.languageSelect.value = state.language;
-    }
-    
-    // Update all UI text
-    updateUIText();
-    
-    // Re-render name cards
-    renderNames();
-    
-    // Notify navigation about language change
-    if (window.updateNavigationText && typeof window.updateNavigationText === 'function') {
-      window.updateNavigationText();
-    }
+
+    applyLanguageChange(newLang, { syncSelect: true });
     
     console.log(`✅ Language changed to ${state.language}`);
   }
