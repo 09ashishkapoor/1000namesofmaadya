@@ -83,7 +83,7 @@ function loadHooks({
     getElementById() { return null; },
     querySelector() { return null; },
     querySelectorAll() { return []; },
-    documentElement: { lang: 'en' },
+    documentElement: { lang: 'en', dataset: {} },
     ...documentOverrides
   };
 

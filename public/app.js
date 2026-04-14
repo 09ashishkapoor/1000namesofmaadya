@@ -763,6 +763,10 @@
       const start = state.currentPage * state.pageSize;
       const end = start + state.pageSize;
       state.displayedData = state.filteredData.slice(start, end);
+      state.usePrerenderedPageOne = false;
+      if (elements.namesGrid?.dataset) {
+        elements.namesGrid.dataset.prerendered = 'false';
+      }
       
       elements.namesGrid.innerHTML = '';
       
@@ -922,15 +926,21 @@
       
       <h3 class="card-name">${name}</h3>
 
-      <button class="toggle-btn" data-index="${entry.index}">
+      <button
+        class="toggle-btn"
+        data-index="${entry.index}"
+        type="button"
+        aria-expanded="${isExpanded ? 'true' : 'false'}"
+        aria-controls="elaboration-${entry.index}"
+      >
         <span class="toggle-btn-label">${getToggleButtonLabelMarkup(isExpanded)}</span>
         <svg class="chevron ${isExpanded ? 'rotated' : ''}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </button>
       
-      <div class="elaboration ${isExpanded ? 'expanded' : ''}" data-index="${entry.index}">
-        <div class="elaboration-content">${detailMarkup}</div>
+      <div class="elaboration ${isExpanded ? 'expanded' : ''}" data-index="${entry.index}" id="elaboration-${entry.index}" aria-hidden="${isExpanded ? 'false' : 'true'}">
+        <div class="elaboration-content" tabindex="${isExpanded ? '0' : '-1'}">${detailMarkup}</div>
       </div>
     `;
     
@@ -953,13 +963,20 @@
     const toggleBtn = document.querySelector(`.toggle-btn[data-index="${index}"]`);
     const chevron = toggleBtn.querySelector('.chevron');
     const label = toggleBtn.querySelector('.toggle-btn-label');
+    const elaborationContent = elaboration?.querySelector('.elaboration-content');
     
     if (state.expandedItems.has(index)) {
       elaboration.classList.add('expanded');
+      elaboration.setAttribute('aria-hidden', 'false');
       chevron.classList.add('rotated');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      elaborationContent?.setAttribute('tabindex', '0');
     } else {
       elaboration.classList.remove('expanded');
+      elaboration.setAttribute('aria-hidden', 'true');
       chevron.classList.remove('rotated');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      elaborationContent?.setAttribute('tabindex', '-1');
     }
 
     if (label) {

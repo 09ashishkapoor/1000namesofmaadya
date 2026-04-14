@@ -37,7 +37,7 @@ A devotional, bilingual web experience presenting all **1,072 sacred names** of 
 | Scripting | Vanilla JavaScript (ES modules) |
 | Styling | Plain CSS with custom properties |
 | Data | Static JSON (`public/data_chunk_*.json`) |
-| Testing | Node.js test scripts |
+| Testing | Node.js regression scripts + Playwright validation baseline |
 
 ---
 
@@ -99,6 +99,39 @@ npm run build
 ```bash
 npm run preview
 ```
+
+---
+
+## Validation
+
+### Run the full local validation suite
+
+```bash
+npm run validate
+```
+
+This runs:
+- existing Node.js regression tests
+- syntax checks for the validation files
+- Astro production build
+- Playwright smoke, accessibility, visual, and performance checks
+
+### Playwright-only commands
+
+```bash
+npm run test:browser
+npm run test:browser:update
+```
+
+Use `npm run test:browser:update` only when an intentional UI change requires refreshed visual baselines. Review the changed snapshot files before committing them.
+
+### CI validation
+
+GitHub Actions now runs:
+- **browser validation on Windows** for Playwright + visual baseline parity
+- **link checking with Lychee** for `README.md`, the built home page, and the sitemap
+
+See [`docs/validation-baseline.md`](docs/validation-baseline.md) for the standardized pattern, reuse guidance, and snapshot update rules.
 
 ---
 

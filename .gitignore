@@ -23,6 +23,8 @@ ehthumbs.db
 
 # Node
 node_modules/
+playwright-report/
+test-results/
 
 # Astro
 dist/

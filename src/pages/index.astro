@@ -517,7 +517,14 @@ const initialNamesPayload = {
                             <span class="language-copy language-copy--hindi">{entry.hindi_name}</span>
                         </h3>
 
-                        <button class="toggle-btn" data-index={entry.index} data-prerendered="true" type="button">
+                        <button
+                            class="toggle-btn"
+                            data-index={entry.index}
+                            data-prerendered="true"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls={`elaboration-${entry.index}`}
+                        >
                             <span class="toggle-btn-label">
                                 <span class="language-copy language-copy--english">Reveal Elaboration</span>
                                 <span class="language-copy language-copy--hindi">विस्तार से देखें</span>
@@ -527,8 +534,8 @@ const initialNamesPayload = {
                             </svg>
                         </button>
 
-                        <div class="elaboration" data-index={entry.index}>
-                            <div class="elaboration-content">
+                        <div class="elaboration" data-index={entry.index} id={`elaboration-${entry.index}`} aria-hidden="true">
+                            <div class="elaboration-content" tabindex="-1">
                                 <p class="card-meaning">
                                     <span class="language-copy language-copy--english">{entry.english_one_line}</span>
                                     <span class="language-copy language-copy--hindi">{entry.hindi_one_line}</span>
