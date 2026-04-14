@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.12.0
           cache: npm
 
       - name: Install dependencies
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.12.0
           cache: npm
 
       - name: Install dependencies
@@ -64,9 +64,16 @@ jobs:
       - name: Build static output for link checking
         run: npm run build
 
-      - name: Check README and entry-page links
+      - name: Check README and sitemap links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --root-dir "${{ github.workspace }}" --verbose --no-progress README.md dist/index.html public/sitemap.xml
+          args: --root-dir "${{ github.workspace }}" --verbose --no-progress README.md public/sitemap.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail: true
+
+      - name: Check built entry-page links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --root-dir "${{ github.workspace }}/dist" --verbose --no-progress dist/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
           fail: true

@@ -86,7 +86,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321) in your browser.
+Open `http://localhost:4321` in your browser.
 
 ### Build for production
 
