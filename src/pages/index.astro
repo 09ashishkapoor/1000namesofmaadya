@@ -83,7 +83,7 @@ const initialNamesPayload = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Description (Optimized for "Adya Mahakali 1000 Names" search query) -->
-    <meta name="description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. Explore all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and spiritual insights for devotion and chanting.">
+    <meta name="description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with meanings in English & Hindi. Browse 1072 sacred names with translations and elaborations for chanting and study.">
 
 
     <!-- Canonical URL (Crucial for SEO ranking) -->
@@ -111,7 +111,7 @@ const initialNamesPayload = {
     <meta property="og:url" content="https://1000namesofmakali.com/">
     <meta property="og:site_name" content="Adya Mahakali 1000 Names">
     <link rel="alternate" hreflang="en" href="https://1000namesofmakali.com/">
-    <link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/?lang=hi">
+    <link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/">
     <link rel="alternate" hreflang="x-default" href="https://1000namesofmakali.com/">
 
     <!-- Twitter Card (Optimized) -->
@@ -156,7 +156,7 @@ const initialNamesPayload = {
         "url": "https://1000namesofmakali.com/MaaAdyaKali_5.webp",
         "width": 1200,
         "height": 630,
-        "alt": "Maa Adya Mahakali - Divine Goddess Kali"
+        "caption": "Maa Adya Mahakali - Divine Goddess Kali"
       }
     }
     </script>
@@ -173,8 +173,15 @@ const initialNamesPayload = {
         "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://1000namesofmakali.com/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://1000namesofmakali.com/?q={search_term_string}"
+            },
+            "query-input": {
+                "@type": "PropertyValueSpecification",
+                "valueRequired": true,
+                "valueName": "search_term_string"
+            }
         }
     }
     </script>
@@ -280,9 +287,13 @@ const initialNamesPayload = {
         "name": "Kaliputra Ashish"
       },
       "publisher": {
-        "@type": "Person",
-        "name": "Kaliputra Ashish",
-        "url": "https://1000namesofmakali.com/"
+        "@type": "Organization",
+        "name": "Adya Mahakali 1000 Names",
+        "url": "https://1000namesofmakali.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://1000namesofmakali.com/MaaAdyaKali_5.webp"
+        }
       },
       "datePublished": "2025-01-27",
       "dateModified": "2026-04-06",
@@ -315,7 +326,7 @@ const initialNamesPayload = {
     <meta name="revisit-after" content="7 days">
 
     <!-- Page Title: Optimized for "Adya Mahakali 1000 Names" search query -->
-    <title>Adya Mahakali 1000 Names - Complete Sahasranama with Meanings in English &amp; Hindi</title>
+    <title>Adya Mahakali 1000 Names | Sahasranama with Meanings</title>
 
     <!-- Preload critical resources (only small manifest, not full 13MB file) -->
     <link rel="preload" href={versionedAsset('/data_manifest.json')} as="fetch" crossorigin="anonymous">
@@ -690,6 +701,7 @@ const initialNamesPayload = {
     <footer class="site-footer">
         <div class="om-symbol-small">ॐ</div>
         <div class="footer-text">
+            <a href="https://1000namesofmakali.com/" style="color:#ffd700;text-decoration:none;font-weight:700;font-size:1.05rem;" aria-label="Adya Mahakali 1000 Names — Home">Adya Mahakali 1000 Names</a><br>
             Built by <strong>Kaliputra Ashish</strong><br>
             Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong><br>
             <span class="footer-mantra">
