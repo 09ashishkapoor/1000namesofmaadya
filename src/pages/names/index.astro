@@ -1,0 +1,71 @@
+---
+import { getStaticNamesData } from '../../lib/staticNames.js';
+
+const { hub, totalCount, ranges } = getStaticNamesData();
+
+const hubSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Adya Mahakali Names Hub',
+  url: hub.canonical,
+  inLanguage: ['en', 'hi'],
+  hasPart: ranges.map((range) => ({
+    '@type': 'CollectionPage',
+    name: range.heading,
+    url: range.canonical
+  }))
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{hub.title}</title>
+    <meta name="description" content={hub.description} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={hub.canonical} />
+    <link rel="stylesheet" href="/static-pages.css" />
+    <script type="application/ld+json" set:html={JSON.stringify(hubSchema)}></script>
+  </head>
+  <body class="names-static names-static--hub">
+    <main>
+      <p class="page-kicker">Static study hub</p>
+      <h1>Adya Mahakali Names Hub</h1>
+
+      <section class="hero-panel">
+        <p class="intro">Use this static hub to browse all <strong>{totalCount}</strong> Adya Mahakali names by range. Each section page includes the full visible entries with one-line and detailed meanings in English and Hindi.</p>
+        <nav class="page-nav" aria-label="Hub navigation">
+          <ul>
+            <li><a href="/">Open the interactive homepage reader</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="ranges-panel" aria-labelledby="ranges-heading">
+        <div class="section-heading">
+          <p class="section-kicker">Directory</p>
+          <h2 id="ranges-heading">Browse by name ranges</h2>
+        </div>
+        <ol class="range-list">
+          {ranges.map((range) => (
+            <li>
+              <a href={range.path}>{range.heading}</a>
+              <div>Starts with {range.firstName.english} and ends with {range.lastName.english}.</div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="source-notes" aria-labelledby="hub-source-notes-heading">
+        <h2 id="hub-source-notes-heading">Sources and notes</h2>
+        <p>This project compiles devotional source material and explanatory meaning notes for spiritual study and chanting support.</p>
+        <p>Primary public references used during compilation include:</p>
+        <ul>
+          <li><a href="https://sanskritdocuments.org/" rel="noopener noreferrer">SanskritDocuments.org</a></li>
+        </ul>
+        <p>If you notice an inaccuracy, please review the open-source repository or contact the maintainer through the links on the homepage.</p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -11,9 +11,19 @@ const appJs = read('public/app.js');
 const stylesCss = read('public/styles.css');
 const translationsJs = read('public/translations.js');
 const headersFile = read('public/_headers');
+const sitemapXml = read('public/sitemap.xml');
 
 function assertIncludes(text, snippet, message) {
   assert.ok(text.includes(snippet), message);
+}
+
+function collectAstroFiles(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return collectAstroFiles(entryPath);
+    return entry.isFile() && entry.name.endsWith('.astro') ? [entryPath] : [];
+  });
 }
 
 function testHeroCtasExist() {
@@ -100,6 +110,40 @@ function testTranslationsExist() {
   ].forEach((key) => assertIncludes(translationsJs, key.split('.').pop(), `translation key ${key} should exist`));
 }
 
+function testHomepageLinksStaticNamesHub() {
+  assertIncludes(pageSource, 'href="/names/"', 'homepage should visibly link to the static names hub');
+}
+
+function testStaticNamesPagesExposeSeoMarkers() {
+  const namesPagesDir = path.join(__dirname, '..', 'src', 'pages', 'names');
+  const namesFiles = collectAstroFiles(namesPagesDir);
+  assert.ok(namesFiles.length > 0, 'names static pages should exist under src/pages/names');
+
+  const namesSource = namesFiles.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
+  assertIncludes(namesSource, 'getStaticPaths', 'names pages should expose static range paths');
+  assertIncludes(namesSource, '<link rel="canonical"', 'names pages should define canonical URLs');
+  assertIncludes(namesSource, '<meta name="description"', 'names pages should define description metadata');
+  assert.ok(
+    namesSource.includes('application/ld+json') || namesSource.includes('@type\': \'ItemList\''),
+    'names pages should include structured data markers for static listings'
+  );
+}
+
+function testSitemapIncludesStaticNamesUrls() {
+  const expectedStaticUrls = [
+    'https://1000namesofmakali.com/names/',
+    'https://1000namesofmakali.com/names/1-100/',
+    'https://1000namesofmakali.com/names/1001-1072/'
+  ];
+  expectedStaticUrls.forEach((url) => {
+    assertIncludes(sitemapXml, `<loc>${url}</loc>`, `sitemap should include ${url}`);
+    assert.ok(
+      sitemapXml.includes(`<loc>${url}</loc>\n    <lastmod>2026-04-26</lastmod>`),
+      `sitemap should mark ${url} with 2026-04-26 lastmod`
+    );
+  });
+}
+
 testHeroCtasExist();
 testAboutSectionComesAfterNamesSection();
 testReadingModeControlsExist();
@@ -111,5 +155,8 @@ testVersionedStaticAssetsExist();
 testJsonFetchesUseVersionedUrls();
 testHeadersDoNotMarkMutableAssetsImmutable();
 testTranslationsExist();
+testHomepageLinksStaticNamesHub();
+testStaticNamesPagesExposeSeoMarkers();
+testSitemapIncludesStaticNamesUrls();
 
 console.log('ux structure tests passed');

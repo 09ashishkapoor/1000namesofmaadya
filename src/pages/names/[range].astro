@@ -1,0 +1,88 @@
+---
+import { getStaticNamesData } from '../../lib/staticNames.js';
+
+export function getStaticPaths() {
+  const { ranges, totalCount } = getStaticNamesData();
+
+  return ranges.map((range, index) => ({
+    params: { range: range.slug },
+    props: {
+      range,
+      previousRange: ranges[index - 1] ?? null,
+      nextRange: ranges[index + 1] ?? null,
+      totalCount
+    }
+  }));
+}
+
+const { range, previousRange, nextRange, totalCount } = Astro.props;
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: range.heading,
+  itemListOrder: 'https://schema.org/ItemListOrderAscending',
+  numberOfItems: range.entries.length,
+  url: range.canonical,
+  inLanguage: ['en', 'hi'],
+  itemListElement: range.entries.map((entry, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `${range.canonical}#name-${entry.index}`,
+    name: `${entry.english_name} (${entry.hindi_name})`
+  }))
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{range.title}</title>
+    <meta name="description" content={range.description} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={range.canonical} />
+    <link rel="stylesheet" href="/static-pages.css" />
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)}></script>
+  </head>
+  <body class="names-static names-static--range">
+    <main>
+      <p class="page-kicker">Static devotional reference</p>
+      <h1>{range.heading}</h1>
+
+      <section class="hero-panel">
+        <p class="intro">This page is a static collection of Adya Mahakali names {range.label} with bilingual meanings. It is designed to remain useful without JavaScript.</p>
+        <nav class="page-nav" aria-label="Page navigation">
+          <ul>
+            <li><a href="/">Open the interactive homepage reader</a></li>
+            <li><a href="/names/">Browse all ranges</a></li>
+            {previousRange && <li><a href={previousRange.path}>← Previous range ({previousRange.label})</a></li>}
+            {nextRange && <li><a href={nextRange.path}>Next range ({nextRange.label}) →</a></li>}
+          </ul>
+        </nav>
+      </section>
+
+      <section class="range-summary" aria-label="Range summary">
+        <p>This section covers names <strong>{range.start}</strong> through <strong>{range.end}</strong> from the full set of <strong>{totalCount}</strong> names.</p>
+      </section>
+
+      <div class="entries-stack">
+        {range.entries.map((entry) => (
+          <article class="entry" id={`name-${entry.index}`}>
+            <h2>{entry.index}. {entry.english_name} ({entry.hindi_name})</h2>
+            <p><strong>English one-line meaning:</strong> {entry.english_one_line}</p>
+            <p><strong>Hindi one-line meaning:</strong> {entry.hindi_one_line}</p>
+            <h3>English elaboration</h3>
+            {entry.english_elaboration_paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            <h3>Hindi elaboration</h3>
+            {entry.hindi_elaboration_paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </article>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>
