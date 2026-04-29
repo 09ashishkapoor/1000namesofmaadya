@@ -39,7 +39,7 @@ test('search can narrow the names list and clear back to the default view', asyn
 test.describe('mobile reader controls', () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
-  test('support search toggle, language switching, pagination, and elaboration reveal', async ({ page }) => {
+  test('support search toggle, pagination, and elaboration reveal', async ({ page }) => {
     await openNamesExplorer(page);
     const initialIndex = await page.locator('#names-grid .name-card.visible .card-index').first().innerText();
 
@@ -51,8 +51,7 @@ test.describe('mobile reader controls', () => {
     await expect(searchToggle).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#search-panel')).toHaveClass(/is-open/);
 
-    await page.selectOption('#language-select', 'hindi');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 
     await page.locator('#next-page-btn').click();
     await expect(page.locator('#prev-page-btn')).toBeVisible();

@@ -56,41 +56,19 @@ const initialNamesPayload = {
             }
         </script>
     <script is:inline>
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            const langParam = params.get('lang');
-            let lang = 'english';
-
-            if (langParam === 'hi' || langParam === 'hindi') {
-                lang = 'hindi';
-            } else if (langParam === 'en' || langParam === 'english') {
-                lang = 'english';
-            } else {
-                try {
-                    const stored = localStorage.getItem('preferredLanguage');
-                    if (stored === 'hindi' || stored === 'english') {
-                        lang = stored;
-                    }
-                } catch (error) {
-                    // Ignore storage access issues during first paint.
-                }
-            }
-
-            document.documentElement.dataset.uiLang = lang;
-            document.documentElement.lang = lang === 'hindi' ? 'hi' : 'en';
-        })();
+        document.documentElement.lang = 'en';
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Description (Optimized for "Adya Mahakali 1000 Names" search query) -->
-    <meta name="description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with meanings in English & Hindi. Browse 1072 sacred names with translations and elaborations for chanting and study.">
+    <meta name="description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with meanings in English. Browse 1072 sacred names with translations and elaborations for chanting and study.">
 
 
     <!-- Canonical URL (Crucial for SEO ranking) -->
     <link rel="canonical" href="https://1000namesofmakali.com/">
 
     <!-- Keywords: Includes both Search Terms (English) and Scholarly Terms (IAST) -->
-    <meta name="keywords" content="Adya Mahakali 1000 Names, Adya Mahakali Sahasranama, Adya Kali 1000 Names, Mahakali 1000 Names, Kali Sahasranama, Kali Sahasranamam, 1008 names of Kali, 1000 names of Kali, Adya Mahakali names list, Adya Kali Sahasranamavali, Adya Stotram, Smashana Kali, Aghora Kali, Bhadrakali, Dakshina Kali, Guhyakali, Devi, Shakti, Adi Shakti, Durga, Parvati, Tantra, Shakta tradition, Kali worship, Kali Mantra, Kali Japa, Stotram, Stuti, devotional chanting, spiritual liberation, Moksha, Bhakti, Sanskrit texts, Hindi translation, English translation, Kali meaning, Hindu Goddess, Mahākālī, Kālī, Ādyā Kālī, Sahasranāma">
+    <meta name="keywords" content="Adya Mahakali 1000 Names, Adya Mahakali Sahasranama, Adya Kali 1000 Names, Mahakali 1000 Names, Kali Sahasranama, Kali Sahasranamam, 1008 names of Kali, 1000 names of Kali, Adya Mahakali names list, Adya Kali Sahasranamavali, Adya Stotram, Smashana Kali, Aghora Kali, Bhadrakali, Dakshina Kali, Guhyakali, Devi, Shakti, Adi Shakti, Durga, Parvati, Tantra, Shakta tradition, Kali worship, Kali Mantra, Kali Japa, Stotram, Stuti, devotional chanting, spiritual liberation, Moksha, Bhakti, Sanskrit texts, English translation, Kali meaning, Hindu Goddess, Mahākālī, Kālī, Ādyā Kālī, Sahasranāma">
 
     <!-- Mobile App Settings -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -103,21 +81,18 @@ const initialNamesPayload = {
     <!-- Open Graph / Social Media (Optimized for search) -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:locale:alternate" content="hi_IN">
+
     <meta property="og:title" content="Adya Mahakali 1000 Names - Complete Sahasranama with Meanings">
-    <meta property="og:description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. All 1000+ sacred names of Maa Adya Mahakali with translations and elaborations.">
+    <meta property="og:description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. All 1000+ sacred names of Maa Adya Mahakali with translations and elaborations.">
     <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp">
     <meta property="og:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali">
     <meta property="og:url" content="https://1000namesofmakali.com/">
     <meta property="og:site_name" content="Adya Mahakali 1000 Names">
-    <link rel="alternate" hreflang="en" href="https://1000namesofmakali.com/">
-    <link rel="alternate" hreflang="hi" href="https://1000namesofmakali.com/">
-    <link rel="alternate" hreflang="x-default" href="https://1000namesofmakali.com/">
 
     <!-- Twitter Card (Optimized) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Adya Mahakali 1000 Names - Complete Sahasranama">
-    <meta name="twitter:description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. All 1000+ sacred names with translations.">
+    <meta name="twitter:description" content="Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. All 1000+ sacred names with translations.">
     <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp">
     <meta name="twitter:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali">
 
@@ -128,14 +103,14 @@ const initialNamesPayload = {
       "@type": "WebPage",
       "name": "Adya Mahakali 1000 Names - Complete Sahasranama",
       "alternateName": "Maa Ādya Mahākālī Sahasranāma",
-      "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi. Discover all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and devotional context. Searchable and reference-ready for chanting, study, or spiritual practice.",
+      "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. Discover all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and devotional context. Searchable and reference-ready for chanting, study, or spiritual practice.",
       "url": "https://1000namesofmakali.com/",
       "hasPart": {
         "@type": "CollectionPage",
         "name": "Adya Mahakali Names Reference Hub",
         "url": "https://1000namesofmakali.com/names/"
       },
-      "inLanguage": ["en", "hi"],
+      "inLanguage": "en",
       "isAccessibleForFree": true,
       "about": {
         "@type": "Thing",
@@ -174,8 +149,8 @@ const initialNamesPayload = {
         "name": "Adya Mahakali 1000 Names",
         "alternateName": "Maa Adya Mahakali Sahasranama",
         "url": "https://1000namesofmakali.com/",
-        "inLanguage": ["en", "hi"],
-        "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English & Hindi",
+        "inLanguage": "en",
+        "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English",
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
@@ -197,7 +172,7 @@ const initialNamesPayload = {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Adya Mahakali 1000 Names Collection",
-      "description": "Complete collection of 1000+ sacred names of Maa Adya Mahakali with English translations and Hindi elaborations",
+      "description": "Complete collection of 1000+ sacred names of Maa Adya Mahakali with English translations and elaborations",
       "url": "https://1000namesofmakali.com/",
       "mainEntity": {
         "@type": "ItemList",
@@ -218,21 +193,21 @@ const initialNamesPayload = {
         "name": "What is Adya Mahakali 1000 Names?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Adya Mahakali 1000 Names (also known as Adya Mahakali Sahasranama) is a sacred collection of 1000+ names of Goddess Adya Mahakali. This Sahasranama includes detailed meanings in both English and Hindi, making it accessible for devotees worldwide to understand and chant these sacred names."
+          "text": "Adya Mahakali 1000 Names (also known as Adya Mahakali Sahasranama) is a sacred collection of 1000+ names of Goddess Adya Mahakali. This Sahasranama includes detailed meanings in English, making it accessible for devotees worldwide to understand and chant these sacred names."
         }
       }, {
         "@type": "Question",
         "name": "How many names are in Adya Mahakali Sahasranama?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Adya Mahakali Sahasranama contains 1072 sacred names of Maa Adya Mahakali. Each name includes detailed translations in English and comprehensive elaborations in Hindi, providing spiritual insights and meanings for devotees."
+          "text": "The Adya Mahakali Sahasranama contains 1072 sacred names of Maa Adya Mahakali. Each name includes detailed translations and elaborations in English, providing spiritual insights and meanings for devotees."
         }
       }, {
         "@type": "Question",
         "name": "Where can I find Adya Mahakali 1000 names with meanings?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can find the complete Adya Mahakali 1000 names with detailed meanings in English and Hindi at 1000namesofmakali.com. The website provides a searchable collection of all 1000+ names with translations and elaborations, perfect for chanting, study, and spiritual practice."
+          "text": "You can find the complete Adya Mahakali 1000 names with detailed meanings in English at 1000namesofmakali.com. The website provides a searchable collection of all 1000+ names with translations and elaborations, perfect for chanting, study, and spiritual practice."
         }
       }, {
         "@type": "Question",
@@ -240,41 +215,6 @@ const initialNamesPayload = {
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Adya Mahakali Sahasranama means 'the thousand names of Adya Mahakali' in Sanskrit. 'Adya' means primordial or first, 'Mahakali' refers to the great form of Goddess Kali, and 'Sahasranama' means thousand names. This sacred text helps devotees understand the various aspects, qualities, and divine attributes of Maa Adya Mahakali."
-        }
-      }, {
-        "@type": "Question",
-        "name": "आद्या महाकाली के 1000 नाम क्या हैं?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "आद्या महाकाली के 1000 नाम (जिसे आद्या महाकाली सहस्रनाम भी कहा जाता है) देवी आद्या महाकाली के 1000+ पवित्र नामों का पवित्र संग्रह है। इस सहस्रनाम में अंग्रेजी और हिंदी दोनों में विस्तृत अर्थ शामिल हैं, जिससे दुनिया भर के भक्तों के लिए इन पवित्र नामों को समझना और जपना सुलभ हो जाता है।"
-        }
-      }, {
-        "@type": "Question",
-        "name": "आद्या महाकाली सहस्रनाम में कितने नाम हैं?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "आद्या महाकाली सहस्रनाम में माँ आद्या महाकाली के 1072 पवित्र नाम हैं। प्रत्येक नाम में अंग्रेजी में विस्तृत अनुवाद और हिंदी में व्यापक व्याख्याएं शामिल हैं, जो भक्तों के लिए आध्यात्मिक अंतर्दृष्टि और अर्थ प्रदान करती हैं।"
-        }
-      }, {
-        "@type": "Question",
-        "name": "आद्या महाकाली के 1000 नाम अर्थ सहित कहां मिल सकते हैं?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "आप 1000namesofmakali.com पर अंग्रेजी और हिंदी में विस्तृत अर्थों के साथ पूर्ण आद्या महाकाली 1000 नाम पा सकते हैं। वेबसाइट अनुवाद और व्याख्याओं के साथ सभी 1000+ नामों का खोजने योग्य संग्रह प्रदान करती है, जो जप, अध्ययन और आध्यात्मिक अभ्यास के लिए उपयुक्त है।"
-        }
-      }, {
-        "@type": "Question",
-        "name": "आद्या महाकाली सहस्रनाम का अर्थ क्या है?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "आद्या महाकाली सहस्रनाम का अर्थ संस्कृत में 'आद्या महाकाली के हजार नाम' है। 'आद्या' का अर्थ है आदि या प्रथम, 'महाकाली' देवी काली के महान रूप को दर्शाती है, और 'सहस्रनाम' का अर्थ है हजार नाम। यह पवित्र ग्रंथ भक्तों को माँ आद्या महाकाली के विभिन्न पहलुओं, गुणों और दिव्य विशेषताओं को समझने में मदद करता है।"
-        }
-      }, {
-        "@type": "Question",
-        "name": "आद्या महाकाली सहस्रनाम जप के क्या लाभ हैं?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "आद्या महाकाली सहस्रनाम का जप करने से भय दूर होता है, आध्यात्मिक सुरक्षा मिलती है, अहंकार का नाश होता है, और हृदय में सुप्त शक्ति विद्या जाग्रत होती है। नियमित जप से आंतरिक शत्रुओं जैसे क्रोध, लोभ और मोह का विनाश होता है तथा माँ आद्या महाकाली की दिव्य कृपा प्राप्त होती है।"
         }
       }]
     }
@@ -324,7 +264,7 @@ const initialNamesPayload = {
     <!-- Additional SEO Meta Tags -->
     <meta name="geo.region" content="IN">
     <meta name="geo.placename" content="India">
-    <meta name="language" content="English, Hindi">
+    <meta name="language" content="English">
     <meta name="coverage" content="Worldwide">
     <meta name="distribution" content="Global">
     <meta name="rating" content="General">
@@ -375,56 +315,9 @@ const initialNamesPayload = {
     @media(min-width:641px) and (max-width:1024px){.nav-button{width:54px;height:54px}}
     .nav-button{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;animation:fadeScaleIn 0.3s cubic-bezier(0.4,0,0.2,1)}
     @keyframes fadeScaleIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-    .language-copy--hindi{display:none}
-    .language-copy--block{display:block}
-    html[data-ui-lang="hindi"] .language-copy--english{display:none !important}
-    html[data-ui-lang="hindi"] .language-copy--hindi{display:inline !important}
-    html[data-ui-lang="hindi"] .language-copy--block.language-copy--hindi{display:block !important}
-    html[data-ui-lang="english"] .language-copy--english{display:inline !important}
-    html[data-ui-lang="english"] .language-copy--block.language-copy--english{display:block !important}
-    html[data-ui-lang="english"] .language-copy--hindi{display:none !important}
-
-    /* Pulse animation for first-time visitors */
-    @keyframes languagePulse{
-        0%, 100%{box-shadow:0 2px 10px rgba(0,0,0,0.5), 0 0 0 0 rgba(220,20,60,0.7)}
-        50%{box-shadow:0 3px 15px rgba(0,0,0,0.6), 0 0 0 8px rgba(220,20,60,0)}
-    }
-    @keyframes buttonGlow{
-        0%, 100%{box-shadow:0 1px 4px rgba(220,20,60,0.4)}
-        50%{box-shadow:0 1px 8px rgba(220,20,60,0.8), 0 0 12px rgba(255,215,0,0.4)}
-    }
-
-     /* Floating Language Selector - Pill Toggle */
-     .floating-language-selector{position:fixed;z-index:1100;animation:fadeScaleIn 0.3s ease-out}
-    .language-pill-toggle{display:flex;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(220,20,60,0.5);border-radius:30px;padding:2px;box-shadow:0 2px 10px rgba(0,0,0,0.5);transition:all 0.3s ease}
-    .language-pill-toggle:hover{border-color:rgba(220,20,60,0.8);box-shadow:0 3px 15px rgba(0,0,0,0.6)}
-    .language-pill-toggle.first-visit-pulse{animation:languagePulse 2s ease-in-out 3;border-color:rgba(220,20,60,0.8)}
-    .language-pill-btn{padding:0.3rem 0.6rem;font-size:0.75rem;background:transparent;border:none;border-radius:30px;color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.3s ease;font-weight:500;white-space:nowrap;-webkit-tap-highlight-color:transparent;min-width:auto;text-align:center}
-    .language-pill-btn:hover{color:rgba(255,255,255,0.9)}
-    .language-pill-btn.active{background:linear-gradient(135deg,#dc143c 0%,#8b0000 100%);color:#fff;box-shadow:0 1px 4px rgba(220,20,60,0.4)}
-    .language-pill-btn.first-visit-highlight{animation:buttonGlow 1.5s ease-in-out 4}
-        @media(max-width:640px){
-            .floating-language-selector{bottom:20px;right:50%;transform:translateX(50%);top:auto}
-            .language-pill-toggle{padding:2px;border-width:1px}
-            .language-pill-btn{padding:0.25rem 0.5rem;font-size:0.7rem}
-        }
-        @media(min-width:641px){
-            .floating-language-selector{top:20px;right:20px}
-        }
-        @media(min-width:1024px){
-            .floating-language-selector{top:30px;right:30px}
-        }
     </style>
 </head>
 <body>
-
-    <!-- Floating Language Selector -->
-    <div class="floating-language-selector">
-        <div class="language-pill-toggle">
-            <button type="button" class="language-pill-btn active" data-lang="english">🇬🇧 English</button>
-            <button type="button" class="language-pill-btn" data-lang="hindi">🇮🇳 हिन्दी</button>
-        </div>
-    </div>
 
     <!-- Landing Page Section -->
     <main>
@@ -439,7 +332,7 @@ const initialNamesPayload = {
             </h1>
 
             <p class="title-description">
-                A searchable reading of 1,072 names with English meanings and Hindi support
+                A searchable reading of 1,072 names with English meanings
             </p>
 
             <div class="landing-hero-actions">
@@ -481,10 +374,7 @@ const initialNamesPayload = {
             <div class="controls-panel">
                 <div class="controls-top-row">
                     <button id="search-toggle-btn" class="btn-secondary search-toggle-btn" type="button" aria-expanded="false" aria-controls="search-panel">Open Search</button>
-                    <select id="language-select" class="language-select" aria-label="Select translation language">
-                        <option value="english">🇬🇧 English</option>
-                        <option value="hindi">🇮🇳 हिन्दी</option>
-                    </select>
+
                 </div>
 
                 <div id="search-panel" class="search-panel mobile-collapsed">
@@ -531,10 +421,7 @@ const initialNamesPayload = {
                             <span class="card-index">#{entry.index}</span>
                         </div>
 
-                        <h3 class="card-name">
-                            <span class="language-copy language-copy--english">{entry.english_name}</span>
-                            <span class="language-copy language-copy--hindi">{entry.hindi_name}</span>
-                        </h3>
+                        <h3 class="card-name">{entry.english_name}</h3>
 
                         <button
                             class="toggle-btn"
@@ -544,10 +431,7 @@ const initialNamesPayload = {
                             aria-expanded="false"
                             aria-controls={`elaboration-${entry.index}`}
                         >
-                            <span class="toggle-btn-label">
-                                <span class="language-copy language-copy--english">Read More</span>
-                                <span class="language-copy language-copy--hindi">विस्तार से देखें</span>
-                            </span>
+                            <span class="toggle-btn-label">Read More</span>
                             <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -555,14 +439,8 @@ const initialNamesPayload = {
 
                         <div class="elaboration" data-index={entry.index} id={`elaboration-${entry.index}`} aria-hidden="true">
                             <div class="elaboration-content" tabindex="-1">
-                                <p class="card-meaning">
-                                    <span class="language-copy language-copy--english">{entry.english_one_line}</span>
-                                    <span class="language-copy language-copy--hindi">{entry.hindi_one_line}</span>
-                                </p>
-                                <div class="elaboration-copy">
-                                    <span class="language-copy language-copy--english language-copy--block">{entry.english_elaboration}</span>
-                                    <span class="language-copy language-copy--hindi language-copy--block">{entry.hindi_elaboration}</span>
-                                </div>
+                                <p class="card-meaning">{entry.english_one_line}</p>
+                                <div class="elaboration-copy">{entry.english_elaboration}</div>
                             </div>
                         </div>
                     </div>
@@ -571,10 +449,7 @@ const initialNamesPayload = {
 
             <div class="load-more-container reading-pagination">
                 <button id="prev-page-btn" class="btn-secondary hidden" type="button">Previous 11</button>
-                <div id="reading-progress" class="reading-progress" aria-live="polite">
-                    <span class="language-copy language-copy--english">Showing <strong>1</strong>-<strong>11</strong> of <strong>{dataManifest.total}</strong></span>
-                    <span class="language-copy language-copy--hindi">दिखा रहे हैं <strong>1</strong>-<strong>11</strong> / <strong>{dataManifest.total}</strong></span>
-                </div>
+                <div id="reading-progress" class="reading-progress" aria-live="polite">Showing <strong>1</strong>-<strong>11</strong> of <strong>{dataManifest.total}</strong></div>
                 <button id="next-page-btn" class="btn-primary" type="button">Next 11</button>
             </div>
 
@@ -588,7 +463,7 @@ const initialNamesPayload = {
                         </div>
                         <p class="ebook-promo-text">
                             If you want an offline copy, the same text on this site is also available as free PDF editions.
-                            They include the full set of names with English meanings and Hindi elaborations in a format that is easier to save, share, or print.
+                            They include the full set of names with English meanings and elaborations in a format that is easier to save, share, or print.
                         </p>
                         <ul class="ebook-features">
                             <li>📥 <strong>Free to download</strong> — No registration required</li>

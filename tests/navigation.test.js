@@ -41,9 +41,7 @@ function createElement(tagName, ownerDocument) {
     },
     appendChild(child) {
       this.children.push(child);
-      if (child.id) {
-        ownerDocument.elementsById.set(child.id, child);
-      }
+      if (child.id) ownerDocument.elementsById.set(child.id, child);
       return child;
     },
     scrollIntoView(options) {
@@ -54,7 +52,7 @@ function createElement(tagName, ownerDocument) {
   return element;
 }
 
-function createEnvironment({ language = 'english', storageUnavailable = false } = {}) {
+function createEnvironment() {
   const elementsById = new Map();
   const listeners = {};
 
@@ -64,9 +62,7 @@ function createEnvironment({ language = 'english', storageUnavailable = false } 
       children: [],
       appendChild(element) {
         this.children.push(element);
-        if (element.id) {
-          elementsById.set(element.id, element);
-        }
+        if (element.id) elementsById.set(element.id, element);
         return element;
       }
     },
@@ -87,28 +83,13 @@ function createEnvironment({ language = 'english', storageUnavailable = false } 
   namesSection.offsetTop = 900;
   elementsById.set(namesSection.id, namesSection);
 
-  const storage = { preferredLanguage: language };
   const windowListeners = {};
 
   const context = {
     console: { log() {}, warn() {}, error() {} },
     document,
-    localStorage: {
-      getItem(key) {
-        if (storageUnavailable) {
-          throw new Error('storage unavailable');
-        }
-        return Object.prototype.hasOwnProperty.call(storage, key) ? storage[key] : null;
-      },
-      setItem(key, value) {
-        if (storageUnavailable) {
-          throw new Error('storage unavailable');
-        }
-        storage[key] = String(value);
-      }
-    },
-    getTranslation(lang, key) {
-      return `${lang}:${key}`;
+    getTranslation(_lang, key) {
+      return `english:${key}`;
     },
     window: {
       addEventListener(event, handler) {
@@ -135,7 +116,7 @@ function createEnvironment({ language = 'english', storageUnavailable = false } 
   context.globalThis = context;
   context.self = context.window;
 
-  return { context, document, namesSection, storage, windowListeners };
+  return { context, document, namesSection, windowListeners };
 }
 
 function runNavigationScript(env) {
@@ -145,7 +126,7 @@ function runNavigationScript(env) {
 }
 
 function testInitialButtonCreation() {
-  const env = createEnvironment({ language: 'hindi' });
+  const env = createEnvironment();
   runNavigationScript(env);
 
   const upButton = env.document.getElementById('nav-up-button');
@@ -153,32 +134,29 @@ function testInitialButtonCreation() {
 
   assert.ok(upButton, 'creates the up button');
   assert.ok(downButton, 'creates the down button');
-  assert.strictEqual(upButton.getAttribute('aria-label'), 'hindi:navigation.backToTop');
-  assert.strictEqual(upButton.getAttribute('title'), 'hindi:navigation.backToTopTitle');
-  assert.strictEqual(downButton.getAttribute('aria-label'), 'hindi:navigation.goToNames');
-  assert.strictEqual(downButton.getAttribute('title'), 'hindi:navigation.goToNamesTitle');
+  assert.strictEqual(upButton.getAttribute('aria-label'), 'english:navigation.backToTop');
+  assert.strictEqual(upButton.getAttribute('title'), 'english:navigation.backToTopTitle');
+  assert.strictEqual(downButton.getAttribute('aria-label'), 'english:navigation.goToNames');
+  assert.strictEqual(downButton.getAttribute('title'), 'english:navigation.goToNamesTitle');
   assert.ok(upButton.classList.contains('hidden'), 'up button starts hidden near top');
   assert.ok(!downButton.classList.contains('hidden'), 'down button is visible near top');
 }
 
-function testLanguageUpdateRefreshesLabels() {
-  const env = createEnvironment({ language: 'english' });
+function testUpdateNavigationTextKeepsEnglishLabels() {
+  const env = createEnvironment();
   runNavigationScript(env);
 
-  env.storage.preferredLanguage = 'hindi';
   env.context.window.updateNavigationText();
 
   const upButton = env.document.getElementById('nav-up-button');
   const downButton = env.document.getElementById('nav-down-button');
 
-  assert.strictEqual(upButton.getAttribute('aria-label'), 'hindi:navigation.backToTop');
-  assert.strictEqual(upButton.getAttribute('title'), 'hindi:navigation.backToTopTitle');
-  assert.strictEqual(downButton.getAttribute('aria-label'), 'hindi:navigation.goToNames');
-  assert.strictEqual(downButton.getAttribute('title'), 'hindi:navigation.goToNamesTitle');
+  assert.strictEqual(upButton.getAttribute('aria-label'), 'english:navigation.backToTop');
+  assert.strictEqual(downButton.getAttribute('aria-label'), 'english:navigation.goToNames');
 }
 
 function testButtonActionsRemainBound() {
-  const env = createEnvironment({ language: 'english' });
+  const env = createEnvironment();
   runNavigationScript(env);
 
   const upButton = env.document.getElementById('nav-up-button');
@@ -193,20 +171,8 @@ function testButtonActionsRemainBound() {
   assert.strictEqual(env.namesSection.scrollIntoViewCalls[0].block, 'start');
 }
 
-function testStorageFallbackKeepsEnglishLabels() {
-  const env = createEnvironment({ storageUnavailable: true });
-  runNavigationScript(env);
-
-  const upButton = env.document.getElementById('nav-up-button');
-  const downButton = env.document.getElementById('nav-down-button');
-
-  assert.strictEqual(upButton.getAttribute('aria-label'), 'english:navigation.backToTop');
-  assert.strictEqual(downButton.getAttribute('aria-label'), 'english:navigation.goToNames');
-}
-
 testInitialButtonCreation();
-testLanguageUpdateRefreshesLabels();
+testUpdateNavigationTextKeepsEnglishLabels();
 testButtonActionsRemainBound();
-testStorageFallbackKeepsEnglishLabels();
 
 console.log('navigation.js regression tests passed');

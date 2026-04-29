@@ -83,3 +83,4 @@ temp/
 *.rej
 *.pid
 *.code-workspace
+PLAN-remove-hindi-mode.md

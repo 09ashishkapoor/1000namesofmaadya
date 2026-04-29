@@ -60,7 +60,7 @@ function buildRangeMetadata(entries, rangeNumber, totalRanges) {
     count: entries.length,
     label: `${start}-${end}`,
     title: `Adya Mahakali Names ${start}-${end} | 1000 Names of Maa Kali`,
-    description: `Read Adya Mahakali Sahasranama names ${start}-${end} with English and Hindi meanings, one-line summaries, and elaborations.`,
+    description: `Read Adya Mahakali Sahasranama names ${start}-${end} with English meanings, one-line summaries, and elaborations.`,
     heading: `Adya Mahakali Names ${start}-${end}`,
     firstName: {
       index: first.index,
@@ -113,7 +113,7 @@ export function getStaticNamesData() {
       path: '/names/',
       canonical: `${SITE_URL}/names/`,
       title: 'Adya Mahakali 1000 Names by Range | 1000 Names of Maa Kali',
-      description: 'Browse all 1072 Adya Mahakali names in crawlable static ranges with direct links to each name and meaning.'
+      description: 'Browse all 1072 Adya Mahakali names in crawlable static ranges with direct links to each English name and meaning.'
     },
     ranges: rangesWithMetadata
   };

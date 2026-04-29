@@ -1,6 +1,5 @@
 /**
- * Vanilla JS Mobile Navigation for Kalabhairava Sahasranama
- * Pure JavaScript - no dependencies, no framework issues
+ * Vanilla JS mobile navigation
  */
 
 (function() {
@@ -34,87 +33,56 @@
       `
     }
   ];
-  
-  // Wait for DOM to be ready
+
   function init() {
-    // Create navigation buttons
     createNavigationButtons();
-    
-    // Set up scroll detection
     setupScrollDetection();
-    
-    // Listen for language changes
-    window.addEventListener('storage', updateNavigationText);
-    
-    console.log('✅ Navigation system initialized');
   }
-  
-  // Update navigation button text when language changes
+
   function updateNavigationText() {
-    const lang = getPreferredLanguage();
-
     NAVIGATION_BUTTONS.forEach(({ id, labelKey, titleKey }) => {
-      applyNavigationText(document.getElementById(id), lang, labelKey, titleKey);
+      applyNavigationText(document.getElementById(id), labelKey, titleKey);
     });
   }
-  
-  // Expose updateNavigationText globally for cross-script communication
+
   window.updateNavigationText = updateNavigationText;
-  
-  function createNavigationButtons() {
-    const lang = getPreferredLanguage();
 
+  function createNavigationButtons() {
     NAVIGATION_BUTTONS.forEach((config) => {
-      document.body.appendChild(createNavigationButton(config, lang));
+      document.body.appendChild(createNavigationButton(config));
     });
   }
 
-  function getPreferredLanguage() {
-    try {
-      return localStorage.getItem('preferredLanguage') || 'english';
-    } catch (error) {
-      console.warn('⚠️ localStorage not available while updating navigation text', error);
-      return 'english';
-    }
-  }
-
-  function applyNavigationText(button, lang, labelKey, titleKey) {
+  function applyNavigationText(button, labelKey, titleKey) {
     if (!button || typeof getTranslation !== 'function') return;
-
-    button.setAttribute('aria-label', getTranslation(lang, labelKey));
-    button.setAttribute('title', getTranslation(lang, titleKey));
+    button.setAttribute('aria-label', getTranslation('english', labelKey));
+    button.setAttribute('title', getTranslation('english', titleKey));
   }
 
-  function createNavigationButton({ id, className, icon, labelKey, titleKey, onClick }, lang) {
+  function createNavigationButton({ id, className, icon, labelKey, titleKey, onClick }) {
     const button = document.createElement('button');
     button.id = id;
     button.className = className;
     button.innerHTML = icon;
     button.onclick = onClick;
-
-    applyNavigationText(button, lang, labelKey, titleKey);
-
+    applyNavigationText(button, labelKey, titleKey);
     return button;
   }
-  
+
   function setupScrollDetection() {
     let ticking = false;
     let namesSection = document.getElementById('names-section');
     const upButton = document.getElementById('nav-up-button');
     const downButton = document.getElementById('nav-down-button');
 
-    // If buttons aren't present yet, bail — they should exist after createNavigationButtons
     if (!upButton || !downButton) return;
 
-    // Cache measured position. Recomputed on resize or when DOM changes.
     let namesSectionTop = null;
-    let lastState = null; // track previous inNamesSection state to avoid redundant writes
+    let lastState = null;
 
     function computeNamesTop() {
       namesSection = document.getElementById('names-section');
       if (!namesSection) return null;
-      // Optimization: Use offsetTop which causes less layout thrashing than getBoundingClientRect
-      // when just needing the top position relative to the document
       let el = namesSection;
       let top = 0;
       while (el) {
@@ -125,13 +93,11 @@
       return namesSectionTop;
     }
 
-    // Debounced resize handler to recompute the top value
     let resizeTimer = null;
     function onResize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         computeNamesTop();
-        // Force an immediate update after recomputing
         requestUpdate();
       }, 120);
     }
@@ -140,21 +106,17 @@
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      // If we haven't measured yet, attempt to compute. If still missing, try again later.
       if (namesSectionTop === null) {
         if (computeNamesTop() === null) {
-          // Section not in DOM yet; retry later but not on every scroll.
           setTimeout(requestUpdate, 500);
           ticking = false;
           return;
         }
       }
 
-      // Determine which button to show using the cached measurement
       const threshold = namesSectionTop - (windowHeight * 0.3);
       const inNamesSection = scrollPosition > threshold;
 
-      // Only modify classlist when state changes to avoid unnecessary style recalcs
       if (inNamesSection !== lastState) {
         if (inNamesSection) {
           upButton.classList.remove('hidden');
@@ -176,22 +138,20 @@
       }
     }
 
-    // Listen to scroll and resize
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
 
-    // Initial measure & update
     computeNamesTop();
     requestUpdate();
   }
-  
+
   function scrollToTop() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   }
-  
+
   function scrollToNames() {
     const namesSection = document.getElementById('names-section');
     if (namesSection) {
@@ -201,8 +161,7 @@
       });
     }
   }
-  
-  // Initialize when DOM is ready
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

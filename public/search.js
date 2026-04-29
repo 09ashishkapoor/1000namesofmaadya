@@ -88,11 +88,11 @@ function hasWordPrefix(text, token) {
   return new RegExp(`\\b${token}`, 'i').test(text);
 }
 
-function getEntryFields(entry, language) {
+function getEntryFields(entry) {
   return {
-    name: normalize(language === 'hindi' ? entry.hindi_name : entry.english_name),
-    oneLine: normalize(language === 'hindi' ? entry.hindi_one_line : entry.english_one_line),
-    elaboration: normalize(language === 'hindi' ? entry.hindi_elaboration : entry.english_elaboration)
+    name: normalize(entry.english_name),
+    oneLine: normalize(entry.english_one_line),
+    elaboration: normalize(entry.english_elaboration)
   };
 }
 
@@ -121,14 +121,14 @@ function collectMatchSignals(fields, token) {
   };
 }
 
-export function searchEntries(data, query, language = 'english') {
+export function searchEntries(data, query) {
   if (!query) return data;
 
   const tokens = tokenize(query);
 
   return data
     .map((entry) => {
-      const fields = getEntryFields(entry, language);
+      const fields = getEntryFields(entry);
       let score = 0;
       let bucket = 99;
       let hasStrictMatch = false;

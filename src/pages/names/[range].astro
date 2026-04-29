@@ -24,12 +24,12 @@ const itemListSchema = {
   itemListOrder: 'https://schema.org/ItemListOrderAscending',
   numberOfItems: range.entries.length,
   url: range.canonical,
-  inLanguage: ['en', 'hi'],
+  inLanguage: 'en',
   itemListElement: range.entries.map((entry, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     url: `${range.canonical}#name-${entry.index}`,
-    name: `${entry.english_name} (${entry.hindi_name})`
+    name: entry.english_name
   }))
 };
 ---
@@ -51,7 +51,7 @@ const itemListSchema = {
       <h1>{range.heading}</h1>
 
       <section class="hero-panel">
-        <p class="intro">This page is a static collection of Adya Mahakali names {range.label} with bilingual meanings. It is designed to remain useful without JavaScript.</p>
+        <p class="intro">This page is a static collection of Adya Mahakali names {range.label} with English meanings. It is designed to remain useful without JavaScript.</p>
         <nav class="page-nav" aria-label="Page navigation">
           <ul>
             <li><a href="/">Open the interactive homepage reader</a></li>
@@ -69,15 +69,10 @@ const itemListSchema = {
       <div class="entries-stack">
         {range.entries.map((entry) => (
           <article class="entry" id={`name-${entry.index}`}>
-            <h2>{entry.index}. {entry.english_name} ({entry.hindi_name})</h2>
-            <p><strong>English one-line meaning:</strong> {entry.english_one_line}</p>
-            <p><strong>Hindi one-line meaning:</strong> {entry.hindi_one_line}</p>
-            <h3>English elaboration</h3>
+            <h2>{entry.index}. {entry.english_name}</h2>
+            <p><strong>Meaning:</strong> {entry.english_one_line}</p>
+            <h3>Elaboration</h3>
             {entry.english_elaboration_paragraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-            <h3>Hindi elaboration</h3>
-            {entry.hindi_elaboration_paragraphs.map((paragraph) => (
               <p>{paragraph}</p>
             ))}
           </article>

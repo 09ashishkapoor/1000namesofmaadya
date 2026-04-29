@@ -64,24 +64,20 @@ function testFuzzyNameMatchKeepsEntrySearchable() {
   );
 }
 
-function testHindiLanguageUsesHindiFields() {
-  const hindiEntry = createEntry(1, {
+function testSearchIgnoresHindiOnlyFields() {
+  const hindiOnlyEntry = createEntry(1, {
     english_name: 'English only',
     hindi_name: 'maa kali'
   });
 
-  const results = searchEntries([hindiEntry], 'kali', 'hindi');
+  const results = searchEntries([hindiOnlyEntry], 'kali');
 
-  assert.deepStrictEqual(
-    results.map((entry) => entry.index),
-    [1],
-    'hindi search should use hindi text fields'
-  );
+  assert.deepStrictEqual(results.map((entry) => entry.index), [], 'search should only use English fields');
 }
 
 testEmptyQueryReturnsOriginalData();
 testTitleMatchesRankAboveBodyMatches();
 testFuzzyNameMatchKeepsEntrySearchable();
-testHindiLanguageUsesHindiFields();
+testSearchIgnoresHindiOnlyFields();
 
 console.log('search.js regression tests passed');

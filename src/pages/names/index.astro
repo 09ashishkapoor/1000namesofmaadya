@@ -8,7 +8,7 @@ const hubSchema = {
   '@type': 'CollectionPage',
   name: 'Adya Mahakali Names Hub',
   url: hub.canonical,
-  inLanguage: ['en', 'hi'],
+  inLanguage: 'en',
   hasPart: ranges.map((range) => ({
     '@type': 'CollectionPage',
     name: range.heading,
@@ -34,7 +34,7 @@ const hubSchema = {
       <h1>Adya Mahakali Names Hub</h1>
 
       <section class="hero-panel">
-        <p class="intro">Use this static hub to browse all <strong>{totalCount}</strong> Adya Mahakali names by range. Each section page includes the full visible entries with one-line and detailed meanings in English and Hindi.</p>
+        <p class="intro">Use this static hub to browse all <strong>{totalCount}</strong> Adya Mahakali names by range. Each section page includes the full visible entries with one-line and detailed meanings in English.</p>
         <nav class="page-nav" aria-label="Hub navigation">
           <ul>
             <li><a href="/">Open the interactive homepage reader</a></li>

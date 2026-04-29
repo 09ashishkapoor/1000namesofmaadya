@@ -50,7 +50,7 @@ function testPrerenderedFirstPageStructureExists() {
   assertIncludes(pageSource, 'data-prerendered="true"', 'first page cards should be prerendered in the Astro HTML');
   assertIncludes(pageSource, 'firstPageEntries.map((entry, index) => (', 'first 11 names should be rendered at build time');
   assertIncludes(pageSource, 'id="loading-state" class="loading-state hidden"', 'loading state should stay hidden when the prerendered first page exists');
-  assertIncludes(pageSource, 'document.documentElement.dataset.uiLang = lang;', 'first-paint language hint should be set before body content renders');
+  assertIncludes(pageSource, "document.documentElement.lang = 'en';", 'first-paint language hint should set English before body content renders');
 }
 
 function testAppHooksExist() {
@@ -99,15 +99,11 @@ function testHeadersDoNotMarkMutableAssetsImmutable() {
 
 function testTranslationsExist() {
   [
-    'landing.learnButton',
-    'names.readingModeTitle',
-    'names.readingModeText',
-    'names.showSearchButton',
-    'names.hideSearchButton',
-    'names.previousButton',
-    'names.nextButton',
-    'names.pageStatus'
-  ].forEach((key) => assertIncludes(translationsJs, key.split('.').pop(), `translation key ${key} should exist`));
+    'backToTop',
+    'backToTopTitle',
+    'goToNames',
+    'goToNamesTitle'
+  ].forEach((key) => assertIncludes(translationsJs, key, `translation key ${key} should exist`));
 }
 
 function testHomepageLinksStaticNamesHub() {

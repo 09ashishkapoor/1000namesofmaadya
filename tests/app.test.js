@@ -64,18 +64,10 @@ function createElement(overrides = {}) {
   };
 }
 
-function loadHooks({
-  assetVersion = 'build123',
-  width = 500,
-  documentOverrides = {},
-  windowOverrides = {},
-  localStorageOverrides = {},
-  setTimeoutImpl
-} = {}) {
+function loadHooks({ assetVersion = 'build123', width = 500, documentOverrides = {}, setTimeoutImpl } = {}) {
   const scriptPath = path.join(__dirname, '..', 'public', 'app.js');
   let source = fs.readFileSync(scriptPath, 'utf8');
-  source = source.replace(/import\s+\{\s*searchEntries\s*\}\s+from\s+['"]\.\/search\.js['"];?\r?\n/, '');
-  source = source.replace(/\}\)\(\);\s*$/, `window.__APP_TEST_HOOKS__ = { state, elements, getAssetUrl, getSearchPanelToggleLabel, setSearchPanelOpen, updateReadingProgress, updateStats, bindLanguagePillButtons, initializeLanguagePillButtons, applyLanguageChange, updateFooterText };\n})();`);
+  source = source.replace(/\}\)\(\);\s*$/, `window.__APP_TEST_HOOKS__ = { state, elements, getAssetUrl, getSearchPanelToggleLabel, setSearchPanelOpen, updateReadingProgress, updateStats, handleClear }\n})();`);
 
   const documentStub = {
     readyState: 'loading',
@@ -84,41 +76,24 @@ function loadHooks({
     querySelector() { return null; },
     querySelectorAll() { return []; },
     documentElement: { lang: 'en', dataset: {} },
+    createDocumentFragment() { return { appendChild() {} }; },
+    createElement() { return createElement({ style: {}, querySelector() { return createElement(); } }); },
     ...documentOverrides
   };
 
   const context = {
     console: { log() {}, warn() {}, error() {} },
-    searchEntries(data) { return data; },
-    getTranslation(_lang, key) {
-      if (key === 'names.pageStatus') return 'Showing <strong>{start}</strong>-<strong>{end}</strong> of <strong>{total}</strong>';
-      if (key === 'names.statsSearching') return 'Found <strong>{count}</strong> names matching "{query}"';
-      if (key === 'names.statsDefault') return 'Default stats';
-      if (key === 'names.showSearchButton') return 'Search Names';
-      if (key === 'names.hideSearchButton') return 'Hide Search';
-      if (key === 'footer.developedBy') return 'Developed By';
-      if (key === 'footer.dedicatedTo') return 'Dedicated To';
-      if (key === 'footer.connectInstagram') return 'Connect';
-      if (key === 'footer.version') return 'Version';
-      if (key === 'footer.lastUpdated') return 'Last Updated';
-      return key;
-    },
     window: {
       __ASSET_VERSION__: assetVersion,
       innerWidth: width,
+      __INITIAL_NAMES_PAYLOAD__: null,
       location: { search: '' },
       addEventListener() {},
       requestIdleCallback() {},
       requestAnimationFrame(callback) { callback(); },
-      scrollTo() {},
-      ...windowOverrides
+      scrollTo() {}
     },
     document: documentStub,
-    localStorage: {
-      getItem() { return null; },
-      setItem() {},
-      ...localStorageOverrides
-    },
     requestIdleCallback(callback) { callback(); },
     URLSearchParams,
     setTimeout: setTimeoutImpl || (() => 1),
@@ -154,7 +129,7 @@ function testSearchPanelOpenUpdatesStateAndUi() {
   assert.ok(hooks.elements.searchPanel.classList.contains('is-open'));
   assert.ok(!hooks.elements.searchPanel.classList.contains('mobile-collapsed'));
   assert.strictEqual(hooks.elements.searchInput.focusCalls, 1);
-  assert.strictEqual(hooks.elements.searchToggleBtn.textContent, 'Hide Search');
+  assert.strictEqual(hooks.elements.searchToggleBtn.textContent, 'Close Search');
 }
 
 function testReadingProgressUsesCurrentPageWindow() {
@@ -179,170 +154,51 @@ function testStatsRenderSearchAndDefaultModes() {
   hooks.state.filteredData = new Array(7).fill({});
   hooks.state.searchQuery = 'kali';
   hooks.updateStats();
-  assert.strictEqual(hooks.elements.statsDisplay.innerHTML, 'Found <strong>7</strong> names matching "kali"');
+  assert.strictEqual(hooks.elements.statsDisplay.innerHTML, '🔍 Found <strong>7</strong> names matching "kali"');
 
   hooks.state.searchQuery = '';
   hooks.updateStats();
-  assert.strictEqual(hooks.elements.statsDisplay.innerHTML, 'Default stats');
+  assert.strictEqual(hooks.elements.statsDisplay.innerHTML, '📿 Showing all <strong>1072</strong> names of <strong>Maa Adya Mahakali</strong>');
 }
 
-function testBindLanguagePillButtonsSyncsActiveStateAndListeners() {
+function testSearchToggleLabelUsesEnglishOnlyCopy() {
   const hooks = loadHooks();
-  const englishBtn = createElement({ dataset: { lang: 'english' } });
-  const hindiBtn = createElement({ dataset: { lang: 'hindi' } });
-  hooks.state.language = 'hindi';
-
-  hooks.bindLanguagePillButtons([englishBtn, hindiBtn], '');
-
-  assert.ok(englishBtn.listeners.click, 'english button should receive click handler');
-  assert.ok(hindiBtn.listeners.click, 'hindi button should receive click handler');
-  assert.ok(!englishBtn.classList.contains('active'), 'non-selected language should not be active');
-  assert.ok(hindiBtn.classList.contains('active'), 'selected language should be active');
+  hooks.state.searchPanelOpen = false;
+  assert.strictEqual(hooks.getSearchPanelToggleLabel(), 'Open Search');
+  hooks.state.searchPanelOpen = true;
+  assert.strictEqual(hooks.getSearchPanelToggleLabel(), 'Close Search');
 }
 
-function testInitializeLanguagePillButtonsBindsRetryButtons() {
-  const retryEnglishBtn = createElement({ dataset: { lang: 'english' } });
-  const retryHindiBtn = createElement({ dataset: { lang: 'hindi' } });
-  let requestedSelector = null;
-
-  const hooks = loadHooks({
-    documentOverrides: {
-      querySelectorAll(selector) {
-        requestedSelector = selector;
-        return [retryEnglishBtn, retryHindiBtn];
-      }
-    },
-    setTimeoutImpl(callback, delay) {
-      if (delay === 100) {
-        callback();
-      }
-      return 1;
-    }
-  });
-
-  hooks.state.language = 'english';
-  hooks.elements.languagePillBtns = [];
-  hooks.initializeLanguagePillButtons();
-
-  assert.strictEqual(requestedSelector, '.language-pill-btn');
-  assert.ok(retryEnglishBtn.listeners.click, 'retry-bound english button should receive click handler');
-  assert.ok(retryHindiBtn.listeners.click, 'retry-bound hindi button should receive click handler');
-  assert.ok(retryEnglishBtn.classList.contains('active'), 'current language should be active after retry binding');
-  assert.ok(!retryHindiBtn.classList.contains('active'), 'non-selected retry button should stay inactive');
-}
-
-function testApplyLanguageChangePersistsAndSyncsSideEffects() {
-  const select = createElement({ value: 'english' });
-  const searchToggleBtn = createElement();
-  const namesGrid = createElement({
+function testClearResetsSearchState() {
+  const hooks = loadHooks();
+  hooks.elements.searchInput = createElement({ value: 'kali' });
+  hooks.elements.clearBtn = createElement();
+  hooks.elements.statsDisplay = createElement();
+  hooks.elements.namesGrid = createElement({
+    dataset: {},
     appendChild() {},
     querySelectorAll() { return []; }
   });
-  const statsDisplay = createElement();
-  const readingProgress = createElement();
-  const prevPageBtn = null;
-  const nextPageBtn = null;
-  const storageWrites = [];
-  let navigationUpdates = 0;
+  hooks.elements.prevPageBtn = createElement();
+  hooks.elements.nextPageBtn = createElement();
+  hooks.elements.readingProgress = createElement();
+  hooks.state.data = [{ index: 1 }, { index: 2 }];
+  hooks.state.filteredData = [{ index: 1 }];
+  hooks.state.displayedData = [{ index: 1 }];
+  hooks.state.searchQuery = 'kali';
 
-  const hooks = loadHooks({
-    documentOverrides: {
-      createDocumentFragment() {
-        return {};
-      }
-    },
-    windowOverrides: {
-      updateNavigationText() {
-        navigationUpdates += 1;
-      }
-    },
-    localStorageOverrides: {
-      setItem(key, value) {
-        storageWrites.push([key, value]);
-      }
-    }
-  });
+  hooks.handleClear();
 
-  hooks.elements.languageSelect = select;
-  hooks.elements.searchToggleBtn = searchToggleBtn;
-  hooks.elements.namesGrid = namesGrid;
-  hooks.elements.statsDisplay = statsDisplay;
-  hooks.elements.readingProgress = readingProgress;
-  hooks.elements.prevPageBtn = prevPageBtn;
-  hooks.elements.nextPageBtn = nextPageBtn;
-  hooks.elements.languagePillBtns = [
-    createElement({ dataset: { lang: 'english' } }),
-    createElement({ dataset: { lang: 'hindi' } })
-  ];
-  hooks.state.filteredData = [];
-  hooks.state.displayedData = [];
-
-  hooks.applyLanguageChange('hindi', { syncSelect: true });
-
-  assert.strictEqual(hooks.state.language, 'hindi');
-  assert.deepStrictEqual(storageWrites, [['preferredLanguage', 'hindi']]);
-  assert.strictEqual(select.value, 'hindi');
-  assert.strictEqual(navigationUpdates, 1);
-  assert.ok(!hooks.elements.languagePillBtns[0].classList.contains('active'));
-  assert.ok(hooks.elements.languagePillBtns[1].classList.contains('active'));
-}
-
-function testFooterTextPreservesExistingNodes() {
-  const instagramLink = createElement();
-  const footerSocial = createElement({
-    querySelector(selector) {
-      return selector === 'a' ? instagramLink : null;
-    }
-  });
-  const footerRepo = createElement();
-  const footerVersion = createElement();
-  const footerMantra = createElement({ outerHTML: '<span class="footer-mantra">Mantra</span>' });
-  const footerText = createElement({
-    querySelector(selector) {
-      const map = {
-        '.footer-mantra': footerMantra,
-        '.footer-social': footerSocial,
-        '.footer-repo': footerRepo,
-        '.footer-version': footerVersion
-      };
-      return map[selector] || null;
-    }
-  });
-  const versionNumber = createElement({ textContent: 'V1.2.3' });
-  const lastUpdated = createElement({ textContent: 'April 13, 2026' });
-
-  const hooks = loadHooks({
-    documentOverrides: {
-      querySelector(selector) {
-        return selector === '.footer-text' ? footerText : null;
-      },
-      getElementById(id) {
-        if (id === 'version-number') return versionNumber;
-        if (id === 'last-updated') return lastUpdated;
-        return null;
-      }
-    }
-  });
-
-  hooks.updateFooterText();
-
-  assert.ok(footerText.innerHTML.includes('Developed By'));
-  assert.ok(footerText.innerHTML.includes('Dedicated To'));
-  assert.ok(footerText.innerHTML.includes('<span class="footer-mantra">Mantra</span>'));
-  assert.deepStrictEqual(footerText.appendedChildren, [footerSocial, footerRepo, footerVersion]);
-  assert.strictEqual(footerSocial.innerHTML, 'Connect ');
-  assert.deepStrictEqual(footerSocial.appendedChildren, [instagramLink]);
-  assert.ok(footerVersion.innerHTML.includes('Version <span id="version-number">V1.2.3</span>'));
-  assert.ok(footerVersion.innerHTML.includes('Last Updated <span id="last-updated">April 13, 2026</span>'));
+  assert.strictEqual(hooks.state.searchQuery, '');
+  assert.strictEqual(hooks.elements.searchInput.value, '');
+  assert.strictEqual(hooks.elements.clearBtn.disabled, true);
 }
 
 testAssetUrlsUseVersionQuery();
 testSearchPanelOpenUpdatesStateAndUi();
 testReadingProgressUsesCurrentPageWindow();
 testStatsRenderSearchAndDefaultModes();
-testBindLanguagePillButtonsSyncsActiveStateAndListeners();
-testInitializeLanguagePillButtonsBindsRetryButtons();
-testApplyLanguageChangePersistsAndSyncsSideEffects();
-testFooterTextPreservesExistingNodes();
+testSearchToggleLabelUsesEnglishOnlyCopy();
+testClearResetsSearchState();
 
 console.log('app.js regression tests passed');
