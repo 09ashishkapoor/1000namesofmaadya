@@ -276,7 +276,8 @@ const initialNamesPayload = {
     <!-- Preload critical resources (only small manifest, not full 13MB file) -->
     <link rel="preload" href={versionedAsset('/data_manifest.json')} as="fetch" crossorigin="anonymous">
     <!-- Preload hero image to improve LCP (background image used in critical area) -->
-    <link rel="preload" href="/MaaAdyaKali_5.webp" as="image">
+    <link rel="preload" href="/maadya-bg-1111-landscape.webp" as="image" media="(min-width: 641px)">
+    <link rel="preload" href="/maadya-bg-1111-portrait.webp" as="image" media="(max-width: 640px)">
 
     <!-- Load stylesheet non-blocking: preload + onload pattern with noscript fallback -->
     <link rel="preload" href={versionedAsset('/styles.min.css')} as="style" onload="this.rel='stylesheet'">
@@ -286,28 +287,28 @@ const initialNamesPayload = {
     <style is:global>
     /* Critical CSS - with font fallbacks to prevent FOIT (Flash of Invisible Text) */
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#f5f5f5;line-height:1.6;margin:0;padding:0;min-height:100vh;position:relative}
-    body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('/MaaAdyaKali_5.webp');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-2}
+    body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('/maadya-bg-1111-landscape.webp');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-2}
+    @media (max-width:640px){body::before{background-image:url('/maadya-bg-1111-portrait.webp'),url('/maadya-bg-1111-portrait.webp');background-size:contain,cover;background-position:center,center;background-repeat:no-repeat,no-repeat}}
     body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.28);z-index:-1}
     .landing-section{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:transparent}
     .landing-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.58);pointer-events:none;z-index:1}
-    .landing-content{position:relative;z-index:10;text-align:center}
+    .landing-content{position:relative;z-index:10;text-align:center;max-width:min(92vw,760px);margin:0 auto}
     .main-title{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:1rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;animation:titleFadeIn 1.2s ease-out}
-    .title-line-main{display:block;font-size:1em;font-weight:800;color:#fff;background:linear-gradient(90deg,#fff 0%,#fff 30%,#ff6b9d 40%,#dc143c 50%,#8b0000 55%,#dc143c 60%,#ff6b9d 70%,#fff 80%,#fff 100%);background-size:200% 100%;background-position:-100% 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:crimsonSweep 3.5s ease-in-out infinite;filter:drop-shadow(0 0 15px rgba(220,20,60,0.9)) drop-shadow(0 0 30px rgba(220,20,60,0.6)) drop-shadow(0 0 45px rgba(139,0,0,0.5));letter-spacing:0.08em;position:relative;text-shadow:0 0 20px rgba(220,20,60,0.5);will-change:auto}
-    .title-line-sub{display:block;font-size:0.75em;font-weight:600;font-style:italic;letter-spacing:0.12em;color:#ffd700;background:linear-gradient(90deg,#ffd700 0%,#ffd700 25%,#ffb700 40%,#ff9500 50%,#ffa500 60%,#ffb700 75%,#ffd700 100%);background-size:200% 100%;background-position:-100% 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:goldSweep 3.8s ease-in-out infinite 0.3s;filter:drop-shadow(0 0 12px rgba(255,215,0,0.8)) drop-shadow(0 0 25px rgba(255,165,0,0.5)) drop-shadow(0 0 40px rgba(255,215,0,0.3));margin-top:0.3rem;position:relative;text-shadow:0 0 15px rgba(255,215,0,0.4);will-change:auto}
-    @prefers-reduced-motion {
+    .title-line-main{display:block;font-size:1em;font-weight:760;color:oklch(0.93 0.055 18);letter-spacing:0.065em;position:relative;text-shadow:0 2px 14px rgba(25,5,8,0.86),0 0 22px rgba(150,18,45,0.34);will-change:auto}
+    .title-line-sub{display:block;font-size:0.75em;font-weight:600;font-style:italic;letter-spacing:0.1em;color:oklch(0.83 0.118 84);filter:drop-shadow(0 2px 8px rgba(38,24,5,0.7));margin-top:0.3rem;position:relative;text-shadow:0 1px 12px rgba(214,172,71,0.28);will-change:auto}
+    @media (prefers-reduced-motion: reduce) {
       .title-line-main, .title-line-sub { animation: none; }
     }
-    @keyframes titleFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes crimsonSweep{0%,100%{background-position:-100% 0}50%{background-position:100% 0}}
-    @keyframes goldSweep{0%,100%{background-position:-100% 0}50%{background-position:100% 0}}
+    @keyframes titleFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
     /* Vanilla JS Navigation Buttons */
-    .nav-button{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.2);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);color:white;opacity:1;transform:scale(1);will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
-    .nav-button.nav-up{background:linear-gradient(135deg,#dc143c 0%,#8b0000 100%);box-shadow:0 4px 20px rgba(220,20,60,0.6),0 0 40px rgba(220,20,60,0.3)}
-    .nav-button.nav-down{background:linear-gradient(135deg,#f59e0b 0%,#ea580c 100%);box-shadow:0 4px 20px rgba(251,146,60,0.6),0 0 40px rgba(251,146,60,0.3)}
-    .nav-button:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(0,0,0,0.4),0 0 50px rgba(0,0,0,0.3)}
-    .nav-button.nav-up:hover{box-shadow:0 6px 30px rgba(220,20,60,0.8),0 0 50px rgba(220,20,60,0.5)}
-    .nav-button.nav-down:hover{box-shadow:0 6px 30px rgba(251,146,60,0.8),0 0 50px rgba(251,146,60,0.5)}
+    .hero-reference-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 .15rem;margin-top:1rem;color:oklch(0.82 0.095 84);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(214,172,71,0.48);text-shadow:0 1px 8px rgba(20,10,0,0.72)}
+    .nav-button{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.2);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1),opacity 0.3s cubic-bezier(0.4,0,0.2,1),box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);color:oklch(0.96 0.012 35);opacity:1;transform:scale(1);will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+    .nav-button.nav-up{background:linear-gradient(135deg,oklch(0.51 0.18 20) 0%,oklch(0.32 0.13 22) 100%);box-shadow:0 4px 18px rgba(80,10,24,0.46),0 0 24px rgba(150,18,45,0.18)}
+    .nav-button.nav-down{background:linear-gradient(135deg,oklch(0.68 0.13 68) 0%,oklch(0.48 0.14 42) 100%);box-shadow:0 4px 18px rgba(83,44,8,0.42),0 0 24px rgba(191,115,31,0.18)}
+    .nav-button:hover{transform:scale(1.04);box-shadow:0 6px 24px rgba(0,0,0,0.36),0 0 28px rgba(0,0,0,0.2)}
+    .nav-button.nav-up:hover{box-shadow:0 6px 24px rgba(80,10,24,0.55),0 0 30px rgba(150,18,45,0.24)}
+    .nav-button.nav-down:hover{box-shadow:0 6px 24px rgba(83,44,8,0.52),0 0 30px rgba(191,115,31,0.24)}
     .nav-button:active{transform:scale(0.95)}
     .nav-button.hidden{opacity:0;transform:scale(0);pointer-events:none}
     .nav-button svg{width:24px;height:24px;stroke-width:2.5}
@@ -347,8 +348,8 @@ const initialNamesPayload = {
                     <span>About the Sahasranama</span>
                 </button>
             </div>
-            <p style="margin-top:1rem;">
-                <a href="/names/" style="color:#ffd700;font-weight:600;text-decoration:underline;">Browse static names reference pages</a>
+            <p class="hero-reference-note">
+                <a href="/names/" class="hero-reference-link">Browse static names reference pages</a>
             </p>
         </div>
     </section>
@@ -399,7 +400,7 @@ const initialNamesPayload = {
             <!-- Loading State -->
             <div id="loading-state" class="loading-state hidden">
                 <div class="loader"></div>
-                <p>Loading names...</p>
+                <p id="loading-message">Loading names...</p>
             </div>
 
             <!-- Error State -->
@@ -407,6 +408,7 @@ const initialNamesPayload = {
                 <div class="error-icon">⚠️</div>
                 <h3>Could not load the names</h3>
                 <p id="error-message"></p>
+                <button id="retry-btn" class="btn-secondary" type="button">Try loading again</button>
             </div>
 
             <!-- Names Grid -->
@@ -466,11 +468,11 @@ const initialNamesPayload = {
                             They include the full set of names with English meanings and elaborations in a format that is easier to save, share, or print.
                         </p>
                         <ul class="ebook-features">
-                            <li>📥 <strong>Free to download</strong> — No registration required</li>
-                            <li>📄 <strong>Several PDF versions</strong> — Choose the format you want</li>
-                            <li>🌐 <strong>Full set included</strong> — All 1000+ names with meanings</li>
-                            <li>🔖 <strong>Easy to keep offline</strong> — Read without a connection</li>
-                            <li>🖨️ <strong>Formatted for printing</strong> — Ready for home or temple use</li>
+                            <li>📥 <strong>Free to download</strong>: No registration required</li>
+                            <li>📄 <strong>Several PDF versions</strong>: Choose the format you want</li>
+                            <li>🌐 <strong>Full set included</strong>: All 1000+ names with meanings</li>
+                            <li>🔖 <strong>Easy to keep offline</strong>: Read without a connection</li>
+                            <li>🖨️ <strong>Formatted for printing</strong>: Ready for home or temple use</li>
                         </ul>
                         <a href="https://www.jaikhyapaparampara.com" target="_blank" rel="noopener noreferrer" class="ebook-cta-btn">
                             Open the Khyapa Parampara Library
@@ -490,8 +492,8 @@ const initialNamesPayload = {
     </section>
 
     <!-- About Section -->
-    <section id="about-section" class="about-section" style="padding: 4rem 1.5rem; background: rgba(0, 0, 0, 0.6); position: relative;">
-        <div class="container" style="max-width: 900px; margin: 0 auto;">
+    <section id="about-section" class="about-section">
+        <div class="container about-container">
             <div class="landing-description about-intro-block">
                 <p class="description-text">
                     Search the names, read the short meanings, and open the longer explanations when you want to stay with a name a little longer.
@@ -519,58 +521,58 @@ const initialNamesPayload = {
                 </p>
             </div>
 
-            <header style="text-align: center; margin-bottom: 3rem;">
-                <h2 style="color: #ffffff; font-size: 2rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">Why Readers Return to the Sahasranama</h2>
-                <p style="color: #f5f5f5; font-size: 1.1rem; line-height: 1.7;">A short introduction to the text and to the reasons many people recite it.</p>
+            <header class="about-section-header">
+                <h2 class="about-section-title">Why Readers Return to the Sahasranama</h2>
+                <p class="about-section-subtitle">A short introduction to the text and to the reasons many people recite it.</p>
             </header>
 
-            <div style="display: grid; gap: 2.5rem;">
-                <article style="background: rgba(220, 20, 60, 0.1); border: 1px solid rgba(220, 20, 60, 0.3); border-radius: 0.75rem; padding: 2rem;">
-                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Who is Maa Adya Mahakali?</h3>
-                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">
-                        <strong style="color: #dc143c;">Maa Adya Mahakali</strong> is revered as the primordial source: the first, original power from which creation unfolds. In this form she is linked with time, change, and the full cycle of arising, sustaining, and dissolving.
+            <div class="about-article-stack">
+                <article class="devotional-article devotional-article--crimson">
+                    <h3 class="devotional-article-title">Who is Maa Adya Mahakali?</h3>
+                    <p class="devotional-article-text">
+                        <strong>Maa Adya Mahakali</strong> is revered as the primordial source: the first, original power from which creation unfolds. In this form she is linked with time, change, and the full cycle of arising, sustaining, and dissolving.
                     </p>
-                    <p style="color: #f5f5f5; font-size: 1.05rem; line-height: 1.8; margin: 0;">
+                    <p class="devotional-article-text devotional-article-text--last">
                         As Mahakali, she stands beyond ordinary limits and is remembered as the force that cuts through ignorance, ego, and fear. For devotees, that makes her both fierce and intimate: a presence approached for truth, courage, and surrender.
                     </p>
                 </article>
 
-                <article style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 0.75rem; padding: 2rem;">
-                    <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);">Why People Chant</h3>
-                    <div style="display: grid; gap: 1.25rem;">
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">✨</span>
+                <article class="devotional-article devotional-article--gold">
+                    <h3 class="devotional-article-title">Why People Chant</h3>
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✨</span>
                             <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Protection</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">Many devotees turn to the Sahasranama as a steadying practice that helps them feel held, guarded, and less shaken by inner or outer disturbance.</p>
+                                <h4 class="benefit-title">Protection</h4>
+                                <p class="benefit-text">Many devotees turn to the Sahasranama as a steadying practice that helps them feel held, guarded, and less shaken by inner or outer disturbance.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🔥</span>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🔥</span>
                             <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Facing the Inner Obstacles</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">The recitation is often understood as a way of meeting anger, greed, attachment, pride, and confusion with more honesty and discipline.</p>
+                                <h4 class="benefit-title">Facing the Inner Obstacles</h4>
+                                <p class="benefit-text">The recitation is often understood as a way of meeting anger, greed, attachment, pride, and confusion with more honesty and discipline.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🕉️</span>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🕉️</span>
                             <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Less Fear, More Steadiness</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">Returning to the names can calm the mind, soften fear, and make room for a more grounded kind of courage.</p>
+                                <h4 class="benefit-title">Less Fear, More Steadiness</h4>
+                                <p class="benefit-text">Returning to the names can calm the mind, soften fear, and make room for a more grounded kind of courage.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">🌟</span>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🌟</span>
                             <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Grace</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">For many readers, regular practice is a way of opening themselves to grace, clarity, and a quieter sense of guidance.</p>
+                                <h4 class="benefit-title">Grace</h4>
+                                <p class="benefit-text">For many readers, regular practice is a way of opening themselves to grace, clarity, and a quieter sense of guidance.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <span style="color: #dc143c; font-size: 1.5rem; line-height: 1.5;">💫</span>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">💫</span>
                             <div>
-                                <h4 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 0.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);">Awakening</h4>
-                                <p style="color: #f5f5f5; font-size: 1rem; line-height: 1.7; margin: 0;">Over time, the repetition can deepen attention and devotion, making spiritual practice feel more inward, alive, and continuous.</p>
+                                <h4 class="benefit-title">Awakening</h4>
+                                <p class="benefit-text">Over time, the repetition can deepen attention and devotion, making spiritual practice feel more inward, alive, and continuous.</p>
                             </div>
                         </div>
                     </div>
@@ -584,7 +586,7 @@ const initialNamesPayload = {
     <footer class="site-footer">
         <div class="om-symbol-small">ॐ</div>
         <div class="footer-text">
-            <a href="https://1000namesofmakali.com/" style="color:#ffd700;text-decoration:none;font-weight:700;font-size:1.05rem;" aria-label="Adya Mahakali 1000 Names — Home">Adya Mahakali 1000 Names</a><br>
+            <a href="https://1000namesofmakali.com/" class="footer-link footer-home-link" aria-label="Adya Mahakali 1000 Names, Home">Adya Mahakali 1000 Names</a><br>
             Built by <strong>Kaliputra Ashish</strong><br>
             Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong><br>
             <span class="footer-mantra">
@@ -592,13 +594,13 @@ const initialNamesPayload = {
                 Jai Mā Ādya Mahākālī<br>
                 Jai Kālabhairava
             </span>
-            <div class="footer-social" style="margin-top:0.75rem;font-size:0.95rem;color:#ffd700;">
-                Instagram: <a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener noreferrer" style="color:#ffd700;text-decoration:none;font-weight:600;">@ashishkaliputra</a>
+            <div class="footer-social footer-meta-line">
+                Instagram: <a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener noreferrer" class="footer-link">@ashishkaliputra</a>
             </div>
-            <div class="footer-repo" style="margin-top:0.75rem;font-size:0.95rem;color:#ffd700;">
-                ⭐ Open source on GitHub: <a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener noreferrer" style="color:#ffd700;text-decoration:none;font-weight:600;">View repository</a>
+            <div class="footer-repo footer-meta-line">
+                ⭐ Open source on GitHub: <a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener noreferrer" class="footer-link">View repository</a>
             </div>
-            <div class="footer-version" style="margin-top:1rem;font-size:0.85rem;color:#ffd700;font-family:monospace;opacity:0.85;">
+            <div class="footer-version">
                 Version <span id="version-number">V1.21.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
             </div>
         </div>
@@ -612,6 +614,16 @@ const initialNamesPayload = {
     <script src={versionedAsset('/translations.js')} defer data-cfasync="false" is:inline></script>
     <script src={versionedAsset('/navigation.js')} defer data-cfasync="false" is:inline></script>
     <script type="module" src={versionedAsset('/app.js')} defer data-cfasync="false" is:inline></script>
+    <script is:inline>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js?v=' + encodeURIComponent(window.__ASSET_VERSION__ || ''))
+                .catch(error => {
+                    console.warn('Could not register service worker:', error);
+                });
+        });
+    }
+    </script>
 
     <!-- Version Number and Last Updated Loader -->
     <script is:inline>
