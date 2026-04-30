@@ -107,7 +107,7 @@ const itemListSchema = {
       <h1>{range.heading}</h1>
 
       <section class="hero-panel">
-        <p class="intro">This page is a static collection of Adya Mahakali names {range.label} with English meanings. It is designed to remain useful without JavaScript.</p>
+        <p class="intro">This page is a static collection of Adya Mahakali names {range.label} with English meanings. It begins with <strong>{range.firstName.english}</strong> and ends with <strong>{range.lastName.english}</strong>, giving search engines and readers a crawlable reference for this part of the Sahasranama without JavaScript.</p>
         <nav class="page-nav" aria-label="Page navigation">
           <ul>
             <li><a href="/">Open the interactive homepage reader</a></li>
@@ -120,6 +120,7 @@ const itemListSchema = {
 
       <section class="range-summary" aria-label="Range summary">
         <p>This section covers names <strong>{range.start}</strong> through <strong>{range.end}</strong> from the full set of <strong>{totalCount}</strong> names.</p>
+        <p>Use the entries below as direct references for meanings in this range, or move through the previous and next range links to continue the full Adya Mahakali Sahasranama sequence.</p>
       </section>
 
       <div class="entries-stack">

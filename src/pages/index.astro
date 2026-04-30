@@ -3,7 +3,10 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const assetVersion = Date.now().toString(36);
+const packageJson = JSON.parse(
+    readFileSync(join(process.cwd(), 'package.json'), 'utf8')
+);
+const assetVersion = encodeURIComponent(packageJson.version || '1');
 function versionedAsset(path) {
     return `${path}?v=${assetVersion}`;
 }
@@ -98,12 +101,14 @@ const initialNamesPayload = {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
+      "@id": "https://1000namesofmakali.com/#webpage",
       "name": "Adya Mahakali 1000 Names - Complete Sahasranama",
       "alternateName": "Maa Ādya Mahākālī Sahasranāma",
       "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. Discover all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and devotional context. Searchable and reference-ready for chanting, study, or spiritual practice.",
       "url": "https://1000namesofmakali.com/",
       "hasPart": {
         "@type": "CollectionPage",
+        "@id": "https://1000namesofmakali.com/names/#webpage",
         "name": "Adya Mahakali Names Reference Hub",
         "url": "https://1000namesofmakali.com/names/"
       },
@@ -116,11 +121,13 @@ const initialNamesPayload = {
       },
       "mainEntity": {
         "@type": "CollectionPage",
+        "@id": "https://1000namesofmakali.com/#collection",
         "name": "Adya Mahakali 1000 Names Collection",
         "description": "Complete collection of 1000+ names of Adya Mahakali with meanings"
       },
       "publisher": {
         "@type": "Person",
+        "@id": "https://1000namesofmakali.com/#publisher",
         "name": "Kaliputra Ashish",
         "url": "https://1000namesofmakali.com/",
         "sameAs": [
@@ -143,6 +150,7 @@ const initialNamesPayload = {
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
+        "@id": "https://1000namesofmakali.com/#website",
         "name": "Adya Mahakali 1000 Names",
         "alternateName": "Maa Adya Mahakali Sahasranama",
         "url": "https://1000namesofmakali.com/",
@@ -168,9 +176,13 @@ const initialNamesPayload = {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
+      "@id": "https://1000namesofmakali.com/#collection",
       "name": "Adya Mahakali 1000 Names Collection",
       "description": "Complete collection of 1000+ sacred names of Maa Adya Mahakali with English translations and elaborations",
       "url": "https://1000namesofmakali.com/",
+      "isPartOf": {
+        "@id": "https://1000namesofmakali.com/#website"
+      },
       "mainEntity": {
         "@type": "ItemList",
         "name": "Adya Mahakali Sahasranama Names",
@@ -185,6 +197,10 @@ const initialNamesPayload = {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      "@id": "https://1000namesofmakali.com/#faq",
+      "isPartOf": {
+        "@id": "https://1000namesofmakali.com/#webpage"
+      },
       "mainEntity": [{
         "@type": "Question",
         "name": "What is Adya Mahakali 1000 Names?",
@@ -217,39 +233,6 @@ const initialNamesPayload = {
     }
     </script>
 
-    <!-- Article Schema for About Section -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "The Power of Adya Mahakali Sahasranama",
-      "description": "Understanding the significance and benefits of chanting the 1000 sacred names of Maa Adya Mahakali",
-      "author": {
-        "@type": "Person",
-        "name": "Kaliputra Ashish"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Adya Mahakali 1000 Names",
-        "url": "https://1000namesofmakali.com/",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://1000namesofmakali.com/MaaAdyaKali_5.webp"
-        }
-      },
-      "datePublished": "2025-01-27",
-      "dateModified": "2026-04-06",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://1000namesofmakali.com/#about-section"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Adya Mahakali Sahasranama",
-        "description": "The 1000 names of Goddess Adya Mahakali and their spiritual significance"
-      }
-    }
-    </script>
 
     <link rel="icon" type="image/webp" href="/MaaAdyaKali_5.webp">
     <link rel="apple-touch-icon" href="/MaaAdyaKali_5.webp">
@@ -331,7 +314,7 @@ const initialNamesPayload = {
             </h1>
 
             <p class="title-description">
-                A searchable reading of 1,072 names with English meanings
+                A searchable reading of 1000+ names with English meanings
             </p>
 
             <div class="landing-hero-actions">

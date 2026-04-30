@@ -192,8 +192,8 @@ function testElaborationContentDoesNotTrapMobileReading() {
 function testVersionedStaticAssetsExist() {
 	assertIncludes(
 		pageSource,
-		"const assetVersion = Date.now().toString(36);",
-		"Astro page should create a per-build asset version",
+		"const assetVersion = encodeURIComponent(packageJson.version || '1');",
+		"Astro page should create a stable app-version asset version",
 	);
 	assertIncludes(
 		pageSource,
