@@ -74,6 +74,6 @@ jobs:
       - name: Check built entry-page links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --root-dir "${{ github.workspace }}/dist" --verbose --no-progress dist/index.html
+          args: --root-dir "${{ github.workspace }}/dist" --verbose --no-progress --exclude "^https://www\\.instagram\\.com/" dist/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
           fail: true

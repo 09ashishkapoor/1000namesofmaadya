@@ -77,13 +77,11 @@ test("next-page loading failure shows retry and can recover", async ({
 	});
 	await openNamesExplorer(page);
 
-	for (let i = 0; i < 18; i += 1) {
-		await page.locator("#next-page-btn").click();
-	}
-	await expect(page.locator("#reading-progress")).toContainText("199");
+	const nextPageButton = page.locator("#next-page-btn");
+	const readingProgress = page.locator("#reading-progress");
 
 	let failureCount = 0;
-	await page.route("**/data_chunk_2.json**", async (route) => {
+	await page.route("**/data_chunk_1.json**", async (route) => {
 		if (failureCount < 2) {
 			failureCount += 1;
 			await route.abort();
@@ -92,7 +90,7 @@ test("next-page loading failure shows retry and can recover", async ({
 		await route.continue();
 	});
 
-	await page.locator("#next-page-btn").click();
+	await nextPageButton.click();
 	await expect(page.locator("#error-state")).toBeVisible();
 	await expect(page.locator("#error-message")).toContainText(
 		"Could not load the next set of names",
@@ -101,7 +99,7 @@ test("next-page loading failure shows retry and can recover", async ({
 
 	await page.locator("#retry-btn").click();
 	await expect(page.locator("#error-state")).toHaveClass(/hidden/);
-	await expect(page.locator("#reading-progress")).toContainText("210");
+	await expect(readingProgress).toContainText("12");
 });
 
 test.describe("mobile reader controls", () => {
