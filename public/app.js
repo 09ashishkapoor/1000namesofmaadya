@@ -807,7 +807,7 @@
         <span class="card-index">#${entry.index}</span>
       </div>
 
-      <h3 class="card-name">${name}</h3>
+      <p class="card-name">${name}</p>
 
       <button
         class="toggle-btn"

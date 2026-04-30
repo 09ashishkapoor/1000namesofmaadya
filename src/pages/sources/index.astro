@@ -1,0 +1,110 @@
+---
+const canonical = 'https://1000namesofmakali.com/sources/';
+const title = 'Sources and Editorial Notes | Adya Mahakali 1000 Names';
+const description = 'Source notes, editorial approach, and correction path for the Adya Mahakali 1000 Names devotional reference.';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      name: 'Sources and Editorial Notes',
+      description,
+      url: canonical,
+      inLanguage: 'en',
+      isPartOf: {
+        '@id': 'https://1000namesofmakali.com/#website'
+      },
+      about: {
+        '@type': 'Thing',
+        name: 'Adya Mahakali Sahasranama'
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://1000namesofmakali.com/'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Sources and Editorial Notes',
+          item: canonical
+        }
+      ]
+    }
+  ]
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+    <link rel="stylesheet" href="/static-pages.css" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  </head>
+  <body class="names-static names-static--source">
+    <main>
+      <p class="page-kicker">Project notes</p>
+      <h1>Sources and Editorial Notes</h1>
+
+      <section class="hero-panel">
+        <p class="intro">This page explains how the Adya Mahakali 1000 Names reference is presented, what public source material is acknowledged, and how corrections can be reported.</p>
+        <nav class="page-nav" aria-label="Source notes navigation">
+          <ul>
+            <li><a href="/">Open the interactive reader</a></li>
+            <li><a href="/names/">Browse the static names hub</a></li>
+            <li><a href="/pdf/">Download the free PDF editions</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="source-notes" aria-labelledby="source-basis-heading">
+        <h2 id="source-basis-heading">Source basis</h2>
+        <p>This project compiles devotional source material and explanatory meaning notes for spiritual study, chanting support, and reference use.</p>
+        <p>Primary public references used during compilation include:</p>
+        <ul>
+          <li><a href="https://sanskritdocuments.org/" rel="noopener noreferrer">SanskritDocuments.org</a></li>
+        </ul>
+        <p>The site presents a reader-friendly English reference and does not claim to replace traditional instruction, lineage guidance, or primary manuscript study.</p>
+      </section>
+
+      <section class="source-notes" aria-labelledby="editorial-approach-heading">
+        <h2 id="editorial-approach-heading">Editorial approach</h2>
+        <ul>
+          <li>The names are organized into a searchable homepage reader and crawlable static range pages.</li>
+          <li>Each entry includes a short English meaning and a longer explanatory note where available.</li>
+          <li>Static range pages are intended for citation because their content is visible without JavaScript.</li>
+          <li>Spelling and transliteration choices are kept consistent within the project where possible.</li>
+        </ul>
+      </section>
+
+      <section class="source-notes" aria-labelledby="corrections-heading">
+        <h2 id="corrections-heading">Corrections and attribution</h2>
+        <p>If you notice a spelling, meaning, formatting, attribution, or source issue, please report it through the open-source repository so the correction can be reviewed clearly.</p>
+        <p>When citing this site, please attribute the material to <strong>Adya Mahakali 1000 Names</strong> and link to the relevant canonical page, such as the <a href="/names/">static names hub</a> or a specific name-range page.</p>
+        <p><a href="https://github.com/09ashishkapoor/1000namesofmaadya" rel="noopener noreferrer">View the open-source repository</a></p>
+      </section>
+    </main>
+  </body>
+</html>
