@@ -19,18 +19,62 @@ const { range, previousRange, nextRange, totalCount } = Astro.props;
 
 const itemListSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: range.heading,
-  itemListOrder: 'https://schema.org/ItemListOrderAscending',
-  numberOfItems: range.entries.length,
-  url: range.canonical,
-  inLanguage: 'en',
-  itemListElement: range.entries.map((entry, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    url: `${range.canonical}#name-${entry.index}`,
-    name: entry.english_name
-  }))
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${range.canonical}#webpage`,
+      name: range.heading,
+      description: range.description,
+      url: range.canonical,
+      inLanguage: 'en',
+      isPartOf: {
+        '@id': 'https://1000namesofmakali.com/#website'
+      },
+      mainEntity: {
+        '@id': `${range.canonical}#itemlist`
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${range.canonical}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://1000namesofmakali.com/'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Names Hub',
+          item: 'https://1000namesofmakali.com/names/'
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: range.heading,
+          item: range.canonical
+        }
+      ]
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${range.canonical}#itemlist`,
+      name: range.heading,
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      numberOfItems: range.entries.length,
+      url: range.canonical,
+      inLanguage: 'en',
+      itemListElement: range.entries.map((entry, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${range.canonical}#name-${entry.index}`,
+        name: entry.english_name,
+        description: entry.english_one_line
+      }))
+    }
+  ]
 };
 ---
 <!doctype html>
@@ -40,8 +84,20 @@ const itemListSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{range.title}</title>
     <meta name="description" content={range.description} />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={range.title} />
+    <meta property="og:description" content={range.description} />
+    <meta property="og:url" content={range.canonical} />
+    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={range.title} />
+    <meta name="twitter:description" content={range.description} />
+    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
     <link rel="canonical" href={range.canonical} />
+    {previousRange && <link rel="prev" href={previousRange.canonical} />}
+    {nextRange && <link rel="next" href={nextRange.canonical} />}
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
     <link rel="stylesheet" href="/static-pages.css" />
     <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)}></script>
   </head>

@@ -109,3 +109,5 @@ playwright-tests/smoke.spec.js
 .pi-lens/cache/turn-end-findings-last.meta.json
 .pi-lens/cache/turn-end-findings.json
 .pi-lens/cache/turn-end-findings.meta.json
+docs/seo-audit-2026-04-30.md
+.pi/extensions/guardrails.json

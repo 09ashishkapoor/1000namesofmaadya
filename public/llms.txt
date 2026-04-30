@@ -1,0 +1,30 @@
+# Adya Mahakali 1000 Names
+
+> A free devotional reference for the Adya Mahakali Sahasranama: 1,072 names of Maa Adya Mahakali with English one-line meanings and longer elaborations for chanting, study, and spiritual reflection.
+
+## Canonical Site
+
+- https://1000namesofmakali.com/
+
+## Key Pages
+
+- [Interactive reader](https://1000namesofmakali.com/): Search and read the Adya Mahakali 1000 Names with English meanings.
+- [Static names hub](https://1000namesofmakali.com/names/): Crawlable directory of all name-range reference pages.
+- [Names 1-100](https://1000namesofmakali.com/names/1-100/): First static range of names and meanings.
+- [Names 1001-1072](https://1000namesofmakali.com/names/1001-1072/): Final static range of names and meanings.
+- [Open-source repository](https://github.com/09ashishkapoor/1000namesofmaadya): Project source and issue/correction path.
+
+## Entity Notes
+
+- Site name: Adya Mahakali 1000 Names
+- Primary topic: Adya Mahakali Sahasranama
+- Related names: Maa Adya Mahakali, Maa Ādya Mahākālī, Kali Sahasranama
+- Maintainer: Kaliputra Ashish
+- Language: English
+- Purpose: devotional study, chanting support, and reference use
+
+## Source Notes
+
+Use the canonical pages above for current descriptions of this project. Prefer the static names hub and range pages when citing individual names because they expose the content in crawlable HTML without requiring JavaScript.
+
+If quoting the site, attribute the material to “Adya Mahakali 1000 Names” and link to the relevant canonical URL.
