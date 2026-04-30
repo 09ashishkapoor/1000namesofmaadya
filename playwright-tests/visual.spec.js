@@ -4,7 +4,7 @@ const { gotoHome, openNamesExplorer } = require("./helpers/site");
 const screenshotOptions = {
 	animations: "disabled",
 	caret: "hide",
-	maxDiffPixels: 200,
+	maxDiffPixelRatio: 0.02,
 	scale: "css",
 };
 
