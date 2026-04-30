@@ -1552,6 +1552,22 @@ body::after {
 	font-weight: 600;
 }
 
+.ebook-features a {
+	color: var(--color-divine-gold);
+	font-weight: 700;
+	text-decoration-color: rgba(255, 215, 0, 0.55);
+	text-underline-offset: 0.16em;
+	transition:
+		color var(--transition-fast),
+		text-decoration-color var(--transition-fast);
+}
+
+.ebook-features a:hover,
+.ebook-features a:focus-visible {
+	color: #fff4c9;
+	text-decoration-color: rgba(255, 244, 201, 0.85);
+}
+
 /* eBook CTA Button */
 .ebook-cta-btn {
 	display: inline-flex;
