@@ -12,7 +12,7 @@
 	letter-spacing: 0.01em;
 }
 /**
- * Kālabhairava Sahasranāma - Mobile-First Stylesheet
+ * Maa Ādya Mahākālī Sahasranāma - Mobile-First Stylesheet
  * Pure CSS, highly optimized, beautiful animations
  */
 
@@ -20,18 +20,19 @@
    CSS VARIABLES & THEME
    ============================================ */
 :root {
-	/* Dark Theme (Default) */
-	--color-bg: oklch(0.13 0.006 24);
-	--color-surface: oklch(0.20 0.008 24);
-	--color-surface-elevated: oklch(0.27 0.01 24);
-	--color-text-primary: oklch(0.96 0.012 42);
-	--color-text-secondary: oklch(0.76 0.018 42);
-	--color-text-muted: oklch(0.58 0.014 42);
+	/* Dark Theme (Default): aligned with DESIGN.md / sister shrine system */
+	--color-bg: #0a0a0a;
+	--color-surface: #1a1a1a;
+	--color-surface-elevated: #2a2a2a;
+	--color-text-primary: #f5f5f5;
+	--color-text-secondary: #b0b0b0;
+	--color-text-muted: #b3b3b3;
 
-	--color-crimson: oklch(0.58 0.22 20);
-	--color-blood-red: oklch(0.36 0.16 22);
-	--color-divine-gold: oklch(0.86 0.17 86);
-	--color-gold: oklch(0.74 0.14 76);
+	--color-crimson: #dc143c;
+	--color-blood-red: #8b0000;
+	--color-divine-gold: #ffd700;
+	--color-gold: #ffd700;
+	--color-text-on-accent: #f5f5f5;
 	--color-smoke: rgba(0, 0, 0, 0.55);
 
 	/* Spacing */
@@ -86,7 +87,7 @@ body {
 	font-family:
 		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
 		Cantarell, sans-serif;
-	background-color: var(--color-bg); /* Fallback color */
+	background-color: #0a0a0a; /* Fallback color */
 	/* Fallback background image on body to ensure visibility across browsers */
 	background-image: url("maadya-bg-1111-landscape.webp");
 	background-size: cover;
@@ -144,7 +145,7 @@ body::after {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.28); /* More transparent overlay */
+	background-color: rgba(0, 0, 0, 0.28);
 	z-index: -1;
 }
 
@@ -181,7 +182,7 @@ body::after {
 	position: relative;
 	z-index: 10;
 	text-align: center;
-	max-width: min(92vw, 760px);
+	max-width: min(92vw, 900px);
 	width: 100%;
 	margin: 0 auto;
 	animation: fadeSlideUp 1s ease-out;
@@ -191,7 +192,7 @@ body::after {
 
 /* Main Title */
 .main-title {
-	font-size: 3rem;
+	font-size: clamp(2rem, 7vw, 4.5rem);
 	font-weight: 700;
 	margin-bottom: var(--spacing-md);
 	line-height: 1.1;
@@ -211,12 +212,12 @@ body::after {
 	display: block;
 	font-size: 1em;
 	font-weight: 760;
-	color: oklch(0.93 0.055 18);
-	letter-spacing: 0.065em;
+	color: var(--color-text-primary);
+	letter-spacing: 0.01em;
 	position: relative;
 	text-shadow:
 		0 2px 14px rgba(25, 5, 8, 0.86),
-		0 0 22px rgba(150, 18, 45, 0.34);
+		0 0 18px rgba(220, 20, 60, 0.22);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	max-width: 100%;
@@ -230,11 +231,11 @@ body::after {
 	font-weight: 600;
 	font-style: italic;
 	letter-spacing: 0.1em;
-	color: oklch(0.83 0.118 84);
+	color: var(--color-divine-gold);
 	filter: drop-shadow(0 2px 8px rgba(38, 24, 5, 0.7));
 	margin-top: 0.3rem;
 	position: relative;
-	text-shadow: 0 1px 12px rgba(214, 172, 71, 0.28);
+	text-shadow: 0 1px 10px rgba(255, 215, 0, 0.24);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	max-width: 100%;
@@ -242,7 +243,7 @@ body::after {
 
 .title-description {
 	font-size: 1.1rem;
-	color: oklch(0.9 0.018 42);
+	color: var(--color-text-primary);
 	margin-bottom: var(--spacing-xl);
 	font-weight: 400;
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -274,7 +275,7 @@ body::after {
 	justify-content: center;
 	min-height: 44px;
 	padding: 0 0.15rem;
-	color: oklch(0.82 0.095 84);
+	color: var(--color-divine-gold);
 	font-weight: 600;
 	text-decoration: none;
 	border-bottom: 1px solid rgba(214, 172, 71, 0.48);
@@ -286,14 +287,14 @@ body::after {
 }
 
 .hero-reference-link:hover {
-	color: oklch(0.9 0.11 84);
+	color: #fff4c9;
 	border-color: rgba(232, 195, 104, 0.72);
 	transform: translateY(-1px);
 }
 
 @media (min-width: 480px) {
 	.main-title {
-		font-size: 3.5rem;
+		font-size: clamp(2.25rem, 7vw, 4.5rem);
 	}
 
 	.title-description {
@@ -304,7 +305,7 @@ body::after {
 
 @media (min-width: 768px) {
 	.main-title {
-		font-size: 5rem;
+		font-size: clamp(3rem, 7vw, 4.5rem);
 		padding: 0;
 	}
 
@@ -315,7 +316,7 @@ body::after {
 
 @media (min-width: 1024px) {
 	.main-title {
-		font-size: 6rem;
+		font-size: 4.5rem;
 	}
 
 	.title-description {
@@ -708,7 +709,7 @@ body::after {
 	font-size: 1.5rem;
 	font-weight: 700;
 	margin-bottom: clamp(0.75rem, 2vw, 1.2rem);
-	color: oklch(0.94 0.018 42);
+	color: var(--color-text-primary);
 	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.82);
 	padding: 0;
 	border-radius: 0;
@@ -728,7 +729,7 @@ body::after {
 
 .section-subtitle {
 	font-size: 1rem;
-	color: oklch(0.88 0.018 42);
+	color: var(--color-text-secondary);
 	max-width: 620px;
 	margin: 0 auto;
 	line-height: 1.75;
@@ -1000,13 +1001,10 @@ body::after {
 	animation: fadeSlideUp 0.4s ease-out forwards;
 	border: 1px solid rgba(220, 20, 60, 0.16);
 	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
+	background-color: var(--color-bg);
 	background-image:
-		radial-gradient(
-			circle at top center,
-			rgba(255, 215, 0, 0.08),
-			transparent 42%
-		),
-		linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(220, 20, 60, 0.04));
+		radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.055), transparent 40%),
+		linear-gradient(180deg, rgba(26, 26, 26, 0.96), rgba(10, 10, 10, 0.98));
 	position: relative;
 	overflow: hidden;
 }
@@ -1043,11 +1041,11 @@ body::after {
 }
 
 .name-card:hover {
-	transform: translateY(-4px) scale(1.02);
+	transform: translateY(-3px);
 	box-shadow:
 		0 12px 34px rgba(0, 0, 0, 0.42),
 		0 0 0 1px rgba(220, 20, 60, 0.22);
-	border-color: rgba(255, 215, 0, 0.22);
+	border-color: rgba(220, 20, 60, 0.28);
 }
 
 @media (max-width: 767px) {
@@ -1069,7 +1067,7 @@ body::after {
 	font-size: 0.75rem;
 	font-weight: 700;
 	color: var(--color-text-primary);
-	background: linear-gradient(135deg, var(--color-blood-red) 0%, oklch(0.48 0.18 24) 55%, var(--color-gold) 100%);
+	background: linear-gradient(135deg, var(--color-blood-red) 0%, var(--color-crimson) 100%);
 	border-radius: var(--radius-full);
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
 	letter-spacing: 0.03em;
@@ -1258,7 +1256,7 @@ body::after {
 }
 
 .about-section-title {
-	color: oklch(0.94 0.018 42);
+	color: var(--color-text-primary);
 	font-size: clamp(1.6rem, 4vw, 2rem);
 	margin-bottom: 1rem;
 	font-weight: 700;
@@ -1266,7 +1264,7 @@ body::after {
 }
 
 .about-section-subtitle {
-	color: oklch(0.9 0.018 42);
+	color: var(--color-text-primary);
 	font-size: 1.1rem;
 	line-height: 1.7;
 }
@@ -1292,7 +1290,7 @@ body::after {
 }
 
 .devotional-article-title {
-	color: oklch(0.94 0.018 42);
+	color: var(--color-text-primary);
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	font-weight: 600;
@@ -1300,14 +1298,14 @@ body::after {
 }
 
 .devotional-article-text {
-	color: oklch(0.9 0.018 42);
+	color: var(--color-text-primary);
 	font-size: 1.05rem;
 	line-height: 1.8;
 	margin-bottom: 1rem;
 }
 
 .devotional-article-text strong {
-	color: oklch(0.66 0.19 22);
+	color: var(--color-crimson);
 }
 
 .devotional-article-text--last {
@@ -1326,13 +1324,13 @@ body::after {
 }
 
 .benefit-icon {
-	color: oklch(0.66 0.19 22);
+	color: var(--color-crimson);
 	font-size: 1.5rem;
 	line-height: 1.5;
 }
 
 .benefit-title {
-	color: oklch(0.94 0.018 42);
+	color: var(--color-text-primary);
 	font-size: 1.15rem;
 	margin-bottom: 0.5rem;
 	font-weight: 600;
@@ -1340,7 +1338,7 @@ body::after {
 }
 
 .benefit-text {
-	color: oklch(0.9 0.018 42);
+	color: var(--color-text-primary);
 	font-size: 1rem;
 	line-height: 1.7;
 	margin: 0;
@@ -1413,8 +1411,8 @@ body::after {
 }
 
 .ebook-promo-card {
-	background: var(--color-smoke);
-	border: 2px solid var(--color-crimson);
+	background: var(--color-surface);
+	border: 1px solid rgba(220, 20, 60, 0.28);
 	border-radius: var(--radius-lg);
 	padding: var(--spacing-lg);
 	animation: fadeSlideUp 0.8s ease-out 0.3s both;
@@ -1429,11 +1427,11 @@ body::after {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 3px;
+	height: 1px;
 	background: linear-gradient(
 		90deg,
 		transparent,
-		var(--color-crimson),
+		var(--color-divine-gold),
 		transparent
 	);
 	animation: glow 3s ease-in-out infinite;
@@ -1474,7 +1472,7 @@ body::after {
 }
 
 .ebook-promo-text strong {
-	color: var(--color-crimson);
+	color: var(--color-divine-gold);
 	font-weight: 600;
 }
 
@@ -1504,7 +1502,7 @@ body::after {
 }
 
 .ebook-features strong {
-	color: var(--color-crimson);
+	color: var(--color-divine-gold);
 	font-weight: 600;
 }
 
