@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-04-29T00:00:00.000Z",
+  "title": "Design System: Maa Ādya Mahākālī Sahasranāma",
+  "extensions": {
+    "colorMeta": {
+      "shrine-black": { "role": "neutral", "displayName": "Shrine Black", "canonical": "oklch(0.13 0.006 24)", "tonalRamp": ["oklch(0.13 0.006 24)", "oklch(0.20 0.006 24)", "oklch(0.28 0.007 24)", "oklch(0.38 0.008 24)", "oklch(0.50 0.008 24)", "oklch(0.66 0.007 24)", "oklch(0.82 0.006 24)", "oklch(0.95 0.005 24)"] },
+      "smoke-surface": { "role": "neutral", "displayName": "Smoke Surface", "canonical": "oklch(0.20 0.008 24)", "tonalRamp": ["oklch(0.14 0.006 24)", "oklch(0.20 0.008 24)", "oklch(0.28 0.009 24)", "oklch(0.38 0.01 24)", "oklch(0.50 0.01 24)", "oklch(0.66 0.009 24)", "oklch(0.82 0.007 24)", "oklch(0.95 0.005 24)"] },
+      "raised-charcoal": { "role": "neutral", "displayName": "Raised Charcoal", "canonical": "oklch(0.27 0.01 24)", "tonalRamp": ["oklch(0.15 0.007 24)", "oklch(0.22 0.009 24)", "oklch(0.27 0.01 24)", "oklch(0.40 0.011 24)", "oklch(0.52 0.01 24)", "oklch(0.68 0.009 24)", "oklch(0.84 0.007 24)", "oklch(0.96 0.005 24)"] },
+      "sacred-text": { "role": "neutral", "displayName": "Sacred Text", "canonical": "oklch(0.96 0.012 42)", "tonalRamp": ["oklch(0.18 0.01 42)", "oklch(0.30 0.011 42)", "oklch(0.44 0.012 42)", "oklch(0.58 0.012 42)", "oklch(0.72 0.012 42)", "oklch(0.84 0.012 42)", "oklch(0.92 0.012 42)", "oklch(0.96 0.012 42)"] },
+      "quiet-text": { "role": "neutral", "displayName": "Quiet Text", "canonical": "oklch(0.76 0.018 42)", "tonalRamp": ["oklch(0.18 0.012 42)", "oklch(0.30 0.014 42)", "oklch(0.42 0.016 42)", "oklch(0.56 0.018 42)", "oklch(0.68 0.018 42)", "oklch(0.76 0.018 42)", "oklch(0.86 0.014 42)", "oklch(0.95 0.01 42)"] },
+      "muted-text": { "role": "neutral", "displayName": "Muted Text", "canonical": "oklch(0.58 0.014 42)", "tonalRamp": ["oklch(0.16 0.01 42)", "oklch(0.26 0.012 42)", "oklch(0.38 0.014 42)", "oklch(0.50 0.014 42)", "oklch(0.58 0.014 42)", "oklch(0.72 0.012 42)", "oklch(0.86 0.01 42)", "oklch(0.95 0.008 42)"] },
+      "kali-crimson": { "role": "primary", "displayName": "Kali Crimson", "canonical": "oklch(0.58 0.22 20)", "tonalRamp": ["oklch(0.18 0.08 20)", "oklch(0.28 0.12 20)", "oklch(0.38 0.16 20)", "oklch(0.48 0.20 20)", "oklch(0.58 0.22 20)", "oklch(0.68 0.17 20)", "oklch(0.82 0.09 20)", "oklch(0.94 0.03 20)"] },
+      "blood-red": { "role": "primary", "displayName": "Blood Red", "canonical": "oklch(0.36 0.16 22)", "tonalRamp": ["oklch(0.16 0.07 22)", "oklch(0.24 0.10 22)", "oklch(0.32 0.13 22)", "oklch(0.36 0.16 22)", "oklch(0.48 0.15 22)", "oklch(0.62 0.11 22)", "oklch(0.78 0.06 22)", "oklch(0.94 0.025 22)"] },
+      "temple-gold": { "role": "secondary", "displayName": "Temple Gold", "canonical": "oklch(0.86 0.17 86)", "tonalRamp": ["oklch(0.20 0.07 86)", "oklch(0.32 0.10 86)", "oklch(0.46 0.13 86)", "oklch(0.60 0.15 86)", "oklch(0.74 0.16 86)", "oklch(0.86 0.17 86)", "oklch(0.92 0.08 86)", "oklch(0.97 0.025 86)"] },
+      "antique-gold": { "role": "secondary", "displayName": "Antique Gold", "canonical": "oklch(0.74 0.14 76)", "tonalRamp": ["oklch(0.18 0.06 76)", "oklch(0.30 0.09 76)", "oklch(0.42 0.11 76)", "oklch(0.56 0.13 76)", "oklch(0.68 0.13 76)", "oklch(0.74 0.14 76)", "oklch(0.88 0.06 76)", "oklch(0.96 0.02 76)"] },
+      "smoke-overlay": { "role": "neutral", "displayName": "Smoke Overlay", "canonical": "rgba(0, 0, 0, 0.55)", "tonalRamp": ["rgba(0, 0, 0, 0.18)", "rgba(0, 0, 0, 0.28)", "rgba(0, 0, 0, 0.40)", "rgba(0, 0, 0, 0.55)", "rgba(0, 0, 0, 0.68)", "rgba(0, 0, 0, 0.78)", "rgba(0, 0, 0, 0.88)", "rgba(0, 0, 0, 0.95)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Landing title and ceremonial orientation only." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles and major orientation moments." },
+      "title": { "displayName": "Sacred Title", "purpose": "Sacred names, mantras, and devotional headings." },
+      "body": { "displayName": "Reading Body", "purpose": "Meanings, instructions, and long-form devotional text." },
+      "label": { "displayName": "Interface Label", "purpose": "Buttons, filters, controls, badges, and metadata." }
+    },
+    "shadows": [
+      { "name": "control-rest", "value": "0 2px 8px rgba(0, 0, 0, 0.1)", "purpose": "Inputs and secondary buttons at rest." },
+      { "name": "panel-rest", "value": "0 4px 20px rgba(0, 0, 0, 0.3)", "purpose": "Controls panel and stable interface containers." },
+      { "name": "hero-control-rest", "value": "0 4px 16px rgba(0, 0, 0, 0.25)", "purpose": "Secondary hero action on image-backed surfaces." },
+      { "name": "card-rest", "value": "0 6px 18px rgba(0, 0, 0, 0.24)", "purpose": "Name cards at rest, enough separation without spectacle." },
+      { "name": "card-hover", "value": "0 12px 34px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(220, 20, 60, 0.22)", "purpose": "Desktop reading-card attention only." },
+      { "name": "primary-glow", "value": "0 4px 20px rgba(220, 20, 60, 0.4)", "purpose": "Primary action emphasis, not general elevation." }
+    ],
+    "motion": [
+      { "name": "transition-fast", "value": "0.15s ease", "purpose": "Small control and focus changes." },
+      { "name": "transition-normal", "value": "0.3s ease", "purpose": "Buttons, cards, and default interface state changes." },
+      { "name": "transition-slow", "value": "0.5s ease", "purpose": "Rare ceremonial transitions." }
+    ],
+    "breakpoints": [
+      { "name": "small-phone", "value": "400px" },
+      { "name": "mobile", "value": "640px" },
+      { "name": "tablet", "value": "768px" },
+      { "name": "desktop", "value": "1024px" },
+      { "name": "wide", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Crimson devotional action for primary reading movement and major calls to action.",
+      "html": "<button class=\"ds-btn-primary\">Next 11</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 1rem 2.5rem; border: 0; border-radius: 9999px; background: linear-gradient(135deg, oklch(0.58 0.22 20) 0%, oklch(0.36 0.16 22) 100%); color: oklch(0.96 0.012 42); font: 600 1rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; cursor: pointer; box-shadow: 0 4px 20px rgba(220, 20, 60, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; } .ds-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(220, 20, 60, 0.6); } .ds-btn-primary:focus-visible { outline: 3px solid rgba(220, 20, 60, 0.5); outline-offset: 3px; } .ds-btn-primary:active { transform: translateY(0) scale(0.98); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet smoke-surface utility action for search, clearing, retry, and secondary navigation.",
+      "html": "<button class=\"ds-btn-secondary\">Open Search</button>",
+      "css": ".ds-btn-secondary { min-height: 44px; min-width: 80px; padding: 0.875rem 1.5rem; border-radius: 0.75rem; border: 2px solid rgba(220, 20, 60, 0.3); background: oklch(0.20 0.008 24); color: oklch(0.96 0.012 42); font: 600 1rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease; } .ds-btn-secondary:hover { background: oklch(0.27 0.01 24); border-color: oklch(0.58 0.22 20); box-shadow: 0 4px 12px rgba(220, 20, 60, 0.2); transform: translateY(-1px); } .ds-btn-secondary:focus-visible { outline: 3px solid rgba(220, 20, 60, 0.3); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Mobile-first search field with crimson focus ring and smoke background.",
+      "html": "<label class=\"ds-search\"><span class=\"ds-search-icon\">⌕</span><input placeholder=\"Search sacred names\" /></label>",
+      "css": ".ds-search { position: relative; display: block; width: min(100%, 520px); } .ds-search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: oklch(0.58 0.014 42); pointer-events: none; } .ds-search input { width: 100%; min-height: 44px; padding: 0.875rem 1rem 0.875rem 3rem; border: 2px solid rgba(220, 20, 60, 0.2); border-radius: 0.75rem; background: oklch(0.20 0.008 24); color: oklch(0.96 0.012 42); font: 400 1rem/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease; } .ds-search input::placeholder { color: oklch(0.58 0.014 42); } .ds-search input:focus { outline: none; border-color: oklch(0.58 0.22 20); box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15); }"
+    },
+    {
+      "name": "Name Card",
+      "kind": "card",
+      "refersTo": "card-name",
+      "description": "Signature devotional reading vessel for one sacred name and its meaning.",
+      "html": "<article class=\"ds-name-card\"><div class=\"ds-card-header\"><span class=\"ds-card-index\">#108</span></div><h3>Mahākālī</h3><p>The great dark mother beyond time.</p><button>Read More</button></article>",
+      "css": ".ds-name-card { position: relative; overflow: hidden; padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(220, 20, 60, 0.16); background: radial-gradient(circle at top center, rgba(255, 215, 0, 0.08), transparent 42%), linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(220, 20, 60, 0.04)), rgba(0, 0, 0, 0.55); color: oklch(0.96 0.012 42); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease; } .ds-name-card::before { content: ''; position: absolute; top: 0; left: 12%; width: 76%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.75), transparent); } .ds-name-card:hover { transform: translateY(-4px) scale(1.02); border-color: rgba(255, 215, 0, 0.22); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(220, 20, 60, 0.22); } .ds-card-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; } .ds-card-index { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 9999px; background: linear-gradient(135deg, oklch(0.36 0.16 22) 0%, oklch(0.48 0.18 24) 55%, oklch(0.74 0.14 76) 100%); color: oklch(0.96 0.012 42); font: 700 0.75rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; letter-spacing: 0.03em; } .ds-name-card h3 { margin: 0 0 0.85rem; color: oklch(0.96 0.012 42); font: 700 1.25rem/1.3 Georgia, 'Times New Roman', serif; letter-spacing: 0.01em; } .ds-name-card p { margin: 0 0 1rem; color: oklch(0.96 0.012 42); font: italic 400 0.9375rem/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .ds-name-card button { width: 100%; min-height: 48px; padding: 1rem 1.25rem; border-radius: 0.75rem; border: 1px solid rgba(220, 20, 60, 0.12); background: linear-gradient(180deg, rgba(36, 36, 36, 0.96), rgba(28, 28, 28, 0.96)); color: oklch(0.96 0.012 42); font: 600 0.9375rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; cursor: pointer; } .ds-name-card button:focus-visible { outline: 3px solid rgba(220, 20, 60, 0.35); outline-offset: 2px; }"
+    },
+    {
+      "name": "Controls Panel",
+      "kind": "custom",
+      "refersTo": "controls-panel",
+      "description": "Smoke-toned search and filter container that stays quiet behind the reading flow.",
+      "html": "<section class=\"ds-controls\"><button class=\"ds-btn-secondary\">Open Search</button><p>Reading controls stay compact and legible.</p></section>",
+      "css": ".ds-controls { padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(220, 20, 60, 0.15); background: rgba(0, 0, 0, 0.55); color: oklch(0.96 0.012 42); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); } .ds-controls p { margin: 1rem 0 0; color: oklch(0.76 0.018 42); font: 400 0.9375rem/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .ds-controls .ds-btn-secondary { min-height: 44px; padding: 0.875rem 1.5rem; border-radius: 0.75rem; border: 2px solid rgba(220, 20, 60, 0.3); background: oklch(0.20 0.008 24); color: oklch(0.96 0.012 42); font: 600 1rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }"
+    },
+    {
+      "name": "Devotional Link",
+      "kind": "nav",
+      "refersTo": "hero-reference-link",
+      "description": "Gold text link used for static names reference and devotional footer links.",
+      "html": "<a class=\"ds-devotional-link\" href=\"#\">Browse static names reference pages</a>",
+      "css": ".ds-devotional-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 0.15rem; color: oklch(0.86 0.17 86); font: 600 1rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-decoration: none; border-bottom: 1px solid rgba(214, 172, 71, 0.48); text-shadow: 0 1px 8px rgba(20, 10, 0, 0.72); transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease; } .ds-devotional-link:hover { color: oklch(0.92 0.10 86); border-color: rgba(232, 195, 104, 0.72); transform: translateY(-1px); } .ds-devotional-link:focus-visible { outline: 2px solid oklch(0.58 0.22 20); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Midnight Shrine",
+    "overview": "The interface should feel like entering a quiet shrine at night: dark enough to focus the mind, warm enough to welcome sincere readers, and still enough for long devotional reading. The system is sacred, legible, and calm. It carries Maa Kali's intensity through disciplined crimson and temple gold, not through spectacle.\n\nThe visual system serves the 1,072 names before it serves decoration. The background image, tonal shadows, crimson accents, gold markers, and motion all exist to guide reading, not to perform. Every surface must protect mobile readability, steady pacing, and devotional presence.\n\nIt explicitly rejects generic SaaS UI, flashy gaming aesthetics, pastel new-age wellness styling, and luxury ecommerce polish. If the interface feels trend-driven, shallow, overstimulating, or detached from the devotional weight of Maa Kali, it has failed.",
+    "keyCharacteristics": [
+      "Night-shrine atmosphere with dark tonal layers and text-first structure.",
+      "OKLCH shrine tokens as the canonical color source, with tinted neutrals instead of pure black or pure white.",
+      "Crimson for sacred force, focus, and primary movement. Gold for blessing, guidance, and rare devotional emphasis.",
+      "Serif emphasis for sacred names and mantras, clear system sans for long mobile reading.",
+      "Touch-first controls, 44px minimum tap targets, and calm pagination in sets of 11.",
+      "Motion is quiet, state-based, and fully subordinate to reduced-motion preferences."
+    ],
+    "rules": [
+      { "name": "The Shrine Darkness Rule", "body": "The interface is dark because the devotional reading scene is quiet, nighttime, and inward. Do not switch to light mode by category reflex.", "section": "colors" },
+      { "name": "The Gold Is Blessing Rule", "body": "Gold marks reverence and guidance. Do not use it as generic decoration, sparkle, or luxury polish.", "section": "colors" },
+      { "name": "The Crimson Has Weight Rule", "body": "Crimson is sacred power. If every element is crimson, no element is sacred.", "section": "colors" },
+      { "name": "The No Pure Neutral Rule", "body": "Do not introduce pure black, pure white, or flat gray. All neutrals should stay subtly tinted toward the shrine palette.", "section": "colors" },
+      { "name": "The Text Leads Rule", "body": "Names and meanings are the product. Never let animation, image treatment, or decorative headings compete with long-form reading.", "section": "typography" },
+      { "name": "The Serif Is Sacred Rule", "body": "Reserve serif typography for names, mantras, and devotional emphasis. Do not use it for every control.", "section": "typography" },
+      { "name": "The Mobile Clarity Rule", "body": "Body copy must remain comfortable at phone widths. If a line wraps awkwardly, fix wrapping and spacing before adding decoration.", "section": "typography" },
+      { "name": "The Quiet Layer Rule", "body": "Use tonal layers first, shadows second, glow last. Glow is a state or sacred emphasis, not a default surface style.", "section": "elevation" },
+      { "name": "The No Decorative Glass Rule", "body": "Do not add blur glassmorphism for style. If transparency appears, it must improve legibility and pass performance checks.", "section": "elevation" },
+      { "name": "The Hover Is Not Mobile Rule", "body": "Desktop cards may lift subtly on hover. Mobile cards should use tap compression or state change, not floating drama.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do design for reverent reading first. Text clarity, line-height, and tap targets outrank novelty.",
+      "Do use the OKLCH shrine tokens from frontmatter as the source of truth.",
+      "Do use crimson for primary action, focus, and sacred emphasis with discipline.",
+      "Do use gold as blessing and guidance, especially for devotional links, Om symbols, mantras, and rare dividers.",
+      "Do keep mobile controls at `44px` minimum height, with the primary reading path closer to `48px`.",
+      "Do respect reduced motion preferences and keep motion quiet, state-based, and non-essential.",
+      "Do prefer dark tonal layers and thin borders over glassmorphism, heavy blur, or busy overlays.",
+      "Do keep search, pagination, and elaboration states understandable without relying on color alone."
+    ],
+    "donts": [
+      "Don't make this look like generic SaaS UI.",
+      "Don't use flashy gaming aesthetics.",
+      "Don't use pastel new-age wellness styling.",
+      "Don't use luxury ecommerce polish.",
+      "Don't create interfaces that feel trend-driven, shallow, overstimulating, or detached from the devotional weight of Maa Kali.",
+      "Don't use gradient text. Favor solid sacred text, weight, scale, and shadow instead.",
+      "Don't use border-left or border-right greater than `1px` as a colored accent on cards, list items, callouts, or alerts.",
+      "Don't add nested cards or repeated identical icon-card grids.",
+      "Don't introduce decorative glassmorphism, backdrop blur, or frosted panels by default.",
+      "Don't use pure black, pure white, or untinted gray in new interface work."
+    ]
+  }
+}

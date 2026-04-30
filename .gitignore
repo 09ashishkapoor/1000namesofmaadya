@@ -84,9 +84,6 @@ temp/
 *.pid
 *.code-workspace
 PLAN-remove-hindi-mode.md
-PRODUCT.md
-DESIGN.json
-DESIGN.md
 .pi-lens/index.json
 .pi-lens/metrics-history.json
 .pi-lens/turn-state.json

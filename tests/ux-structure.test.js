@@ -11,7 +11,7 @@ const appJs = read("public/app.js");
 const stylesCss = read("public/styles.css");
 const translationsJs = read("public/translations.js");
 const headersFile = read("public/_headers");
-const sitemapXml = read("public/sitemap.xml");
+const sitemapXml = read("public/sitemap.xml").replace(/\r\n/g, "\n");
 const serviceWorkerJs = read("public/sw.js");
 
 function assertIncludes(text, snippet, message) {
