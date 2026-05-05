@@ -558,24 +558,6 @@ body::after {
 	margin-bottom: var(--spacing-md);
 }
 
-.language-select {
-	flex: 1;
-	min-width: 150px;
-	padding: 0.875rem 1rem;
-	font-size: 1rem;
-	background: var(--color-surface);
-	border: 2px solid transparent;
-	border-radius: var(--radius-md);
-	color: var(--color-text-primary);
-	cursor: pointer;
-	transition: all var(--transition-fast);
-}
-
-.language-select:focus {
-	outline: none;
-	border-color: var(--color-crimson);
-}
-
 .btn-secondary {
 	padding: 0.875rem 1.5rem;
 	font-size: 1rem;

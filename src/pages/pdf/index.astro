@@ -1,16 +1,15 @@
 ---
 const canonical = 'https://1000namesofmakali.com/pdf/';
-const title = 'Free PDF Editions | Adya Mahakali 1000 Names';
-const description = 'Download the free English and Hindi PDF editions of Adya Mahakali 1000 Names for offline reading and devotional study.';
+const title = 'Free English PDF Edition | Adya Mahakali 1000 Names';
+const description = 'Download the free English PDF edition of Adya Mahakali 1000 Names for offline reading and devotional study.';
 const englishPdf = 'https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_V4.pdf';
-const hindiPdf = 'https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_Hindi.pdf';
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebPage',
       '@id': `${canonical}#webpage`,
-      name: 'Free PDF Editions of Adya Mahakali 1000 Names',
+      name: 'Free English PDF Edition of Adya Mahakali 1000 Names',
       description,
       url: canonical,
       inLanguage: 'en',
@@ -35,7 +34,7 @@ const schema = {
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Free PDF Editions',
+          name: 'Free English PDF Edition',
           item: canonical
         }
       ]
@@ -67,15 +66,14 @@ const schema = {
   </head>
   <body class="names-static names-static--pdf">
     <main>
-      <p class="page-kicker">Free ebook downloads</p>
-      <h1>Adya Mahakali 1000 Names PDF Editions</h1>
+      <p class="page-kicker">Free ebook download</p>
+      <h1>Adya Mahakali 1000 Names English PDF Edition</h1>
 
       <section class="hero-panel">
-        <p class="intro">Download free PDF editions of the Adya Mahakali 1000 Names for offline reading, printing, chanting, and devotional study. The English edition is 871 pages, and the Hindi edition is 1,376 pages.</p>
+        <p class="intro">Download the free English PDF edition of the Adya Mahakali 1000 Names for offline reading, printing, chanting, and devotional study.</p>
         <nav class="page-nav" aria-label="PDF page navigation">
           <ul>
             <li><a href={englishPdf}>Download English PDF</a></li>
-            <li><a href={hindiPdf}>Download Hindi PDF</a></li>
             <li><a href="/names/">Browse the online names hub</a></li>
           </ul>
         </nav>
@@ -83,17 +81,13 @@ const schema = {
 
       <section class="ranges-panel" aria-labelledby="download-options-heading">
         <div class="section-heading">
-          <p class="section-kicker">Downloads</p>
-          <h2 id="download-options-heading">Choose a PDF edition</h2>
+          <p class="section-kicker">Download</p>
+          <h2 id="download-options-heading">English PDF edition</h2>
         </div>
         <ol class="range-list resource-list">
           <li>
             <a href={englishPdf}>English ebook PDF</a>
-            <div>Free 871-page English edition of Adya Mahakali 1000 Names for offline reading and study.</div>
-          </li>
-          <li>
-            <a href={hindiPdf}>Hindi ebook PDF</a>
-            <div>Free 1,376-page Hindi edition for readers who prefer the Hindi PDF version.</div>
+            <div>Free English edition of Adya Mahakali 1000 Names for offline reading and study.</div>
           </li>
         </ol>
       </section>
@@ -101,7 +95,7 @@ const schema = {
       <section class="source-notes" aria-labelledby="pdf-notes-heading">
         <h2 id="pdf-notes-heading">Notes for readers</h2>
         <ul>
-          <li>The PDF files are hosted by Khyapa Parampara and are offered as free devotional ebooks.</li>
+          <li>The PDF file is hosted by Khyapa Parampara and offered as a free devotional ebook.</li>
           <li>The online reader remains useful for search, quick lookup, and direct links to static name ranges.</li>
           <li>For citation of individual names on the web, prefer the <a href="/names/">static names hub</a> and range pages because they are crawlable HTML.</li>
         </ul>

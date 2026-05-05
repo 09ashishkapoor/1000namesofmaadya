@@ -41,7 +41,6 @@ function enrichEntry(entry) {
 		english_elaboration_paragraphs: splitIntoParagraphs(
 			entry.english_elaboration,
 		),
-		hindi_elaboration_paragraphs: splitIntoParagraphs(entry.hindi_elaboration),
 	};
 }
 
@@ -67,12 +66,10 @@ function buildRangeMetadata(entries, rangeNumber, totalRanges) {
 		firstName: {
 			index: first.index,
 			english: first.english_name,
-			hindi: first.hindi_name,
 		},
 		lastName: {
 			index: last.index,
 			english: last.english_name,
-			hindi: last.hindi_name,
 		},
 		rangeNumber,
 		totalRanges,

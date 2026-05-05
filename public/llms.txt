@@ -10,7 +10,7 @@
 
 - [Interactive reader](https://1000namesofmakali.com/): Search and read the Adya Mahakali 1000 Names with English meanings.
 - [Static names hub](https://1000namesofmakali.com/names/): Crawlable directory of all name-range reference pages.
-- [Free PDF editions](https://1000namesofmakali.com/pdf/): Direct links to the free English and Hindi ebook PDFs for offline reading.
+- [Free PDF edition](https://1000namesofmakali.com/pdf/): Direct link to the free English ebook PDF for offline reading.
 - [Sources and editorial notes](https://1000namesofmakali.com/sources/): Source basis, editorial approach, correction path, and citation guidance.
 - [Names 1-100](https://1000namesofmakali.com/names/1-100/): First static range of names and meanings.
 - [Names 1001-1072](https://1000namesofmakali.com/names/1001-1072/): Final static range of names and meanings.
