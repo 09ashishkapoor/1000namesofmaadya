@@ -96,9 +96,28 @@ const schema = {
         <ul>
           <li>The names are organized into a searchable homepage reader and crawlable static range pages.</li>
           <li>Each entry includes a short English meaning and a longer explanatory note where available.</li>
-          <li>Static range pages are intended for citation because their content is visible without JavaScript.</li>
+          <li>Static range pages and individual name pages are intended for citation because their content is visible without JavaScript.</li>
           <li>Spelling and transliteration choices are kept consistent within the project where possible.</li>
         </ul>
+      </section>
+
+      <section class="source-notes" aria-labelledby="transliteration-method-heading">
+        <h2 id="transliteration-method-heading">Transliteration and name mapping</h2>
+        <p>
+          Every name is published with four forms: a common English spelling, an IAST transliteration, the Devanagari
+          form, and the source transliteration used by this project. The common spelling is the romanization most readers
+          type; alternate spellings are listed on each name page so the same name can be found under the forms different
+          readers use.
+        </p>
+        <p>
+          The spelling mapping is generated from the project data rather than hand-maintained per page. Repeated names in
+          the Sahasranama share one canonical page that lists every occurrence. The generation method and quality checks
+          are documented in the repository under <code>seo/name-mapping-report.md</code> and <code>src/data/name-mapping.json</code>.
+        </p>
+        <p>
+          Printable PDF editions are generated from the same data, so corrections to a spelling or meaning flow through
+          to the online pages and the downloadable file.
+        </p>
       </section>
 
       <section class="source-notes" aria-labelledby="corrections-heading">

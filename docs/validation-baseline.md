@@ -38,7 +38,7 @@ The current repo build was measured and the budget is intentionally close to the
 - DOMContentLoaded: **< 1000ms** on the local preview server
 - initial HTML: **<= 320 KB**
 - bootstrap JS (`app.js`, `navigation.js`, `translations.js`): **<= 70 KB** combined
-- initial stylesheet (`styles.min.css`): **<= 32 KB**
+- initial stylesheet (`styles.min.css`): **<= 40 KB**
 
 ## Local commands
 

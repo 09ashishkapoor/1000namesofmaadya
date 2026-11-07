@@ -27,6 +27,10 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 - **Reading pagination** in sets of 11 names for slower devotional pacing
 - **Expandable name cards** for short meanings and longer notes
 - **Static names reference pages** at `/names/` for SEO, sharing, and no-JavaScript access
+- **Individual name pages** at `/names/<slug>/` with Devanagari, IAST, alternate spellings, meaning, and full elaboration
+- **Head-term guides** for [108 names](https://1000namesofmakali.com/108-names-of-kali/), [1,008 names](https://1000namesofmakali.com/1008-names-of-kali/), [PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/), [lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/), and [benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/)
+- **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.2 MB)
+- **Generated sitemap** covering every URL, plus structured data (`Article`, `DefinedTerm`, `Book`, `FAQPage`, `BreadcrumbList`)
 - **Mobile-first interface** with large touch targets and resilient text wrapping
 - **Devotional visual system** documented in `PRODUCT.md`, `DESIGN.md`, and `DESIGN.json`
 - **Offline/cache support** through a service worker
@@ -53,20 +57,38 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 
 ```text
 ├── src/
+│   ├── data/name-mapping.json      # Generated spellings, slugs, page groups
 │   ├── lib/staticNames.js          # Static names-page data helpers
 │   └── pages/
 │       ├── index.astro             # Main interactive reader
-│       └── names/                  # Static names reference pages
+│       ├── names/                  # Hub, 100-name ranges, and per-name pages
+│       ├── 108-names-of-kali/      # Head-term landing pages
+│       ├── 1008-names-of-kali/
+│       ├── kali-sahasranama-pdf/
+│       ├── kali-sahasranama-lyrics/
+│       ├── kali-sahasranama-benefits/
+│       ├── about/ · contact/ · privacy/
+│       └── sources/
+├── seo/                            # SEO plan and generated-artifact pipelines
+│   ├── build-name-mapping.mjs      # Devanagari/IAST → spelling mapping
+│   ├── build-sitemap.mjs           # public/sitemap.xml (also runs in prebuild)
+│   ├── build-print-pdf.mjs         # public/downloads/kali-sahasranama-names.pdf
+│   ├── data/                       # Legacy spelling cache + overrides
+│   ├── owner-actions.md            # External steps (Search Console, Cloudflare, backlinks)
+│   └── name-mapping-report.md
 ├── public/
 │   ├── app.js                      # Reader/search/pagination logic
 │   ├── navigation.js               # Floating navigation controls
 │   ├── search.js                   # Search implementation
 │   ├── styles.css / styles.min.css # Main visual system CSS
+│   ├── name-pages.css              # Per-name reference page styles
+│   ├── landing-pages.css           # Landing page tables/FAQ styles
+│   ├── downloads/                  # Printable PDF edition
 │   ├── data_chunk_1-6.json         # Chunked names dataset
 │   ├── data_manifest.json          # Chunk metadata
 │   ├── mahakali_sahasranama_meanings.json
 │   ├── sw.js                       # Service worker
-│   ├── sitemap.xml
+│   ├── sitemap.xml                 # Generated
 │   └── robots.txt
 ├── playwright-tests/               # Browser, a11y, visual, and performance tests
 ├── tests/                          # Node regression tests
@@ -104,6 +126,20 @@ Open the local URL printed by Astro, usually `http://localhost:4321`.
 ```bash
 npm run build
 ```
+
+`npm run build` regenerates `public/sitemap.xml` first (via the `prebuild` script) so every
+name page and landing page is included.
+
+### Rebuilding generated artifacts
+
+```bash
+node seo/build-name-mapping.mjs   # src/data/name-mapping.json + seo/name-mapping.csv
+node seo/build-sitemap.mjs        # public/sitemap.xml
+node seo/build-print-pdf.mjs      # public/downloads/kali-sahasranama-names.pdf (Chrome/Edge required)
+```
+
+The spelling mapping is generated, not hand-maintained: edit the transliteration helpers in
+`seo/lib/transliterate.mjs` or add an entry to `seo/data/name-overrides.json`, then rerun the script.
 
 ### Preview the production build
 
@@ -152,7 +188,13 @@ See [`docs/validation-baseline.md`](docs/validation-baseline.md) for the test po
 - The interactive reader pre-renders the first 11 names and progressively loads the rest from chunked JSON.
 - `public/data_manifest.json` describes the chunk count and total entry count.
 - `public/mahakali_sahasranama_meanings.json` is kept as the full reference dataset.
+- `src/data/name-mapping.json` is generated from the dataset: one row per name position plus one
+  page group per unique name page (repeated names share a page). It carries the common English
+  spelling, IAST, Devanagari, alternate spellings, and URL slug for each name.
 - Static reference pages under `/names/` make the content available without relying only on client-side JavaScript.
+- Every name page is generated at build time from `src/data/name-mapping.json`; no runtime database is involved.
+- `seo/owner-actions.md` lists the external steps (Search Console, Bing, Cloudflare caching, PDF
+  hosting, backlinks) that are done outside the repository.
 
 ---
 
