@@ -29,7 +29,7 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 - **Static names reference pages** at `/names/` for SEO, sharing, and no-JavaScript access
 - **Individual name pages** at `/names/<slug>/` with Devanagari, IAST, alternate spellings, meaning, and full elaboration
 - **Head-term guides** for [108 names](https://1000namesofmakali.com/108-names-of-kali/), [1,008 names](https://1000namesofmakali.com/1008-names-of-kali/), [PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/), [lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/), and [benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/)
-- **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.2 MB)
+- **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.57 MB) with the Maa Adya Mahakali devotional image on the cover
 - **Generated sitemap** covering every URL, plus structured data (`Article`, `DefinedTerm`, `Book`, `FAQPage`, `BreadcrumbList`)
 - **Sister-site styling** — every page except the interactive landing page uses the visual system of [Jai Khyapa Parampara](https://jaikhyapaparampara.com/): the same temple palette, Crimson Text + Philosopher typography, and header/footer chrome
 - **Mobile-first interface** with large touch targets and resilient text wrapping

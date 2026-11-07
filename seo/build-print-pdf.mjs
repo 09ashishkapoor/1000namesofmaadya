@@ -26,6 +26,7 @@ const ROOT = process.cwd();
 const MANIFEST_PATH = join(ROOT, "public", "data_manifest.json");
 const MAPPING_PATH = join(ROOT, "src", "data", "name-mapping.json");
 const FONT_PATH = join(ROOT, "seo", "assets", "fonts", "NotoSansDevanagari.ttf");
+const COVER_IMAGE_PATH = join(ROOT, "seo", "assets", "maa-adya-mahakali-cover.jpg");
 const OUTPUT_PATH = join(ROOT, "public", "downloads", "kali-sahasranama-names.pdf");
 
 const SITE_URL = "https://1000namesofmakali.com";
@@ -69,6 +70,7 @@ function findChrome() {
 
 function buildHtml(entries, mappingRows) {
 	const fontBase64 = readFileSync(FONT_PATH).toString("base64");
+	const coverImageBase64 = readFileSync(COVER_IMAGE_PATH).toString("base64");
 	const generated = new Date().toISOString().slice(0, 10);
 
 	const rows = mappingRows
@@ -95,13 +97,18 @@ function buildHtml(entries, mappingRows) {
 }
 @page { size: A4; margin: 16mm 14mm 16mm; }
 html, body { margin: 0; padding: 0; }
-body { font-family: Georgia, "Times New Roman", serif; color: #1b1014; font-size: 10.5pt; line-height: 1.45; }
+body { font-family: Georgia, "Times New Roman", serif; color: #1b1014; font-size: 10.5pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .dev { font-family: "NotoDev", "Nirmala UI", sans-serif; }
-.cover { page-break-after: always; padding-top: 60mm; text-align: center; }
-.cover h1 { font-size: 26pt; margin: 0 0 6mm; color: #6d1a2a; }
-.cover h2 { font-size: 15pt; font-weight: normal; margin: 0 0 14mm; color: #3b2026; }
-.cover .sanskrit { font-size: 20pt; margin-bottom: 14mm; color: #6d1a2a; }
-.cover .meta { font-size: 10pt; color: #5a454b; margin-top: 30mm; }
+.cover { page-break-after: always; padding-top: 7mm; text-align: center; }
+.cover .blessing { margin: 0 0 6mm; color: #8b2635; font-size: 9.5pt; letter-spacing: 0.09em; text-transform: uppercase; }
+.cover h1 { font-size: 25pt; margin: 0 0 3mm; color: #6d1a2a; }
+.cover h2 { font-size: 13pt; font-weight: normal; margin: 0 0 7mm; color: #3b2026; }
+.cover-art { width: 160mm; margin: 0 auto 6mm; padding: 2mm; border: 1.2mm solid #c9a962; border-radius: 3mm; background: #fffdf8; }
+.cover-art img { display: block; width: 100%; height: auto; border-radius: 1.5mm; }
+.cover .sanskrit { font-size: 17pt; margin: 0 0 7mm; color: #6d1a2a; }
+.cover .meta { font-size: 9.5pt; color: #5a454b; line-height: 1.6; }
+.cover .meta strong { color: #6d1a2a; }
+.cover .foot { margin: 16mm 0 0; color: #6d1a2a; font-size: 10.5pt; font-style: italic; }
 .intro { page-break-after: always; }
 .intro h2 { color: #6d1a2a; font-size: 15pt; margin: 0 0 4mm; }
 .intro p, .intro li { color: #2c1c21; margin: 0 0 3mm; }
@@ -124,14 +131,19 @@ td.meaning { font-size: 9.5pt; }
 </head>
 <body>
 <section class="cover">
+  <p class="blessing">Om Shri Gurubhyo Namaha &middot; Jai Khyapa Parampara</p>
   <h1>Adya Mahakali Sahasranama</h1>
   <h2>The 1,072 Names of Maa Kali with English Meanings</h2>
+  <figure class="cover-art">
+    <img src="data:image/webp;base64,${coverImageBase64}" alt="Maa Adya Mahakali, the divine Mother, with trident, skull garland and red hibiscus flowers">
+  </figure>
   <div class="dev sanskrit" lang="sa">ॐ श्री आद्य महाकाली सहस्रनाम</div>
   <div class="meta">
-    Free printable edition for offline reading and devotional study<br>
+    <strong>Free printable edition</strong> for offline reading and devotional study<br>
     ${SITE_URL}<br>
     Generated ${generated} from the site's name data
   </div>
+  <p class="foot">May every name bring you closer to the Mother.</p>
 </section>
 <section class="intro">
   <h2>How to use this edition</h2>
@@ -153,7 +165,7 @@ ${rows}
   <p>The names are presented in the order used by this project's Adya Mahakali Sahasranama reference. Public source material and editorial notes are documented at <a href="${SITE_URL}/sources/">${SITE_URL}/sources/</a>.</p>
   <p>Browse the interactive reader at <a href="${SITE_URL}/">${SITE_URL}</a> or the static names hub at <a href="${SITE_URL}/names/">${SITE_URL}/names/</a>.</p>
   <p>Corrections are welcome through the open-source repository: <a href="https://github.com/09ashishkapoor/1000namesofmaadya">github.com/09ashishkapoor/1000namesofmaadya</a>.</p>
-  <p class="footer-note">The Devanagari typeface used in this file is Noto Sans Devanagari (SIL Open Font License).</p>
+  <p class="footer-note">Cover image: Maa Adya Mahakali, from the project's devotional artwork. The Devanagari typeface used in this file is Noto Sans Devanagari (SIL Open Font License).</p>
 </section>
 </body>
 </html>`;
