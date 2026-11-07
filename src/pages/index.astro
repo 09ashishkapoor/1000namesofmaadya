@@ -2,6 +2,9 @@
 // Adya Mahakali Sahasranama - Astro page
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getStaticNamesData } from '../lib/staticNames.js';
+
+const { ranges } = getStaticNamesData();
 
 const packageJson = JSON.parse(
     readFileSync(join(process.cwd(), 'package.json'), 'utf8')
@@ -606,6 +609,12 @@ const initialNamesPayload = {
             </div>
             <div class="footer-repo footer-meta-line">
                 Reference pages: <a href="/names/" class="footer-link">Names hub</a> · <a href="/pdf/" class="footer-link">Free PDFs</a> · <a href="/sources/" class="footer-link">Sources</a>
+            </div>
+            <div class="footer-repo footer-meta-line footer-range-links">
+                Browse names by range:
+                {ranges.map((range, index) => (
+                    <span>{index > 0 ? ' · ' : ' '}<a href={range.path} class="footer-link">Names {range.label}</a></span>
+                ))}
             </div>
             <div class="footer-repo footer-meta-line">
                 ⭐ Open source on GitHub: <a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener noreferrer" class="footer-link">View repository</a>

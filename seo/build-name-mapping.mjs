@@ -268,6 +268,7 @@ function main() {
 			primaryNumber: group.primaryNumber,
 			numbers: group.numbers,
 			spelling_common: primaryRow.spelling_common,
+			spelling_site: primaryRow.spelling_site,
 			spelling_simple: primaryRow.spelling_simple,
 			iast: primaryRow.iast,
 			devanagari: primaryRow.devanagari,

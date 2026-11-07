@@ -3,8 +3,10 @@ import { join } from "node:path";
 
 const SITE_URL = "https://1000namesofmakali.com";
 const MANIFEST_PATH = join(process.cwd(), "public", "data_manifest.json");
+const MAPPING_PATH = join(process.cwd(), "src", "data", "name-mapping.json");
 
 let cachedStaticNamesData = null;
+let cachedNameMapping = null;
 
 function splitIntoParagraphs(value) {
 	if (typeof value !== "string") {
@@ -32,6 +34,28 @@ function loadChunkFile(fileName) {
 	const chunkPath = join(process.cwd(), "public", fileName);
 	const chunkText = readFileSync(chunkPath, "utf8");
 	return JSON.parse(chunkText);
+}
+
+function loadNameMapping() {
+	if (cachedNameMapping) {
+		return cachedNameMapping;
+	}
+
+	cachedNameMapping = JSON.parse(readFileSync(MAPPING_PATH, "utf8"));
+	return cachedNameMapping;
+}
+
+/**
+ * Returns the generated name-spelling mapping (one row per Sahasranama
+ * position, plus one pageGroup per unique name page).
+ * Source: seo/build-name-mapping.mjs.
+ */
+export function getNameMapping() {
+	return loadNameMapping();
+}
+
+export function getNamePageGroups() {
+	return loadNameMapping().pageGroups;
 }
 
 function enrichEntry(entry) {
@@ -82,9 +106,16 @@ export function getStaticNamesData() {
 	}
 
 	const manifest = loadDataManifest();
+	const mapping = loadNameMapping();
+	const pageSlugByNumber = new Map(
+		mapping.rows.map((row) => [Number(row.number), row.page_slug ?? null]),
+	);
 	const allEntries = manifest.files
 		.flatMap((fileName) => loadChunkFile(fileName))
-		.map(enrichEntry)
+		.map((entry) => ({
+			...enrichEntry(entry),
+			page_slug: pageSlugByNumber.get(Number(entry.index)) ?? null,
+		}))
 		.sort((a, b) => a.index - b.index);
 
 	const rangeSize = 100;
@@ -108,6 +139,7 @@ export function getStaticNamesData() {
 	cachedStaticNamesData = {
 		siteUrl: SITE_URL,
 		totalCount: allEntries.length,
+		namePages: mapping.pageGroups,
 		hub: {
 			path: "/names/",
 			canonical: `${SITE_URL}/names/`,

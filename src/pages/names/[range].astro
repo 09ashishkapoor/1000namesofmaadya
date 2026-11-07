@@ -119,14 +119,21 @@ const itemListSchema = {
       </section>
 
       <section class="range-summary" aria-label="Range summary">
-        <p>This section covers names <strong>{range.start}</strong> through <strong>{range.end}</strong> from the full set of <strong>{totalCount}</strong> names.</p>
+        <p>This section covers names <strong>{range.start}</strong> through <strong>{range.end}</strong> from the full set of <strong>{totalCount}</strong> names. Each name below links to its own reference page with Devanagari, transliteration, alternate spellings, and the full meaning.</p>
         <p>Use the entries below as direct references for meanings in this range, or move through the previous and next range links to continue the full Adya Mahakali Sahasranama sequence.</p>
       </section>
 
       <div class="entries-stack">
         {range.entries.map((entry) => (
           <article class="entry" id={`name-${entry.index}`}>
-            <h2>{entry.index}. {entry.english_name}</h2>
+            <h2>
+              {entry.index}.{' '}
+              {entry.page_slug ? (
+                <a href={`/names/${entry.page_slug}/`}>{entry.english_name}</a>
+              ) : (
+                entry.english_name
+              )}
+            </h2>
             <p><strong>Meaning:</strong> {entry.english_one_line}</p>
             <h3>Elaboration</h3>
             {entry.english_elaboration_paragraphs.map((paragraph) => (
