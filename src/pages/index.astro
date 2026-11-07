@@ -9,6 +9,15 @@ const { ranges } = getStaticNamesData();
 const packageJson = JSON.parse(
     readFileSync(join(process.cwd(), 'package.json'), 'utf8')
 );
+const versionJson = JSON.parse(
+    readFileSync(join(process.cwd(), 'public', 'version.json'), 'utf8')
+);
+const siteVersion = versionJson.version || '1.0';
+const lastUpdatedDisplay = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+}).format(new Date());
 const assetVersion = encodeURIComponent(packageJson.version || '1');
 function versionedAsset(path) {
     return `${path}?v=${assetVersion}`;
@@ -626,7 +635,7 @@ const initialNamesPayload = {
                 ⭐ Open source on GitHub: <a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener noreferrer" class="footer-link">View repository</a>
             </div>
             <div class="footer-version">
-                Version <span id="version-number">V1.21.0</span> | Last Updated: <span id="last-updated">December 16, 2025</span>
+                Version <span id="version-number">V{siteVersion}</span> | Last Updated: <span id="last-updated">{lastUpdatedDisplay}</span>
             </div>
         </div>
     </footer>
@@ -649,49 +658,6 @@ const initialNamesPayload = {
         });
     }
     </script>
-
-    <!-- Version Number and Last Updated Loader -->
-    <script is:inline>
-    (function() {
-        const versionElement = document.getElementById('version-number');
-        const lastUpdatedElement = document.getElementById('last-updated');
-
-        if (versionElement || lastUpdatedElement) {
-            const versionAssetUrl = window.__ASSET_VERSION__
-                ? `/version.json?v=${encodeURIComponent(window.__ASSET_VERSION__)}`
-                : '/version.json';
-
-            fetch(versionAssetUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const vEl = document.getElementById('version-number');
-                    const luEl = document.getElementById('last-updated');
-                    if (vEl) {
-                        vEl.textContent = 'V' + data.version;
-                    }
-                    if (luEl && data.buildDate) {
-                        const date = new Date(data.buildDate + 'T00:00:00');
-                        const formattedDate = date.toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        luEl.textContent = formattedDate;
-                    }
-                })
-                .catch(error => {
-                    console.warn('Could not load version info:', error);
-                    const luEl = document.getElementById('last-updated');
-                    if (luEl) {
-                        luEl.textContent = new Date().toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                    }
-                });
-        }
-    })();
     </script>
 </body>
 </html>

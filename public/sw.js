@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "adya-shell-";
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const CORE_ASSETS = [
 	"/",
@@ -13,15 +13,14 @@ const CORE_ASSETS = [
 	"/search.js",
 	"/data_manifest.json",
 	"/data_chunk_1.json",
-	"/version.json",
 ];
 
-function getCacheKey(input) {
+function getCacheKey(input, includeSearch = false) {
 	const url = new URL(
 		typeof input === "string" ? input : input.url,
 		self.location.origin,
 	);
-	return url.pathname;
+	return includeSearch ? url.pathname + url.search : url.pathname;
 }
 
 self.addEventListener("install", (event) => {
@@ -48,15 +47,15 @@ self.addEventListener("activate", (event) => {
 	);
 });
 
-async function readFromCache(request) {
+async function readFromCache(request, includeSearch = false) {
 	const cache = await caches.open(CACHE_NAME);
-	return cache.match(getCacheKey(request));
+	return cache.match(getCacheKey(request, includeSearch));
 }
 
-async function writeToCache(request, response) {
+async function writeToCache(request, response, includeSearch = false) {
 	if (!response || !response.ok) return response;
 	const cache = await caches.open(CACHE_NAME);
-	await cache.put(getCacheKey(request), response.clone());
+	await cache.put(getCacheKey(request, includeSearch), response.clone());
 	return response;
 }
 
@@ -74,12 +73,12 @@ async function handleNavigation(request) {
 }
 
 async function handleStaticRequest(request) {
-	const cached = await readFromCache(request);
+	const cached = await readFromCache(request, true);
 	if (cached) return cached;
 
 	try {
 		const response = await fetch(request);
-		return writeToCache(request, response);
+		return writeToCache(request, response, true);
 	} catch (error) {
 		return cached || Response.error();
 	}
@@ -91,6 +90,10 @@ self.addEventListener("fetch", (event) => {
 
 	const url = new URL(request.url);
 	if (url.origin !== self.location.origin) return;
+
+	// Never cache the version endpoint: returning visitors must see the current
+	// deployed version, not the one cached when the service worker installed.
+	if (url.pathname === "/version.json") return;
 
 	if (request.mode === "navigate") {
 		event.respondWith(handleNavigation(request));

@@ -27,6 +27,28 @@ function collectAstroFiles(dir) {
 	});
 }
 
+function testFooterVersionIsBuildRendered() {
+	assertIncludes(
+		pageSource,
+		"V{siteVersion}",
+		"footer version should be rendered from version.json at build time",
+	);
+	assertIncludes(
+		pageSource,
+		"{lastUpdatedDisplay}",
+		"footer last-updated date should be rendered at build time",
+	);
+	assert.ok(
+		!pageSource.includes("V1.21.0"),
+		"stale hardcoded footer version should be gone",
+	);
+	assertIncludes(
+		serviceWorkerJs,
+		'url.pathname === "/version.json"',
+		"service worker should never cache version.json",
+	);
+}
+
 function testHeroCtasExist() {
 	assertIncludes(pageSource, 'id="explore-btn"', "primary CTA should exist");
 	assertIncludes(pageSource, 'id="learn-btn"', "secondary CTA should exist");
@@ -410,6 +432,7 @@ testStylesSupportMobileSearchAndPagination();
 testReducedMotionCriticalCssIsValid();
 testElaborationContentDoesNotTrapMobileReading();
 testVersionedStaticAssetsExist();
+testFooterVersionIsBuildRendered();
 testJsonFetchesUseVersionedUrls();
 testServiceWorkerOfflineShellExists();
 testHeadersDoNotMarkMutableAssetsImmutable();

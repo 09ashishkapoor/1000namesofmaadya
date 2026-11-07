@@ -2,6 +2,19 @@
 // Shared layout for every reference page on the site (everything except the
 // interactive landing page at /). It uses the chrome and design system of the
 // sister site https://jaikhyapaparampara.com/.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const versionJson = JSON.parse(
+	readFileSync(join(process.cwd(), 'public', 'version.json'), 'utf8'),
+);
+const siteVersion = versionJson.version || '1.0';
+const lastUpdatedDisplay = new Intl.DateTimeFormat('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+}).format(new Date());
+
 const {
 	title,
 	description,
@@ -165,6 +178,7 @@ function isCurrent(href) {
 						>Open source on GitHub</a
 					>
 				</p>
+				<p class="site-footer-version">Version V{siteVersion} &middot; Last updated {lastUpdatedDisplay}</p>
 			</div>
 		</footer>
 
