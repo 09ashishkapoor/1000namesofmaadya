@@ -20,7 +20,6 @@ function staticEntries() {
 	const entries = [
 		{ loc: `${SITE_URL}/`, lastmod: "2026-04-21", changefreq: "weekly", priority: "1.0" },
 		{ loc: `${SITE_URL}/names/`, lastmod: "2026-04-26", changefreq: "weekly", priority: "0.9" },
-		{ loc: `${SITE_URL}/pdf/`, lastmod: "2026-04-30", changefreq: "monthly", priority: "0.8" },
 		{ loc: `${SITE_URL}/sources/`, lastmod: "2026-04-30", changefreq: "monthly", priority: "0.7" },
 	];
 
@@ -35,7 +34,16 @@ function staticEntries() {
 	}
 
 	// Added on the SEO branch; keep extending this list as landing pages ship.
-	const landingPages = [];
+	const landingPages = [
+		"/108-names-of-kali/",
+		"/1008-names-of-kali/",
+		"/kali-sahasranama-pdf/",
+		"/kali-sahasranama-lyrics/",
+		"/kali-sahasranama-benefits/",
+		"/about/",
+		"/contact/",
+		"/privacy/",
+	];
 	for (const path of landingPages) {
 		entries.push({
 			loc: `${SITE_URL}${path}`,

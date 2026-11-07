@@ -1,3 +1,7 @@
 # Redirect www to non-www (canonical domain enforcement)
 # This prevents duplicate content issues in Google Search Console
 https://www.1000namesofmakali.com/* https://1000namesofmakali.com/:splat 301
+
+# Old thin PDF page replaced by the keyword landing page
+/pdf/ /kali-sahasranama-pdf/ 301
+/pdf /kali-sahasranama-pdf/ 301

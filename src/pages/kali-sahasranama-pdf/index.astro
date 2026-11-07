@@ -1,0 +1,229 @@
+---
+const siteUrl = 'https://1000namesofmakali.com';
+const canonical = `${siteUrl}/kali-sahasranama-pdf/`;
+const title = 'Kali Sahasranama PDF — Free English Download (1,072 Names) | Adya Mahakali';
+const description =
+	'Download the free Kali Sahasranama PDF in English: a printable 68-page edition of the 1,072 names of Maa Kali with Devanagari, spellings, and meanings, plus the official designed ebook.';
+
+const printablePdf = '/downloads/kali-sahasranama-names.pdf';
+const officialPdf =
+	'https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_V4.pdf';
+const archiveEnglish =
+	'https://archive.org/details/adya-mahakali-sahasranama-kaliputraashish';
+const archiveHindi =
+	'https://archive.org/details/adya-mahakali-sahasranama-in-Hindi-kaliputraashish';
+
+const faqs = [
+	{
+		question: 'Is there a Kali Sahasranama PDF in English?',
+		answer:
+			'Yes. This site offers a free printable English edition of the 1,072-name Adya Mahakali Sahasranama as a PDF, with Devanagari, common English spellings, IAST transliteration, and short meanings. The official designed edition is also linked on this page.',
+	},
+	{
+		question: 'Is the Kali Sahasranama PDF free?',
+		answer:
+			'Yes. Both the printable edition generated from this site and the official designed ebook are offered free for devotional reading and study.',
+	},
+	{
+		question: 'Is there a Hindi or Sanskrit Kali Sahasranama PDF?',
+		answer:
+			'The printable edition on this site is an English reference with Devanagari names. A separate Hindi edition of the Adya Mahakali Sahasranama is published by the same author on archive.org and is linked on this page.',
+	},
+	{
+		question: 'Can I print the PDF?',
+		answer:
+			'Yes. The printable edition is A4-formatted and designed for home printing, offline reading, and chanting support.',
+	},
+];
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+		},
+		{
+			'@type': 'Book',
+			'@id': `${canonical}#book`,
+			name: 'Adya Mahakali Sahasranama — 1,072 Names of Maa Kali (Printable Edition)',
+			description:
+				'Printable English reference edition of the 1,072 names of Maa Kali with Devanagari, common spellings, IAST transliteration, and short meanings.',
+			bookFormat: 'https://schema.org/EBook',
+			numberOfPages: 68,
+			inLanguage: 'en',
+			url: `${siteUrl}${printablePdf}`,
+			author: { '@type': 'Person', name: 'Kaliputra Ashish' },
+			publisher: { '@id': `${siteUrl}/#publisher` },
+			about: { '@type': 'Thing', name: 'Adya Mahakali Sahasranama' },
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: 'Kali Sahasranama PDF', item: canonical },
+			],
+		},
+		{
+			'@type': 'FAQPage',
+			'@id': `${canonical}#faq`,
+			mainEntity: faqs.map((faq) => ({
+				'@type': 'Question',
+				name: faq.question,
+				acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+			})),
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+		<link rel="stylesheet" href="/static-pages.css" />
+		<link rel="stylesheet" href="/landing-pages.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body class="names-static names-static--landing">
+		<main>
+			<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">Kali Sahasranama PDF</span></li>
+				</ol>
+			</nav>
+
+			<p class="page-kicker">Free downloads</p>
+			<h1>Kali Sahasranama PDF — Free English Download</h1>
+
+			<section class="hero-panel landing-intro">
+				<p class="intro">
+					Download the Kali Sahasranama in English as a free PDF. The printable edition contains
+					<strong>all 1,072 names</strong> of the Adya Mahakali Sahasranama with Devanagari, common English
+					spellings, IAST transliteration, and short meanings — 68 pages, A4, made for offline reading and printing.
+					The official designed ebook is also available below.
+				</p>
+				<nav class="page-nav" aria-label="Page navigation">
+					<ul>
+						<li><a href={printablePdf}>Download printable PDF (2.2 MB)</a></li>
+						<li><a href={officialPdf}>Official designed ebook</a></li>
+						<li><a href="/names/">Read the names online</a></li>
+					</ul>
+				</nav>
+			</section>
+
+			<section class="landing-section">
+				<h2>Which download should I use?</h2>
+				<div class="download-grid">
+					<div class="download-card">
+						<h3>Printable web edition</h3>
+						<p>
+							Text-based, searchable PDF generated from this site's data. 68 pages, A4, 2.2 MB. Includes every
+							name with Devanagari, Devanagari-to-English spellings, and the short English meaning. Best for
+							printing, quick reference, and offline lookup.
+						</p>
+						<nav class="page-nav" aria-label="Printable edition download">
+							<ul><li><a href={printablePdf}>Download PDF</a></li></ul>
+						</nav>
+					</div>
+					<div class="download-card">
+						<h3>Official designed ebook</h3>
+						<p>
+							The illustrated English edition produced for Khyapa Parampara. Larger file (~53 MB) hosted on the
+							parampara's file server. Best for gifting, full-page reading, and printing the designed layout.
+						</p>
+						<nav class="page-nav" aria-label="Official ebook download">
+							<ul><li><a href={officialPdf}>Download official ebook</a></li></ul>
+						</nav>
+					</div>
+					<div class="download-card">
+						<h3>Archive.org copies</h3>
+						<p>
+							Long-term public copies of the Adya Mahakali Sahasranama: an English edition and a separate Hindi
+							edition, both published by the same author.
+						</p>
+						<nav class="page-nav" aria-label="Archive.org editions">
+							<ul>
+								<li><a href={archiveEnglish}>English on archive.org</a></li>
+								<li><a href={archiveHindi}>Hindi on archive.org</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</section>
+
+			<section class="landing-section">
+				<h2>What is inside the printable edition</h2>
+				<ul>
+					<li>A short introduction on the text and its transliteration choices.</li>
+					<li>All 1,072 names in Sahasranama order, numbered.</li>
+					<li>Devanagari, common English spelling, and IAST transliteration forms for every name.</li>
+					<li>A short English meaning for every name.</li>
+					<li>Sources, citation links, and a correction path.</li>
+				</ul>
+				<p class="callout">
+					Looking for the complete meaning notes rather than the short list? Use the online
+					<a href="/names/">names hub</a>: every name links to a page with its longer elaboration.
+				</p>
+			</section>
+
+			<section class="landing-section">
+				<h2>Using and sharing the PDF</h2>
+				<p>
+					The printable edition is free for personal and devotional use. When sharing, link to this page rather than
+					redistributing modified copies, so readers always get the current version. For formal citation, link to the
+					specific name page or range page on the website; those HTML pages are the crawlable reference versions.
+				</p>
+				<p>
+					To print, open the PDF in any standard viewer and choose actual size (100%) on A4 paper. Black-and-white
+					printing is fine; the Devanagari column remains legible.
+				</p>
+			</section>
+
+			<section class="landing-section">
+				<h2>Questions about the Kali Sahasranama PDF</h2>
+				<div class="faq-list">
+					{faqs.map((faq) => (
+						<div class="faq-item">
+							<h3>{faq.question}</h3>
+							<p>{faq.answer}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="landing-section">
+				<h2>Continue reading</h2>
+				<ul>
+					<li><a href="/108-names-of-kali/">108 names of Maa Kali with meanings</a></li>
+					<li><a href="/1008-names-of-kali/">1,008 vs 1,072 names explained</a></li>
+					<li><a href="/kali-sahasranama-lyrics/">Kali Sahasranama lyrics and chant order</a></li>
+					<li><a href="/kali-sahasranama-benefits/">Kali Sahasranama benefits</a></li>
+					<li><a href="/sources/">Sources and editorial notes</a></li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>

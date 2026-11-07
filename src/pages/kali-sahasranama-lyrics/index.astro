@@ -1,0 +1,190 @@
+---
+import { getStaticNamesData } from '../../lib/staticNames.js';
+
+const { namePages, siteUrl } = getStaticNamesData();
+const openingNames = namePages.slice(0, 27);
+
+const canonical = `${siteUrl}/kali-sahasranama-lyrics/`;
+const title = 'Kali Sahasranama Lyrics — 1,072-Name Chant Text in English | Adya Mahakali';
+const description =
+	'Kali Sahasranama lyrics in English: the full 1,072-name chant sequence with Devanagari and transliteration, the opening names, chant order, and a free printable PDF.';
+
+const faqs = [
+	{
+		question: 'What are the Kali Sahasranama lyrics?',
+		answer:
+			'The Kali Sahasranama is a sequence of names of the Goddess, not a metrical song. Its "lyrics" are the names themselves, recited in order. This page explains the order and links to the complete 1,072-name text, the 108-name practice set, and a printable PDF.',
+	},
+	{
+		question: 'Can I chant the full Kali Sahasranama?',
+		answer:
+			'Yes. The complete text is available online by range and as a printable PDF. Many devotees recite a shorter set such as 108 names for daily practice and the full Sahasranama on special occasions.',
+	},
+	{
+		question: 'Where can I find the full lyrics with meanings?',
+		answer:
+			'Every one of the 1,072 names has its own page with Devanagari, transliteration, alternate spellings, and a full English meaning. The printable PDF contains the complete list with short meanings.',
+	},
+	{
+		question: 'Is there an audio version?',
+		answer:
+			'This site does not host an official recording. The chant order and text here match the printable PDF, so you can follow the sequence with any recording of the Adya Mahakali Sahasranama your tradition uses.',
+	},
+];
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: 'Kali Sahasranama Lyrics', item: canonical },
+			],
+		},
+		{
+			'@type': 'FAQPage',
+			'@id': `${canonical}#faq`,
+			mainEntity: faqs.map((faq) => ({
+				'@type': 'Question',
+				name: faq.question,
+				acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+			})),
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+		<link rel="stylesheet" href="/static-pages.css" />
+		<link rel="stylesheet" href="/landing-pages.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body class="names-static names-static--landing">
+		<main>
+			<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">Kali Sahasranama Lyrics</span></li>
+				</ol>
+			</nav>
+
+			<p class="page-kicker">Chant text</p>
+			<h1>Kali Sahasranama Lyrics — 1,072-Name Chant Text</h1>
+
+			<section class="hero-panel landing-intro">
+				<p class="intro">
+					The "lyrics" of the Kali Sahasranama are the <strong>names of the Goddess recited in sequence</strong>. This
+					page gives the chant order, the opening names, and links to the complete 1,072-name text in English,
+					Devanagari, and transliteration — plus a free printable PDF for practice and offline recitation.
+				</p>
+				<nav class="page-nav" aria-label="Page navigation">
+					<ul>
+						<li><a href="#opening-lyrics">Read the opening names</a></li>
+						<li><a href="/downloads/kali-sahasranama-names.pdf">Download the chant PDF</a></li>
+						<li><a href="/names/">Open the full 1,072-name text</a></li>
+					</ul>
+				</nav>
+			</section>
+
+			<section class="landing-section">
+				<h2>How the Kali Sahasranama is structured</h2>
+				<p>
+					The Adya Mahakali Sahasranama on this site contains 1,072 names in a fixed sequence. The names are not
+					random epithets collected in a list; they are a continuous devotional stream, traditionally recited in
+					order from beginning to end. Because the list is long, it is organized here into ranges of one hundred names
+					so that a reader can start anywhere and still follow the same order.
+				</p>
+				<p>
+					For daily practice, many devotees use a shorter set such as the <a href="/108-names-of-kali/">108 names</a>
+					drawn from the opening of the Sahasranama. For full recitation, use the printable PDF or follow the range
+					pages one by one.
+				</p>
+			</section>
+
+			<section class="landing-section" id="opening-lyrics" aria-labelledby="opening-lyrics-heading">
+				<h2 id="opening-lyrics-heading">Opening 27 names (chant sample)</h2>
+				<p>
+					The following names open the Sahasranama. Each is shown in common English spelling and Devanagari; the full
+					page for each name includes the IAST transliteration and meaning. In recitation the names are usually
+					spoken as one continuous stream rather than as a bulleted list.
+				</p>
+				<p class="chanted-names">
+					{openingNames.map((group, index) => (
+						<span class="chant-name">
+							{index > 0 ? ' · ' : ''}
+							<span title={group.meaning}>{group.spelling_common}</span>{' '}
+							<span class="dev" lang="sa">{group.devanagari}</span>
+						</span>
+					))}
+				</p>
+				<p>
+					Continue with the <a href="/names/">complete list by range</a>, or open the
+					<a href="/downloads/kali-sahasranama-names.pdf">printable PDF</a> for the full sequence with meanings.
+				</p>
+			</section>
+
+			<section class="landing-section">
+				<h2>Tips for chanting the names</h2>
+				<ul>
+					<li><strong>Take the sequence as it comes.</strong> Keep the given order rather than rearranging names into a personal list.</li>
+					<li><strong>Choose a realistic pace.</strong> A slow, steady recitation of a shorter set is a better daily practice than an irregular full recitation.</li>
+					<li><strong>Use the transliteration.</strong> If the Devanagari is unfamiliar, follow the IAST form on each name page; it is the most predictable pronunciation guide on this site.</li>
+					<li><strong>Keep a printed copy.</strong> The printable PDF is A4-sized and designed to be marked, folded, and carried.</li>
+					<li><strong>Follow your tradition.</strong> Lineage instruction and local custom take precedence over any general guide, including this page.</li>
+				</ul>
+			</section>
+
+			<section class="landing-section">
+				<h2>Questions about the lyrics</h2>
+				<div class="faq-list">
+					{faqs.map((faq) => (
+						<div class="faq-item">
+							<h3>{faq.question}</h3>
+							<p>{faq.answer}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="landing-section">
+				<h2>Continue reading</h2>
+				<ul>
+					<li><a href="/108-names-of-kali/">108 names of Maa Kali with meanings</a></li>
+					<li><a href="/1008-names-of-kali/">1,008 vs 1,072 names explained</a></li>
+					<li><a href="/kali-sahasranama-pdf/">Kali Sahasranama PDF downloads</a></li>
+					<li><a href="/kali-sahasranama-benefits/">Benefits in the devotional tradition</a></li>
+					<li><a href="/names/">Full names hub by range</a></li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>

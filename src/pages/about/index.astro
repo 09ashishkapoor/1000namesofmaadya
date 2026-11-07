@@ -1,0 +1,162 @@
+---
+const siteUrl = 'https://1000namesofmakali.com';
+const canonical = `${siteUrl}/about/`;
+const title = 'About the Project & Author | Adya Mahakali 1000 Names';
+const description =
+	'About the Adya Mahakali 1000 Names project: the author, the source basis, the transliteration approach, and how corrections are handled.';
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'ProfilePage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+			mainEntity: { '@id': `${siteUrl}/#publisher` },
+		},
+		{
+			'@type': 'Person',
+			'@id': `${siteUrl}/#publisher`,
+			name: 'Kaliputra Ashish',
+			description:
+				'Author and maintainer of the Adya Mahakali 1000 Names project, a free devotional reference for the Adya Mahakali Sahasranama.',
+			url: canonical,
+			sameAs: [
+				'https://github.com/09ashishkapoor',
+				'https://www.instagram.com/ashishkaliputra',
+				'https://archive.org/details/adya-mahakali-sahasranama-kaliputraashish',
+			],
+			knowsAbout: ['Adya Mahakali Sahasranama', 'Kali Sahasranama', 'Shakta devotional literature'],
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: 'About', item: canonical },
+			],
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+		<link rel="stylesheet" href="/static-pages.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body class="names-static names-static--about">
+		<main>
+			<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">About</span></li>
+				</ol>
+			</nav>
+
+			<p class="page-kicker">About the project</p>
+			<h1>About Adya Mahakali 1000 Names</h1>
+
+			<figure class="page-figure">
+				<img
+					src="/MaaAdyaKali_5.webp"
+					alt="Statue of Maa Adya Mahakali with a trident, skull garland, and red hibiscus flowers"
+					width="1920"
+					height="1080"
+					loading="lazy"
+					decoding="async"
+				/>
+				<figcaption>Maa Adya Mahakali — devotional image used on this site.</figcaption>
+			</figure>
+
+			<section class="hero-panel">
+				<p class="intro">
+					<strong>Adya Mahakali 1000 Names</strong> is a free devotional reference for the Adya Mahakali
+					Sahasranama: 1,072 names of Maa Adya Mahakali with English meanings, Devanagari spellings, and
+					transliteration. It is maintained by <strong>Kaliputra Ashish</strong> and dedicated to
+					<strong>Shri Praveen Radhakrishnan</strong> and the <strong>Khyapa Parampara</strong>.
+				</p>
+				<nav class="page-nav" aria-label="About navigation">
+					<ul>
+						<li><a href="/names/">Browse all names</a></li>
+						<li><a href="/kali-sahasranama-pdf/">Free PDF editions</a></li>
+						<li><a href="/sources/">Sources and editorial method</a></li>
+						<li><a href="/contact/">Contact and corrections</a></li>
+					</ul>
+				</nav>
+			</section>
+
+			<section class="source-notes">
+				<h2>What this site is</h2>
+				<p>
+					The project exists to support devotional reading and study of the Maa Adya Mahakali Sahasranama. It
+					presents the full name list with one-line meanings and longer explanatory notes, a searchable reader, a
+					static names hub, and printable PDF editions. Everything is offered free, without registration.
+				</p>
+				<p>
+					The site is intentionally simple and open: it is a static website with no accounts and no paywall, and its
+					source code is public.
+				</p>
+			</section>
+
+			<section class="source-notes">
+				<h2>How the text was compiled</h2>
+				<p>
+					The names follow the Adya Mahakali Sahasranama as compiled for this project. Public reference material and
+					the broader Shakta devotional tradition informed the explanatory notes. The English meanings and
+					elaborations are interpretive study notes, not a translation of a single critical edition.
+				</p>
+				<p>
+					The source basis, editorial approach, and citation guidance are documented on the
+					<a href="/sources/">sources page</a>.
+				</p>
+			</section>
+
+			<section class="source-notes">
+				<h2>Transliteration approach</h2>
+				<p>
+					Sanskrit names reach English readers in several romanizations. Each name page shows a common English
+					spelling, the IAST form, the Devanagari form, and the source transliteration used by this project. The
+					mapping is generated from the site's data, so corrections are made once and applied across every page.
+				</p>
+				<p>
+					If a spelling matters for your practice or citation, use the IAST or Devanagari form on the individual
+					name page as the reference.
+				</p>
+			</section>
+
+			<section class="source-notes">
+				<h2>Open source and corrections</h2>
+				<p>
+					The site is open source. Spelling, meaning, formatting, attribution, and source issues can be reported
+					through the public repository, which keeps the correction reviewable. See the
+					<a href="/contact/">contact page</a> for the best ways to reach the maintainer.
+				</p>
+				<p>
+					<a href="https://github.com/09ashishkapoor/1000namesofmaadya" rel="noopener noreferrer">View the project repository</a>
+				</p>
+			</section>
+		</main>
+	</body>
+</html>

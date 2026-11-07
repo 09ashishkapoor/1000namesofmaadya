@@ -1,0 +1,225 @@
+---
+import { getStaticNamesData } from '../../lib/staticNames.js';
+
+const { namePages, siteUrl } = getStaticNamesData();
+const names108 = namePages
+	.filter((group) => group.primaryNumber <= 108)
+	.slice(0, 108);
+
+const canonical = `${siteUrl}/108-names-of-kali/`;
+const title = '108 Names of Maa Kali with Meanings (English List) | Adya Mahakali';
+const description =
+	'Read 108 names of Maa Kali with English meanings, Devanagari, and transliteration. A compact list taken from the 1,072-name Adya Mahakali Sahasranama, with a free PDF.';
+
+const faqs = [
+	{
+		question: 'What are the 108 names of Maa Kali?',
+		answer:
+			'The 108 names of Maa Kali are a compact devotional set used for japa and study. This page presents 108 names from the Adya Mahakali Sahasranama, each with its Devanagari form, a common English spelling, and an English meaning.',
+	},
+	{
+		question: 'Are these 108 names the same as the Kali Sahasranama?',
+		answer:
+			'This list is the opening set of 108 names from the Adya Mahakali Sahasranama, the 1,072-name Kali Sahasranama on this site. The full Sahasranama continues well beyond 108 names and is browsable by range.',
+	},
+	{
+		question: 'Can I download the 108 names of Kali as a PDF?',
+		answer:
+			'Yes. The printable PDF edition on this site contains the complete 1,072-name list with Devanagari, spellings, and meanings, including these first 108 names. The download page also links to the official designed edition.',
+	},
+	{
+		question: 'How is Kali Sahasranama chanting done?',
+		answer:
+			'The names are traditionally recited in sequence. Many readers recite a fixed set such as 108 names daily, while longer practice recites the full Sahasranama. The lyrics page explains the sequence and links to the complete text.',
+	},
+];
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: '108 Names of Maa Kali', item: canonical },
+			],
+		},
+		{
+			'@type': 'FAQPage',
+			'@id': `${canonical}#faq`,
+			mainEntity: faqs.map((faq) => ({
+				'@type': 'Question',
+				name: faq.question,
+				acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+			})),
+		},
+		{
+			'@type': 'ItemList',
+			'@id': `${canonical}#list`,
+			name: '108 names of Maa Kali',
+			numberOfItems: names108.length,
+			itemListOrder: 'https://schema.org/ItemListOrderAscending',
+			itemListElement: names108.map((group, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: group.spelling_common,
+				url: `${siteUrl}/names/${group.slug}/`,
+				description: group.meaning,
+			})),
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+		<link rel="stylesheet" href="/static-pages.css" />
+		<link rel="stylesheet" href="/landing-pages.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body class="names-static names-static--landing">
+		<main>
+			<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">108 Names of Maa Kali</span></li>
+				</ol>
+			</nav>
+
+			<p class="page-kicker">Compact devotional set</p>
+			<h1>108 Names of Maa Kali with Meanings</h1>
+
+			<figure class="page-figure">
+				<img
+					src="/MaaAdyaKali_5.webp"
+					alt="Statue of Maa Adya Mahakali with a trident, skull garland, and red hibiscus flowers"
+					width="1920"
+					height="1080"
+					loading="lazy"
+					decoding="async"
+				/>
+				<figcaption>Maa Adya Mahakali — devotional image used on this site.</figcaption>
+			</figure>
+
+			<section class="hero-panel landing-intro">
+				<p class="intro">
+					The 108 names of Maa Kali are a compact set used for daily japa, study, and remembrance. This page presents
+					<strong>108 names drawn from the Adya Mahakali Sahasranama</strong>, the 1,072-name Kali Sahasranama on this
+					site, with Devanagari, a common English spelling, and the English meaning of each name.
+				</p>
+				<nav class="page-nav" aria-label="Page navigation">
+					<ul>
+						<li><a href="#list-108-heading">Read the 108-name list</a></li>
+						<li><a href="/downloads/kali-sahasranama-names.pdf">Download the PDF</a></li>
+						<li><a href="/names/">Browse all 1,072 names</a></li>
+					</ul>
+				</nav>
+			</section>
+
+			<section class="landing-section">
+				<h2>Why 108 names?</h2>
+				<p>
+					One hundred and eight is a traditional count in Hindu practice and appears across mala beads, mantra counts,
+					and short stotra sets. A 108-name list makes the Sahasranama approachable: it is short enough to recite in a
+					single sitting, yet broad enough to touch the main forms and qualities of the Goddess.
+				</p>
+				<p>
+					This particular list is honest about its source. Rather than presenting an anonymous "108 names" list, it
+					takes <strong>names 1–108 of the Adya Mahakali Sahasranama</strong> in order. The complete text continues to
+					1,072 names, and every name has its own reference page with alternate spellings and a longer note.
+				</p>
+				<p class="callout">
+					Difference between 108, 1,008 and 1,072 names:
+					<a href="/1008-names-of-kali/">read the explanation of the three counts →</a>
+				</p>
+			</section>
+
+			<section class="landing-section" aria-labelledby="list-108-heading">
+				<h2 id="list-108-heading">The 108 names with meanings</h2>
+				<p>
+					Each name links to its full reference page, where you can see the Devanagari form, IAST transliteration,
+					alternate spellings, and the longer English elaboration.
+				</p>
+				<table class="names-table">
+					<caption>108 names of Maa Kali, in Sahasranama order (names 1–108 of 1,072).</caption>
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Meaning</th>
+						</tr>
+					</thead>
+					<tbody>
+						{names108.map((group) => (
+							<tr>
+								<td>{group.primaryNumber}</td>
+								<td><a href={`/names/${group.slug}/`}>{group.spelling_common}</a></td>
+								<td>{group.meaning}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</section>
+
+			<section class="landing-section">
+				<h2>How to use the 108 names</h2>
+				<ul>
+					<li><strong>Daily japa:</strong> choose a fixed number of names, or a mala round, and keep the same set for a period of practice.</li>
+					<li><strong>Study:</strong> read one meaning a day and follow the link to the longer elaboration when a name catches your attention.</li>
+					<li><strong>Chanting:</strong> recite in the given order. If you prefer a longer practice, continue through the full 1,072 names using the range pages.</li>
+					<li><strong>Offline:</strong> download the printable PDF edition that contains the complete 1,072-name list.</li>
+				</ul>
+			</section>
+
+			<section class="landing-section">
+				<h2>Questions about the 108 names</h2>
+				<div class="faq-list">
+					{faqs.map((faq) => (
+						<div class="faq-item">
+							<h3>{faq.question}</h3>
+							<p>{faq.answer}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="landing-section">
+				<h2>Continue reading</h2>
+				<ul>
+					<li><a href="/names/">All 1,072 names, browsable by range</a></li>
+					<li><a href="/1008-names-of-kali/">1,008 vs 1,072 names: what the counts mean</a></li>
+					<li><a href="/kali-sahasranama-lyrics/">Kali Sahasranama lyrics and chant text</a></li>
+					<li><a href="/kali-sahasranama-benefits/">Benefits in the devotional tradition</a></li>
+					<li><a href="/kali-sahasranama-pdf/">Kali Sahasranama PDF downloads</a></li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>

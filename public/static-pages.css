@@ -323,3 +323,23 @@ h3 {
     grid-template-columns: 1fr;
   }
 }
+
+.page-figure {
+  margin: 0 0 1.4rem;
+}
+
+.page-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: var(--shadow);
+}
+
+.page-figure figcaption {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}

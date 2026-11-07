@@ -1,0 +1,177 @@
+---
+const siteUrl = 'https://1000namesofmakali.com';
+const canonical = `${siteUrl}/kali-sahasranama-benefits/`;
+const title = 'Kali Sahasranama Benefits — What the Devotional Tradition Says | Adya Mahakali';
+const description =
+	'What are the benefits of reciting the Kali Sahasranama? A balanced guide to the traditional devotional benefits, how the practice is done, and where to read all 1,072 names.';
+
+const faqs = [
+	{
+		question: 'What are the benefits of chanting the Kali Sahasranama?',
+		answer:
+			'In the devotional tradition, reciting the names is valued as a practice of remembrance, surrender, and steadiness. Devotees describe benefits such as a calmer mind, courage in difficulty, a sense of protection, and a deeper devotional relationship with Maa Kali. These are traditional devotional claims, not medical or guaranteed outcomes.',
+	},
+	{
+		question: 'How often should the Kali Sahasranama be recited?',
+		answer:
+			'Practice varies by tradition and by individual. A common approach is a short set such as 108 names daily, with the full 1,072-name Sahasranama on special days or when time allows. Consistency and attention matter more than length.',
+	},
+	{
+		question: 'Do I need a guru or initiation to recite the names?',
+		answer:
+			'Devotional reading and recitation of the names are generally open to any sincere reader. Some Tantric practices around fierce forms of Kali are traditionally given through lineage instruction, so follow the guidance of your own teacher or tradition where applicable.',
+	},
+	{
+		question: 'Does reciting the names replace medical or mental-health care?',
+		answer:
+			'No. This page describes a religious practice and its traditional framing. It is not medical advice; please continue any professional care you need.',
+	},
+];
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: 'Kali Sahasranama Benefits', item: canonical },
+			],
+		},
+		{
+			'@type': 'FAQPage',
+			'@id': `${canonical}#faq`,
+			mainEntity: faqs.map((faq) => ({
+				'@type': 'Question',
+				name: faq.question,
+				acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+			})),
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
+		<link rel="stylesheet" href="/static-pages.css" />
+		<link rel="stylesheet" href="/landing-pages.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body class="names-static names-static--landing">
+		<main>
+			<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">Kali Sahasranama Benefits</span></li>
+				</ol>
+			</nav>
+
+			<p class="page-kicker">Devotional practice</p>
+			<h1>Kali Sahasranama Benefits — What the Tradition Says</h1>
+
+			<section class="hero-panel landing-intro">
+				<p class="intro">
+					The Kali Sahasranama is recited as a practice of remembrance, surrender, and steadiness. Devotees describe
+					its benefits in devotional rather than medical terms: a calmer mind, courage in difficulty, a sense of the
+					Mother's protection, and a deepening relationship with Maa Kali. This page explains the traditional framing
+					and how the practice is done.
+				</p>
+				<nav class="page-nav" aria-label="Page navigation">
+					<ul>
+						<li><a href="/names/">Read all 1,072 names</a></li>
+						<li><a href="/108-names-of-kali/">Start with 108 names</a></li>
+						<li><a href="/kali-sahasranama-pdf/">Download the PDF</a></li>
+					</ul>
+				</nav>
+			</section>
+
+			<section class="landing-section">
+				<h2>Benefits described in the tradition</h2>
+				<ul>
+					<li><strong>Remembrance and devotion (smriti and bhakti):</strong> the names keep the Goddess present in the mind through the day, which is the heart of devotional practice.</li>
+					<li><strong>Steadiness of mind:</strong> reciting a fixed sequence is a concentration practice. Repetition gives the mind a single, stable focus.</li>
+					<li><strong>Fearlessness and courage:</strong> Kali is invoked as the power that destroys fear, including the fear of death. The names are traditionally recited for courage in difficulty.</li>
+					<li><strong>Protection (raksha):</strong> devotees recite the Sahasranama as a protective practice, asking the Mother to guard the family and the mind.</li>
+					<li><strong>Discipline (sadhana):</strong> a daily set, however short, builds the regularity that the tradition treats as the real benefit.</li>
+					<li><strong>Grief and acceptance:</strong> the cremation-ground names in the text place impermanence at the center, which many readers find consoling in loss.</li>
+				</ul>
+				<p class="callout">
+					These are religious and devotional claims, not promises of material or health outcomes. The site presents
+					the text for study and practice; individual results and interpretations vary.
+				</p>
+			</section>
+
+			<section class="landing-section">
+				<h2>How the practice is usually done</h2>
+				<ol>
+					<li><strong>Choose a set:</strong> a short daily 108-name set, a range of one hundred names, or the full 1,072 names.</li>
+					<li><strong>Keep the order:</strong> the Sahasranama is recited as a sequence. The range pages and PDF preserve the order.</li>
+					<li><strong>Set a time:</strong> morning or evening, ideally the same time each day.</li>
+					<li><strong>Recite with attention:</strong> pronunciation matters less than consistency and presence; the IAST transliteration on each name page helps with unfamiliar words.</li>
+					<li><strong>Finish with dedication:</strong> many devotees close the recitation with a prayer or dedication of the merit.</li>
+				</ol>
+			</section>
+
+			<section class="landing-section">
+				<h2>How this site helps</h2>
+				<ul>
+					<li>All 1,072 names are readable in order, by range, with a meaning for each.</li>
+					<li>Every name has its own page with Devanagari, IAST, alternate spellings, and a longer note.</li>
+					<li>The <a href="/108-names-of-kali/">108-name page</a> gives a compact daily set.</li>
+					<li>The <a href="/kali-sahasranama-lyrics/">lyrics page</a> explains the chant order and opening names.</li>
+					<li>The <a href="/kali-sahasranama-pdf/">PDF page</a> offers a printable edition for offline practice.</li>
+				</ul>
+			</section>
+
+			<section class="landing-section">
+				<h2>Questions about the benefits</h2>
+				<div class="faq-list">
+					{faqs.map((faq) => (
+						<div class="faq-item">
+							<h3>{faq.question}</h3>
+							<p>{faq.answer}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="landing-section">
+				<h2>Continue reading</h2>
+				<ul>
+					<li><a href="/108-names-of-kali/">108 names of Maa Kali with meanings</a></li>
+					<li><a href="/1008-names-of-kali/">1,008 vs 1,072 names explained</a></li>
+					<li><a href="/kali-sahasranama-lyrics/">Kali Sahasranama lyrics and chant order</a></li>
+					<li><a href="/kali-sahasranama-pdf/">Free PDF downloads</a></li>
+					<li><a href="/sources/">Sources and editorial notes</a></li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>

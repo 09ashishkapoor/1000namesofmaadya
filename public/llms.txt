@@ -10,7 +10,11 @@
 
 - [Interactive reader](https://1000namesofmakali.com/): Search and read the Adya Mahakali 1000 Names with English meanings.
 - [Static names hub](https://1000namesofmakali.com/names/): Crawlable directory of all name-range reference pages.
-- [Free PDF edition](https://1000namesofmakali.com/pdf/): Direct link to the free English ebook PDF for offline reading.
+- [108 names of Maa Kali](https://1000namesofmakali.com/108-names-of-kali/): Compact 108-name practice set with meanings.
+- [1008 vs 1072 names](https://1000namesofmakali.com/1008-names-of-kali/): Explanation of the different Kali Sahasranama counts.
+- [Kali Sahasranama PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/): Free printable English PDF edition and official ebook links.
+- [Kali Sahasranama lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/): Chant order and opening names.
+- [Kali Sahasranama benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/): Devotional framing of the practice.
 - [Sources and editorial notes](https://1000namesofmakali.com/sources/): Source basis, editorial approach, correction path, and citation guidance.
 - [Names 1-100](https://1000namesofmakali.com/names/1-100/): First static range of names and meanings.
 - [Names 1001-1072](https://1000namesofmakali.com/names/1001-1072/): Final static range of names and meanings.
@@ -29,4 +33,4 @@
 
 Use the canonical pages above for current descriptions of this project. Prefer the static names hub and range pages when citing individual names because they expose the content in crawlable HTML without requiring JavaScript.
 
-If quoting the site, attribute the material to “Adya Mahakali 1000 Names” and link to the relevant canonical URL.
+If quoting the site, attribute the material to "Adya Mahakali 1000 Names" and link to the relevant canonical URL.
