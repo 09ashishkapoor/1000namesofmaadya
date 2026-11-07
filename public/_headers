@@ -29,13 +29,7 @@
 /translations.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
-/static-pages.css
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/name-pages.css
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/landing-pages.css
+/reference.css
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /downloads/*.pdf

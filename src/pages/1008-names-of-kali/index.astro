@@ -1,4 +1,6 @@
 ---
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+
 import { getStaticNamesData } from '../../lib/staticNames.js';
 
 const { namePages, ranges, totalCount, siteUrl } = getStaticNamesData();
@@ -64,32 +66,13 @@ const schema = {
 };
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
-		<meta property="og:type" content="article" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-		<link rel="canonical" href={canonical} />
-		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
-		<link rel="stylesheet" href="/static-pages.css" />
-		<link rel="stylesheet" href="/landing-pages.css" />
-		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
-	</head>
-	<body class="names-static names-static--landing">
-		<main>
-			<nav class="breadcrumbs" aria-label="Breadcrumb">
+<ReferenceLayout
+	title={title}
+	description={description}
+	canonical={canonical}
+	schema={schema}
+>
+<nav class="breadcrumbs" aria-label="Breadcrumb">
 				<ol>
 					<li><a href="/">Home</a></li>
 					<li><span aria-current="page">1008 Names of Kali</span></li>
@@ -196,6 +179,4 @@ const schema = {
 				</ul>
 				<p>{namePages.length} individual name pages are available in total.</p>
 			</section>
-		</main>
-	</body>
-</html>
+</ReferenceLayout>

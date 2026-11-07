@@ -31,6 +31,7 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 - **Head-term guides** for [108 names](https://1000namesofmakali.com/108-names-of-kali/), [1,008 names](https://1000namesofmakali.com/1008-names-of-kali/), [PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/), [lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/), and [benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/)
 - **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.2 MB)
 - **Generated sitemap** covering every URL, plus structured data (`Article`, `DefinedTerm`, `Book`, `FAQPage`, `BreadcrumbList`)
+- **Sister-site styling** — every page except the interactive landing page uses the visual system of [Jai Khyapa Parampara](https://jaikhyapaparampara.com/): the same temple palette, Crimson Text + Philosopher typography, and header/footer chrome
 - **Mobile-first interface** with large touch targets and resilient text wrapping
 - **Devotional visual system** documented in `PRODUCT.md`, `DESIGN.md`, and `DESIGN.json`
 - **Offline/cache support** through a service worker
@@ -58,6 +59,7 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 ```text
 ├── src/
 │   ├── data/name-mapping.json      # Generated spellings, slugs, page groups
+│   ├── layouts/ReferenceLayout.astro # Shared chrome for any page except the landing page
 │   ├── lib/staticNames.js          # Static names-page data helpers
 │   └── pages/
 │       ├── index.astro             # Main interactive reader
@@ -80,9 +82,8 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 │   ├── app.js                      # Reader/search/pagination logic
 │   ├── navigation.js               # Floating navigation controls
 │   ├── search.js                   # Search implementation
-│   ├── styles.css / styles.min.css # Main visual system CSS
-│   ├── name-pages.css              # Per-name reference page styles
-│   ├── landing-pages.css           # Landing page tables/FAQ styles
+│   ├── styles.css / styles.min.css # Interactive reader visual system CSS
+│   ├── reference.css               # Static reference pages (sister-site design system)
 │   ├── downloads/                  # Printable PDF edition
 │   ├── data_chunk_1-6.json         # Chunked names dataset
 │   ├── data_manifest.json          # Chunk metadata

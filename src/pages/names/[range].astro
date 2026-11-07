@@ -1,4 +1,6 @@
 ---
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+
 import { getStaticNamesData } from '../../lib/staticNames.js';
 
 export function getStaticPaths() {
@@ -77,33 +79,14 @@ const itemListSchema = {
   ]
 };
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{range.title}</title>
-    <meta name="description" content={range.description} />
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content={range.title} />
-    <meta property="og:description" content={range.description} />
-    <meta property="og:url" content={range.canonical} />
-    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={range.title} />
-    <meta name="twitter:description" content={range.description} />
-    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <link rel="canonical" href={range.canonical} />
-    {previousRange && <link rel="prev" href={previousRange.canonical} />}
-    {nextRange && <link rel="next" href={nextRange.canonical} />}
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
-    <link rel="stylesheet" href="/static-pages.css" />
-    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)}></script>
-  </head>
-  <body class="names-static names-static--range">
-    <main>
-      <p class="page-kicker">Static devotional reference</p>
+
+<ReferenceLayout
+	title={range.title}
+	description={range.description}
+	canonical={range.canonical}
+	schema={itemListSchema}
+>
+<p class="page-kicker">Static devotional reference</p>
       <h1>{range.heading}</h1>
 
       <section class="hero-panel">
@@ -145,6 +128,4 @@ const itemListSchema = {
           </article>
         ))}
       </div>
-    </main>
-  </body>
-</html>
+</ReferenceLayout>

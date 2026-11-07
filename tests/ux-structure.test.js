@@ -343,13 +343,18 @@ function testHomepageLinksStaticNamesHub() {
 
 function testStaticNamesPagesExposeSeoMarkers() {
 	const namesPagesDir = path.join(__dirname, "..", "src", "pages", "names");
+	const layoutFiles = collectAstroFiles(path.join(__dirname, "..", "src", "layouts"));
 	const namesFiles = collectAstroFiles(namesPagesDir);
 	assert.ok(
 		namesFiles.length > 0,
 		"names static pages should exist under src/pages/names",
 	);
+	assert.ok(
+		layoutFiles.length > 0,
+		"reference layout should define shared head/chrome markup",
+	);
 
-	const namesSource = namesFiles
+	const namesSource = [...namesFiles, ...layoutFiles]
 		.map((file) => fs.readFileSync(file, "utf8"))
 		.join("\n");
 	assertIncludes(

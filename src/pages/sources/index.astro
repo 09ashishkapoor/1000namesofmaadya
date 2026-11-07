@@ -1,4 +1,6 @@
 ---
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+
 const canonical = 'https://1000namesofmakali.com/sources/';
 const title = 'Sources and Editorial Notes | Adya Mahakali 1000 Names';
 const description = 'Source notes, editorial approach, and correction path for the Adya Mahakali 1000 Names devotional reference.';
@@ -41,31 +43,14 @@ const schema = {
   ]
 };
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
-    <link rel="stylesheet" href="/static-pages.css" />
-    <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
-  </head>
-  <body class="names-static names-static--source">
-    <main>
-      <p class="page-kicker">Project notes</p>
+
+<ReferenceLayout
+	title={title}
+	description={description}
+	canonical={canonical}
+	schema={schema}
+>
+<p class="page-kicker">Project notes</p>
       <h1>Sources and Editorial Notes</h1>
 
       <section class="hero-panel">
@@ -126,6 +111,4 @@ const schema = {
         <p>When citing this site, please attribute the material to <strong>Adya Mahakali 1000 Names</strong> and link to the relevant canonical page, such as the <a href="/names/">static names hub</a> or a specific name-range page.</p>
         <p><a href="https://github.com/09ashishkapoor/1000namesofmaadya" rel="noopener noreferrer">View the open-source repository</a></p>
       </section>
-    </main>
-  </body>
-</html>
+</ReferenceLayout>

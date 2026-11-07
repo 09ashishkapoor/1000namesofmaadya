@@ -1,4 +1,6 @@
 ---
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+
 import { getStaticNamesData } from '../../lib/staticNames.js';
 
 const { hub, totalCount, ranges } = getStaticNamesData();
@@ -43,31 +45,20 @@ const hubSchema = {
   ]
 };
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{hub.title}</title>
-    <meta name="description" content={hub.description} />
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={hub.title} />
-    <meta property="og:description" content={hub.description} />
-    <meta property="og:url" content={hub.canonical} />
-    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={hub.title} />
-    <meta name="twitter:description" content={hub.description} />
-    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
-    <link rel="canonical" href={hub.canonical} />
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
-    <link rel="stylesheet" href="/static-pages.css" />
-    <script type="application/ld+json" set:html={JSON.stringify(hubSchema)}></script>
-  </head>
-  <body class="names-static names-static--hub">
-    <main>
-      <p class="page-kicker">Static study hub</p>
+
+<ReferenceLayout
+	title={hub.title}
+	description={hub.description}
+	canonical={hub.canonical}
+	schema={hubSchema}
+>
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					<li><a href="/">Home</a></li>
+					<li><span aria-current="page">Names hub</span></li>
+				</ol>
+			</nav>
+<p class="page-kicker">Static study hub</p>
       <h1>Adya Mahakali Names Hub</h1>
 
       <figure class="page-figure">
@@ -121,6 +112,4 @@ const hubSchema = {
         </ul>
         <p>If you notice an inaccuracy, please review the open-source repository or contact the maintainer through the links on the homepage.</p>
       </section>
-    </main>
-  </body>
-</html>
+</ReferenceLayout>
