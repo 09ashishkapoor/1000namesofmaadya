@@ -1,4 +1,5 @@
-// Builds the on-domain printable PDF edition of the 1,072-name list.
+// Builds the on-domain printable PDF edition of the 1000-name booklet.
+// The printed list preserves the project's full 1,072-entry Sahasranama sequence.
 //
 // Why this exists: the official designed ebook (hosted by Khyapa Parampara) is
 // ~53 MB, which is above the 25 MiB per-file limit for Cloudflare Pages
@@ -89,7 +90,7 @@ function buildHtml(entries, mappingRows) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Adya Mahakali Sahasranama — 1,072 Names of Maa Kali</title>
+<title>Adya Mahakali Sahasranama — 1000 Names of Maa Kali</title>
 <style>
 @font-face {
   font-family: "NotoDev";
@@ -133,11 +134,11 @@ td.meaning { font-size: 9.5pt; }
 <section class="cover">
   <p class="blessing">Om Shri Gurubhyo Namaha &middot; Jai Khyapa Parampara</p>
   <h1>Adya Mahakali Sahasranama</h1>
-  <h2>The 1,072 Names of Maa Kali with English Meanings</h2>
+  <h2>The 1000 Names of Maa Kali with English Meanings</h2>
   <figure class="cover-art">
     <img src="data:image/webp;base64,${coverImageBase64}" alt="Maa Adya Mahakali, the divine Mother, with trident, skull garland and red hibiscus flowers">
   </figure>
-  <div class="dev sanskrit" lang="sa">ॐ श्री आद्य महाकाली सहस्रनाम</div>
+  <div class="dev sanskrit" lang="sa">आद्य महाकाली सहस्रनाम</div>
   <div class="meta">
     <strong>Free printable edition</strong> for offline reading and devotional study<br>
     ${SITE_URL}<br>
@@ -147,9 +148,10 @@ td.meaning { font-size: 9.5pt; }
 </section>
 <section class="intro">
   <h2>How to use this edition</h2>
-  <p>This printable edition lists all 1,072 names of the Adya Mahakali Sahasranama in sequence, with Devanagari, a common English spelling, the IAST transliteration, and a short English meaning for each name.</p>
+  <p>This printable edition follows the traditional <strong>1000 Names (Sahasranama)</strong> of Maa Kali, listing the complete name sequence preserved by this project &mdash; 1,072 numbered entries &mdash; with Devanagari, a common English spelling, the IAST transliteration, and a short English meaning for each name.</p>
   <p>Each name also has its own page on the website, with alternate spellings and a longer explanatory note. Use the site for search and cross-references; use this file for offline reading, printing, and chanting support.</p>
   <p>Transliteration note: the "common spelling" column uses the romanization most readers type (for example <em>Shmashana Kalika</em>), while the IAST column gives the diacritic form (<em>Śmaśānakālikā</em>). Sanskrit names take several valid English spellings; the website lists them on each name page.</p>
+  <p>About the count: the Sahasranama is traditionally called the thousand names of the Goddess. This edition preserves its source's full sequence of 1,072 numbered entries, including repeated names, and is titled 1000 Names for the traditional name of the text.</p>
   <p>This is a devotional reference compiled for study. It is not a critical edition and does not replace traditional instruction or lineage guidance.</p>
 </section>
 <table>

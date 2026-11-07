@@ -3,9 +3,9 @@ import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
 
 const siteUrl = 'https://1000namesofmakali.com';
 const canonical = `${siteUrl}/kali-sahasranama-pdf/`;
-const title = 'Kali Sahasranama PDF — Free English Download (1,072 Names) | Adya Mahakali';
+const title = 'Kali Sahasranama PDF — Free English Download (1000 Names) | Adya Mahakali';
 const description =
-	'Download the free Kali Sahasranama PDF in English: a printable 68-page edition of the 1,072 names of Maa Kali with Devanagari, spellings, and meanings, plus the official designed ebook.';
+	'Download the free Kali Sahasranama PDF in English: a printable 68-page edition of the 1000 names of Maa Kali with Devanagari, spellings, and meanings, plus the official designed ebook.';
 
 const printablePdf = '/downloads/kali-sahasranama-names.pdf';
 const officialPdf =
@@ -19,7 +19,7 @@ const faqs = [
 	{
 		question: 'Is there a Kali Sahasranama PDF in English?',
 		answer:
-			'Yes. This site offers a free printable English edition of the 1,072-name Adya Mahakali Sahasranama as a PDF, with Devanagari, common English spellings, IAST transliteration, and short meanings. The official designed edition is also linked on this page.',
+			'Yes. This site offers a free printable English edition of the 1000-name Adya Mahakali Sahasranama as a PDF, with Devanagari, common English spellings, IAST transliteration, and short meanings. The booklet preserves the full 1,072-entry sequence of this edition. The official designed edition is also linked on this page.',
 	},
 	{
 		question: 'Is the Kali Sahasranama PDF free?',
@@ -53,9 +53,9 @@ const schema = {
 		{
 			'@type': 'Book',
 			'@id': `${canonical}#book`,
-			name: 'Adya Mahakali Sahasranama — 1,072 Names of Maa Kali (Printable Edition)',
+			name: 'Adya Mahakali Sahasranama — 1000 Names of Maa Kali (Printable Edition)',
 			description:
-				'Printable English reference edition of the 1,072 names of Maa Kali with Devanagari, common spellings, IAST transliteration, and short meanings.',
+				'Printable English reference edition of the 1000-name Adya Mahakali Sahasranama (1,072 numbered entries in this recension) with Devanagari, common spellings, IAST transliteration, and short meanings.',
 			bookFormat: 'https://schema.org/EBook',
 			numberOfPages: 68,
 			inLanguage: 'en',
@@ -103,14 +103,14 @@ const schema = {
 
 			<section class="hero-panel landing-intro">
 				<p class="intro">
-					Download the Kali Sahasranama in English as a free PDF. The printable edition contains
-					<strong>all 1,072 names</strong> of the Adya Mahakali Sahasranama with Devanagari, common English
-					spellings, IAST transliteration, and short meanings — 68 pages, A4, made for offline reading and printing.
-					The official designed ebook is also available below.
+					Download the Kali Sahasranama in English as a free PDF. The printable edition contains the
+					<strong>1000 Names of Maa Kali</strong> as preserved in this project — 1,072 numbered entries — with
+					Devanagari, common English spellings, IAST transliteration, and short meanings: 68 pages, A4, made for
+					offline reading and printing. The official designed ebook is also available below.
 				</p>
 				<nav class="page-nav" aria-label="Page navigation">
 					<ul>
-						<li><a href={printablePdf}>Download printable PDF (2.2 MB)</a></li>
+						<li><a href={printablePdf}>Download printable PDF (2.6 MB)</a></li>
 						<li><a href={officialPdf}>Official designed ebook</a></li>
 						<li><a href="/names/">Read the names online</a></li>
 					</ul>
@@ -123,7 +123,7 @@ const schema = {
 					<div class="download-card">
 						<h3>Printable web edition</h3>
 						<p>
-							Text-based, searchable PDF generated from this site's data. 68 pages, A4, 2.2 MB. Includes every
+							Text-based, searchable PDF generated from this site's data. 68 pages, A4, 2.6 MB. Includes every
 							name with Devanagari, Devanagari-to-English spellings, and the short English meaning. Best for
 							printing, quick reference, and offline lookup.
 						</p>
@@ -161,11 +161,16 @@ const schema = {
 				<h2>What is inside the printable edition</h2>
 				<ul>
 					<li>A short introduction on the text and its transliteration choices.</li>
-					<li>All 1,072 names in Sahasranama order, numbered.</li>
+					<li>The full name sequence in Sahasranama order, numbered.</li>
 					<li>Devanagari, common English spelling, and IAST transliteration forms for every name.</li>
 					<li>A short English meaning for every name.</li>
 					<li>Sources, citation links, and a correction path.</li>
 				</ul>
+				<p class="callout">
+					About the title: the Sahasranama is traditionally called the thousand names ("Sahasranama"). The
+					printable edition keeps this project's full sequence of 1,072 numbered entries, including repeated names;
+					the booklet is titled 1000 Names for the traditional name of the text.
+				</p>
 				<p class="callout">
 					Looking for the complete meaning notes rather than the short list? Use the online
 					<a href="/names/">names hub</a>: every name links to a page with its longer elaboration.
