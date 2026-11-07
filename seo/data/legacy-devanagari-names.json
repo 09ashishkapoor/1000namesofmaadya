@@ -1,0 +1,4290 @@
+[
+ {
+  "index": 1,
+  "hindi_name": "श्मशान कालिका"
+ },
+ {
+  "index": 2,
+  "hindi_name": "काली"
+ },
+ {
+  "index": 3,
+  "hindi_name": "भद्रकाली"
+ },
+ {
+  "index": 4,
+  "hindi_name": "कपालिनी"
+ },
+ {
+  "index": 5,
+  "hindi_name": "गुह्य काली"
+ },
+ {
+  "index": 6,
+  "hindi_name": "महाकाली"
+ },
+ {
+  "index": 7,
+  "hindi_name": "कुरुखुल्ला-विरोधिनी"
+ },
+ {
+  "index": 8,
+  "hindi_name": "कालिका"
+ },
+ {
+  "index": 9,
+  "hindi_name": "कालरात्रि च"
+ },
+ {
+  "index": 10,
+  "hindi_name": "महाकाल नितंबिनी"
+ },
+ {
+  "index": 11,
+  "hindi_name": "काल भैरव भार्या च"
+ },
+ {
+  "index": 12,
+  "hindi_name": "कुल वर्त्म प्रकाशिनी"
+ },
+ {
+  "index": 13,
+  "hindi_name": "कामदा"
+ },
+ {
+  "index": 14,
+  "hindi_name": "कामिनी"
+ },
+ {
+  "index": 15,
+  "hindi_name": "काम्या"
+ },
+ {
+  "index": 16,
+  "hindi_name": "कमनीय स्वभाविनी"
+ },
+ {
+  "index": 17,
+  "hindi_name": "कस्तूरी रस लिप्तांगी"
+ },
+ {
+  "index": 18,
+  "hindi_name": "कुंजेश्वर गामिनी"
+ },
+ {
+  "index": 19,
+  "hindi_name": "ककरा वर्ण सर्वांगी"
+ },
+ {
+  "index": 20,
+  "hindi_name": "कामिनी काम सुंदरी"
+ },
+ {
+  "index": 21,
+  "hindi_name": "कमार्ता"
+ },
+ {
+  "index": 22,
+  "hindi_name": "कामरूपाच"
+ },
+ {
+  "index": 23,
+  "hindi_name": "कामधेनु"
+ },
+ {
+  "index": 24,
+  "hindi_name": "कला-वती"
+ },
+ {
+  "index": 25,
+  "hindi_name": "कान्ता"
+ },
+ {
+  "index": 26,
+  "hindi_name": "काम स्वरूपा च"
+ },
+ {
+  "index": 27,
+  "hindi_name": "कामाख्या"
+ },
+ {
+  "index": 28,
+  "hindi_name": "कुल पालिनी"
+ },
+ {
+  "index": 29,
+  "hindi_name": "कुलिना"
+ },
+ {
+  "index": 30,
+  "hindi_name": "कुलवत्यम्बा"
+ },
+ {
+  "index": 31,
+  "hindi_name": "दुर्गा"
+ },
+ {
+  "index": 32,
+  "hindi_name": "दुर्गति नाशिनी"
+ },
+ {
+  "index": 33,
+  "hindi_name": "कौमारी"
+ },
+ {
+  "index": 34,
+  "hindi_name": "कुलजा"
+ },
+ {
+  "index": 35,
+  "hindi_name": "कृष्णा"
+ },
+ {
+  "index": 36,
+  "hindi_name": "कृष्ण देहा"
+ },
+ {
+  "index": 37,
+  "hindi_name": "कृशोदरी"
+ },
+ {
+  "index": 38,
+  "hindi_name": "कृशांगी"
+ },
+ {
+  "index": 39,
+  "hindi_name": "कुलिशांगी च"
+ },
+ {
+  "index": 40,
+  "hindi_name": "क्रिन्-कारी"
+ },
+ {
+  "index": 41,
+  "hindi_name": "कमला"
+ },
+ {
+  "index": 42,
+  "hindi_name": "कला"
+ },
+ {
+  "index": 43,
+  "hindi_name": "करालस्या"
+ },
+ {
+  "index": 44,
+  "hindi_name": "कराली च"
+ },
+ {
+  "index": 45,
+  "hindi_name": "कुल कान्ताऽपराजिता"
+ },
+ {
+  "index": 46,
+  "hindi_name": "उग्रा"
+ },
+ {
+  "index": 47,
+  "hindi_name": "उग्रप्रभा"
+ },
+ {
+  "index": 48,
+  "hindi_name": "दीप्ता"
+ },
+ {
+  "index": 49,
+  "hindi_name": "विप्र-चित्ता"
+ },
+ {
+  "index": 50,
+  "hindi_name": "महाबला"
+ },
+ {
+  "index": 51,
+  "hindi_name": "नील घना"
+ },
+ {
+  "index": 52,
+  "hindi_name": "बालका च"
+ },
+ {
+  "index": 53,
+  "hindi_name": "मात्रा"
+ },
+ {
+  "index": 54,
+  "hindi_name": "मुद्रामितसिता"
+ },
+ {
+  "index": 55,
+  "hindi_name": "ब्राह्मी"
+ },
+ {
+  "index": 56,
+  "hindi_name": "नारायणी"
+ },
+ {
+  "index": 57,
+  "hindi_name": "भद्रा"
+ },
+ {
+  "index": 58,
+  "hindi_name": "सुभद्रा"
+ },
+ {
+  "index": 59,
+  "hindi_name": "भक्त वत्सला"
+ },
+ {
+  "index": 60,
+  "hindi_name": "महेश्वरी च"
+ },
+ {
+  "index": 61,
+  "hindi_name": "चामुंडा"
+ },
+ {
+  "index": 62,
+  "hindi_name": "वाराही"
+ },
+ {
+  "index": 63,
+  "hindi_name": "नर-सिंहिका"
+ },
+ {
+  "index": 64,
+  "hindi_name": "वज्रांगी"
+ },
+ {
+  "index": 65,
+  "hindi_name": "वज्र कंकाली"
+ },
+ {
+  "index": 66,
+  "hindi_name": "नृ-मुण्ड स्रग्विणी (NṚ-MUṆḌA SRAGVIṆĪ)"
+ },
+ {
+  "index": 67,
+  "hindi_name": "शिवा"
+ },
+ {
+  "index": 68,
+  "hindi_name": "मालिनी"
+ },
+ {
+  "index": 69,
+  "hindi_name": "नरमुण्डाली"
+ },
+ {
+  "index": 70,
+  "hindi_name": "गलत् रुधिर भूषणा"
+ },
+ {
+  "index": 71,
+  "hindi_name": "रक्त चंदन सिक्तंगी"
+ },
+ {
+  "index": 72,
+  "hindi_name": "सिंदूरारुण मस्तका"
+ },
+ {
+  "index": 73,
+  "hindi_name": "घोर रूपा"
+ },
+ {
+  "index": 74,
+  "hindi_name": "घोरदंष्ट्रा"
+ },
+ {
+  "index": 75,
+  "hindi_name": "घोराघोरतरा"
+ },
+ {
+  "index": 76,
+  "hindi_name": "शुभा"
+ },
+ {
+  "index": 77,
+  "hindi_name": "महादंष्ट्रा"
+ },
+ {
+  "index": 78,
+  "hindi_name": "महामाया"
+ },
+ {
+  "index": 79,
+  "hindi_name": "सुदंती"
+ },
+ {
+  "index": 80,
+  "hindi_name": "युग दन्तुरा"
+ },
+ {
+  "index": 81,
+  "hindi_name": "सु-लोचना"
+ },
+ {
+  "index": 82,
+  "hindi_name": "विरूपाक्षी"
+ },
+ {
+  "index": 83,
+  "hindi_name": "विशालाक्षी"
+ },
+ {
+  "index": 84,
+  "hindi_name": "त्रिलोचना"
+ },
+ {
+  "index": 85,
+  "hindi_name": "शरदिन्दु प्रसन्नास्या"
+ },
+ {
+  "index": 86,
+  "hindi_name": "स्फुरत् स्मेरा"
+ },
+ {
+  "index": 87,
+  "hindi_name": "अम्बुजेक्षणा"
+ },
+ {
+  "index": 88,
+  "hindi_name": "अट्टहास प्रसन्नास्या"
+ },
+ {
+  "index": 89,
+  "hindi_name": "स्मेर वक्त्रा"
+ },
+ {
+  "index": 90,
+  "hindi_name": "सुभाषिणी"
+ },
+ {
+  "index": 91,
+  "hindi_name": "प्रसन्न पद्म वदना"
+ },
+ {
+  "index": 92,
+  "hindi_name": "स्मितास्या"
+ },
+ {
+  "index": 93,
+  "hindi_name": "प्रिय भाषिणी"
+ },
+ {
+  "index": 94,
+  "hindi_name": "कोटरक्षी"
+ },
+ {
+  "index": 95,
+  "hindi_name": "कुलश्रेष्ठा"
+ },
+ {
+  "index": 96,
+  "hindi_name": "महती"
+ },
+ {
+  "index": 97,
+  "hindi_name": "बहुभाषिणी"
+ },
+ {
+  "index": 98,
+  "hindi_name": "सुमति"
+ },
+ {
+  "index": 99,
+  "hindi_name": "कुमति"
+ },
+ {
+  "index": 100,
+  "hindi_name": "चण्डा"
+ },
+ {
+  "index": 101,
+  "hindi_name": "चण्डमुण्डवेगिनी"
+ },
+ {
+  "index": 102,
+  "hindi_name": "प्रचण्ड चण्डिका"
+ },
+ {
+  "index": 103,
+  "hindi_name": "चण्डी"
+ },
+ {
+  "index": 104,
+  "hindi_name": "चंडिका"
+ },
+ {
+  "index": 105,
+  "hindi_name": "चण्डवेगिनी"
+ },
+ {
+  "index": 106,
+  "hindi_name": "सुकेशी"
+ },
+ {
+  "index": 107,
+  "hindi_name": "मुक्तकेशी च"
+ },
+ {
+  "index": 108,
+  "hindi_name": "दीर्घ केशी"
+ },
+ {
+  "index": 109,
+  "hindi_name": "महत्-कुचा"
+ },
+ {
+  "index": 110,
+  "hindi_name": "प्रेत देह कर्ण-पुरा"
+ },
+ {
+  "index": 111,
+  "hindi_name": "प्रेत पाणि सुमेखला"
+ },
+ {
+  "index": 112,
+  "hindi_name": "प्रेतासना (PRETĀSANĀ)"
+ },
+ {
+  "index": 113,
+  "hindi_name": "प्रिय प्रेता"
+ },
+ {
+  "index": 114,
+  "hindi_name": "प्रेत भूमि कृत्यालया"
+ },
+ {
+  "index": 115,
+  "hindi_name": "श्मशानवासिनी"
+ },
+ {
+  "index": 116,
+  "hindi_name": "पुण्या"
+ },
+ {
+  "index": 117,
+  "hindi_name": "पुण्यदा"
+ },
+ {
+  "index": 118,
+  "hindi_name": "कुल पंडिता"
+ },
+ {
+  "index": 119,
+  "hindi_name": "पुण्यालया"
+ },
+ {
+  "index": 120,
+  "hindi_name": "पुण्य देहा"
+ },
+ {
+  "index": 121,
+  "hindi_name": "पुण्यश्लोकी च"
+ },
+ {
+  "index": 122,
+  "hindi_name": "पाविनी"
+ },
+ {
+  "index": 123,
+  "hindi_name": "पूता"
+ },
+ {
+  "index": 124,
+  "hindi_name": "पवित्रा"
+ },
+ {
+  "index": 125,
+  "hindi_name": "परमा"
+ },
+ {
+  "index": 126,
+  "hindi_name": "पूर्व पुण्य विभूषणा"
+ },
+ {
+  "index": 127,
+  "hindi_name": "पुण्य-नामिनी"
+ },
+ {
+  "index": 128,
+  "hindi_name": "भीति-हरा"
+ },
+ {
+  "index": 129,
+  "hindi_name": "वरदा"
+ },
+ {
+  "index": 130,
+  "hindi_name": "खड्ग पालिनी"
+ },
+ {
+  "index": 131,
+  "hindi_name": "नृमुंड हस्त शस्ता च"
+ },
+ {
+  "index": 132,
+  "hindi_name": "छिन्नमस्ता"
+ },
+ {
+  "index": 133,
+  "hindi_name": "सु-नासिका"
+ },
+ {
+  "index": 134,
+  "hindi_name": "दक्षिणा"
+ },
+ {
+  "index": 135,
+  "hindi_name": "श्यामा"
+ },
+ {
+  "index": 136,
+  "hindi_name": "श्यामा"
+ },
+ {
+  "index": 137,
+  "hindi_name": "शान्ता"
+ },
+ {
+  "index": 138,
+  "hindi_name": "पीनोन्नतस्तनी"
+ },
+ {
+  "index": 139,
+  "hindi_name": "दिगंबरा"
+ },
+ {
+  "index": 140,
+  "hindi_name": "घोर रवा"
+ },
+ {
+  "index": 141,
+  "hindi_name": "श्रीकण्ठा"
+ },
+ {
+  "index": 142,
+  "hindi_name": "रक्तवाहिनी"
+ },
+ {
+  "index": 143,
+  "hindi_name": "घोर रवा"
+ },
+ {
+  "index": 144,
+  "hindi_name": "शिव संगिनी"
+ },
+ {
+  "index": 145,
+  "hindi_name": "विसंगी"
+ },
+ {
+  "index": 146,
+  "hindi_name": "मदनातुरा"
+ },
+ {
+  "index": 147,
+  "hindi_name": "मत्ता"
+ },
+ {
+  "index": 148,
+  "hindi_name": "प्रमत्ता"
+ },
+ {
+  "index": 149,
+  "hindi_name": "प्रमदा"
+ },
+ {
+  "index": 150,
+  "hindi_name": "सुधा सिन्धु निवासिनी"
+ },
+ {
+  "index": 151,
+  "hindi_name": "अति-मत्ता"
+ },
+ {
+  "index": 152,
+  "hindi_name": "महा-मत्ता"
+ },
+ {
+  "index": 153,
+  "hindi_name": "सर्वाकर्षणकारिणी"
+ },
+ {
+  "index": 154,
+  "hindi_name": "गीत प्रिया"
+ },
+ {
+  "index": 155,
+  "hindi_name": "वाद्यरता"
+ },
+ {
+  "index": 156,
+  "hindi_name": "प्रेत नृत्य परायणा"
+ },
+ {
+  "index": 157,
+  "hindi_name": "चतुर्भुजा"
+ },
+ {
+  "index": 158,
+  "hindi_name": "दशभुजा"
+ },
+ {
+  "index": 159,
+  "hindi_name": "अष्टादशभुजा तथा"
+ },
+ {
+  "index": 160,
+  "hindi_name": "कात्यायनी"
+ },
+ {
+  "index": 161,
+  "hindi_name": "जगन्माता"
+ },
+ {
+  "index": 162,
+  "hindi_name": "जगतां परमेश्वरी"
+ },
+ {
+  "index": 163,
+  "hindi_name": "जगत् बंधु"
+ },
+ {
+  "index": 164,
+  "hindi_name": "जगत् धात्री"
+ },
+ {
+  "index": 165,
+  "hindi_name": "जगदानंदकारिणी"
+ },
+ {
+  "index": 166,
+  "hindi_name": "जगत् जीवमयी"
+ },
+ {
+  "index": 167,
+  "hindi_name": "हेमावती"
+ },
+ {
+  "index": 168,
+  "hindi_name": "महामाया"
+ },
+ {
+  "index": 169,
+  "hindi_name": "महा-महा"
+ },
+ {
+  "index": 170,
+  "hindi_name": "नागयज्ञोपवीतांगी"
+ },
+ {
+  "index": 171,
+  "hindi_name": "नागिनी"
+ },
+ {
+  "index": 172,
+  "hindi_name": "नागशायिनी"
+ },
+ {
+  "index": 173,
+  "hindi_name": "नाग कन्या"
+ },
+ {
+  "index": 174,
+  "hindi_name": "देव कन्या"
+ },
+ {
+  "index": 175,
+  "hindi_name": "गंधर्वी"
+ },
+ {
+  "index": 176,
+  "hindi_name": "किन्नरेश्वरी"
+ },
+ {
+  "index": 177,
+  "hindi_name": "मोहरात्रि"
+ },
+ {
+  "index": 178,
+  "hindi_name": "महारत्रि"
+ },
+ {
+  "index": 179,
+  "hindi_name": "दारुणा"
+ },
+ {
+  "index": 180,
+  "hindi_name": "भास्वरसुरी"
+ },
+ {
+  "index": 181,
+  "hindi_name": "विद्याधरी"
+ },
+ {
+  "index": 182,
+  "hindi_name": "वसुमती"
+ },
+ {
+  "index": 183,
+  "hindi_name": "यक्षिणी"
+ },
+ {
+  "index": 184,
+  "hindi_name": "योगिनी"
+ },
+ {
+  "index": 185,
+  "hindi_name": "जरा"
+ },
+ {
+  "index": 186,
+  "hindi_name": "राक्षसी"
+ },
+ {
+  "index": 187,
+  "hindi_name": "डाकिनी"
+ },
+ {
+  "index": 188,
+  "hindi_name": "वेद-मयी"
+ },
+ {
+  "index": 189,
+  "hindi_name": "वेदविभूषणा"
+ },
+ {
+  "index": 190,
+  "hindi_name": "श्रुति"
+ },
+ {
+  "index": 191,
+  "hindi_name": "स्मृति"
+ },
+ {
+  "index": 192,
+  "hindi_name": "महाविद्या"
+ },
+ {
+  "index": 193,
+  "hindi_name": "गुह्य विद्या"
+ },
+ {
+  "index": 194,
+  "hindi_name": "पुरातनी"
+ },
+ {
+  "index": 195,
+  "hindi_name": "चिन्त्या"
+ },
+ {
+  "index": 196,
+  "hindi_name": "अचिन्त्या"
+ },
+ {
+  "index": 197,
+  "hindi_name": "स्वधा"
+ },
+ {
+  "index": 198,
+  "hindi_name": "स्वाहा"
+ },
+ {
+  "index": 199,
+  "hindi_name": "निद्रा"
+ },
+ {
+  "index": 200,
+  "hindi_name": "तंद्रा च"
+ },
+ {
+  "index": 201,
+  "hindi_name": "पार्वती"
+ },
+ {
+  "index": 202,
+  "hindi_name": "अपर्णा"
+ },
+ {
+  "index": 203,
+  "hindi_name": "निश्चला"
+ },
+ {
+  "index": 204,
+  "hindi_name": "लोला"
+ },
+ {
+  "index": 205,
+  "hindi_name": "सर्व विद्या"
+ },
+ {
+  "index": 206,
+  "hindi_name": "तपस्विनी"
+ },
+ {
+  "index": 207,
+  "hindi_name": "गंगा"
+ },
+ {
+  "index": 208,
+  "hindi_name": "काशि"
+ },
+ {
+  "index": 209,
+  "hindi_name": "शची"
+ },
+ {
+  "index": 210,
+  "hindi_name": "सीता"
+ },
+ {
+  "index": 211,
+  "hindi_name": "सती"
+ },
+ {
+  "index": 212,
+  "hindi_name": "सत्य परायणा"
+ },
+ {
+  "index": 213,
+  "hindi_name": "नीति"
+ },
+ {
+  "index": 214,
+  "hindi_name": "सुनीतिः"
+ },
+ {
+  "index": 215,
+  "hindi_name": "सुरुचिः"
+ },
+ {
+  "index": 216,
+  "hindi_name": "तुष्टिः"
+ },
+ {
+  "index": 217,
+  "hindi_name": "पुष्टिः"
+ },
+ {
+  "index": 218,
+  "hindi_name": "धृतिः (DHRITIḤ)"
+ },
+ {
+  "index": 219,
+  "hindi_name": "क्षमा"
+ },
+ {
+  "index": 220,
+  "hindi_name": "वाणी"
+ },
+ {
+  "index": 221,
+  "hindi_name": "बुद्धि"
+ },
+ {
+  "index": 222,
+  "hindi_name": "महालक्ष्मी"
+ },
+ {
+  "index": 223,
+  "hindi_name": "लक्ष्मी"
+ },
+ {
+  "index": 224,
+  "hindi_name": "नील सरस्वती"
+ },
+ {
+  "index": 225,
+  "hindi_name": "स्रोतस्वती (SROTASVATĪ)"
+ },
+ {
+  "index": 226,
+  "hindi_name": "सरस्वती"
+ },
+ {
+  "index": 227,
+  "hindi_name": "मातंगी"
+ },
+ {
+  "index": 228,
+  "hindi_name": "विजया"
+ },
+ {
+  "index": 229,
+  "hindi_name": "जया"
+ },
+ {
+  "index": 230,
+  "hindi_name": "नदी सिंधु"
+ },
+ {
+  "index": 231,
+  "hindi_name": "सर्वमयी"
+ },
+ {
+  "index": 232,
+  "hindi_name": "तारा"
+ },
+ {
+  "index": 233,
+  "hindi_name": "शून्य निवासिनी"
+ },
+ {
+  "index": 234,
+  "hindi_name": "शुद्धा"
+ },
+ {
+  "index": 235,
+  "hindi_name": "तरंगिणी"
+ },
+ {
+  "index": 236,
+  "hindi_name": "मेधा"
+ },
+ {
+  "index": 237,
+  "hindi_name": "लाकिनी"
+ },
+ {
+  "index": 238,
+  "hindi_name": "बहुरूपिणी"
+ },
+ {
+  "index": 239,
+  "hindi_name": "स्थूला"
+ },
+ {
+  "index": 240,
+  "hindi_name": "सूक्ष्मा"
+ },
+ {
+  "index": 241,
+  "hindi_name": "सूक्ष्म-तारा"
+ },
+ {
+  "index": 242,
+  "hindi_name": "भगवती"
+ },
+ {
+  "index": 243,
+  "hindi_name": "अनुरागिणी"
+ },
+ {
+  "index": 244,
+  "hindi_name": "परमानंद रूपा"
+ },
+ {
+  "index": 245,
+  "hindi_name": "चिदानंद स्वरूपिणी"
+ },
+ {
+  "index": 246,
+  "hindi_name": "सर्वानन्दमयी"
+ },
+ {
+  "index": 247,
+  "hindi_name": "नित्या"
+ },
+ {
+  "index": 248,
+  "hindi_name": "सर्वानन्द स्वरूपिणी"
+ },
+ {
+  "index": 249,
+  "hindi_name": "शुभदा"
+ },
+ {
+  "index": 250,
+  "hindi_name": "नंदिनी"
+ },
+ {
+  "index": 251,
+  "hindi_name": "स्तुत्या"
+ },
+ {
+  "index": 252,
+  "hindi_name": "स्तवनीया"
+ },
+ {
+  "index": 253,
+  "hindi_name": "स्वभाविनी"
+ },
+ {
+  "index": 254,
+  "hindi_name": "रंगिणी"
+ },
+ {
+  "index": 255,
+  "hindi_name": "टंकिनी"
+ },
+ {
+  "index": 256,
+  "hindi_name": "चित्रा"
+ },
+ {
+  "index": 257,
+  "hindi_name": "विचित्र"
+ },
+ {
+  "index": 258,
+  "hindi_name": "चित्ररूपिणी"
+ },
+ {
+  "index": 259,
+  "hindi_name": "पद्मा"
+ },
+ {
+  "index": 260,
+  "hindi_name": "पद्मालय"
+ },
+ {
+  "index": 261,
+  "hindi_name": "पद्ममुखी"
+ },
+ {
+  "index": 262,
+  "hindi_name": "पद्मविभूषणा"
+ },
+ {
+  "index": 263,
+  "hindi_name": "डाकिनी"
+ },
+ {
+  "index": 264,
+  "hindi_name": "शाकिनी"
+ },
+ {
+  "index": 265,
+  "hindi_name": "क्षान्ता"
+ },
+ {
+  "index": 266,
+  "hindi_name": "राकिनी"
+ },
+ {
+  "index": 267,
+  "hindi_name": "रुधिरप्रिया"
+ },
+ {
+  "index": 268,
+  "hindi_name": "भ्रांति"
+ },
+ {
+  "index": 269,
+  "hindi_name": "भवानी"
+ },
+ {
+  "index": 270,
+  "hindi_name": "रुद्राणी"
+ },
+ {
+  "index": 271,
+  "hindi_name": "मृडानी"
+ },
+ {
+  "index": 272,
+  "hindi_name": "शत्रु मर्दिनी"
+ },
+ {
+  "index": 273,
+  "hindi_name": "उपेंद्रानी"
+ },
+ {
+  "index": 274,
+  "hindi_name": "महेन्द्राणी"
+ },
+ {
+  "index": 275,
+  "hindi_name": "ज्योत्स्ना"
+ },
+ {
+  "index": 276,
+  "hindi_name": "चंद्र स्वरूपिणी"
+ },
+ {
+  "index": 277,
+  "hindi_name": "सूर्यात्मिका"
+ },
+ {
+  "index": 278,
+  "hindi_name": "रुद्र पत्नी"
+ },
+ {
+  "index": 279,
+  "hindi_name": "रौद्री"
+ },
+ {
+  "index": 280,
+  "hindi_name": "स्त्री प्रकृतिः"
+ },
+ {
+  "index": 281,
+  "hindi_name": "पुमान"
+ },
+ {
+  "index": 282,
+  "hindi_name": "शक्तिः"
+ },
+ {
+  "index": 283,
+  "hindi_name": "सूक्ति"
+ },
+ {
+  "index": 284,
+  "hindi_name": "मतिः"
+ },
+ {
+  "index": 285,
+  "hindi_name": "माता"
+ },
+ {
+  "index": 286,
+  "hindi_name": "भुक्तिः"
+ },
+ {
+  "index": 287,
+  "hindi_name": "मुक्तिः"
+ },
+ {
+  "index": 288,
+  "hindi_name": "पतिव्रता"
+ },
+ {
+  "index": 289,
+  "hindi_name": "सर्वेश्वरी"
+ },
+ {
+  "index": 290,
+  "hindi_name": "सर्व माता"
+ },
+ {
+  "index": 291,
+  "hindi_name": "शर्वाणी"
+ },
+ {
+  "index": 292,
+  "hindi_name": "हर वल्लभा"
+ },
+ {
+  "index": 293,
+  "hindi_name": "सर्वज्ञा"
+ },
+ {
+  "index": 294,
+  "hindi_name": "सिद्धिदा"
+ },
+ {
+  "index": 295,
+  "hindi_name": "सिद्धा"
+ },
+ {
+  "index": 296,
+  "hindi_name": "भव्या"
+ },
+ {
+  "index": 297,
+  "hindi_name": "भव्या"
+ },
+ {
+  "index": 298,
+  "hindi_name": "भयापहा"
+ },
+ {
+  "index": 299,
+  "hindi_name": "कर्त्री"
+ },
+ {
+  "index": 300,
+  "hindi_name": "हर्त्री"
+ },
+ {
+  "index": 301,
+  "hindi_name": "पालयित्री"
+ },
+ {
+  "index": 302,
+  "hindi_name": "शर्वरी तामसी"
+ },
+ {
+  "index": 303,
+  "hindi_name": "दया"
+ },
+ {
+  "index": 304,
+  "hindi_name": "तमिस्रा"
+ },
+ {
+  "index": 305,
+  "hindi_name": "तामसी"
+ },
+ {
+  "index": 306,
+  "hindi_name": "स्थाणु"
+ },
+ {
+  "index": 307,
+  "hindi_name": "स्थिरा"
+ },
+ {
+  "index": 308,
+  "hindi_name": "धीरा"
+ },
+ {
+  "index": 309,
+  "hindi_name": "तपस्विनी"
+ },
+ {
+  "index": 310,
+  "hindi_name": "चार्वंगी"
+ },
+ {
+  "index": 311,
+  "hindi_name": "चंचला"
+ },
+ {
+  "index": 312,
+  "hindi_name": "लोल-जिह्वा"
+ },
+ {
+  "index": 313,
+  "hindi_name": "चारु चारित्रिणी"
+ },
+ {
+  "index": 314,
+  "hindi_name": "त्रपा"
+ },
+ {
+  "index": 315,
+  "hindi_name": "त्रपावती"
+ },
+ {
+  "index": 316,
+  "hindi_name": "लज्जा"
+ },
+ {
+  "index": 317,
+  "hindi_name": "विलज्जा"
+ },
+ {
+  "index": 318,
+  "hindi_name": "ह्री"
+ },
+ {
+  "index": 319,
+  "hindi_name": "राजोवती"
+ },
+ {
+  "index": 320,
+  "hindi_name": "सत्यवती"
+ },
+ {
+  "index": 321,
+  "hindi_name": "धर्म निष्ठा"
+ },
+ {
+  "index": 322,
+  "hindi_name": "श्रेष्ठ"
+ },
+ {
+  "index": 323,
+  "hindi_name": "निष्ठुर नादिनी"
+ },
+ {
+  "index": 324,
+  "hindi_name": "गरिष्ठा"
+ },
+ {
+  "index": 325,
+  "hindi_name": "दुष्ट संहर्त्री"
+ },
+ {
+  "index": 326,
+  "hindi_name": "विशिष्टा"
+ },
+ {
+  "index": 327,
+  "hindi_name": "श्रेयसी"
+ },
+ {
+  "index": 328,
+  "hindi_name": "घृणा"
+ },
+ {
+  "index": 329,
+  "hindi_name": "भीमा"
+ },
+ {
+  "index": 330,
+  "hindi_name": "भयानका"
+ },
+ {
+  "index": 331,
+  "hindi_name": "भीम नादिनी"
+ },
+ {
+  "index": 332,
+  "hindi_name": "भीः"
+ },
+ {
+  "index": 333,
+  "hindi_name": "प्रभावती"
+ },
+ {
+  "index": 334,
+  "hindi_name": "वागीश्वरी"
+ },
+ {
+  "index": 335,
+  "hindi_name": "श्री"
+ },
+ {
+  "index": 336,
+  "hindi_name": "यमुना"
+ },
+ {
+  "index": 337,
+  "hindi_name": "यज्ञकर्त्री"
+ },
+ {
+  "index": 338,
+  "hindi_name": "यजुः प्रिया"
+ },
+ {
+  "index": 339,
+  "hindi_name": "ऋक् सामथर्व-निलया"
+ },
+ {
+  "index": 340,
+  "hindi_name": "रागिनी"
+ },
+ {
+  "index": 341,
+  "hindi_name": "शोभना स्वरा"
+ },
+ {
+  "index": 342,
+  "hindi_name": "कालकण्ठी"
+ },
+ {
+  "index": 343,
+  "hindi_name": "कम्बु कण्ठी"
+ },
+ {
+  "index": 344,
+  "hindi_name": "वेणु वीणा परायणा"
+ },
+ {
+  "index": 345,
+  "hindi_name": "वंशनी"
+ },
+ {
+  "index": 346,
+  "hindi_name": "वैष्णवी"
+ },
+ {
+  "index": 347,
+  "hindi_name": "स्वच्छा"
+ },
+ {
+  "index": 348,
+  "hindi_name": "धारित्री"
+ },
+ {
+  "index": 349,
+  "hindi_name": "जगदीश्वरी"
+ },
+ {
+  "index": 350,
+  "hindi_name": "मधु-मती"
+ },
+ {
+  "index": 351,
+  "hindi_name": "कुंडलिनी"
+ },
+ {
+  "index": 352,
+  "hindi_name": "ऋद्धि"
+ },
+ {
+  "index": 353,
+  "hindi_name": "सिद्धि"
+ },
+ {
+  "index": 354,
+  "hindi_name": "शुचि-स्मिता"
+ },
+ {
+  "index": 355,
+  "hindi_name": "रम्भोरवशी"
+ },
+ {
+  "index": 356,
+  "hindi_name": "रति-रमा"
+ },
+ {
+  "index": 357,
+  "hindi_name": "रोहिणी"
+ },
+ {
+  "index": 358,
+  "hindi_name": "रेवती"
+ },
+ {
+  "index": 359,
+  "hindi_name": "माघा"
+ },
+ {
+  "index": 360,
+  "hindi_name": "शंखिनी"
+ },
+ {
+  "index": 361,
+  "hindi_name": "चक्रिणी"
+ },
+ {
+  "index": 362,
+  "hindi_name": "कृष्ण गदिनी"
+ },
+ {
+  "index": 363,
+  "hindi_name": "पद्मिनी तथा"
+ },
+ {
+  "index": 364,
+  "hindi_name": "शूलिनी"
+ },
+ {
+  "index": 365,
+  "hindi_name": "परिघास्त्र चा"
+ },
+ {
+  "index": 366,
+  "hindi_name": "पाशिनी"
+ },
+ {
+  "index": 367,
+  "hindi_name": "शार्ङ्ग पालिनी"
+ },
+ {
+  "index": 368,
+  "hindi_name": "पिनाक धारिणी"
+ },
+ {
+  "index": 369,
+  "hindi_name": "धूम्रा"
+ },
+ {
+  "index": 370,
+  "hindi_name": "शरभी"
+ },
+ {
+  "index": 371,
+  "hindi_name": "वनमालिनी"
+ },
+ {
+  "index": 372,
+  "hindi_name": "रथिनी"
+ },
+ {
+  "index": 373,
+  "hindi_name": "समर प्रीता"
+ },
+ {
+  "index": 374,
+  "hindi_name": "वेगीनी"
+ },
+ {
+  "index": 375,
+  "hindi_name": "रण पंडिता"
+ },
+ {
+  "index": 376,
+  "hindi_name": "जटिनी"
+ },
+ {
+  "index": 377,
+  "hindi_name": "वज्रिणी"
+ },
+ {
+  "index": 378,
+  "hindi_name": "लीला"
+ },
+ {
+  "index": 379,
+  "hindi_name": "लावण्याम्बुधि"
+ },
+ {
+  "index": 380,
+  "hindi_name": "चन्द्रिका"
+ },
+ {
+  "index": 381,
+  "hindi_name": "बलि-प्रिया"
+ },
+ {
+  "index": 382,
+  "hindi_name": "सदा-पूज्या"
+ },
+ {
+  "index": 383,
+  "hindi_name": "पूर्णा"
+ },
+ {
+  "index": 384,
+  "hindi_name": "दैत्येन्द्र मथिनी तथा"
+ },
+ {
+  "index": 385,
+  "hindi_name": "महिषासुर संहर्त्री"
+ },
+ {
+  "index": 386,
+  "hindi_name": "कामिनी"
+ },
+ {
+  "index": 387,
+  "hindi_name": "रक्त-दंतिका"
+ },
+ {
+  "index": 388,
+  "hindi_name": "रक्तपा"
+ },
+ {
+  "index": 389,
+  "hindi_name": "रुधिराक्तांगी"
+ },
+ {
+  "index": 390,
+  "hindi_name": "रक्त खर्पर हस्तिनी"
+ },
+ {
+  "index": 391,
+  "hindi_name": "रक्तप्रिया"
+ },
+ {
+  "index": 392,
+  "hindi_name": "मनसा रुचिः"
+ },
+ {
+  "index": 393,
+  "hindi_name": "आसव-सक्त मानसा"
+ },
+ {
+  "index": 394,
+  "hindi_name": "गलत-शोणित मुण्डाली"
+ },
+ {
+  "index": 395,
+  "hindi_name": "कंठ माला विभूषणा"
+ },
+ {
+  "index": 396,
+  "hindi_name": "शवासन"
+ },
+ {
+  "index": 397,
+  "hindi_name": "चितंत हस्ता"
+ },
+ {
+  "index": 398,
+  "hindi_name": "महेशी"
+ },
+ {
+  "index": 399,
+  "hindi_name": "वृषवाहिनी"
+ },
+ {
+  "index": 400,
+  "hindi_name": "व्याघ्र-त्वग अम्बरा"
+ },
+ {
+  "index": 401,
+  "hindi_name": "चीन चेलिनी"
+ },
+ {
+  "index": 402,
+  "hindi_name": "सिंहवाहिनी"
+ },
+ {
+  "index": 403,
+  "hindi_name": "वामा-देवी"
+ },
+ {
+  "index": 404,
+  "hindi_name": "महादेवी"
+ },
+ {
+  "index": 405,
+  "hindi_name": "गौरी"
+ },
+ {
+  "index": 406,
+  "hindi_name": "सर्वज्ञा भामिनी"
+ },
+ {
+  "index": 407,
+  "hindi_name": "बालिका"
+ },
+ {
+  "index": 408,
+  "hindi_name": "तरुणी"
+ },
+ {
+  "index": 409,
+  "hindi_name": "वृद्धा"
+ },
+ {
+  "index": 410,
+  "hindi_name": "जरतुरा"
+ },
+ {
+  "index": 411,
+  "hindi_name": "सुभ्रू"
+ },
+ {
+  "index": 412,
+  "hindi_name": "विलासिनी"
+ },
+ {
+  "index": 413,
+  "hindi_name": "ब्रह्मवादिनी"
+ },
+ {
+  "index": 414,
+  "hindi_name": "ब्राह्मणी"
+ },
+ {
+  "index": 415,
+  "hindi_name": "मही"
+ },
+ {
+  "index": 416,
+  "hindi_name": "स्वप्न-वती"
+ },
+ {
+  "index": 417,
+  "hindi_name": "चित्रलेखा"
+ },
+ {
+  "index": 418,
+  "hindi_name": "लोपामुद्रा"
+ },
+ {
+  "index": 419,
+  "hindi_name": "सुरेश्वरी"
+ },
+ {
+  "index": 420,
+  "hindi_name": "अमोघा"
+ },
+ {
+  "index": 421,
+  "hindi_name": "अरुंधती"
+ },
+ {
+  "index": 422,
+  "hindi_name": "तीक्ष्णा (TĪKṢṆĀ)"
+ },
+ {
+  "index": 423,
+  "hindi_name": "भोगवती"
+ },
+ {
+  "index": 424,
+  "hindi_name": "अनुरागिनी"
+ },
+ {
+  "index": 425,
+  "hindi_name": "मंदाकिनी"
+ },
+ {
+  "index": 426,
+  "hindi_name": "मंद हासा (MANDA HĀSĀ)"
+ },
+ {
+  "index": 427,
+  "hindi_name": "ज्वालामुखी"
+ },
+ {
+  "index": 428,
+  "hindi_name": "असुरान्तका"
+ },
+ {
+  "index": 429,
+  "hindi_name": "मानदा"
+ },
+ {
+  "index": 430,
+  "hindi_name": "मानिनी"
+ },
+ {
+  "index": 431,
+  "hindi_name": "मान्या"
+ },
+ {
+  "index": 432,
+  "hindi_name": "माननीया"
+ },
+ {
+  "index": 433,
+  "hindi_name": "मदतुरा"
+ },
+ {
+  "index": 434,
+  "hindi_name": "मदिरा मेदुरोन्मदा"
+ },
+ {
+  "index": 435,
+  "hindi_name": "मेध्या"
+ },
+ {
+  "index": 436,
+  "hindi_name": "साध्या"
+ },
+ {
+  "index": 437,
+  "hindi_name": "प्रसादिनी"
+ },
+ {
+  "index": 438,
+  "hindi_name": "सु-मध्या"
+ },
+ {
+  "index": 439,
+  "hindi_name": "अनंत गुणिनी"
+ },
+ {
+  "index": 440,
+  "hindi_name": "सर्व-लोकोत्तम-उत्तमा"
+ },
+ {
+  "index": 441,
+  "hindi_name": "जयदा"
+ },
+ {
+  "index": 442,
+  "hindi_name": "जित-वारी"
+ },
+ {
+  "index": 443,
+  "hindi_name": "जैत्री"
+ },
+ {
+  "index": 444,
+  "hindi_name": "जय श्री"
+ },
+ {
+  "index": 445,
+  "hindi_name": "जयशालिनी"
+ },
+ {
+  "index": 446,
+  "hindi_name": "शुभदा"
+ },
+ {
+  "index": 447,
+  "hindi_name": "सुखदा"
+ },
+ {
+  "index": 448,
+  "hindi_name": "सत्या"
+ },
+ {
+  "index": 449,
+  "hindi_name": "सभा संक्षोभ कारिणी"
+ },
+ {
+  "index": 450,
+  "hindi_name": "शिव-दूती"
+ },
+ {
+  "index": 451,
+  "hindi_name": "भूति-मती"
+ },
+ {
+  "index": 452,
+  "hindi_name": "विभूतिः"
+ },
+ {
+  "index": 453,
+  "hindi_name": "भीषणानना"
+ },
+ {
+  "index": 454,
+  "hindi_name": "कौमारी"
+ },
+ {
+  "index": 455,
+  "hindi_name": "कुलजा"
+ },
+ {
+  "index": 456,
+  "hindi_name": "कुंती"
+ },
+ {
+  "index": 457,
+  "hindi_name": "कुल-स्त्री"
+ },
+ {
+  "index": 458,
+  "hindi_name": "कुल पालिका"
+ },
+ {
+  "index": 459,
+  "hindi_name": "कीर्तिः"
+ },
+ {
+  "index": 460,
+  "hindi_name": "यशस्विनी"
+ },
+ {
+  "index": 461,
+  "hindi_name": "भूषा"
+ },
+ {
+  "index": 462,
+  "hindi_name": "भूष्या"
+ },
+ {
+  "index": 463,
+  "hindi_name": "भूत-पति प्रिया"
+ },
+ {
+  "index": 464,
+  "hindi_name": "सगुण"
+ },
+ {
+  "index": 465,
+  "hindi_name": "निर्गुणी"
+ },
+ {
+  "index": 466,
+  "hindi_name": "तृष्णा"
+ },
+ {
+  "index": 467,
+  "hindi_name": "निष्ठा"
+ },
+ {
+  "index": 468,
+  "hindi_name": "काष्ठा"
+ },
+ {
+  "index": 469,
+  "hindi_name": "प्रतिष्ठिता"
+ },
+ {
+  "index": 470,
+  "hindi_name": "धनिष्ठा"
+ },
+ {
+  "index": 471,
+  "hindi_name": "धनदा"
+ },
+ {
+  "index": 472,
+  "hindi_name": "धन्या"
+ },
+ {
+  "index": 473,
+  "hindi_name": "वसुधा"
+ },
+ {
+  "index": 474,
+  "hindi_name": "सु-प्रकाशिनि"
+ },
+ {
+  "index": 475,
+  "hindi_name": "उर्वी"
+ },
+ {
+  "index": 476,
+  "hindi_name": "गुर्वी"
+ },
+ {
+  "index": 477,
+  "hindi_name": "गुरुश्रेष्ठ"
+ },
+ {
+  "index": 478,
+  "hindi_name": "सद्-गुणा"
+ },
+ {
+  "index": 479,
+  "hindi_name": "त्रि-गुणात्मिका"
+ },
+ {
+  "index": 480,
+  "hindi_name": "राज्यमाग्न्या"
+ },
+ {
+  "index": 481,
+  "hindi_name": "महाप्रज्ञा"
+ },
+ {
+  "index": 482,
+  "hindi_name": "सु-गुणा"
+ },
+ {
+  "index": 483,
+  "hindi_name": "निर्गुणात्मिका"
+ },
+ {
+  "index": 484,
+  "hindi_name": "महा-कुलीना"
+ },
+ {
+  "index": 485,
+  "hindi_name": "निष्काम"
+ },
+ {
+  "index": 486,
+  "hindi_name": "स-कामा"
+ },
+ {
+  "index": 487,
+  "hindi_name": "काम जीवनी"
+ },
+ {
+  "index": 488,
+  "hindi_name": "कामदेव-कला (KĀMADEVA-KALĀ)"
+ },
+ {
+  "index": 489,
+  "hindi_name": "रामाभिरामा"
+ },
+ {
+  "index": 490,
+  "hindi_name": "शिव नर्तकी"
+ },
+ {
+  "index": 491,
+  "hindi_name": "चिंतामणि"
+ },
+ {
+  "index": 492,
+  "hindi_name": "कल्पलता"
+ },
+ {
+  "index": 493,
+  "hindi_name": "जाग्रति"
+ },
+ {
+  "index": 494,
+  "hindi_name": "दीन वत्सला"
+ },
+ {
+  "index": 495,
+  "hindi_name": "कार्तिकी"
+ },
+ {
+  "index": 496,
+  "hindi_name": "कृत्तिका"
+ },
+ {
+  "index": 497,
+  "hindi_name": "कृत्या"
+ },
+ {
+  "index": 498,
+  "hindi_name": "अयोध्या विषमा समा"
+ },
+ {
+  "index": 499,
+  "hindi_name": "सुमंत्रा"
+ },
+ {
+  "index": 500,
+  "hindi_name": "मन्त्रिणी (MANTRIṆĪ)"
+ },
+ {
+  "index": 501,
+  "hindi_name": "धूर्णा"
+ },
+ {
+  "index": 502,
+  "hindi_name": "ह्लादिनी"
+ },
+ {
+  "index": 503,
+  "hindi_name": "क्लेश नाशिनी"
+ },
+ {
+  "index": 504,
+  "hindi_name": "त्रैलोक्य जननी"
+ },
+ {
+  "index": 505,
+  "hindi_name": "ज्येष्ठा"
+ },
+ {
+  "index": 506,
+  "hindi_name": "मीमांसा मंत्र रूपिणी"
+ },
+ {
+  "index": 507,
+  "hindi_name": "तडाग निम्न जठरा"
+ },
+ {
+  "index": 508,
+  "hindi_name": "शुष्क मांसास्थि-मालिनी (SHUSHKA MĀṂSĀSTHI-MĀLINĪ)"
+ },
+ {
+  "index": 509,
+  "hindi_name": "अवन्ति मथुरा हृदय"
+ },
+ {
+  "index": 510,
+  "hindi_name": "त्रैलोक्य पावन क्षमा"
+ },
+ {
+  "index": 511,
+  "hindi_name": "व्यक्त'अव्यक्त'आत्मिका मूर्ति"
+ },
+ {
+  "index": 512,
+  "hindi_name": "शरभी भीम नादिनी"
+ },
+ {
+  "index": 513,
+  "hindi_name": "क्षेमंकरी (Kshemankari)"
+ },
+ {
+  "index": 514,
+  "hindi_name": "शंकरी च"
+ },
+ {
+  "index": 515,
+  "hindi_name": "सर्व सम्मोह कारिणी"
+ },
+ {
+  "index": 516,
+  "hindi_name": "ऊर्ध्व तेजस्विनी"
+ },
+ {
+  "index": 517,
+  "hindi_name": "क्लिन्ना"
+ },
+ {
+  "index": 518,
+  "hindi_name": "महातेजस्विनी तथा"
+ },
+ {
+  "index": 519,
+  "hindi_name": "अद्वैत भोगिनी"
+ },
+ {
+  "index": 520,
+  "hindi_name": "पूज्या"
+ },
+ {
+  "index": 521,
+  "hindi_name": "युवती"
+ },
+ {
+  "index": 522,
+  "hindi_name": "सर्वमंगला"
+ },
+ {
+  "index": 523,
+  "hindi_name": "सर्व प्रियंकरी"
+ },
+ {
+  "index": 524,
+  "hindi_name": "भोग्या"
+ },
+ {
+  "index": 525,
+  "hindi_name": "धारिणी"
+ },
+ {
+  "index": 526,
+  "hindi_name": "पिशितासना"
+ },
+ {
+  "index": 527,
+  "hindi_name": "भयंकारी"
+ },
+ {
+  "index": 528,
+  "hindi_name": "पापहरा"
+ },
+ {
+  "index": 529,
+  "hindi_name": "निष्कलंका"
+ },
+ {
+  "index": 530,
+  "hindi_name": "वशंकरि"
+ },
+ {
+  "index": 531,
+  "hindi_name": "आशा"
+ },
+ {
+  "index": 532,
+  "hindi_name": "तृष्णा"
+ },
+ {
+  "index": 533,
+  "hindi_name": "चन्द्रकला"
+ },
+ {
+  "index": 534,
+  "hindi_name": "इंद्राणी"
+ },
+ {
+  "index": 535,
+  "hindi_name": "वायु वेगिनी"
+ },
+ {
+  "index": 536,
+  "hindi_name": "सहस्र सूर्य संकाशा"
+ },
+ {
+  "index": 537,
+  "hindi_name": "चंद्रकोटि समप्रभा"
+ },
+ {
+  "index": 538,
+  "hindi_name": "निशुम्भ शुम्भ-संहर्त्री"
+ },
+ {
+  "index": 539,
+  "hindi_name": "रक्तबीज विनाशिनी"
+ },
+ {
+  "index": 540,
+  "hindi_name": "मधु कैटभ हन्त्री"
+ },
+ {
+  "index": 541,
+  "hindi_name": "महिषासुर घातिनी"
+ },
+ {
+  "index": 542,
+  "hindi_name": "वह्नि मण्डल-मध्य-स्था"
+ },
+ {
+  "index": 543,
+  "hindi_name": "सर्व सत्त्व प्रतिष्ठिता"
+ },
+ {
+  "index": 544,
+  "hindi_name": "सर्वाचारवती"
+ },
+ {
+  "index": 545,
+  "hindi_name": "सर्व देव कन्याधि-देवता"
+ },
+ {
+  "index": 546,
+  "hindi_name": "दक्ष कन्या"
+ },
+ {
+  "index": 547,
+  "hindi_name": "दक्ष यज्ञ नाशिनी"
+ },
+ {
+  "index": 548,
+  "hindi_name": "दुर्गा तारिणी"
+ },
+ {
+  "index": 549,
+  "hindi_name": "इज्या पूज्या"
+ },
+ {
+  "index": 550,
+  "hindi_name": "विभीर्भूति"
+ },
+ {
+  "index": 551,
+  "hindi_name": "सत्-कीर्तिः"
+ },
+ {
+  "index": 552,
+  "hindi_name": "ब्रह्मचारिणी"
+ },
+ {
+  "index": 553,
+  "hindi_name": "रम्भोरुह"
+ },
+ {
+  "index": 554,
+  "hindi_name": "चतुरंकारा"
+ },
+ {
+  "index": 555,
+  "hindi_name": "जयंती"
+ },
+ {
+  "index": 556,
+  "hindi_name": "करुणा"
+ },
+ {
+  "index": 557,
+  "hindi_name": "कुहू"
+ },
+ {
+  "index": 558,
+  "hindi_name": "मनस्विनी"
+ },
+ {
+  "index": 559,
+  "hindi_name": "देव-माता"
+ },
+ {
+  "index": 560,
+  "hindi_name": "यशस्या"
+ },
+ {
+  "index": 561,
+  "hindi_name": "ब्रह्मचारिणी"
+ },
+ {
+  "index": 562,
+  "hindi_name": "सिद्धिदा"
+ },
+ {
+  "index": 563,
+  "hindi_name": "वृद्धि-दा"
+ },
+ {
+  "index": 564,
+  "hindi_name": "वृद्धिः"
+ },
+ {
+  "index": 565,
+  "hindi_name": "सर्वाद्या"
+ },
+ {
+  "index": 566,
+  "hindi_name": "सर्वदायिनी"
+ },
+ {
+  "index": 567,
+  "hindi_name": "अगाध रूपिणी"
+ },
+ {
+  "index": 568,
+  "hindi_name": "ध्येया"
+ },
+ {
+  "index": 569,
+  "hindi_name": "मूलाधार निवासिनी"
+ },
+ {
+  "index": 570,
+  "hindi_name": "आज्ञा"
+ },
+ {
+  "index": 571,
+  "hindi_name": "प्रज्ञा"
+ },
+ {
+  "index": 572,
+  "hindi_name": "पूर्ण-मना"
+ },
+ {
+  "index": 573,
+  "hindi_name": "चन्द्रमुखी"
+ },
+ {
+  "index": 574,
+  "hindi_name": "अनुकूलिनी"
+ },
+ {
+  "index": 575,
+  "hindi_name": "वव दुका च"
+ },
+ {
+  "index": 576,
+  "hindi_name": "निम्न नाभिः"
+ },
+ {
+  "index": 577,
+  "hindi_name": "सत्य संधा"
+ },
+ {
+  "index": 578,
+  "hindi_name": "दृढ़व्रता"
+ },
+ {
+  "index": 579,
+  "hindi_name": "आन्वीक्षिकी"
+ },
+ {
+  "index": 580,
+  "hindi_name": "दण्ड नीतिः"
+ },
+ {
+  "index": 581,
+  "hindi_name": "त्रयी"
+ },
+ {
+  "index": 582,
+  "hindi_name": "त्रि-दिव सुंदरी"
+ },
+ {
+  "index": 583,
+  "hindi_name": "ज्वालिनी"
+ },
+ {
+  "index": 584,
+  "hindi_name": "ज्वालिनी"
+ },
+ {
+  "index": 585,
+  "hindi_name": "शैल-तनया"
+ },
+ {
+  "index": 586,
+  "hindi_name": "विंध्यवासिनी"
+ },
+ {
+  "index": 587,
+  "hindi_name": "प्रत्यया"
+ },
+ {
+  "index": 588,
+  "hindi_name": "खेचरी"
+ },
+ {
+  "index": 589,
+  "hindi_name": "धैर्य"
+ },
+ {
+  "index": 590,
+  "hindi_name": "तुरीया"
+ },
+ {
+  "index": 591,
+  "hindi_name": "विमल-तुरा"
+ },
+ {
+  "index": 592,
+  "hindi_name": "प्रगल्भा"
+ },
+ {
+  "index": 593,
+  "hindi_name": "वारुणीच्छाया"
+ },
+ {
+  "index": 594,
+  "hindi_name": "शशिनी"
+ },
+ {
+  "index": 595,
+  "hindi_name": "विस्फुलिंगिनी"
+ },
+ {
+  "index": 596,
+  "hindi_name": "भक्तिः"
+ },
+ {
+  "index": 597,
+  "hindi_name": "सिद्धिः"
+ },
+ {
+  "index": 598,
+  "hindi_name": "सदा प्राप्ति"
+ },
+ {
+  "index": 599,
+  "hindi_name": "प्रकाम्या"
+ },
+ {
+  "index": 600,
+  "hindi_name": "महिमानिमा"
+ },
+ {
+  "index": 601,
+  "hindi_name": "इच्छा सिद्धिः"
+ },
+ {
+  "index": 602,
+  "hindi_name": "वशित्व च"
+ },
+ {
+  "index": 603,
+  "hindi_name": "ईशित्वोर्ध्व निवासिनी"
+ },
+ {
+  "index": 604,
+  "hindi_name": "लघिमा चैव"
+ },
+ {
+  "index": 605,
+  "hindi_name": "गायत्री"
+ },
+ {
+  "index": 606,
+  "hindi_name": "सावित्री"
+ },
+ {
+  "index": 607,
+  "hindi_name": "भुवनेश्वरी"
+ },
+ {
+  "index": 608,
+  "hindi_name": "मनोहरा"
+ },
+ {
+  "index": 609,
+  "hindi_name": "चिता"
+ },
+ {
+  "index": 610,
+  "hindi_name": "दिव्या"
+ },
+ {
+  "index": 611,
+  "hindi_name": "देव्युदरा"
+ },
+ {
+  "index": 612,
+  "hindi_name": "मनोरमा"
+ },
+ {
+  "index": 613,
+  "hindi_name": "पिंगला"
+ },
+ {
+  "index": 614,
+  "hindi_name": "कपिला"
+ },
+ {
+  "index": 615,
+  "hindi_name": "जिह्वा रसज्ञा"
+ },
+ {
+  "index": 616,
+  "hindi_name": "रसिका"
+ },
+ {
+  "index": 617,
+  "hindi_name": "रमा"
+ },
+ {
+  "index": 618,
+  "hindi_name": "सुषुम्नेडा योगवती"
+ },
+ {
+  "index": 619,
+  "hindi_name": "गंधारी"
+ },
+ {
+  "index": 620,
+  "hindi_name": "नरकांतका"
+ },
+ {
+  "index": 621,
+  "hindi_name": "पांचाली"
+ },
+ {
+  "index": 622,
+  "hindi_name": "रुक्मिणी"
+ },
+ {
+  "index": 623,
+  "hindi_name": "राधा"
+ },
+ {
+  "index": 624,
+  "hindi_name": "राध्या"
+ },
+ {
+  "index": 625,
+  "hindi_name": "भाम चा"
+ },
+ {
+  "index": 626,
+  "hindi_name": "राधिका"
+ },
+ {
+  "index": 627,
+  "hindi_name": "अमृता"
+ },
+ {
+  "index": 628,
+  "hindi_name": "तुलसी"
+ },
+ {
+  "index": 629,
+  "hindi_name": "वृंदा"
+ },
+ {
+  "index": 630,
+  "hindi_name": "कैटभी"
+ },
+ {
+  "index": 631,
+  "hindi_name": "कपटेश्वरी"
+ },
+ {
+  "index": 632,
+  "hindi_name": "उग्र चण्डेश्वरी"
+ },
+ {
+  "index": 633,
+  "hindi_name": "वीर जननी"
+ },
+ {
+  "index": 634,
+  "hindi_name": "वीर सुंदरी"
+ },
+ {
+  "index": 635,
+  "hindi_name": "उग्रतारा"
+ },
+ {
+  "index": 636,
+  "hindi_name": "यशोदाख्या"
+ },
+ {
+  "index": 637,
+  "hindi_name": "देवकी"
+ },
+ {
+  "index": 638,
+  "hindi_name": "देवमानिता"
+ },
+ {
+  "index": 639,
+  "hindi_name": "निरंजना"
+ },
+ {
+  "index": 640,
+  "hindi_name": "चित्र-देवी"
+ },
+ {
+  "index": 641,
+  "hindi_name": "क्रोधिनि"
+ },
+ {
+  "index": 642,
+  "hindi_name": "कुल दीपिका"
+ },
+ {
+  "index": 643,
+  "hindi_name": "कुल वागीश्वरी"
+ },
+ {
+  "index": 644,
+  "hindi_name": "ज्वाला"
+ },
+ {
+  "index": 645,
+  "hindi_name": "मातृका"
+ },
+ {
+  "index": 646,
+  "hindi_name": "द्राविणी"
+ },
+ {
+  "index": 647,
+  "hindi_name": "द्रवा"
+ },
+ {
+  "index": 648,
+  "hindi_name": "योगेश्वरी"
+ },
+ {
+  "index": 649,
+  "hindi_name": "महामारी"
+ },
+ {
+  "index": 650,
+  "hindi_name": "भ्रामरी"
+ },
+ {
+  "index": 651,
+  "hindi_name": "बिंदु रूपिणी"
+ },
+ {
+  "index": 652,
+  "hindi_name": "दूती"
+ },
+ {
+  "index": 653,
+  "hindi_name": "प्राणेश्वरी"
+ },
+ {
+  "index": 654,
+  "hindi_name": "गुप्ता"
+ },
+ {
+  "index": 655,
+  "hindi_name": "बहुला"
+ },
+ {
+  "index": 656,
+  "hindi_name": "प्रभा"
+ },
+ {
+  "index": 657,
+  "hindi_name": "कुब्जिका"
+ },
+ {
+  "index": 658,
+  "hindi_name": "ज्ञानिनी"
+ },
+ {
+  "index": 659,
+  "hindi_name": "ज्येष्ठा"
+ },
+ {
+  "index": 660,
+  "hindi_name": "भुशुण्डी"
+ },
+ {
+  "index": 661,
+  "hindi_name": "प्रकटकृतिः"
+ },
+ {
+  "index": 662,
+  "hindi_name": "द्राविणी गोपिनी"
+ },
+ {
+  "index": 663,
+  "hindi_name": "माया"
+ },
+ {
+  "index": 664,
+  "hindi_name": "काम बीजेश्वरी"
+ },
+ {
+  "index": 665,
+  "hindi_name": "प्रिया"
+ },
+ {
+  "index": 666,
+  "hindi_name": "शाकम्भरी"
+ },
+ {
+  "index": 667,
+  "hindi_name": "कोकनदा"
+ },
+ {
+  "index": 668,
+  "hindi_name": "सुशीला"
+ },
+ {
+  "index": 669,
+  "hindi_name": "तिलोत्तमा"
+ },
+ {
+  "index": 670,
+  "hindi_name": "अमेय विक्रमाक्रूरा"
+ },
+ {
+  "index": 671,
+  "hindi_name": "संपच शिलति-विक्रम"
+ },
+ {
+  "index": 672,
+  "hindi_name": "स्वस्तिर् हव्यवाहा (SVASTIR HAVYAVĀHĀ)"
+ },
+ {
+  "index": 673,
+  "hindi_name": "प्रीतिः (PRITIḤ)"
+ },
+ {
+  "index": 674,
+  "hindi_name": "उष्मा"
+ },
+ {
+  "index": 675,
+  "hindi_name": "धूम्रार्चि रंगदा"
+ },
+ {
+  "index": 676,
+  "hindi_name": "तापनी"
+ },
+ {
+  "index": 677,
+  "hindi_name": "तापनी"
+ },
+ {
+  "index": 678,
+  "hindi_name": "विश्व भोगदा"
+ },
+ {
+  "index": 679,
+  "hindi_name": "भोग धारिणी"
+ },
+ {
+  "index": 680,
+  "hindi_name": "त्रिखंडा"
+ },
+ {
+  "index": 681,
+  "hindi_name": "बोधिनी"
+ },
+ {
+  "index": 682,
+  "hindi_name": "वश्या"
+ },
+ {
+  "index": 683,
+  "hindi_name": "सकला"
+ },
+ {
+  "index": 684,
+  "hindi_name": "विश्व रूपिणी"
+ },
+ {
+  "index": 685,
+  "hindi_name": "बीज रूपा"
+ },
+ {
+  "index": 686,
+  "hindi_name": "महा-मुद्रा"
+ },
+ {
+  "index": 687,
+  "hindi_name": "वशिनी"
+ },
+ {
+  "index": 688,
+  "hindi_name": "योगरूपिणी"
+ },
+ {
+  "index": 689,
+  "hindi_name": "अनंग कुसुमा"
+ },
+ {
+  "index": 690,
+  "hindi_name": "अनंग मेखला"
+ },
+ {
+  "index": 691,
+  "hindi_name": "अनंग रूपिणी"
+ },
+ {
+  "index": 692,
+  "hindi_name": "अनंग मदना"
+ },
+ {
+  "index": 693,
+  "hindi_name": "अनंग रेखा"
+ },
+ {
+  "index": 694,
+  "hindi_name": "अनंगांकुशेश्वरी"
+ },
+ {
+  "index": 695,
+  "hindi_name": "अनंगमालिनी"
+ },
+ {
+  "index": 696,
+  "hindi_name": "कामेश्वरी"
+ },
+ {
+  "index": 697,
+  "hindi_name": "सर्वार्थ साधिका"
+ },
+ {
+  "index": 698,
+  "hindi_name": "सर्व तंत्रमयी"
+ },
+ {
+  "index": 699,
+  "hindi_name": "मोदिन्यरुणानंग-रूपिणी"
+ },
+ {
+  "index": 700,
+  "hindi_name": "वज्रेश्वरी च"
+ },
+ {
+  "index": 701,
+  "hindi_name": "जननी"
+ },
+ {
+  "index": 702,
+  "hindi_name": "सर्व दुःखक्षयंकरी"
+ },
+ {
+  "index": 703,
+  "hindi_name": "योग युक्ता"
+ },
+ {
+  "index": 704,
+  "hindi_name": "ज्वालांशुमालिनी"
+ },
+ {
+  "index": 705,
+  "hindi_name": "दुराशया"
+ },
+ {
+  "index": 706,
+  "hindi_name": "दुरधर्षा"
+ },
+ {
+  "index": 707,
+  "hindi_name": "दुर्ज्ञेया"
+ },
+ {
+  "index": 708,
+  "hindi_name": "दुर्गा रूपिणी"
+ },
+ {
+  "index": 709,
+  "hindi_name": "दुरंता"
+ },
+ {
+  "index": 710,
+  "hindi_name": "दुष्कृति हरा"
+ },
+ {
+  "index": 711,
+  "hindi_name": "दुर्ध्येया"
+ },
+ {
+  "index": 712,
+  "hindi_name": "दुरतिक्रमा"
+ },
+ {
+  "index": 713,
+  "hindi_name": "हंसेश्वरी"
+ },
+ {
+  "index": 714,
+  "hindi_name": "त्रिकोणस्था"
+ },
+ {
+  "index": 715,
+  "hindi_name": "शाकम्भर्यनुकम्पिनी"
+ },
+ {
+  "index": 716,
+  "hindi_name": "त्रिकोण निलया नित्या"
+ },
+ {
+  "index": 717,
+  "hindi_name": "परमामृत रंजिता"
+ },
+ {
+  "index": 718,
+  "hindi_name": "महा-विद्येश्वरी"
+ },
+ {
+  "index": 719,
+  "hindi_name": "श्वेता"
+ },
+ {
+  "index": 720,
+  "hindi_name": "भेरुंडा"
+ },
+ {
+  "index": 721,
+  "hindi_name": "कुल सुंदरी"
+ },
+ {
+  "index": 722,
+  "hindi_name": "त्वरिता"
+ },
+ {
+  "index": 723,
+  "hindi_name": "भक्ति सम-युक्ता"
+ },
+ {
+  "index": 724,
+  "hindi_name": "भक्ति वश्या"
+ },
+ {
+  "index": 725,
+  "hindi_name": "सनातनी"
+ },
+ {
+  "index": 726,
+  "hindi_name": "भक्तानंदमयी"
+ },
+ {
+  "index": 727,
+  "hindi_name": "भक्त भाविता"
+ },
+ {
+  "index": 728,
+  "hindi_name": "भक्त शङ्करी"
+ },
+ {
+  "index": 729,
+  "hindi_name": "सर्व सौंदर्य निलया"
+ },
+ {
+  "index": 730,
+  "hindi_name": "सर्व सौभाग्य शालिनी"
+ },
+ {
+  "index": 731,
+  "hindi_name": "सर्व संभोग भवानी"
+ },
+ {
+  "index": 732,
+  "hindi_name": "सर्व सौख्यानुरूपिणी"
+ },
+ {
+  "index": 733,
+  "hindi_name": "कुमारी पूजन-रता"
+ },
+ {
+  "index": 734,
+  "hindi_name": "कुमारी व्रत चारिणी"
+ },
+ {
+  "index": 735,
+  "hindi_name": "कुमारी भक्ति सुखिनी"
+ },
+ {
+  "index": 736,
+  "hindi_name": "कुमारी रूप धारिणी"
+ },
+ {
+  "index": 737,
+  "hindi_name": "कुमारी पूजक प्रीता"
+ },
+ {
+  "index": 738,
+  "hindi_name": "कुमारी प्रीतिदा प्रिया"
+ },
+ {
+  "index": 739,
+  "hindi_name": "कुमारी सेवकसंगा"
+ },
+ {
+  "index": 740,
+  "hindi_name": "कुमारी सेवक'आलय"
+ },
+ {
+  "index": 741,
+  "hindi_name": "आनंद भैरवी"
+ },
+ {
+  "index": 742,
+  "hindi_name": "बाल भैरवी"
+ },
+ {
+  "index": 743,
+  "hindi_name": "बटुका भैरवी"
+ },
+ {
+  "index": 744,
+  "hindi_name": "श्मशान भैरवी"
+ },
+ {
+  "index": 745,
+  "hindi_name": "काल भैरवी"
+ },
+ {
+  "index": 746,
+  "hindi_name": "पुरभैरवी"
+ },
+ {
+  "index": 747,
+  "hindi_name": "महाभैरव पत्नी च"
+ },
+ {
+  "index": 748,
+  "hindi_name": "परमानंद भैरवी"
+ },
+ {
+  "index": 749,
+  "hindi_name": "सुरानन्द भैरवी च"
+ },
+ {
+  "index": 750,
+  "hindi_name": "उत्तमानंद भैरवी"
+ },
+ {
+  "index": 751,
+  "hindi_name": "मुक्त्यानंद भैरवी च तथा"
+ },
+ {
+  "index": 752,
+  "hindi_name": "तरुणा भैरवी"
+ },
+ {
+  "index": 753,
+  "hindi_name": "ज्ञाननंद भैरवी च"
+ },
+ {
+  "index": 754,
+  "hindi_name": "अमृतनंद भैरवी"
+ },
+ {
+  "index": 755,
+  "hindi_name": "महाभयंकारी"
+ },
+ {
+  "index": 756,
+  "hindi_name": "तीव्रा"
+ },
+ {
+  "index": 757,
+  "hindi_name": "तीव्र वेगा"
+ },
+ {
+  "index": 758,
+  "hindi_name": "तरस्विनी"
+ },
+ {
+  "index": 759,
+  "hindi_name": "त्रिपुरा"
+ },
+ {
+  "index": 760,
+  "hindi_name": "परमेश्वरी"
+ },
+ {
+  "index": 761,
+  "hindi_name": "सुंदरी"
+ },
+ {
+  "index": 762,
+  "hindi_name": "पुरसुंदरी"
+ },
+ {
+  "index": 763,
+  "hindi_name": "त्रिपुरेशी"
+ },
+ {
+  "index": 764,
+  "hindi_name": "पंचदशी"
+ },
+ {
+  "index": 765,
+  "hindi_name": "पंचमी"
+ },
+ {
+  "index": 766,
+  "hindi_name": "पुरवासिनी"
+ },
+ {
+  "index": 767,
+  "hindi_name": "महा-सप्त-दशचैव"
+ },
+ {
+  "index": 768,
+  "hindi_name": "षोडशी"
+ },
+ {
+  "index": 769,
+  "hindi_name": "त्रिपुरेश्वरी"
+ },
+ {
+  "index": 770,
+  "hindi_name": "महांकुश स्वरूपा च"
+ },
+ {
+  "index": 771,
+  "hindi_name": "महाचक्रेश्वरी तथा"
+ },
+ {
+  "index": 772,
+  "hindi_name": "नव चक्रेश्वरी"
+ },
+ {
+  "index": 773,
+  "hindi_name": "चक्रेश्वरी"
+ },
+ {
+  "index": 774,
+  "hindi_name": "त्रिपुरामालिनी"
+ },
+ {
+  "index": 775,
+  "hindi_name": "राजचक्रेश्वरी"
+ },
+ {
+  "index": 776,
+  "hindi_name": "वीरा"
+ },
+ {
+  "index": 777,
+  "hindi_name": "महा-त्रिपुर सुंदरी"
+ },
+ {
+  "index": 778,
+  "hindi_name": "सिंदूरपुरा रुचिरा"
+ },
+ {
+  "index": 779,
+  "hindi_name": "श्रीमत् त्रिपुरा सुंदरी"
+ },
+ {
+  "index": 780,
+  "hindi_name": "सर्वांग सुंदरी"
+ },
+ {
+  "index": 781,
+  "hindi_name": "रक्ता"
+ },
+ {
+  "index": 782,
+  "hindi_name": "रक्तवस्त्रोत्तरीयका"
+ },
+ {
+  "index": 783,
+  "hindi_name": "यावयावक सिंदूर रक्त-चंदन धारिणी"
+ },
+ {
+  "index": 784,
+  "hindi_name": "यवायवक सिंदूर रक्त-चंदन रूप धृत"
+ },
+ {
+  "index": 785,
+  "hindi_name": "चामरी"
+ },
+ {
+  "index": 786,
+  "hindi_name": "वाचकुटिला"
+ },
+ {
+  "index": 787,
+  "hindi_name": "निर्मला"
+ },
+ {
+  "index": 788,
+  "hindi_name": "श्यामा केशिनी"
+ },
+ {
+  "index": 789,
+  "hindi_name": "वज्र मौक्तिक रत्नाढ्य-किरीट मुकुटो ज्वला"
+ },
+ {
+  "index": 790,
+  "hindi_name": "रत्न कुण्डल सम-युक्त-स्फुर द्वन्द्व मनो-रमा"
+ },
+ {
+  "index": 791,
+  "hindi_name": "कुंजरेश्वर कुंभोत्थ-मुक्त रंजित नासिका"
+ },
+ {
+  "index": 792,
+  "hindi_name": "मुक्त विद्रुम माणिक्य-हाराढ्य-स्तन मण्डला"
+ },
+ {
+  "index": 793,
+  "hindi_name": "सूर्यकान्तेन्दु कान्ताढ्य-स्पर्शश्म कण्ठभूषणा"
+ },
+ {
+  "index": 794,
+  "hindi_name": "बीज पूर स्फुरद बीज-दन्त पंक्तिर् अनुत्तमा"
+ },
+ {
+  "index": 795,
+  "hindi_name": "कामकौदण्डकभ्रुग्ना-भ्रूयुगाक्षी प्रवर्तनी (KĀMAKAUDAṆḌAKABHRUGNĀ-BHRŪYUGĀKṢĪ PRAVARTANĪ)"
+ },
+ {
+  "index": 796,
+  "hindi_name": "मातंग कुम्भ वक्षोजा"
+ },
+ {
+  "index": 797,
+  "hindi_name": "लसत्-कोकनदेक्षणा"
+ },
+ {
+  "index": 798,
+  "hindi_name": "मनोज्ञ शष्कुलीकर्णा"
+ },
+ {
+  "index": 799,
+  "hindi_name": "हंसी गति विडंबिनी"
+ },
+ {
+  "index": 800,
+  "hindi_name": "पद्म-रागांगगद द्योतद्-दोष चतुष्क प्रकाशिनी (PADMA-RĀGĀNGAGADA DYOTAD-DOSHA CHATUṢKA PRAKĀSHINĪ)"
+ },
+ {
+  "index": 801,
+  "hindi_name": "कर्पूरगुरु कस्तूरी कुंकुम द्रव लेपिता (KARPŪRAGURU KASTŪRĪ KUṄKUMA DRAVA LEPITĀ)"
+ },
+ {
+  "index": 802,
+  "hindi_name": "विचित्र रत्न पृथ्वी-कल्प शाखा-तल-स्थिता"
+ },
+ {
+  "index": 803,
+  "hindi_name": "रत्न द्वीप स्फुरा"
+ },
+ {
+  "index": 804,
+  "hindi_name": "रत्न सिंहासना निवासिनी"
+ },
+ {
+  "index": 805,
+  "hindi_name": "षट्चक्र भेदनकारिणी"
+ },
+ {
+  "index": 806,
+  "hindi_name": "परमानंद रूपिणी"
+ },
+ {
+  "index": 807,
+  "hindi_name": "सहस्र-दल पद्मान्तरा"
+ },
+ {
+  "index": 808,
+  "hindi_name": "चन्द्रमण्डलवर्तिनी"
+ },
+ {
+  "index": 809,
+  "hindi_name": "ब्रह्म-रूपा शिव क्रोड़ानना सुख विलासिनी"
+ },
+ {
+  "index": 810,
+  "hindi_name": "हर विष्णु विरिंचिन्द्रा-ग्रह नायक सेविता"
+ },
+ {
+  "index": 811,
+  "hindi_name": "शिवा"
+ },
+ {
+  "index": 812,
+  "hindi_name": "शैवचा"
+ },
+ {
+  "index": 813,
+  "hindi_name": "रुद्राणी तथैव"
+ },
+ {
+  "index": 814,
+  "hindi_name": "शिव-नंदिनी"
+ },
+ {
+  "index": 815,
+  "hindi_name": "महादेव-प्रिया देवी तथैव"
+ },
+ {
+  "index": 816,
+  "hindi_name": "अनंग-मेखला"
+ },
+ {
+  "index": 817,
+  "hindi_name": "डाकिनी"
+ },
+ {
+  "index": 818,
+  "hindi_name": "योगिनी चैव तथा"
+ },
+ {
+  "index": 819,
+  "hindi_name": "उपयोगिनी माता"
+ },
+ {
+  "index": 820,
+  "hindi_name": "महेश्वरी"
+ },
+ {
+  "index": 821,
+  "hindi_name": "वैष्णवी च"
+ },
+ {
+  "index": 822,
+  "hindi_name": "भ्रामरी"
+ },
+ {
+  "index": 823,
+  "hindi_name": "शिव-रूपिणी"
+ },
+ {
+  "index": 824,
+  "hindi_name": "अलम्बुषा"
+ },
+ {
+  "index": 825,
+  "hindi_name": "भोगवती"
+ },
+ {
+  "index": 826,
+  "hindi_name": "क्रोध-रूपा (KRODHA-RŪPĀ)"
+ },
+ {
+  "index": 827,
+  "hindi_name": "सुमेखला"
+ },
+ {
+  "index": 828,
+  "hindi_name": "गांधारी"
+ },
+ {
+  "index": 829,
+  "hindi_name": "हस्ति-जिह्वा च"
+ },
+ {
+  "index": 830,
+  "hindi_name": "इडा चैव"
+ },
+ {
+  "index": 831,
+  "hindi_name": "शुभंकरी"
+ },
+ {
+  "index": 832,
+  "hindi_name": "पिंगला"
+ },
+ {
+  "index": 833,
+  "hindi_name": "दक्ष-सूत्री च"
+ },
+ {
+  "index": 834,
+  "hindi_name": "गंधनी"
+ },
+ {
+  "index": 835,
+  "hindi_name": "भगात्मिका"
+ },
+ {
+  "index": 836,
+  "hindi_name": "भगधारा"
+ },
+ {
+  "index": 837,
+  "hindi_name": "भागेशी"
+ },
+ {
+  "index": 838,
+  "hindi_name": "भगा-रूपिणी"
+ },
+ {
+  "index": 839,
+  "hindi_name": "लिंगाख्या चैव"
+ },
+ {
+  "index": 840,
+  "hindi_name": "कामेशी"
+ },
+ {
+  "index": 841,
+  "hindi_name": "त्रिपुरा"
+ },
+ {
+  "index": 842,
+  "hindi_name": "भैरवी तथा"
+ },
+ {
+  "index": 843,
+  "hindi_name": "लिंगगिटिससुगीतिश्च"
+ },
+ {
+  "index": 844,
+  "hindi_name": "लिंग-स्था"
+ },
+ {
+  "index": 845,
+  "hindi_name": "लिंग-रूप-धृत"
+ },
+ {
+  "index": 846,
+  "hindi_name": "लिंगमाला"
+ },
+ {
+  "index": 847,
+  "hindi_name": "लिंग-भाव"
+ },
+ {
+  "index": 848,
+  "hindi_name": "लिंगालिंगा च"
+ },
+ {
+  "index": 849,
+  "hindi_name": "पावकी"
+ },
+ {
+  "index": 850,
+  "hindi_name": "भगवती"
+ },
+ {
+  "index": 851,
+  "hindi_name": "कौशिकी च"
+ },
+ {
+  "index": 852,
+  "hindi_name": "प्रेमरूपा"
+ },
+ {
+  "index": 853,
+  "hindi_name": "दृढ़रूपा-शिवरूपा"
+ },
+ {
+  "index": 854,
+  "hindi_name": "चक्रेशी"
+ },
+ {
+  "index": 855,
+  "hindi_name": "चक्र-रूप-धृत"
+ },
+ {
+  "index": 856,
+  "hindi_name": "आत्मयोनिः"
+ },
+ {
+  "index": 857,
+  "hindi_name": "ब्रह्म योनिः"
+ },
+ {
+  "index": 858,
+  "hindi_name": "जगद् योनिः"
+ },
+ {
+  "index": 859,
+  "hindi_name": "अयोनिजा"
+ },
+ {
+  "index": 860,
+  "hindi_name": "भग रूपा"
+ },
+ {
+  "index": 861,
+  "hindi_name": "भगस्थत्त्री"
+ },
+ {
+  "index": 862,
+  "hindi_name": "भगिनी"
+ },
+ {
+  "index": 863,
+  "hindi_name": "भगधारिणी"
+ },
+ {
+  "index": 864,
+  "hindi_name": "भगात्मिका"
+ },
+ {
+  "index": 865,
+  "hindi_name": "भगधारा रूपिणी"
+ },
+ {
+  "index": 866,
+  "hindi_name": "भगशालिनी"
+ },
+ {
+  "index": 867,
+  "hindi_name": "लिंगाभिध्यायिनी"
+ },
+ {
+  "index": 868,
+  "hindi_name": "लिंग प्रिया"
+ },
+ {
+  "index": 869,
+  "hindi_name": "लिंग निवासिनी"
+ },
+ {
+  "index": 870,
+  "hindi_name": "लिंग-स्था"
+ },
+ {
+  "index": 871,
+  "hindi_name": "लिंगिनी"
+ },
+ {
+  "index": 872,
+  "hindi_name": "लिंग रूपिणी"
+ },
+ {
+  "index": 873,
+  "hindi_name": "लिंग सुंदरी"
+ },
+ {
+  "index": 874,
+  "hindi_name": "लिंग गीतिर् महा-प्रीतिः"
+ },
+ {
+  "index": 875,
+  "hindi_name": "भग गीतिर महा-सुख"
+ },
+ {
+  "index": 876,
+  "hindi_name": "लिंग नाम सदानंद"
+ },
+ {
+  "index": 877,
+  "hindi_name": "भग नाम सदा रतिः"
+ },
+ {
+  "index": 878,
+  "hindi_name": "भग नाम सदानंद"
+ },
+ {
+  "index": 879,
+  "hindi_name": "लिंग नाम सदा रतिः"
+ },
+ {
+  "index": 880,
+  "hindi_name": "लिंगमाला कंठ भूषा"
+ },
+ {
+  "index": 881,
+  "hindi_name": "भगमाला विभूषणा"
+ },
+ {
+  "index": 882,
+  "hindi_name": "भग लिंगामृत प्रीता"
+ },
+ {
+  "index": 883,
+  "hindi_name": "भग लिंगामृतात्मिका"
+ },
+ {
+  "index": 884,
+  "hindi_name": "भग लिंगार्चन प्रीता"
+ },
+ {
+  "index": 885,
+  "hindi_name": "भग लिंग स्वरूपिणी"
+ },
+ {
+  "index": 886,
+  "hindi_name": "भग लिंग स्वरूप च"
+ },
+ {
+  "index": 887,
+  "hindi_name": "भग लिंग सुखवाह"
+ },
+ {
+  "index": 888,
+  "hindi_name": "स्वयंभू कुसुम प्रीता"
+ },
+ {
+  "index": 889,
+  "hindi_name": "स्वयंभू कुसुमार्चिता"
+ },
+ {
+  "index": 890,
+  "hindi_name": "स्वयंभू कुसुम प्राणा"
+ },
+ {
+  "index": 891,
+  "hindi_name": "स्वयंभू कुसुमोत्थिता"
+ },
+ {
+  "index": 892,
+  "hindi_name": "स्वयंभू कुसुम स्नाता"
+ },
+ {
+  "index": 893,
+  "hindi_name": "स्वयंभू पुष्प तर्पिता"
+ },
+ {
+  "index": 894,
+  "hindi_name": "स्वयंभू पुष्प घटिता"
+ },
+ {
+  "index": 895,
+  "hindi_name": "स्वयंभू पुष्प धारिणी"
+ },
+ {
+  "index": 896,
+  "hindi_name": "स्वयंभू पुष्प तिलका"
+ },
+ {
+  "index": 897,
+  "hindi_name": "स्वयंभू पुष्प-चर्चिता"
+ },
+ {
+  "index": 898,
+  "hindi_name": "स्वयंभू पुष्प निरता"
+ },
+ {
+  "index": 899,
+  "hindi_name": "स्वयंभू कुसुमाग्रहा"
+ },
+ {
+  "index": 900,
+  "hindi_name": "स्वयंभू पुष्पयज्ञांगा (SVAYAMBHU PUSHPAYAJNĀNGA)"
+ },
+ {
+  "index": 901,
+  "hindi_name": "स्वयंभू कुसुमात्मिका"
+ },
+ {
+  "index": 902,
+  "hindi_name": "स्वयंभू पुष्प निचिता"
+ },
+ {
+  "index": 903,
+  "hindi_name": "स्वयंभू कुसुम प्रिया"
+ },
+ {
+  "index": 904,
+  "hindi_name": "स्वयंभू कुसुमादन-ललसोन्मत्त मानसा"
+ },
+ {
+  "index": 905,
+  "hindi_name": "स्वयंभू कुसुमानंद-लहरी स्निग्ध देहिनी"
+ },
+ {
+  "index": 906,
+  "hindi_name": "स्वयंभू कुसुमाधरा"
+ },
+ {
+  "index": 907,
+  "hindi_name": "स्वयंभू कुसुमाकुला"
+ },
+ {
+  "index": 908,
+  "hindi_name": "स्वयंभू पुष्प निलया"
+ },
+ {
+  "index": 909,
+  "hindi_name": "स्वयंभू पुष्पवासिनी"
+ },
+ {
+  "index": 910,
+  "hindi_name": "स्वयंभु कुसुम स्निग्धा"
+ },
+ {
+  "index": 911,
+  "hindi_name": "स्वयंभू कुसुमोत्सुका (SVAYAMBHU KUSUMOTSŪKĀ)"
+ },
+ {
+  "index": 912,
+  "hindi_name": "स्वयंभू पुष्पकारिणी (SVAYAMBHU PUSHPĀKĀRIṆĪ)"
+ },
+ {
+  "index": 913,
+  "hindi_name": "स्वयंभू पुष्पमालिका"
+ },
+ {
+  "index": 914,
+  "hindi_name": "स्वयंभू कुसुम ध्यान"
+ },
+ {
+  "index": 915,
+  "hindi_name": "स्वयंभू कुसुम प्रभा"
+ },
+ {
+  "index": 916,
+  "hindi_name": "स्वयंभू कुसुम ज्ञान"
+ },
+ {
+  "index": 917,
+  "hindi_name": "स्वयंभू पुष्प भोगिनी"
+ },
+ {
+  "index": 918,
+  "hindi_name": "स्वयंभू कुसुमानंद"
+ },
+ {
+  "index": 919,
+  "hindi_name": "स्वयंभू पुष्पवर्षिणी"
+ },
+ {
+  "index": 920,
+  "hindi_name": "स्वयंभू कुसुमोत्साह"
+ },
+ {
+  "index": 921,
+  "hindi_name": "स्वयंभू पुष्प पुष्पिणी"
+ },
+ {
+  "index": 922,
+  "hindi_name": "स्वयंभू कुसुमोत्संगा"
+ },
+ {
+  "index": 923,
+  "hindi_name": "स्वयंभू पुष्प रूपिणी"
+ },
+ {
+  "index": 924,
+  "hindi_name": "स्वयंभू कुसुमोन्मादा"
+ },
+ {
+  "index": 925,
+  "hindi_name": "स्वयंभू पुष्प सुंदरी"
+ },
+ {
+  "index": 926,
+  "hindi_name": "स्वयंभू कुसुमारध्या"
+ },
+ {
+  "index": 927,
+  "hindi_name": "स्वयंभू कुसुमोद्भवा"
+ },
+ {
+  "index": 928,
+  "hindi_name": "स्वयंभू कुसुमाव्यग्रा"
+ },
+ {
+  "index": 929,
+  "hindi_name": "स्वयंभू पुष्प वर्णिता"
+ },
+ {
+  "index": 930,
+  "hindi_name": "स्वयंभू पूजक प्रज्ञा"
+ },
+ {
+  "index": 931,
+  "hindi_name": "स्वयंभू होत्री मातृका"
+ },
+ {
+  "index": 932,
+  "hindi_name": "स्वयंभू दात्री रक्षिता"
+ },
+ {
+  "index": 933,
+  "hindi_name": "स्वयंभू भक्त भाविका"
+ },
+ {
+  "index": 934,
+  "hindi_name": "स्वयंभू कुसुम प्रज्ञा"
+ },
+ {
+  "index": 935,
+  "hindi_name": "स्वयंभू पूजक प्रिया"
+ },
+ {
+  "index": 936,
+  "hindi_name": "स्वयंभू वंदकाधारा"
+ },
+ {
+  "index": 937,
+  "hindi_name": "स्वयंभू निंदक'अंतक"
+ },
+ {
+  "index": 938,
+  "hindi_name": "स्वयंभू प्रदा सर्वस्व"
+ },
+ {
+  "index": 939,
+  "hindi_name": "स्वयंभू प्रदा पुत्रिणी"
+ },
+ {
+  "index": 940,
+  "hindi_name": "स्वयंभू प्रदासा स्मेरा"
+ },
+ {
+  "index": 941,
+  "hindi_name": "स्वयं वर्ध शरीरिणी"
+ },
+ {
+  "index": 942,
+  "hindi_name": "सर्व कालोद्भव प्रीता"
+ },
+ {
+  "index": 943,
+  "hindi_name": "सर्व कालोद्भवत्मिका"
+ },
+ {
+  "index": 944,
+  "hindi_name": "सर्व कालोद्भवोद्भवा"
+ },
+ {
+  "index": 945,
+  "hindi_name": "सर्व लोकोद्भवोद्भवा"
+ },
+ {
+  "index": 946,
+  "hindi_name": "कुंद पुष्प सदा प्रीति"
+ },
+ {
+  "index": 947,
+  "hindi_name": "गोला पुष्प सदा रतिः (GOLA PUSHPA SADA RATIḤ)"
+ },
+ {
+  "index": 948,
+  "hindi_name": "कुंद गोलोद्भव प्रीता"
+ },
+ {
+  "index": 949,
+  "hindi_name": "कुण्ड गोलोद्भवत्मिका"
+ },
+ {
+  "index": 950,
+  "hindi_name": "स्वयंभुर्वा"
+ },
+ {
+  "index": 951,
+  "hindi_name": "शिव-शक्ता"
+ },
+ {
+  "index": 952,
+  "hindi_name": "पाविनी"
+ },
+ {
+  "index": 953,
+  "hindi_name": "लोक-पावनी"
+ },
+ {
+  "index": 954,
+  "hindi_name": "कीर्ति-यशस्विनी"
+ },
+ {
+  "index": 955,
+  "hindi_name": "मेधा"
+ },
+ {
+  "index": 956,
+  "hindi_name": "विमेधा"
+ },
+ {
+  "index": 957,
+  "hindi_name": "सुर-सुंदरी"
+ },
+ {
+  "index": 958,
+  "hindi_name": "अश्विनी"
+ },
+ {
+  "index": 959,
+  "hindi_name": "कृत्तिका"
+ },
+ {
+  "index": 960,
+  "hindi_name": "पुष्य"
+ },
+ {
+  "index": 961,
+  "hindi_name": "तेजस्वी"
+ },
+ {
+  "index": 962,
+  "hindi_name": "चन्द्र-मण्डला"
+ },
+ {
+  "index": 963,
+  "hindi_name": "सूक्ष्मा"
+ },
+ {
+  "index": 964,
+  "hindi_name": "सूक्ष्म-प्रदा"
+ },
+ {
+  "index": 965,
+  "hindi_name": "सूक्ष्मासूक्ष्म-भय-विनाशिनी (SŪKṢMĀSŪKṢMA-BHAYA-VINĀŚINĪ)"
+ },
+ {
+  "index": 966,
+  "hindi_name": "वरदाभयदा चैव"
+ },
+ {
+  "index": 967,
+  "hindi_name": "मुक्ति-बन्ध-विनाशिनी"
+ },
+ {
+  "index": 968,
+  "hindi_name": "कामुकी"
+ },
+ {
+  "index": 969,
+  "hindi_name": "कामदा"
+ },
+ {
+  "index": 970,
+  "hindi_name": "क्षान्ता"
+ },
+ {
+  "index": 971,
+  "hindi_name": "कामाख्या"
+ },
+ {
+  "index": 972,
+  "hindi_name": "कुल-सुंदरी"
+ },
+ {
+  "index": 973,
+  "hindi_name": "सुखदा"
+ },
+ {
+  "index": 974,
+  "hindi_name": "दुःख-दा"
+ },
+ {
+  "index": 975,
+  "hindi_name": "मोक्ष"
+ },
+ {
+  "index": 976,
+  "hindi_name": "मोक्षार्थ-प्रकाशिनी"
+ },
+ {
+  "index": 977,
+  "hindi_name": "दुष्टदुष्टमति चैव"
+ },
+ {
+  "index": 978,
+  "hindi_name": "सर्व-कार्य-विनाशिनी"
+ },
+ {
+  "index": 979,
+  "hindi_name": "शुक्र-धरा"
+ },
+ {
+  "index": 980,
+  "hindi_name": "शुक्र रूपा"
+ },
+ {
+  "index": 981,
+  "hindi_name": "शुक्र सिंधु निवासिनी"
+ },
+ {
+  "index": 982,
+  "hindi_name": "शुक्रालया"
+ },
+ {
+  "index": 983,
+  "hindi_name": "शुक्र भोगा"
+ },
+ {
+  "index": 984,
+  "hindi_name": "शुक्र पूजा सदा रति"
+ },
+ {
+  "index": 985,
+  "hindi_name": "शुक्र पूज्या"
+ },
+ {
+  "index": 986,
+  "hindi_name": "शुक्र होम सन्तुष्टा"
+ },
+ {
+  "index": 987,
+  "hindi_name": "शुक्र वत्सला"
+ },
+ {
+  "index": 988,
+  "hindi_name": "शुक्र मूर्तिः"
+ },
+ {
+  "index": 989,
+  "hindi_name": "शुक्र देहा"
+ },
+ {
+  "index": 990,
+  "hindi_name": "शुक्र पूजक पुत्रीणी"
+ },
+ {
+  "index": 991,
+  "hindi_name": "शुक्र-स्था"
+ },
+ {
+  "index": 992,
+  "hindi_name": "शुक्रिणी"
+ },
+ {
+  "index": 993,
+  "hindi_name": "शुक्र संस्पृहा"
+ },
+ {
+  "index": 994,
+  "hindi_name": "शुक्र सुंदरी"
+ },
+ {
+  "index": 995,
+  "hindi_name": "शुक्र स्नाता"
+ },
+ {
+  "index": 996,
+  "hindi_name": "शुक्रकरी"
+ },
+ {
+  "index": 997,
+  "hindi_name": "शुक्र सेव्यति शुक्रिणी"
+ },
+ {
+  "index": 998,
+  "hindi_name": "महा-शुक्र"
+ },
+ {
+  "index": 999,
+  "hindi_name": "शुक्र भवा"
+ },
+ {
+  "index": 1000,
+  "hindi_name": "शुक्र वृष्टि विधायिनी"
+ },
+ {
+  "index": 1001,
+  "hindi_name": "शुक्राभिधेया"
+ },
+ {
+  "index": 1002,
+  "hindi_name": "शुक्रार्हा"
+ },
+ {
+  "index": 1003,
+  "hindi_name": "शुक्र वंदक वंदिता"
+ },
+ {
+  "index": 1004,
+  "hindi_name": "शुक्रानन्द करी"
+ },
+ {
+  "index": 1005,
+  "hindi_name": "शुक्र सदानंद-विधायिनी"
+ },
+ {
+  "index": 1006,
+  "hindi_name": "शुक्रोत्सवा"
+ },
+ {
+  "index": 1007,
+  "hindi_name": "सदा शुक्र पूर्णा (SADA SHUKRA PURNĀ)"
+ },
+ {
+  "index": 1008,
+  "hindi_name": "शुक्र मनोरमा"
+ },
+ {
+  "index": 1009,
+  "hindi_name": "शुक्र पूजक सर्वस्व"
+ },
+ {
+  "index": 1010,
+  "hindi_name": "शुक्र निंदक नाशिनी"
+ },
+ {
+  "index": 1011,
+  "hindi_name": "शुक्रात्मिका"
+ },
+ {
+  "index": 1012,
+  "hindi_name": "शुक्र संपत्-शुक्राकर्षण कारिणी"
+ },
+ {
+  "index": 1013,
+  "hindi_name": "रक्तक्षया"
+ },
+ {
+  "index": 1014,
+  "hindi_name": "रक्त भोगा"
+ },
+ {
+  "index": 1015,
+  "hindi_name": "रक्त पूजा सदा-रति"
+ },
+ {
+  "index": 1016,
+  "hindi_name": "रक्त पूज्या"
+ },
+ {
+  "index": 1017,
+  "hindi_name": "रक्त होमा"
+ },
+ {
+  "index": 1018,
+  "hindi_name": "रक्तस्था"
+ },
+ {
+  "index": 1019,
+  "hindi_name": "रक्तवत्सला"
+ },
+ {
+  "index": 1020,
+  "hindi_name": "रक्तवर्णा"
+ },
+ {
+  "index": 1021,
+  "hindi_name": "रक्त देहा"
+ },
+ {
+  "index": 1022,
+  "hindi_name": "रक्त पूजक पुत्रिणी"
+ },
+ {
+  "index": 1023,
+  "hindi_name": "रक्तद्युति"
+ },
+ {
+  "index": 1024,
+  "hindi_name": "रक्त-स्पृहा"
+ },
+ {
+  "index": 1025,
+  "hindi_name": "देवी रक्त सुंदरी"
+ },
+ {
+  "index": 1026,
+  "hindi_name": "रक्ताभिधेया"
+ },
+ {
+  "index": 1027,
+  "hindi_name": "रक्तार्हा"
+ },
+ {
+  "index": 1028,
+  "hindi_name": "रक्त कंदरा वंदिता"
+ },
+ {
+  "index": 1029,
+  "hindi_name": "महारक्ता"
+ },
+ {
+  "index": 1030,
+  "hindi_name": "रक्तभावा"
+ },
+ {
+  "index": 1031,
+  "hindi_name": "रक्त सृष्टि विधायिनी"
+ },
+ {
+  "index": 1032,
+  "hindi_name": "रक्त स्नाता"
+ },
+ {
+  "index": 1033,
+  "hindi_name": "रक्त सिक्ता"
+ },
+ {
+  "index": 1034,
+  "hindi_name": "रक्त सेव्यति रक्तिनी"
+ },
+ {
+  "index": 1035,
+  "hindi_name": "रक्तानन्द करी"
+ },
+ {
+  "index": 1036,
+  "hindi_name": "रक्त सदानंद विधायिनी"
+ },
+ {
+  "index": 1037,
+  "hindi_name": "रक्ताशया"
+ },
+ {
+  "index": 1038,
+  "hindi_name": "रक्तपूर्णा"
+ },
+ {
+  "index": 1039,
+  "hindi_name": "रक्त सेव्य मनो रमा"
+ },
+ {
+  "index": 1040,
+  "hindi_name": "रक्त पूजका सर्वस्व"
+ },
+ {
+  "index": 1041,
+  "hindi_name": "रक्त निंदक नाशिनी"
+ },
+ {
+  "index": 1042,
+  "hindi_name": "रक्तात्मिका"
+ },
+ {
+  "index": 1043,
+  "hindi_name": "रक्त रूपा"
+ },
+ {
+  "index": 1044,
+  "hindi_name": "रक्ताकर्षण कारिणी"
+ },
+ {
+  "index": 1045,
+  "hindi_name": "रक्तोत्साहा"
+ },
+ {
+  "index": 1046,
+  "hindi_name": "रक्त व्याघ्र"
+ },
+ {
+  "index": 1047,
+  "hindi_name": "रक्त-पान-परायणा"
+ },
+ {
+  "index": 1048,
+  "hindi_name": "शोणितानंद जननी"
+ },
+ {
+  "index": 1049,
+  "hindi_name": "कल्लोल स्निग्ध रूपिणी"
+ },
+ {
+  "index": 1050,
+  "hindi_name": "साधक'अन्तर-गता देवी"
+ },
+ {
+  "index": 1051,
+  "hindi_name": "पार्वती"
+ },
+ {
+  "index": 1052,
+  "hindi_name": "पाप नाशिनी"
+ },
+ {
+  "index": 1053,
+  "hindi_name": "साधूनां हृदि-संस्थात्री"
+ },
+ {
+  "index": 1054,
+  "hindi_name": "साधकानंद कारिणी"
+ },
+ {
+  "index": 1055,
+  "hindi_name": "साधकानां च जननी"
+ },
+ {
+  "index": 1056,
+  "hindi_name": "साधक प्रियकारिणी"
+ },
+ {
+  "index": 1057,
+  "hindi_name": "साधक प्रचुरानन्द-सम्पत्ति सुख दायिनी"
+ },
+ {
+  "index": 1058,
+  "hindi_name": "साधकसाधकप्राणा"
+ },
+ {
+  "index": 1059,
+  "hindi_name": "साधकासक्त मानसा"
+ },
+ {
+  "index": 1060,
+  "hindi_name": "साधकोत्तमा सर्वस्व"
+ },
+ {
+  "index": 1061,
+  "hindi_name": "साधिका"
+ },
+ {
+  "index": 1062,
+  "hindi_name": "भक्त-रक्तपा"
+ },
+ {
+  "index": 1063,
+  "hindi_name": "साधकानंद संतोषा"
+ },
+ {
+  "index": 1064,
+  "hindi_name": "साधकारि विनाशिनी"
+ },
+ {
+  "index": 1065,
+  "hindi_name": "आत्मविद्या"
+ },
+ {
+  "index": 1066,
+  "hindi_name": "ब्रह्म विद्या"
+ },
+ {
+  "index": 1067,
+  "hindi_name": "परब्रह्म कुटुम्बिनी"
+ },
+ {
+  "index": 1068,
+  "hindi_name": "त्रिकूटस्था"
+ },
+ {
+  "index": 1069,
+  "hindi_name": "पंचकूट"
+ },
+ {
+  "index": 1070,
+  "hindi_name": "सर्वकूट शरीरिणी"
+ },
+ {
+  "index": 1071,
+  "hindi_name": "सर्व वर्णमयी"
+ },
+ {
+  "index": 1072,
+  "hindi_name": "वर्ण जप माला विधायिनी"
+ }
+]
