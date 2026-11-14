@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>आद्या महाकाली सहस्रनाम — The Study Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf9f5;
+    --panel:#ffffff;
+    --ink:#16120e;
+    --ink-2:#4c453d;
+    --ash:#5c544b;
+    --mute:#6d6459;
+    --line:#e6e0d6;
+    --line-2:#f0ebe2;
+    --crimson:#9e1b32;
+    --tint:#f5f0e6;
+    --serif:"Source Serif 4",Georgia,serif;
+    --ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --dev:"Noto Serif Devanagari","Source Serif 4",serif;
+    --edge:clamp(20px,4vw,56px);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.65;
+       -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .u{text-decoration:none;border-bottom:1px solid rgba(158,27,50,.35);transition:border-color .15s}
+  .u:hover,.u:focus-visible{border-color:var(--crimson);color:var(--crimson)}
+  :focus-visible{outline:2px solid var(--crimson);outline-offset:2px}
+
+  /* top bar */
+  .bar{position:sticky;top:0;z-index:20;background:rgba(251,249,245,.94);backdrop-filter:blur(8px);
+       border-bottom:1px solid var(--line)}
+  .bar-in{display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:10px var(--edge);min-height:56px}
+  .brand{display:flex;align-items:center;gap:9px;text-decoration:none;flex:0 0 auto}
+  .brand .om{font-family:var(--dev);font-size:17px;color:var(--crimson);line-height:1}
+  .brand .dev{font-family:var(--dev);font-size:16px;font-weight:600;line-height:1.2}
+  .brand .lat{font-family:var(--ui);font-size:11px;letter-spacing:.08em;color:var(--mute);display:none}
+  .gsearch{flex:1;display:flex;align-items:center;gap:8px;max-width:420px;margin-left:auto;
+           border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px}
+  .gsearch svg{width:14px;height:14px;stroke:var(--mute);fill:none;stroke-width:1.7;flex:0 0 auto}
+  .gsearch input{border:0;background:none;flex:1;font-family:var(--ui);font-size:13px;color:var(--ink);padding:0;min-width:0}
+  .gsearch input:focus{outline:none}
+  .gsearch .n{font-family:var(--ui);font-size:11px;color:var(--mute);white-space:nowrap}
+  .bar nav{display:flex;gap:18px;font-family:var(--ui);font-size:12.5px;color:var(--ash);flex:0 0 auto}
+  .bar nav a{text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ink);border-color:var(--crimson)}
+
+  /* entry */
+  .entry{padding:clamp(30px,4.6vw,60px) var(--edge) clamp(24px,3.4vw,40px);border-bottom:1px solid var(--line)}
+  .entry-in{display:grid;grid-template-columns:minmax(0,720px) auto;gap:clamp(20px,4vw,54px);align-items:start;justify-content:space-between;max-width:1000px}
+  .kicker{font-family:var(--ui);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson);margin:0 0 14px}
+  h1{font-family:var(--dev);font-weight:600;font-size:clamp(36px,4.6vw,64px);line-height:1.24;margin:0 0 8px;letter-spacing:-.005em}
+  h1 .lt{display:block}
+  .lat-title{font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.7vw,21px);color:var(--ash);margin:0 0 20px}
+  .lede{font-size:clamp(17px,1.4vw,19.5px);line-height:1.62;color:var(--ink-2);max-width:52ch;margin:0 0 26px}
+  .lede strong{font-weight:600;color:var(--ink)}
+  .entry-actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--crimson);color:#fff;text-decoration:none;
+       font-family:var(--ui);font-size:13.5px;font-weight:500;padding:11px 18px;border-radius:3px;border:1px solid var(--crimson)}
+  .btn:hover,.btn:focus-visible{background:#841528}
+  .btn.ghost{background:none;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--tint);border-color:var(--mute);color:var(--ink)}
+  .seal{width:112px;height:112px;border-radius:50%;overflow:hidden;border:1px solid var(--line);flex:0 0 auto;
+        box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .seal img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+  .facts{display:flex;gap:26px;margin:26px 0 0;padding-top:16px;border-top:1px solid var(--line);
+         font-family:var(--ui);font-size:11.5px;color:var(--mute);letter-spacing:.04em}
+  .facts b{display:block;font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);letter-spacing:0;margin-bottom:1px}
+
+  /* reader */
+  .reader{display:grid;grid-template-columns:236px minmax(0,1fr);gap:clamp(24px,4vw,56px);
+          padding:clamp(26px,3.4vw,44px) var(--edge) clamp(30px,4vw,54px);align-items:start;max-width:1280px}
+  .rail{position:sticky;top:76px;font-family:var(--ui);font-size:12px;color:var(--ash)}
+  .rail .set{display:flex;align-items:baseline;justify-content:flex-start;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+  .rail .set b{font-family:var(--serif);font-size:19px;color:var(--ink);font-weight:600}
+  .rail .range{font-size:12.5px;color:var(--ink-2);margin-bottom:14px}
+  .rail .steps{display:flex;gap:8px;margin-bottom:18px}
+  .rail .steps button{flex:1;min-height:40px;background:var(--panel);border:1px solid var(--line);border-radius:3px;
+                      font-family:var(--ui);font-size:12px;color:var(--ink);padding:8px 6px;cursor:pointer}
+  .rail .steps button:hover:not(:disabled),.rail .steps button:focus-visible{border-color:var(--mute)}
+  .rail .steps button:disabled{color:#c3bbb0;cursor:default}
+  .rail .lbl{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+  .ticks{display:grid;grid-template-columns:repeat(14,1fr);gap:2px;margin-bottom:18px}
+  .ticks i{display:block;height:8px;background:#e8e2d8}
+  .ticks i.done{background:var(--crimson);opacity:.45}
+  .ticks i.now{background:var(--crimson)}
+  .rail .jump{display:flex;gap:6px;margin-bottom:18px}
+  .rail .jump input{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:3px;padding:6px 8px;
+                    font-family:var(--ui);font-size:12px;color:var(--ink)}
+  .rail .jump button{border:1px solid var(--line);background:var(--panel);border-radius:3px;padding:6px 9px;cursor:pointer;
+                     font-family:var(--ui);font-size:12px;color:var(--ink)}
+  .rail .hint{font-size:12px;line-height:1.55;color:var(--mute);border-top:1px solid var(--line);padding-top:10px}
+
+  .col{max-width:760px}
+  .col-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .col-head h2{font-family:var(--dev);font-size:22px;font-weight:600;margin:0}
+  .col-head h2 span{font-family:var(--ui);font-size:11.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-left:10px}
+  .col-head .n{font-family:var(--ui);font-size:11.5px;color:var(--mute)}
+  .seg{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 18px;padding:18px 0 14px;border-top:1px solid var(--line)}
+  .seg .num{font-family:var(--ui);font-size:12px;color:var(--mute);padding-top:9px;font-variant-numeric:tabular-nums}
+  .seg h3{font-family:var(--dev);font-weight:600;font-size:clamp(26px,2.6vw,33px);line-height:1.38;margin:0 0 1px}
+  .seg .iast{font-family:var(--serif);font-style:italic;font-size:15.5px;color:var(--crimson);margin:0 0 10px}
+  .seg .one{font-size:18px;line-height:1.6;color:var(--ink-2);margin:0 0 8px;max-width:60ch}
+  .seg .note-btn{position:relative;display:inline-flex;align-items:center;gap:5px;background:none;border:0;padding:0;cursor:pointer;
+                 font-family:var(--ui);font-size:11.5px;letter-spacing:.02em;color:var(--mute);transition:color .15s}
+  .seg .note-btn:hover,.seg .note-btn:focus-visible{color:var(--crimson)}
+  .seg .note-btn::after{content:"";position:absolute;inset:-13px -10px}
+  .seg .note-btn .ch{transition:transform .25s;font-size:13px;color:var(--crimson)}
+  .seg .note-btn[aria-expanded="true"] .ch{transform:rotate(90deg)}
+  .seg .note{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.2,.7,.2,1)}
+  .seg .note[data-open="true"]{grid-template-rows:1fr}
+  .seg .note>div{overflow:hidden}
+  .seg .note p{margin:12px 0 0;font-size:16.5px;line-height:1.72;color:var(--ash);background:var(--tint);
+               border-left:2px solid rgba(158,27,50,.5);padding:14px 18px;max-width:64ch}
+  .seg .note a{display:inline-block;margin:10px 0 2px;font-family:var(--ui);font-size:12px}
+  .seg.off{display:none}
+  .empty{display:none;padding:30px 0;font-size:16px;color:var(--ash);border-top:1px solid var(--line)}
+  .empty.on{display:block}
+
+  /* why */
+  .why{border-top:1px solid var(--line);background:var(--panel);padding:clamp(34px,4.6vw,64px) var(--edge)}
+  .why-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);max-width:1180px}
+  .why h2{font-family:var(--dev);font-weight:600;font-size:clamp(24px,2.6vw,34px);margin:0 0 6px}
+  .why .sub{font-family:var(--ui);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 18px}
+  .why p{font-size:17.5px;line-height:1.75;color:var(--ink-2);margin:0 0 14px;max-width:56ch}
+  .why p strong{font-weight:600;color:var(--ink)}
+  .plaque{margin-top:18px;border:1px solid var(--line);background:var(--bg);padding:10px}
+  .plaque img{display:block;width:100%;height:130px;object-fit:cover;object-position:center 36%}
+  .plaque figcaption{font-family:var(--ui);font-size:11px;color:var(--mute);margin-top:7px}
+  .practice{list-style:none;margin:16px 0 0;padding:0;border-top:1px solid var(--line)}
+  .practice li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--line-2);
+               font-size:16px;line-height:1.55;color:var(--ash)}
+  .practice b{font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink)}
+
+  /* index */
+  .index{border-top:1px solid var(--line);padding:clamp(30px,4vw,56px) var(--edge)}
+  .index-in{max-width:1180px}
+  .index h2{font-family:var(--dev);font-weight:600;font-size:clamp(22px,2.2vw,28px);margin:0 0 2px}
+  .index .sub{font-family:var(--ui);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 18px}
+  .idx{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line)}
+  .idx a{display:block;padding:14px 0 15px;text-decoration:none;border-bottom:1px solid var(--line)}
+  .idx .t{font-size:16.5px;font-weight:600;color:var(--ink);margin:0 0 2px}
+  .idx .d{font-size:13.5px;color:var(--ash);margin:0;line-height:1.5}
+  .idx a:hover .t{color:var(--crimson)}
+
+  footer{border-top:1px solid var(--line);padding:clamp(26px,3.4vw,42px) var(--edge) 24px;background:var(--panel)}
+  .f-in{max-width:1180px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-start}
+  .f-in .ded{font-size:14.5px;color:var(--ash);margin:0;max-width:46ch;line-height:1.6}
+  .f-in .mantra{font-family:var(--dev);font-size:14px;line-height:1.85;color:var(--ink-2);margin:0}
+  .f-links{font-family:var(--ui);font-size:12px;color:var(--ash);display:flex;flex-wrap:wrap;gap:6px 16px}
+  .f-links a{text-decoration:none;border-bottom:1px solid transparent}
+  .f-links a:hover{color:var(--ink);border-color:var(--crimson)}
+  .f-fine{max-width:1180px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line-2);
+          font-family:var(--ui);font-size:11px;color:var(--mute);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:1040px){
+    .reader{grid-template-columns:1fr}
+    .rail{display:none}
+    .why-in{grid-template-columns:1fr}
+    .idx{grid-template-columns:1fr 1fr}
+    .entry-in{grid-template-columns:1fr}
+    .seal{display:none}
+  }
+  @media (max-width:680px){
+    body{font-size:17.5px}
+    .bar{position:static}
+    .bar-in{padding:8px 16px;min-height:52px;gap:10px}
+    .bar nav a{display:inline-flex;align-items:center;min-height:44px}
+    .brand .dev{font-size:14px}
+    .brand .lat{display:none}
+    .bar-in{flex-wrap:wrap}
+    .gsearch{order:3;flex:1 1 100%;max-width:none;margin:6px 0 2px;display:flex}
+    .bar nav{gap:12px;font-size:11.5px;margin-left:auto}
+    .bar nav a:nth-child(1){display:none}
+    .entry{padding:22px 20px 20px}
+    .entry-actions{gap:12px}
+    .facts{gap:18px;flex-wrap:wrap}
+    .reader{padding:8px 16px 30px}
+    .seg{grid-template-columns:30px minmax(0,1fr);gap:0 10px;padding:18px 0 16px}
+    .seg .num{font-size:11px;padding-top:7px}
+    .seg h3{font-size:25px}
+    .seg .one{font-size:17px}
+    .seg .note p{font-size:16px;padding:12px 14px}
+    .idx{grid-template-columns:1fr}
+    .practice li{grid-template-columns:1fr;gap:2px}
+    .f-in{flex-direction:column}
+  }
+  .mbar{display:none}
+  @media (max-width:1040px){
+    .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;justify-content:space-between;
+          gap:10px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:rgba(251,249,245,.97);
+          border-top:1px solid var(--line);font-family:var(--ui);font-size:12px;color:var(--ash)}
+    .mbar button{background:var(--panel);border:1px solid var(--line);border-radius:3px;font-family:var(--ui);
+                 font-size:12.5px;color:var(--ink);padding:9px 14px;min-height:40px;cursor:pointer}
+    .mbar button:disabled{color:#c3bbb0}
+    .mbar b{color:var(--crimson);font-weight:600}
+    body{padding-bottom:62px}
+  }
+  .mbar{display:none}
+  @media (max-width:1040px){
+    .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;justify-content:space-between;
+          gap:10px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:rgba(251,249,245,.97);
+          border-top:1px solid var(--line);font-family:var(--ui);font-size:12px;color:var(--ash)}
+    .mbar button{background:var(--panel);border:1px solid var(--line);border-radius:3px;font-family:var(--ui);
+                 font-size:12.5px;color:var(--ink);padding:9px 14px;min-height:40px;cursor:pointer}
+    .mbar button:disabled{color:#c3bbb0}
+    .mbar b{color:var(--crimson);font-weight:600}
+    body{padding-bottom:62px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top">
+      <span class="om" aria-hidden="true">ॐ</span>
+      <span class="dev">आद्या महाकाली सहस्रनाम</span>
+      <span class="lat">Maa Ādya Mahākālī</span>
+    </a>
+    <div class="gsearch" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input id="q" type="search" placeholder="Search a name or a meaning" aria-label="Search the names">
+      <span class="n" id="qn"></span>
+    </div>
+    <nav aria-label="Site">
+      <a href="#read">Read</a>
+      <a href="#why">Why recite</a>
+      <a href="#index">Index</a>
+      <a href="https://1000namesofmakali.com/kali-sahasranama-pdf/">PDF</a>
+    </nav>
+  </div>
+</header>
+
+<section class="entry" id="top">
+  <div class="entry-in">
+    <div>
+      <p class="kicker">1,072 names · 98 sets of eleven</p>
+      <h1><span class="lt">आद्या महाकाली</span><span class="lt">सहस्रनाम</span></h1>
+      <p class="lat-title">Maa Ādya Mahākālī Sahasranāma</p>
+      <p class="lede">A study page for the thousand names: the Devanagari as it is written, the transliteration as it is voiced, and the meaning beside it. <strong>Set of eleven, then the next.</strong></p>
+      <div class="entry-actions">
+        <a class="btn" href="#read">Begin at name one</a>
+        <a class="btn ghost" href="#index">Find the 108 names or the PDF</a>
+      </div>
+      <div class="facts">
+        <span><b>1,072</b>names</span>
+        <span><b>98</b>sets</span>
+        <span><b>11</b>per set</span>
+      </div>
+    </div>
+    <div class="seal"><img src="../public/MaaAdyaKali_5.webp" alt="Maa Ādya Mahākālī, statue with hibiscus flowers"></div>
+  </div>
+</section>
+
+<section class="reader" id="read">
+  <aside class="rail" aria-label="Set navigation">
+    <div class="set"><span>Set <b id="rSet">01</b> of 98</span></div>
+    <p class="range" id="rRange">names 1–11 of 1,072</p>
+    <div class="steps">
+      <button id="prev" type="button" disabled>← prev</button>
+      <button id="next" type="button">next →</button>
+    </div>
+    <p class="lbl">Sets</p>
+    <div class="ticks" id="ticks" aria-hidden="true"></div>
+    <p class="lbl">Jump to set</p>
+    <div class="jump">
+      <input id="jump" type="number" min="1" max="98" placeholder="1–98" aria-label="Jump to set number">
+      <button id="go" type="button">go</button>
+    </div>
+    <p class="hint">Each set is eleven names, so the recitation has a natural place to pause. The darker marks above are the sets before this one.</p>
+  </aside>
+
+  <div class="col">
+    <div class="col-head">
+      <h2 id="colTitle">पाठ <span>The set</span></h2>
+      <span class="n" id="colN">11 names</span>
+    </div>
+    <div id="segs"></div>
+    <p class="empty" id="empty">No name in this set matches that search. Try a transliteration, or another word from the meaning.</p>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="why-in">
+    <div>
+      <h2>क्यों</h2>
+      <p class="sub">Why readers return</p>
+      <figure class="plaque">
+        <img src="../public/MaaAdyaKali_5.webp" alt="Maa Ādya Mahākālī with hibiscus and a lit diya">
+        <figcaption>Maa Ādya Mahākālī · the image carried on the printed edition</figcaption>
+      </figure>
+    </div>
+    <div>
+      <p><strong>Maa Adya Mahakali</strong> is revered as the primordial source: the first, original power from which creation unfolds. In this form she is linked with time, change, and the full cycle of arising, sustaining, and dissolving.</p>
+      <p>For many devotees, the Sahasranama is recited as prayer, remembrance, and steady practice. The names are a way of drawing closer to Maa Adya and returning the mind to devotion.</p>
+      <ul class="practice">
+        <li><b>Protection</b><span>A steadying practice that helps devotees feel held, guarded, and less shaken by inner or outer disturbance.</span></li>
+        <li><b>Inner obstacles</b><span>Meeting anger, greed, attachment, pride, and confusion with more honesty and discipline.</span></li>
+        <li><b>Steadiness</b><span>Returning to the names can calm the mind, soften fear, and make room for a grounded courage.</span></li>
+        <li><b>Grace</b><span>Regular practice as a way of opening to grace, clarity, and quieter guidance.</span></li>
+        <li><b>Awakening</b><span>Repetition deepens attention until practice feels more inward, alive, and continuous.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="index" id="index">
+  <div class="index-in">
+    <h2>मार्ग</h2>
+    <p class="sub">Index of the shorter roads</p>
+    <div class="idx">
+      <a href="https://1000namesofmakali.com/108-names-of-kali/"><p class="t">108 names of Maa Kali</p><p class="d">A compact practice set drawn from the Sahasranama, with meanings.</p></a>
+      <a href="https://1000namesofmakali.com/1008-names-of-kali/"><p class="t">1,008 or 1,072?</p><p class="d">Why the counts differ, and what this edition contains.</p></a>
+      <a href="https://1000namesofmakali.com/kali-sahasranama-pdf/"><p class="t">The printed edition</p><p class="d">A free 68-page PDF in Devanagari and English.</p></a>
+      <a href="https://1000namesofmakali.com/kali-sahasranama-lyrics/"><p class="t">Chant order</p><p class="d">How the sets are recited, with the opening names.</p></a>
+      <a href="https://1000namesofmakali.com/kali-sahasranama-benefits/"><p class="t">Benefits of the practice</p><p class="d">A devotional framing of what the recitation is understood to give.</p></a>
+      <a href="https://1000namesofmakali.com/sources/"><p class="t">Sources &amp; corrections</p><p class="d">Source basis, editorial method, and how to send a correction.</p></a>
+    </div>
+  </div>
+</section>
+
+<div class="mbar" aria-label="Set navigation">
+  <button id="mPrev" type="button" disabled>← set</button>
+  <span>set <b id="mSet">01</b> / 98</span>
+  <button id="mNext" type="button">set →</button>
+</div>
+
+<footer>
+  <div class="f-in">
+    <p class="ded">Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong>. Built by Kaliputra Ashish.</p>
+    <p class="mantra">Jai Ma Krishna<br>Jai Mā Ādya Mahākālī<br>Jai Kālabhairava</p>
+    <div class="f-links">
+      <a href="https://1000namesofmakali.com/names/">Names hub</a>
+      <a href="https://1000namesofmakali.com/about/">About</a>
+      <a href="https://1000namesofmakali.com/sources/">Sources</a>
+      <a href="https://github.com/09ashishkapoor/1000namesofmaadya">GitHub</a>
+      <a href="https://www.instagram.com/ashishkaliputra">@ashishkaliputra</a>
+    </div>
+  </div>
+  <div class="f-fine">
+    <span>Maa Ādya Mahākālī Sahasranāma · 1,072 names</span>
+    <span>Direction 3 — The Study Page · prototype</span>
+  </div>
+</footer>
+
+<script>
+const NAMES=[[1,"श्मशान कालिका","Śmaśāna Kālikā","Shmashana Kalika","The Dark-bodied Goddess of the Cremation Ground, the Power of Death and Dissolution.","The name Shhmashhana Kalika is a powerful compound meaning the \"Dark Goddess (Kālikā) of the Cremation Ground (Shmashāna).\" It points to one of the most intense and philosophically profound aspects of the Goddess. The Shmashāna as a Symbol The Shmashāna, or cremation ground, is not merely a place of sorrow. It is the ground where all worldly attachments, wealth, status, beauty, and even the physical body, are reduced to ash. It is the ultimate field of truth, revealing the reality of impermanence (Anitya). Kalika resides here to show her devotees that she is the supreme non-dual reality in which all distinctions and dualities come to an end. Power of Dissolution (Pralaya) She embodies the power of cosmic dissolution (Pralaya). Just as fire reduces the gross body to its subtle elements, Shhmashhana Kalika is the fierce force that brings entire universes and cycles of time to their final end. She is both the final destination of all things and the consuming power that devours them. Spiritual Transcendence Her presence in the cremation ground invites the spiritual seeker into profound sādhanā (spiritual practice) by confronting and transcending the fear of death, the root of all other fears. By realizing her presence there, the devotee attains true detachment and spiritual freedom (moksha)."],[2,"काली","Kālī","Kali","The Black Goddess, Ruler of Time.","The name Kali comes from the Sanskrit root \"Kāl,\" which carries the meanings of both \"Time\" and \"darkness\" or \"blackness.\" As the feminine form of Kāla (Time and Shiva), she embodies the ultimate dynamic power (Shakti) of Time. The Primordial Darkness Her \"blackness\" is not merely a color. It is a profound symbol of the absolute, transcendent, and unmanifest state of reality. She is beyond all attributes, forms, and distinctions, and therefore appears as the ultimate Void (Shūnya), the state that contains and absorbs all colors, all light, and all creation. This primordial darkness is the womb of creation and the resting place to which all existence returns. It signifies that she is beyond comprehension, beyond description, and beyond the limits of sensory perception. The Inexorable Flow of Time As the \"Ruler of Time,\" Kali is the cosmic force that governs the entire cycle of existence: Brahma's creation, Vishnu's sustenance, and Shiva's dissolution. Nothing escapes her relentless movement. She is the eternal devourer of all things, consuming moments, days, years, and eons without pause. This destruction is not chaotic. It is a necessary and continuous process of transformation and renewal. For her devotees, understanding and embracing her as the Ruler of Time instills a deep acceptance of impermanence (Anitya) and of the transient nature of all worldly phenomena. The Liberator from the Cycle of Time While she is the force that binds beings to the cycle of birth and death (Saṃsāra) through her manifestation as time, she also offers liberation (Moksha) from its hold. By dissolving the ego and the illusions that arise from finite time, she frees the soul to realize its eternal, timeless nature. True worship of Kali involves recognizing her as the reality that transcends all temporal limitations, leading to spiritual freedom and union with the timeless Absolute."],[3,"भद्रकाली","Bhadrakālī","Bhadrakali","The All-auspicious Dark Mother.","Bhadra Kali is a name that beautifully brings together the fierce and benevolent aspects of the Goddess. The word Bhadra means \"auspicious,\" \"gracious,\" \"gentle,\" or \"blessed,\" revealing that even her terrible power is ultimately holy and beneficent. The Paradox of Auspiciousness While the name Kali signifies her fierce, dark, and destructive aspect, the prefix Bhadra makes clear that this very fierceness is auspicious and gracious to her devotees. She is terrible to the forces of evil, to demons, and to the devotee's ego, yet to her children she is the very embodiment of protection and kindness. Benevolent Protector In this form she is often invoked as the Supreme Protectress, who grants blessings, removes misfortune, and safeguards the welfare of her devotees. Her darkness is not the darkness of ignorance, but the depth of divine, all-encompassing grace that dispels the darkness of the world and the mind. Grantor of Victory Bhadra Kali is also associated with the successful accomplishment of difficult tasks, the destruction of obstacles, and the granting of victory, especially victory over the forces of illusion and ignorance. She is the Mother whose severe nature always serves a loving, beneficial, and auspicious purpose."],[4,"कपालिनी","Kapālinī","Kapalini","She who bears the skull, showing Her transcendence over mortality and the cycle of creation.","Kapalini means \"She who bears a Kapāla,\" with Kapāla referring to a skull, often shown in her iconography as a severed head or a begging bowl. This name points to one of the most powerful and philosophically charged symbols associated with Mahakali. The Skull as a Symbol of Impermanence The skull is a stark sign of the fleeting nature of embodied life and the certainty of death. By holding it, Kapalini reveals her absolute dominion over mortality (Mṛtyu) and over the whole cycle of birth, decay, and death that governs beings in the phenomenal world. All existence must pass through this law, yet She herself remains forever beyond it. Transcendence Over the Cycles of Creation The skull also signifies the dissolution of all created form. When life departs, the body is gradually reduced, and the skull stands as a remnant of what once appeared solid and enduring. By bearing this symbol, Kapalini asserts her role as the power of final dissolution (Pralaya), which brings to an end not only individual lives but also the vast cosmic movements of creation, sustenance, and destruction (Sṛṣṭi, Sthiti, Saṃhāra). In Her, all distinctions and manifested realities return to the unmanifest. The Begging Bowl and Renunciation In some interpretations, the skull serves as a begging bowl, symbolizing complete renunciation and detachment. This iconography reflects the yogic ideal of Vairagya (non-attachment) and freedom from worldly possession and desire. As Kapalini, She embodies the state of absolute freedom from material conditioning. For the devotee, this teaches that to walk Her path is to shed attachment and move toward true liberation."],[5,"गुह्य काली","Guhya Kālī","Guhya Kali","The hidden and secret Dark Goddess.","Guhya Kali literally means the \"Secret (Guhya) Dark Goddess (Kali).\" This name points to the deeply esoteric, mysterious, and veiled aspect of the Divine Feminine. The Veiled Aspect of Reality \"Guhya\" denotes something hidden, secret, or profoundly mystical. It refers to knowledge not accessible to the uninitiated or the casual observer. Guhya Kali represents the ultimate truth or reality that remains veiled from ordinary perception and becomes accessible only through deep spiritual practice, initiation, and profound inner experience. She is the secret core of the universe, the unseen power that governs all existence. The Esoteric Path Her worship belongs to the most esoteric traditions of Tantra. These practices often involve intense sādhanā (spiritual discipline) aimed at piercing the outer layers of reality and realizing its deeper, hidden truth. Guhya Kali embodies the non-dual wisdom (Advaita Jñāna) that transcends all duality and conventional understanding. The Inner Deity She is also understood as the \"Kali within,\" the secret spiritual power (Kundalini Shakti) dwelling at the base of the subtle body and waiting to be awakened. Her secrecy implies that the deepest spiritual journey is ultimately inward, a discovery within one's own consciousness rather than an external quest. She is the mystery that lies within the heart of every being, the secret essence of the self. Dispenser of Hidden Wisdom As Guhya Kali, She is the dispenser of the deepest spiritual insight and the most profound revelations. She unveils the secrets of creation, preservation, and dissolution to those who are ready to receive them, guiding them beyond the illusion (Maya) toward the realization of absolute reality."],[6,"महाकाली","Mahākālī","Mahakali","The Great Dark Mother, beautiful and compassionate to devotees, and terrifying to their enemies.","The name Maha-Kali means \"The Great Dark Mother.\" It points to her supreme status and the fullness of her power. \"Mahā\" means \"great\" or \"supreme,\" showing that she is the highest and most formidable manifestation of Kali, containing all her other forms within herself. Superiority and Supremacy As Maha-Kali, she is the supreme form of Kali and, in Shakta traditions, especially the Kalikula, is often understood as the ultimate reality, Para Brahman. She is the primordial energy (Ādyashakti) from whom countless universes arise and into whom they finally dissolve. She stands beyond all dualities, distinctions, and conditions, abiding in an absolute state of transcendental consciousness. Transcendental Beauty Her \"darkness\" does not suggest ignorance. It speaks of infinite depth, the vast void from which all creation comes forth. That darkness also expresses a beauty beyond ordinary standards of form and appearance. To her devotees, her dark complexion is deeply beautiful, a sign of boundless divine love and grace. In that sense, she is the \"darkly beautiful one\" (Śyāma Sundarī). Paradoxical Compassion and Terror Maha-Kali holds a profound paradox within herself. To her devoted children, she is compassionate (Karuṇāmayī), loving, and quick to answer prayer with protection. To those who embody evil, ignorance, or threaten her devotees, she is terrifying (Bhayaṅkarī) and relentless. Her fierceness is itself an expression of divine love, because she destroys the inner and outer obstacles that block spiritual progress and prolong suffering. Ultimate Liberator As Maha-Kali, she grants ultimate liberation (moksha). She is the power that transcends time (Mahākāla) and space, leading the sincere seeker beyond saṃsāra, the cycle of birth and death. Her greatness lies in her power to destroy ignorance and ego completely, revealing the true luminous nature of the self."],[7,"कुरुकुल्ला-विरोधिनी","Kurukullā-Virodhinī","Kurukulla-Virodhini","The destroyer of opposition, especially the one who grants siddhis and protects those who attain them.","The name Kurukulla-'Virodhini is a powerful compound that reveals a distinct aspect of Goddess Kali's function. The term Kuru suggests \"to do,\" \"to make,\" or \"to perform.\" Kullā is often associated with the Kula tradition of Tantra, pointing to a profound spiritual lineage and also to that which encompasses the whole. Virodhini means \"destroyer of opposition\" or \"she who stands against resistance.\" Taken together, the name points to the Goddess who confronts and removes every obstacle that rises against the sadhaka. Destroyer of Opposition In Kurukulla-'Virodhini, \"opposition\" (virodha) operates on several levels. It includes outer adversaries that hinder a sadhaka's spiritual progress or worldly aims. At a deeper level, it refers to inner obstructions such as ignorance (avidyā), ego (ahaṁkāra), doubt (saṁśaya), and deep karmic impressions (saṁskāras) that stand in the way of realization. She is the fierce force that cuts through both kinds of resistance and clears the path for the devotee. Bestower of Siddhis A central aspect of Kurukulla-'Virodhini is her power to bestow siddhis (supernatural powers or accomplishments). Siddhis are not mere magical tricks, but tangible expressions of awakened spiritual energy and mastery over the elements and the mind. By removing internal and external opposition, she creates the conditions in which a sadhaka can cultivate and attain such powers. These siddhis may range from command over one's subtle energies to the ability to influence circumstances or manifest desired results in the material world. Protector of Achieved Siddhis Kurukulla-'Virodhini does not only grant these powers; she also protects those who have attained them. The path of siddhi is fraught with challenges and pitfalls, including jealousy from others, misuse of power, and spiritual regression. She stands as a fierce shield around the sadhaka's attainments, preserving them so that spiritual development may continue without interruption. In this way, her protection helps ensure that such powers remain aligned with the higher purpose of the seeker's spiritual journey."],[8,"कालिका","Kālikā","Kalika","The affectionate or diminutive form of Kali, the Dark One, signifying her tender yet potent presence.","The name Kalika is the diminutive form of Kali, often understood as \"little Kali\" or \"the beloved one who is Kali.\" In devotional language, this does not suggest a lesser or weaker form of the Goddess. It points instead to an intimate, endearing, and more approachable expression of her vast power. Tender Potency The suffix -ika often carries a sense of affection and closeness, like a cherished or dearly loved form. In that sense, Kalika is Kali as the devotee can hold her near to the heart. She retains all the essential attributes of Kali, including her dark beauty, her power over time, and her transformative energy, yet appears here in a way that sincere devotees can approach more intimately as benevolent and nurturing. Accessibility and Grace This diminutive form makes the vast and often awe-inspiring energy of Kali more accessible to human understanding and devotion. It allows devotees to feel a closer bond without diminishing her ultimate power. The name suggests that even in her most formidable aspects, the Divine Mother remains accessible through sincere love and devotion. Focus on Devotional Relationship Kalika emphasizes the devotional (bhakti) aspect of worship, highlighting the intimate relationship between the devotee and the Divine Mother. She is the fierce protector and also the loving mother, always ready to extend her grace, even to those who falter on the path. The \"little\" aspect can also suggest an inward, hidden power: the subtle yet potent force that resides within the heart of every being, ready to awaken and manifest."],[9,"कालरात्रि च","Kālarātri Ca","Kalaratri Cha","She who is the Dark Night of Time, signifying profound dissolution and the ultimate reality beyond all manifestation.","Kala Ratri Cha means \"She who is the Dark Night of Time,\" the Night of Dissolution. This name reveals one of the most profound and all-encompassing aspects of the Goddess: the state in which all distinctions fall away and everything is absorbed back into her. The Cosmic Night Kala Ratri is the most fearsome and potent of nights, the Pralaya Ratri, when the entire cosmos is reabsorbed into her being. Just as ordinary night covers the world and brings activity to a halt, Kala Ratri is the cosmic darkness that engulfs all creation at the end of a Kalpa. No light remains, no form endures, no differentiation survives; only her boundless dark presence abides. Ultimate Reality Beyond Manifestation This night is not merely the absence of light. It is a state beyond manifestation itself, the unmanifest ground of being, Avyakta, from which all things arise and into which all things dissolve. In this form she is the ultimate reality that transcends every duality, including light and darkness, good and evil, creation and destruction. The Destroyer of Ignorance and Delusion Kala Ratri is also the darkness that destroys darker things: ignorance (avidya) and delusion (moha). Her fierce nature devours illusion and brings the devotee face to face with the stark truth of existence. To contemplate Kala Ratri is to confront the ultimate void and discover within it one's own identity in the supreme, undifferentiated consciousness. Her terrifying aspect is therefore a blessing, because it destroys the limited perceptions that keep the soul bound."],[10,"महाकाल नितंबिनी","Mahākāla Nitaṃbinī","Mahakala Nitambini","She who rests upon Mahakala, the great Lord of Time.","Maha-Kala Nitambini means \"She who rests upon (nitambini) Mahakala, the great Lord of Time.\" This name reveals one of the most striking aspects of Goddess Kali and her relationship with Shiva. The Cosmic Embrace The term \"nitambini\" can refer to one with full hips, and in this context it suggests a firm, grounded posture. In the form of Maha-Kala Nitambini, it symbolizes Kali established upon Mahakala Shiva, rooted even beyond Kāla, Time itself. Her resting upon him signifies Shakti as the active power that sets all processes in motion, while Mahakala is the still, transcendent consciousness upon which that power appears and acts. Transcendence of Time Mahakala is Shiva in his all-consuming form as the Lord of Time and Death. When Kali is shown resting upon him, with Mahakala often depicted lying beneath her, the image declares her supremacy even over the great dissolver. This posture shows that she is not bound by Time. Time moves within her dominion. She is the animating force that drives it, and the power through which it carries out creation, preservation, and dissolution. The Play of Consciousness and Power This iconography expresses a central teaching of Tantra. Shiva, as Mahakala, is pure Consciousness (Prakasha), motionless without Shakti. Kali, as Maha-Kala Nitambini, is the dynamic Power (Vimarsha) that brings that consciousness into expression through creation, preservation, and dissolution. Her resting on him is not a sign of subservience. It reveals intrinsic unity and operative supremacy: she is the force that makes consciousness move and act. Symbol of Active Liberation For the devotee, this image is a symbol of active liberation. It suggests that true freedom (moksha) is not gained by fleeing Time, but by awakening to the power that governs and transcends it. By worshipping Maha-Kala Nitambini, the devotee seeks alignment with that supreme power and rises beyond the cyclic limits of temporal existence."],[11,"काल भैरव भार्या च","Kāla Bhairava Bhāryā Ca","Kala Bhairava Bharya Cha","The consort of Kala Bhairava.","The name Kala Bhairava Bharya Cha presents Mahakali as the consort of Kala Bhairava. It points to her inseparable union with Kala Bhairava, the fierce manifestation of Shiva associated with Time, dissolution, and the protection of sacred space. The Divine Pair of Time and Dissolution Kala Bhairava is the Lord of Time and the force of total destruction. He punishes the wicked and guards what is sacred. As his consort (Bhāryā), Mahakali is his Shakti, the living power through which he acts. Their union expresses the full force of cosmic dissolution and transformation. She is not merely a companion beside him, but the active principle that makes his functions effective. Unity in Dual Form Kala Bhairava may be understood as the masculine principle of Time and destruction, while Kali as his Bharya is the feminine power that manifests and activates that force. Together they reveal the non-dual unity of Shiva and Shakti, consciousness and energy. In this aspect, the emphasis falls on the fierce and transformative face of the Supreme Reality, where destruction itself serves a divine purpose. Fierce Protection and Cosmic Order As the power of Kala Bhairava, Kali governs not only the cycles of dissolution but also the protection of Dharma through the destruction of what is chaotic, unrighteous, and harmful. Just as Kala Bhairava guards the sacred, Kali in this form removes both inner and outer obstacles to spiritual progress and cosmic harmony. To invoke her here is to seek fearless protection and the swift burning away of hindrances, much as Kala Bhairava destroys all that is impure."],[12,"कुल वर्त्म प्रकाशिनी","Kula Vartma Prakāśinī","Kula Vartma Prakashini","The Illuminator of the path of the spiritual lineage, revealing the essence of Kaula tradition.","The name Kula Vartma Prakashini directly connects Kali with the Kaula tradition, an important branch of Tantra. Kula means \"family, lineage, community,\" but in Tantric usage it also points to the spiritual lineage, the divine family of Devi and Shiva, and the living body of initiates. Vartma means \"path\" or \"way,\" and Prakashini means \"the Illuminator\" or \"She who makes evident.\" In this sense, she is \"The Illuminator of the path of the Kaula tradition.\" Illuminating the Kaula Path The Kaula path is a distinct and often esoteric stream within Tantra. It emphasizes direct experience of the Divine within the body and the world, often through demanding and non-dual practices. As Kula Vartma Prakashini, she reveals the inner logic, wisdom, and hidden depth of this path. She makes the meaning of its rituals, symbols, and philosophical foundations clear, guiding the sincere practitioner through practices that are often misunderstood. The Esoteric Lineage In the Kaula tradition, Kula also refers to Shakti (the female principle), while Akula refers to Shiva (the male principle). The union of Kula and Akula represents non-dual reality. As Kula Vartma Prakashini, she illumines the path that leads to this ultimate union, beyond all duality and limitation. She is the source of the knowledge and power flowing through the spiritual lineage of masters and disciples, bringing to light the esoteric truths handed down through generations. Empowerment and Guidance She is the inner guru, the light that guides the aspirant along this demanding path and dispels ignorance and doubt. Her illumination is not mere intellectual understanding, but direct and experiential realization of Kaula principles. She ensures that the profound and transformative practices of Kaula, which may seem transgressive to the uninitiated, are understood and undertaken with the right intention and spiritual depth. In that way, they lead to liberation and self-realization rather than entanglement."],[13,"कामदा","Kāmadā","Kamada","The Granter of all desires.","The name Kamada comes from the Sanskrit root \"kām,\" meaning desire, and \"-da,\" meaning giver or bestower. Thus, she is \"She who grants desires\" or \"The Giver of all wishes.\" The Divine Fulfiller Kamada reveals the aspect of the Divine Mother who is the ultimate source of fulfillment, not only for material desires but also for the deepest spiritual aspirations of her devotees. She embodies the boundless grace and generosity of the Goddess. Material and Spiritual Desires Her role as Kamada extends far beyond ordinary wishes. While she can grant prosperity, health, and other worldly comforts, her deeper significance lies in fulfilling the longing for spiritual knowledge (jñāna), liberation (moksha), devotion (bhakti), and realization of the ultimate truth. For the sincere seeker, the highest desire she fulfills is the longing for union with the Divine. The Law of Karma and Divine Grace Kali, as Kamada, does not fulfill desires capriciously. She grants them in harmony with the larger cosmic order and the individual's karma, while also exercising her grace and divine oversight. Her blessings can purify and align a person's desires with their highest good, guiding them toward what is truly beneficial. Ultimate Desire of Freedom Ultimately, the greatest desire that Kamada fulfills is the desire to be free from desire itself. She leads the devotee into contentment and non-attachment, which are marks of spiritual liberation. She is the beneficent Mother who meets the true needs of her children and leads them from worldly entanglement into divine freedom."],[14,"कामिनी","Kāminī","Kamini","The lovely and desired Goddess, the one who becomes the focus of divine love and devotion.","The name Kamini comes from the Sanskrit root \"kam,\" associated with desire, love, and attraction. Kamini therefore means \"the lovely one,\" \"the desired one,\" or \"she who draws the heart.\" In this form, Kali is revealed not only as fierce and overwhelming, but also as deeply attractive to the soul. Divine Beauty and Allure Kali is often approached through her fierce and awe-inspiring form, but as Kamini she reveals her radiant beauty and grace. This beauty is not superficial. It arises from her perfection, her freedom, and her divinity. She draws all beings toward herself because she is both their source and their final goal. What she awakens is not ordinary attraction, but a spiritual pull that captivates the heart of the devotee. The Object of Divine Love As Kamini, she is the beloved and the true object of devotion (Bhakti). Her beauty stirs love, longing, and the wish for union in the hearts of her devotees. This name highlights the intimate side of spiritual life, where the seeker approaches the Divine Mother not as an abstraction, but as the most cherished and adored presence. The Desire Principle (Kama) Kamini also represents the foundational cosmic desire (Kama) that stands behind creation itself. It is her divine will to create, her urge to manifest, that brings the universe into being. At the same time, she is the power that purifies worldly desire and turns it toward the Divine. Through her grace, scattered wants are gathered into a higher longing for what is eternal, and that longing becomes a path to liberation."],[15,"काम्या","Kāmyā","Kamya","The One who holds all desire and aspiration within herself.","The name Kamya comes from the Sanskrit root \"kam,\" which means to desire, long for, or aspire. Kamya can mean \"desirable\" or \"that which is sought,\" but in the context of Mahakali it points to something deeper. She is the one in whom all longing arises and toward whom all longing ultimately moves. The Source of All Desire Kamya expresses the primordial movement of will, often understood as Iccha Shakti, that stands at the beginning of creation. Before anything is manifested, there is the first stirring of becoming. Kali, as Kamya, is that original impulse, the subtle urge behind the movement from the unmanifest into form, reflected in the idea \"eko'ham bahu syam.\" All individual wishes, longings, and aspirations arise from that deeper divine current. The Inner Aspiration of the Soul This name also shows that desire is not limited to worldly craving. At its deepest level, it is the soul's longing for the Divine. As Kamya, Kali embodies the yearning for truth, liberation (moksha), self-realization, and union. She is present in the seeker's hunger for what is eternal and in the restlessness that refuses to be satisfied by passing things. Fulfillment through Her Grace Though she embodies desire, she also leads the devotee beyond scattered and worldly wanting. When desire is turned toward her, it is purified, gathered, and raised toward its highest aim. In this way she is closely linked with Kamada, the bestower of what is truly sought. She fulfills the rightful aspirations of her devotees, while guiding them toward spiritual freedom. To invoke Kamya is to recognize the longing already present within the heart and offer it to the Divine Mother, so that it may reach its highest fulfillment through her grace."],[16,"कमनीय स्वभाविनी","Kamanīya Svabhāvinī","Kamaniya Svabhavini","One whose very nature is loveliness and beauty.","The name Kamaniya Swa-Bhavini is a tender and profound epithet that reveals a softer, though no less powerful, aspect of Mahakali. It combines \"Kamaniya,\" meaning \"lovely, desirable, beautiful, or pleasing,\" with \"Swa-Bhavini,\" from \"Sva-Bhava,\" meaning \"one's own nature, intrinsic quality, or essential disposition.\" Thus, it means \"One whose very nature is loveliness and beauty.\" Beyond Conventional Beauty While Kali is often depicted in her terrifying forms (ghora-rupa), this name emphasizes her inherent grace and divine beauty. It suggests that even in her most fearsome manifestations, her deepest reality is one of captivating beauty and harmony. Her loveliness is not superficial. It arises from the perfection of her being and from the precise and powerful way she carries out her cosmic functions. The Allure of the Absolute Kamaniya Swa-Bhavini implies that the absolute truth embodied by Kali is inherently alluring to the sincere seeker. Her beauty is the beauty of unconditional love, infinite wisdom, and boundless power, qualities that draw the devotee toward liberation and union. This beauty transcends dualities, embracing both the terrifying and the gentle, the destructive and the creative, all harmonized within her divine essence. Divine Manifestation This name also points to her role in the manifestation of the cosmos. The universe, in all its beauty, diversity, and intricate order, is a reflection of her inherent Kamaniya Swa-Bhava. Every form of beauty, every moment of joy, and every experience of harmony in creation is a direct expression of her lovely nature. She is the source of all aesthetic delight and the ultimate object of attraction."],[17,"कस्तूरी रस लिप्तांगी","Kastūrī Rasa Liptāṃgī","Kasturi Rasa Liptangi","Her body is smeared with the essence of musk.","The name Kasturi Rasa Liptanggi presents Kali in a subtler and more intimate form: her body is smeared with the essence of Kasturi, or musk. The image is beautiful, but it is also deeply symbolic. It reveals a hidden aspect of the Goddess, one known not only through form, but through presence, fragrance, and inward experience. The Significance of Kasturi (Musk) Kasturi, or musk, is prized in Indian tradition for its deep and lasting fragrance. Though small in quantity, its scent travels far and lingers. Because of this, it carries several symbolic associations: Purity and Preciousness: True musk is rare and highly valued, so it suggests purity, refinement, and something deeply treasured. Subtlety and All-Pervasiveness: Its fragrance cannot be grasped by the hand, yet it spreads everywhere, making it a fitting symbol of an unseen but all-pervading influence. Spiritual Magnetism: Its intoxicating aroma suggests the irresistible attraction of the divine, drawing devotees toward the Mother. The Essence (Rasa) \"Rasa\" here means the essence, sap, or quintessence of musk. The name suggests more than a physical substance placed upon her form. It points to the concentrated vitality, subtle power, and animating principle of musk itself adorning her. In that sense, this is not merely cosmetic application, but a spiritual anointing. Divine Anointing and Spiritual Awakening The smearing (Liptanggi) of this essence upon her body (Angam) symbolizes a deep divine consecration. Awakening of Higher Chakras: In tantric practice, the scent of musk is often associated with the upward movement of Kundalini and the awakening of higher spiritual centers, especially the Ajna (third eye) and Sahasrara (crown) chakras. Kali, adorned with this essence, signifies the awakening of inner perception and supreme consciousness. Intoxicating Divine Presence: If her form itself emanates this potent fragrance, then her presence becomes intoxicating to the spiritual senses, drawing the seeker into divine bliss and absorption. It is the subtle fragrance of ultimate reality. Beyond Dualities and Attraction While Kali is often depicted as fierce and awe-inspiring, this name reveals her irresistible allure and the intoxicating quality of her ultimate reality. She is not only the destroyer, but also the supreme attractor, whose essence captivates the mind and spirit and leads them toward liberation and non-dual union. It is a reminder that the Mother, in her highest aspect, is at once intense, attractive, and filled with bliss."],[18,"कुञ्जरेश्वर गामिनी","Kuñjareśvara Gāminī","Kunjareshvara Gamini","She who walks with the majestic gait of the Lord of Elephants, symbolizing power and grace.","The name Kuñjar'eshwara Gāminī directly means \"She who walks with the majestic gait of the Lord of Elephants.\" This vivid epithet points not only to her bearing, but also to deeper qualities of power, grace, and sovereignty. The Lord of Elephants (Kuñjar'eshwara) In Indian symbolism, the elephant, especially the powerful male elephant in rut (Gaja), represents immense strength, unwavering determination, stability, and royal majesty. The \"Lord of Elephants\" (Kuñjar'eshwara or Gajendra) stands as the fullest embodiment of these qualities: a sovereign among beasts, mighty beyond measure, yet also wise and composed in its natural state. Its gait is slow, deliberate, and unstoppable. Majestic Gait (Gāminī) The term Gāminī refers to her walk, or more broadly, her way of moving. Joined with the image of the \"Lord of Elephants,\" it evokes a Goddess whose every step carries regal authority and grounded power. This gait is not hurried, restless, or dramatic. It is measured, steady, and filled with unshakable resolve. It suggests a strength so complete that it does not need display. Symbolism of Power and Grace This name reveals the beautiful paradox of Mahakali: her immense power is inseparable from her inherent grace. Unstoppable Power: Just as an elephant's march can clear any path, Kali's power is absolute and can overcome any obstacle, whether external or internal (like ignorance, fear, or ego). Inherent Grace: Despite her formidable power, her movement carries a profound grace. This grace is not merely aesthetic; it signifies divine benevolence and effortless command over the cosmos. It reflects the smooth and ordered functioning of the universe under her ultimate control. Spiritual Implication For the devotee, envisioning Kali with the gait of Kuñjar'eshwara Gāminī inspires confidence and stability. It suggests that even in her fiercest forms, she upholds cosmic order and moves toward the liberation of her devotees with unwavering, majestic purpose. Her walk becomes the movement of time and destiny itself: powerful, steady, and perfectly balanced."],[19,"ककरा वर्ण सर्वांगी","Kakarā Varṇa Sarvāṃgī","Kakara Varna Sarvangi","She whose entire body bears the color of the letter Ka, signifying Time and Ultimate Reality.","Kakara Varna Sarv'anggi literally means \"She whose entire body (Sarv'āṅgī) is the color (Varṇa) of the letter Ka (Kakāra).\" The name is deeply symbolic and points to foundational philosophical ideas within the Shakta tradition. The Significance of the Letter 'Ka' In Sanskrit, the letter 'Ka' carries deep significance. It is often associated with Kāla (Time), and by extension with Kali herself as the embodiment of Time. It also appears as the opening syllable of many potent mantras and of Kāma (desire), but in this context its primary force lies in its connection with Time and with the ultimate reality that transcends yet pervades all. Symbolism of the Color The \"color of Ka\" does not refer to a literal physical hue. It points instead to the primordial, unmanifest state: the transcendent dark or ultimate void that precedes and contains all creation. In this sense, it refers to Kali as the ultimate reality (Parabrahman), beyond all attributes, forms, and colors. Just as the void appears colorless while holding the potential for every color, Kali's \"color of Ka\" reveals her as the source and the end of all existence. All-Pervading Reality When her \"entire body\" (Sarv'āṅgī) is said to be of this \"color,\" the meaning is that her presence is total and all-pervading. She is not merely a localized deity, but the very fabric of reality itself. From the subtlest thought to the most colossal galaxy, everything is imbued with her essence, her \"color of Ka.\" The name also suggests that ultimate reality is not separate from the phenomenal world, but fully pervades it. The Mother of All Sounds Her association with a letter (Akshara) also connects her to the concept of Śabda Brahman, the ultimate reality as sound. As the essential sound 'Ka', she is intrinsically linked to the creative power of speech and mantras, as the source of all phonemes, and therefore of all knowledge and creation."],[20,"कामिनी काम सुंदरी","Kāminī Kāma Suṃdarī","Kamini Kama Sundari","The Beautiful One who awakens desire in Kāma (the God of Love) and who is Herself the embodiment of all desires.","The name Kamini Kama Sundari is richly layered. It reveals Kali as both the one who stirs divine desire and the one in whom that desire is fully embodied. \"Kamini\" means a desirable woman, or one who arouses desire. \"Kama Sundari\" means the Beautiful One (Sundari) who incites or embodies desire (Kama). The Allurement of the Divine This name points to a beauty that is not merely outward or aesthetic, but deeply magnetic and spiritually compelling. In this form, Kali becomes the supreme object of divine yearning, the one whose very presence awakens an intense longing for union with the Absolute. This is not ordinary worldly desire, but the soul's hunger for liberation and living contact with the Divine, which she herself kindles in the seeker. Inciting Desire in Kāma The phrase \"who awakens desire in Kama\" is especially significant. Kāma is the Hindu god of love and desire, himself portrayed as powerful and enchanting. If even Kāma is drawn toward Kali, then her beauty and attraction stand beyond his own domain. Cosmic desire itself, symbolized by Kāma, turns toward her and finds its fulfilment in her. She is both the source and the final aim of desire, even at its divine level. In this way, the name points to her supremacy over every force, including the impulse that moves creation itself. Embodiment of All Desires As the \"embodiment of all desires,\" Kamini Kama Sundari shows that every form of longing, whether worldly or spiritual, arises from her and returns to her. She is the deepest fulfilment behind all wants and wishes. This does not mean that she grants ordinary desires in a shallow or superficial sense. Rather, she leads the devotee into the true nature of desire itself, purifies it, and turns it toward the highest spiritual end. She is the ground from which longing arises and the one in whom that longing is finally stilled. Paradox of Kali's Nature This name presents a striking paradox. Kali is often seen as the fierce dark Mother who devours time and illusion. Yet Kamini Kama Sundari reveals her as profoundly beautiful, deeply desirable, and the very essence of love and longing. This dual aspect shows her completeness: she is both the one who destroys ego and illusion, and the enchanting source of creation, devotion, and divine love."],[21,"कमार्ता","Kamārtā","Kamarta","The Passionate One, inflamed with divine desire to destroy evil.","The name Kāmartā joins \"Kāma,\" meaning desire or passion, with \"Ārtā,\" meaning distressed or seized by intensity. In the context of Kāli, this does not refer to ordinary human craving. It points instead to a fierce and overwhelming divine passion, especially her burning urge to destroy evil. Divine Passion and Zeal Kāmartā reveals the blazing zeal of the Goddess. Her \"desire\" does not arise from attachment, lack, or personal craving. It is her fierce and compassionate resolve to uphold Dharma and free beings from suffering. This passion reflects her very nature as Ādi Shakti, the primordial energy that does not remain distant from disorder but moves to correct it. Destruction of Evil The direct aim of this divine passion is the destruction of evil, ignorance, and Adharma. She is Kāmartā because she is driven to confront and annihilate demonic forces, both outer and inner. This includes not only asuras but also the enemies within the seeker, such as ego, greed, and lust. Her fervor allows no lasting refuge for what opposes truth. The Fire of Transformation This fiery passion also symbolizes the transforming fire of Agni, which burns away defilement and purifies the spiritual aspirant. Her heat is not only destructive. It is also purifying, making renewal and awakening possible. When invoked as Kāmartā, she kindles that same intensity within her devotees, awakening a passion for truth, liberation, and the Divine. Embodiment of Action Kāmartā underscores Kāli's nature as the dynamic and active power of the Divine. She does not merely observe the cosmic drama. She enters into it, restores balance, and drives beings toward freedom from the cycles of suffering. In this name, she appears as the Mother whose passion is wholly aligned with liberation."],[22,"कामरूपाच","Kāmarūpāca","Kamarupacha","She who can assume any form at will, whether to protect devotees or destroy evil.","Kama Rupacha points to \"She whose form (Rūpa) follows her will or desire (Kāma).\" In the context of Mahakali, this does not suggest whim or fantasy. It reveals her complete sovereignty and her freedom to manifest in whatever form serves the divine purpose. Freedom of Form and Divine Will This name teaches that Mahakali is not confined to any single appearance or limitation. Her essence is pure consciousness, so every form she takes is an expression of her own will, Icchā Shakti. She may appear fierce, compassionate, maternal, or awe-inspiring, according to the need of the moment. No single form defines her, yet every form can become her instrument. Protection and Destruction Her power to assume different forms serves two central purposes: 1. Protection of Devotees: She appears in ways that nourish, guide, and guard sincere devotees from both inner dangers, such as ignorance and ego, and outer inimical forces. This protection may come through a subtle turning of events or through direct intervention. 2. Destruction of Evil: When Adharma and hostile forces threaten cosmic order, she manifests in the precise form needed to confront and destroy them. Her terrible forms are not random. Each is suited to the work of subduing a particular darkness. Cosmic Creativity and Maya Kama Rupacha also points to the Mother's divine māyā, not as mere illusion, but as her creative power to manifest the many-formed universe. Like a cosmic artist, she brings forth forms, sustains them for her leela, and withdraws them again in time. In this way, the name reveals her as the supreme source behind the endless variety of existence, ever free and ever-changing."]];
+</script>
+<script>
+(function(){
+  const SET_SIZE = 11, TOTAL_SETS = 98;
+  let setIndex = 0;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const segs = $('#segs');
+  function norm(s){
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+
+  const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const slice = i => NAMES.slice(i * SET_SIZE, i * SET_SIZE + SET_SIZE);
+
+  function renderTicks(){
+    const t = $('#ticks');
+    t.innerHTML = '';
+    for (let i = 0; i < TOTAL_SETS; i++){
+      const el = document.createElement('i');
+      if (i < setIndex) el.className = 'done';
+      if (i === setIndex) el.className = 'now';
+      t.appendChild(el);
+    }
+  }
+
+  function render(){
+    const rows = slice(setIndex);
+    segs.innerHTML = rows.map((r, i) => {
+      const [num, dev, iast, common, one, elab] = r;
+      return '<article class="seg" data-i="' + i + '" data-search="' + norm(dev + ' ' + iast + ' ' + common + ' ' + one) + '">' +
+        '<div class="num">' + String(num).padStart(2, '0') + '</div>' +
+        '<div>' +
+          '<h3 lang="sa">' + dev + '</h3>' +
+          '<p class="iast">' + iast + '</p>' +
+          '<p class="one">' + one + '</p>' +
+          '<button class="note-btn" type="button" aria-expanded="false" aria-controls="nt-' + num + '">' +
+            '<span class="ch" aria-hidden="true">›</span> Meaning note</button>' +
+          '<div class="note" id="nt-' + num + '" data-open="false"><div>' +
+            '<p>' + elab + '</p>' +
+            '<a class="u" href="https://1000namesofmakali.com/names/' + slug(common) + '/">Read the full note</a>' +
+          '</div></div>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+    segs.querySelectorAll('.note-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const n = document.getElementById(b.getAttribute('aria-controls'));
+        const open = b.getAttribute('aria-expanded') === 'true';
+        b.setAttribute('aria-expanded', String(!open));
+        n.dataset.open = String(!open);
+      });
+    });
+    const start = rows[0][0], end = rows[rows.length - 1][0];
+    $('#rSet').textContent = String(setIndex + 1).padStart(2, '0');
+    $('#rRange').textContent = 'names ' + start + '–' + end + ' of 1,072';
+    $('#colN').textContent = rows.length + ' names';
+    $('#prev').disabled = setIndex === 0;
+    $('#next').disabled = setIndex >= 1;
+    $('#mPrev').disabled = setIndex === 0;
+    $('#mNext').disabled = setIndex >= 1;
+    $('#mSet').textContent = String(setIndex + 1).padStart(2, '0');
+    $('#mPrev').disabled = setIndex === 0;
+    $('#mNext').disabled = setIndex >= 1;
+    $('#mSet').textContent = String(setIndex + 1).padStart(2, '0');
+    renderTicks();
+    filter();
+  }
+
+  function filter(){
+    const q = norm($('#q').value.trim());
+    let shown = 0;
+    segs.querySelectorAll('.seg').forEach(s => {
+      const hit = !q || s.getAttribute('data-search').indexOf(q) !== -1;
+      s.classList.toggle('off', !hit);
+      if (hit) shown++;
+    });
+    const total = segs.querySelectorAll('.seg').length;
+    $('#qn').textContent = q ? shown + '/' + total : '';
+    $('#empty').classList.toggle('on', q !== '' && shown === 0);
+    $('#colN').textContent = q ? shown + ' of ' + total + ' names' : total + ' names';
+  }
+
+  $('#q').addEventListener('input', filter);
+  $('#prev').addEventListener('click', () => { if (setIndex > 0){ setIndex--; render(); } });
+  $('#mPrev').addEventListener('click', () => { if (setIndex > 0){ setIndex--; render(); } });
+  $('#mNext').addEventListener('click', () => { if (setIndex < 1){ setIndex++; render(); } });
+  $('#mPrev').addEventListener('click', () => { if (setIndex > 0){ setIndex--; render(); } });
+  $('#mNext').addEventListener('click', () => { if (setIndex < 1){ setIndex++; render(); } });
+  $('#next').addEventListener('click', () => { if (setIndex < 1){ setIndex++; render(); } });
+  $('#go').addEventListener('click', () => {
+    const v = parseInt($('#jump').value, 10);
+    if (v >= 1 && v <= 2){ setIndex = v - 1; render(); }
+    else { $('#jump').value = ''; $('#jump').placeholder = '1–2 in this prototype'; }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
