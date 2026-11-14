@@ -68,10 +68,15 @@ for every other page) with the single Pothi system, and rebuild the templates:
 - Astro 6 static build (`astro.config.mjs`), Cloudflare Pages output, no runtime database.
 - `package.json` scripts: `dev`, `build` (runs `prebuild` → `seo/build-sitemap.mjs`), `preview`,
   `test:unit`, `check:syntax`, `test:browser`, `validate`.
-- **`node_modules` is not installed.** Run `npm install` first. Node 22 recommended.
+- **`node_modules` is installed in this checkout** (verified 2026-11-13), so `npm run dev` works
+  immediately. On a fresh clone: `npm install` (Node 22 recommended).
 - Tests: `tests/*.test.js` (unit), `playwright-tests/*.spec.js` (smoke, accessibility, visual,
   performance), `playwright.config.js` (preview server on 127.0.0.1:4321, chromium, viewport 1280×1800).
 - CI: `.github/workflows/validation.yml` runs `npm run validate`.
+- **Husky hooks are active** (`core.hooksPath=.husky`). Every commit that touches more than
+  `public/version.json` runs `npm run bump-version`, which bumps the version and creates its own
+  `chore: auto-increment version to X.Y [skip version]` commit. Expect the version to climb during the
+  build — that is the repo's normal behaviour, not a mistake.
 - Visual snapshots live in `playwright-tests/visual.spec.js-snapshots/` and **will** change. Update them
   with `npm run test:browser:update` only after the design is verified, and review the diffs.
 - `src/lib/staticNames.js` already builds ranges (100 per range, 11 ranges) and splits elaboration
@@ -84,7 +89,7 @@ for every other page) with the single Pothi system, and rebuild the templates:
 
 ## 5. Order of work
 
-1. `npm install`; commit `design-demos/` as the reference; open the three prototypes.
+1. Confirm `node_modules` (already installed); open the three prototypes; note the current branch.
 2. Branch: `pothi-system` (or similar).
 3. **Tokens first**: create the new stylesheet from `pothi-system.css`; add night tokens; wire the
    `ReferenceLayout.astro` head (fonts, pre-paint theme script, `pothi-theme.js`).
