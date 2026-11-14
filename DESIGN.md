@@ -1,5 +1,7 @@
 ---
 name: Maa Ādya Mahākālī Sahasranāma
+status: superseded
+supersededBy: design-demos/POTHI-SYSTEM.md
 description: A mobile-first devotional reading experience for the 1,072 names of Maa Ādya Mahākālī.
 colors:
   kali-crimson: "#dc143c"
@@ -84,6 +86,13 @@ components:
 ---
 
 # Design System: Maa Ādya Mahākālī Sahasranāma
+
+> **Superseded.** The site now uses **The Pothi**, documented in
+> [`design-demos/POTHI-SYSTEM.md`](design-demos/POTHI-SYSTEM.md) and
+> [`design-demos/NIGHT-MODE.md`](design-demos/NIGHT-MODE.md). The tokens below describe the
+> previous "Midnight Shrine" direction and are kept for history only. The implementation lives in
+> `public/pothi.css`; the approved prototypes are `design-demos/dir-2.html`,
+> `design-demos/pothi-name-page.html` and `design-demos/pothi-range-page.html`.
 
 ## Overview
 

@@ -1,0 +1,12 @@
+---
+// The fore-edge: the book's edge, one band per name range.
+// Decorative only — hidden from assistive tech, hidden below 1080px.
+const { current = 0, total = 11 } = Astro.props;
+const bands = Array.from({ length: total }, (_, index) => index);
+---
+
+<div class="fore" aria-hidden="true">
+	{bands.map((index) => (
+		<i class={index === current ? 'now' : index < current ? 'done' : undefined}></i>
+	))}
+</div>

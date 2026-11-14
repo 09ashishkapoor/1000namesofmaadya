@@ -3,83 +3,29 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-function createClassList(initial = []) {
-	const values = new Set(initial);
-	return {
-		add: (...tokens) => tokens.forEach((token) => values.add(token)),
-		remove: (...tokens) => tokens.forEach((token) => values.delete(token)),
-		contains: (token) => values.has(token),
-		toggle(token, force) {
-			if (force === undefined) {
-				if (values.has(token)) {
-					values.delete(token);
-					return false;
-				}
-				values.add(token);
-				return true;
-			}
-			if (force) values.add(token);
-			else values.delete(token);
-			return force;
+const BOOT = {
+	setSize: 11,
+	totalSets: 98,
+	totalCount: 1072,
+	names: [
+		{
+			number: 1,
+			dev: "श्मशान कालिका",
+			iast: "Śmaśāna Kālikā",
+			common: "Shmashana Kalika",
+			slug: "shmashana-kalika",
+			one: "The Dark-bodied Goddess of the Cremation Ground.",
+			elab: "The name Shhmashhana Kalika is a powerful compound.",
 		},
-	};
-}
+	],
+};
 
-function createElement(overrides = {}) {
-	return {
-		classList: createClassList(),
-		attributes: {},
-		childNodes: [],
-		focusCalls: 0,
-		innerHTML: "",
-		disabled: false,
-		value: "",
-		textContent: "",
-		dataset: {},
-		appendedChildren: [],
-		listeners: {},
-		setAttribute(name, value) {
-			this.attributes[name] = String(value);
-		},
-		getAttribute(name) {
-			return this.attributes[name];
-		},
-		focus() {
-			this.focusCalls += 1;
-		},
-		appendChild(child) {
-			this.appendedChildren.push(child);
-			return child;
-		},
-		addEventListener(event, handler) {
-			this.listeners[event] = handler;
-		},
-		querySelector() {
-			return null;
-		},
-		querySelectorAll() {
-			return [];
-		},
-		...overrides,
-	};
-}
-
-function loadHooks({
-	assetVersion = "build123",
-	width = 500,
-	documentOverrides = {},
-	setTimeoutImpl,
-	onLine = true,
-} = {}) {
+function loadReader({ boot = BOOT, assetVersion = "build123", onLine = true } = {}) {
 	const scriptPath = path.join(__dirname, "..", "public", "app.js");
-	let source = fs.readFileSync(scriptPath, "utf8");
-	source = source.replace(
-		/\}\)\(\);\s*$/,
-		`window.__APP_TEST_HOOKS__ = { state, elements, getAssetUrl, getSearchPanelToggleLabel, setSearchPanelOpen, updateReadingProgress, updateStats, handleClear, renderNames, showError, getReadableErrorMessage }\n})();`,
-	);
+	const source = fs.readFileSync(scriptPath, "utf8");
 
 	const documentStub = {
-		readyState: "loading",
+		readyState: "complete",
 		addEventListener() {},
 		getElementById() {
 			return null;
@@ -90,252 +36,178 @@ function loadHooks({
 		querySelectorAll() {
 			return [];
 		},
-		documentElement: { lang: "en", dataset: {} },
-		createDocumentFragment() {
-			return { appendChild() {} };
-		},
 		createElement() {
-			return createElement({
+			return {
+				setAttribute() {},
+				appendChild() {},
+				classList: { add() {}, toggle() {} },
 				style: {},
-				querySelector() {
-					return createElement();
-				},
-			});
+			};
 		},
-		...documentOverrides,
 	};
 
 	const context = {
 		console: { log() {}, warn() {}, error() {} },
 		navigator: { onLine },
-		window: {
-			__ASSET_VERSION__: assetVersion,
-			innerWidth: width,
-			__INITIAL_NAMES_PAYLOAD__: null,
-			location: { search: "" },
-			addEventListener() {},
-			requestIdleCallback() {},
-			requestAnimationFrame(callback) {
-				callback();
-			},
-			scrollTo() {},
-		},
 		document: documentStub,
-		requestIdleCallback(callback) {
-			callback();
-		},
-		URLSearchParams,
-		setTimeout: setTimeoutImpl || (() => 1),
-		clearTimeout() {},
+		setTimeout,
+		clearTimeout,
+		Promise,
+		Map,
 		fetch() {
 			return Promise.reject(new Error("fetch disabled in test"));
 		},
+		window: {
+			__ASSET_VERSION__: assetVersion,
+			__READER_BOOT__: boot,
+			matchMedia() {
+				return { matches: false };
+			},
+		},
 	};
-
 	context.global = context;
 	context.globalThis = context;
 	context.self = context.window;
 
 	vm.runInNewContext(source, context, { filename: "app.js" });
-	return context.window.__APP_TEST_HOOKS__;
+	return { reader: context.window.__READER__, context };
 }
 
 function testAssetUrlsUseVersionQuery() {
-	const hooks = loadHooks({ assetVersion: "abc123" });
-	assert.strictEqual(
-		hooks.getAssetUrl("/data_manifest.json"),
-		"/data_manifest.json?v=abc123",
-	);
+	const { reader } = loadReader({ assetVersion: "abc123" });
+	assert.strictEqual(reader.getAssetUrl("/data_manifest.json"), "/data_manifest.json?v=abc123");
+	assert.strictEqual(reader.getAssetUrl("/name-spine.json"), "/name-spine.json?v=abc123");
 }
 
-function testSearchPanelOpenUpdatesStateAndUi() {
-	const hooks = loadHooks({ width: 500 });
-	hooks.elements.searchPanel = createElement();
-	hooks.elements.searchToggleBtn = createElement();
-	hooks.elements.searchInput = createElement();
-
-	hooks.setSearchPanelOpen(true, true);
-
-	assert.strictEqual(hooks.state.searchPanelOpen, true);
-	assert.strictEqual(
-		hooks.elements.searchToggleBtn.getAttribute("aria-expanded"),
-		"true",
-	);
-	assert.ok(hooks.elements.searchPanel.classList.contains("is-open"));
-	assert.ok(!hooks.elements.searchPanel.classList.contains("mobile-collapsed"));
-	assert.strictEqual(hooks.elements.searchInput.focusCalls, 1);
-	assert.strictEqual(
-		hooks.elements.searchToggleBtn.textContent,
-		"Close Search",
-	);
+function testAssetUrlsWithoutVersion() {
+	const { reader } = loadReader({ assetVersion: "" });
+	assert.strictEqual(reader.getAssetUrl("/name-spine.json"), "/name-spine.json");
 }
 
-function testReadingProgressUsesCurrentPageWindow() {
-	const hooks = loadHooks();
-	hooks.elements.readingProgress = createElement();
-	hooks.state.filteredData = new Array(23).fill({});
-	hooks.state.displayedData = new Array(11).fill({});
-	hooks.state.currentPage = 1;
-	hooks.state.pageSize = 11;
-
-	hooks.updateReadingProgress();
-
-	assert.strictEqual(
-		hooks.elements.readingProgress.innerHTML,
-		"Showing <strong>12</strong>-<strong>22</strong> of <strong>23</strong>",
-	);
+function testNormalizeIsAccentInsensitive() {
+	const { reader } = loadReader();
+	assert.strictEqual(reader.normalize("Kālī"), "kali");
+	assert.strictEqual(reader.normalize("Śmaśāna Kālikā"), "smasana kalika");
+	assert.strictEqual(reader.normalize("Kurukullā-Virodhinī"), "kurukulla-virodhini");
+	assert.strictEqual(reader.normalize(null), "");
 }
 
-function testStatsRenderSearchAndDefaultModes() {
-	const hooks = loadHooks();
-	hooks.elements.statsDisplay = createElement();
-	hooks.state.filteredData = new Array(7).fill({});
-	hooks.state.searchQuery = "kali";
-	hooks.updateStats();
-	assert.strictEqual(
-		hooks.elements.statsDisplay.innerHTML,
-		'🔍 Found <strong>7</strong> names matching "kali"',
-	);
-
-	hooks.state.searchQuery = "";
-	hooks.updateStats();
-	assert.strictEqual(
-		hooks.elements.statsDisplay.innerHTML,
-		"📿 Showing all <strong>1072</strong> names of <strong>Maa Adya Mahakali</strong>",
-	);
+function testPadUsesTwoDigits() {
+	const { reader } = loadReader();
+	assert.strictEqual(reader.pad(1), "01");
+	assert.strictEqual(reader.pad(9), "09");
+	assert.strictEqual(reader.pad(11), "11");
+	assert.strictEqual(reader.pad(1072), "1072");
 }
 
-function testStatsEscapeUserSearchQuery() {
-	const hooks = loadHooks();
-	hooks.elements.statsDisplay = createElement();
-	hooks.state.filteredData = new Array(1).fill({});
-	hooks.state.searchQuery = "<img src=x onerror=alert(1)>";
-	hooks.updateStats();
-	assert.ok(
-		hooks.elements.statsDisplay.innerHTML.includes(
-			"&lt;img src=x onerror=alert(1)&gt;",
-		),
-	);
-	assert.ok(
-		!hooks.elements.statsDisplay.innerHTML.includes(
-			"<img src=x onerror=alert(1)>",
-		),
-	);
+function testShortenCutsOnWordBoundary() {
+	const { reader } = loadReader();
+	const short = "A short note.";
+	assert.strictEqual(reader.shorten(short), short);
+
+	const long = `${"word ".repeat(400)}end`;
+	const cut = reader.shorten(long);
+	assert.ok(cut.length <= 641, "shortened elaboration stays near the limit");
+	assert.ok(cut.endsWith("…"), "shortened elaboration is marked with an ellipsis");
+	const kept = cut.slice(0, -1);
+	assert.ok(long.startsWith(kept), "the kept text is a prefix of the original");
+	assert.ok(/[\s,;:]/.test(long[kept.length]), "the cut lands on a word boundary, not inside a word");
 }
 
-function testSearchToggleLabelUsesEnglishOnlyCopy() {
-	const hooks = loadHooks();
-	hooks.state.searchPanelOpen = false;
-	assert.strictEqual(hooks.getSearchPanelToggleLabel(), "Open Search");
-	hooks.state.searchPanelOpen = true;
-	assert.strictEqual(hooks.getSearchPanelToggleLabel(), "Close Search");
+function testSetRangesCoverAllNames() {
+	const { reader } = loadReader();
+	// Objects cross the VM realm boundary, so compare the values, not the references.
+	const range = (index) => {
+		const value = reader.rangeForSet(index);
+		return [value.start, value.end];
+	};
+	assert.deepStrictEqual(range(0), [1, 11]);
+	assert.deepStrictEqual(range(1), [12, 22]);
+	assert.deepStrictEqual(range(97), [1068, 1072]);
 }
 
-function testReadableErrorMessagesHandleOfflineTimeoutAndActionTypes() {
-	const onlineHooks = loadHooks();
-	onlineHooks.elements.errorState = createElement();
-	onlineHooks.elements.errorMessage = createElement();
-	onlineHooks.elements.retryBtn = createElement();
+function testBuildSetNamesMergesSpellingAndMeaning() {
+	const { reader } = loadReader();
+	const spine = new Map([
+		[1, { dev: "श्मशान कालिका", iast: "Śmaśāna Kālikā", slug: "shmashana-kalika" }],
+		[2, { dev: "काली", iast: "Kālī", slug: "kali" }],
+	]);
+	const chunk = new Map([
+		[1, { index: 1, english_name: "SHHMASHHANA KALIKA", english_one_line: "One.", english_elaboration: "Long note." }],
+		[2, { index: 2, english_name: "KALI", english_one_line: "Two.", english_elaboration: "Another note." }],
+	]);
+	const names = reader.buildSetNames(0, spine, [chunk]);
+
+	assert.strictEqual(names.length, 11, "a set always carries eleven rows");
+	assert.strictEqual(names[0].dev, "श्मशान कालिका", "Devanagari comes from the spelling mapping");
+	assert.strictEqual(names[1].iast, "Kālī", "IAST comes from the spelling mapping");
+	assert.strictEqual(names[0].one, "One.", "the one-line meaning comes from the chunk");
+	assert.strictEqual(names[0].slug, "shmashana-kalika", "the page slug comes from the mapping");
+	assert.strictEqual(names[0].elab, "Long note.");
+	assert.strictEqual(names[2].one, "", "names beyond the loaded chunk render empty rather than guessed text");
+}
+
+function testReadableErrorMessages() {
+	const { reader } = loadReader();
 	assert.strictEqual(
-		onlineHooks.getReadableErrorMessage("search"),
-		"Search could not finish loading. Please try again.",
+		reader.describeFailure(new Error("boom")),
+		"This set of names could not be loaded. Please try again.",
 	);
+	const offline = loadReader({ onLine: false }).reader;
+	assert.strictEqual(offline.describeFailure(new Error("boom")), "You appear to be offline. Reconnect and try again.");
+	const aborted = loadReader().reader;
+	const error = new Error("timeout");
+	error.name = "AbortError";
 	assert.strictEqual(
-		onlineHooks.getReadableErrorMessage("next-page"),
-		"Could not load the next set of names. Please try again.",
-	);
-	assert.strictEqual(
-		onlineHooks.getReadableErrorMessage("search", { name: "AbortError" }),
+		aborted.describeFailure(error),
 		"The connection is taking longer than expected. Please try again.",
 	);
-
-	const offlineHooks = loadHooks({ onLine: false });
-	offlineHooks.elements.errorState = createElement();
-	offlineHooks.elements.errorMessage = createElement();
-	offlineHooks.elements.retryBtn = createElement();
-	assert.strictEqual(
-		offlineHooks.getReadableErrorMessage("search"),
-		"You appear to be offline. Reconnect and try again.",
-	);
 }
 
-function testShowErrorUpdatesRetryLabelByFailureType() {
-	const hooks = loadHooks();
-	hooks.elements.errorState = createElement({
-		classList: createClassList(["hidden"]),
-	});
-	hooks.elements.errorMessage = createElement();
-	hooks.elements.retryBtn = createElement();
-	hooks.state.displayedData = [{ index: 1 }];
-
-	hooks.showError("Search failed", "search");
-	assert.strictEqual(hooks.elements.retryBtn.textContent, "Retry search");
-	assert.ok(!hooks.elements.errorState.classList.contains("hidden"));
-
-	hooks.showError("Page failed", "next-page");
-	assert.strictEqual(
-		hooks.elements.retryBtn.textContent,
-		"Retry loading names",
-	);
-}
-
-function testRenderNamesShowsEmptyStateForNoResults() {
-	const hooks = loadHooks();
-	hooks.elements.namesGrid = createElement({
-		dataset: {},
-		appendChild() {},
-		querySelectorAll() {
-			return [];
+function testStatusWritesTextAndErrorClass() {
+	const { reader } = loadReader();
+	const classes = new Set();
+	reader.elements.status = {
+		textContent: "",
+		classList: {
+			toggle(name, force) {
+				if (force) classes.add(name);
+				else classes.delete(name);
+			},
 		},
-	});
-	hooks.elements.prevPageBtn = createElement();
-	hooks.elements.nextPageBtn = createElement();
-	hooks.elements.readingProgress = createElement();
-	hooks.state.filteredData = [];
-	hooks.state.displayedData = [];
-	hooks.state.searchQuery = "zzznomatch";
-	hooks.renderNames();
-	assert.ok(
-		hooks.elements.namesGrid.innerHTML.includes("No names matched your search"),
-	);
+	};
+	reader.setStatus("Could not load", true);
+	assert.strictEqual(reader.elements.status.textContent, "Could not load");
+	assert.ok(classes.has("is-error"));
+	reader.setStatus("", false);
+	assert.strictEqual(reader.elements.status.textContent, "");
+	assert.ok(!classes.has("is-error"));
 }
 
-function testClearResetsSearchState() {
-	const hooks = loadHooks();
-	hooks.elements.searchInput = createElement({ value: "kali" });
-	hooks.elements.clearBtn = createElement();
-	hooks.elements.statsDisplay = createElement();
-	hooks.elements.namesGrid = createElement({
-		dataset: {},
-		appendChild() {},
-		querySelectorAll() {
-			return [];
-		},
-	});
-	hooks.elements.prevPageBtn = createElement();
-	hooks.elements.nextPageBtn = createElement();
-	hooks.elements.readingProgress = createElement();
-	hooks.state.data = [{ index: 1 }, { index: 2 }];
-	hooks.state.filteredData = [{ index: 1 }];
-	hooks.state.displayedData = [{ index: 1 }];
-	hooks.state.searchQuery = "kali";
+function testReaderBootstrapsFromServerPayload() {
+	const { reader } = loadReader();
+	assert.strictEqual(reader.state.setIndex, 0);
+	assert.strictEqual(reader.state.current, 0);
+	assert.strictEqual(reader.state.names.length, 1);
+	assert.strictEqual(reader.state.names[0].dev, "श्मशान कालिका");
+}
 
-	hooks.handleClear();
-
-	assert.strictEqual(hooks.state.searchQuery, "");
-	assert.strictEqual(hooks.elements.searchInput.value, "");
-	assert.strictEqual(hooks.elements.clearBtn.disabled, true);
+function testSelectNameIgnoresOutOfRange() {
+	const { reader } = loadReader();
+	reader.selectName(3);
+	assert.strictEqual(reader.state.current, 0, "an out-of-range index does not move the selection");
 }
 
 testAssetUrlsUseVersionQuery();
-testSearchPanelOpenUpdatesStateAndUi();
-testReadingProgressUsesCurrentPageWindow();
-testStatsRenderSearchAndDefaultModes();
-testStatsEscapeUserSearchQuery();
-testSearchToggleLabelUsesEnglishOnlyCopy();
-testReadableErrorMessagesHandleOfflineTimeoutAndActionTypes();
-testShowErrorUpdatesRetryLabelByFailureType();
-testRenderNamesShowsEmptyStateForNoResults();
-testClearResetsSearchState();
+testAssetUrlsWithoutVersion();
+testNormalizeIsAccentInsensitive();
+testPadUsesTwoDigits();
+testShortenCutsOnWordBoundary();
+testSetRangesCoverAllNames();
+testBuildSetNamesMergesSpellingAndMeaning();
+testReadableErrorMessages();
+testStatusWritesTextAndErrorClass();
+testReaderBootstrapsFromServerPayload();
+testSelectNameIgnoresOutOfRange();
 
-console.log("app.js regression tests passed");
+console.log("app.js reader tests passed");

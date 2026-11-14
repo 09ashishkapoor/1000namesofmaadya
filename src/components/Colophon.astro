@@ -1,0 +1,67 @@
+---
+// The Pothi colophon — the same closing page on every template.
+// Carries every internal link the old site footers carried.
+const {
+	version = null,
+	lastUpdated = null,
+	ranges = [],
+	label = 'The Pothi',
+} = Astro.props;
+
+const links = [
+	{ label: 'The reader', href: '/' },
+	{ label: 'Names hub', href: '/names/' },
+	{ label: '108 Names', href: '/108-names-of-kali/' },
+	{ label: '1008 Names', href: '/1008-names-of-kali/' },
+	{ label: 'Free PDFs', href: '/kali-sahasranama-pdf/' },
+	{ label: 'Lyrics', href: '/kali-sahasranama-lyrics/' },
+	{ label: 'Benefits', href: '/kali-sahasranama-benefits/' },
+	{ label: 'Sources', href: '/sources/' },
+	{ label: 'About', href: '/about/' },
+	{ label: 'Contact', href: '/contact/' },
+	{ label: 'Privacy', href: '/privacy/' },
+];
+---
+
+<footer class="colophon">
+	<div class="om" lang="sa">ॐ</div>
+	<p class="ded">
+		Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong>
+	</p>
+	<p class="mantra" lang="sa">Jai Ma Krishna<br />Jai Mā Ādya Mahākālī<br />Jai Kālabhairava</p>
+	<p class="blessing">Om Shri Gurubhyo Namaha | Jai Khyapa Parampara</p>
+	<p class="blessing">May every word read here bring you closer to Ma Adya Mahakali.</p>
+
+	<div class="links">
+		{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		<a href="https://jaikhyapaparampara.com/" target="_blank" rel="noopener">Sister site ↗</a>
+		<a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener"
+			>Open source on GitHub</a
+		>
+		<a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener">@ashishkaliputra</a>
+	</div>
+
+	{ranges.length > 0 && (
+		<p class="fine ranges">
+			Browse names by range:
+			{ranges.map((range, index) => (
+				<>
+					{index > 0 && ' · '}
+					<a href={range.path}>Names {range.label}</a>
+				</>
+			))}
+		</p>
+	)}
+
+	<p class="fine">Maa Ādya Mahākālī Sahasranāma · 1,072 names · {label}</p>
+	{version && (
+		<p class="fine">
+			&copy; <span data-current-year>2026</span> KaliPutra-Ashish. All knowledge is forever free to share.
+		</p>
+	)}
+	{version && (
+		<p class="fine">
+			Version V{version} · Last updated {lastUpdated}
+		</p>
+	)}
+</footer>

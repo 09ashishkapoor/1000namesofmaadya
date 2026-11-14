@@ -8,28 +8,16 @@
   Cache-Control: public, max-age=2592000, immutable
 
 # Cache rules for static assets to improve CDN performance
-/site.min.css
+/pothi.css
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
-/styles.min.css
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/navigation.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/navigation.min.js
+/pothi-theme.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /app.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
-/app.min.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/translations.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/reference.css
+/name-spine.json
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /downloads/*.pdf

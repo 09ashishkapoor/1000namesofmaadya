@@ -23,17 +23,19 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 ## Features
 
 - **1,072 sacred names** with English meanings and detailed elaborations
+- **The Pothi** — a paper-on-desk reading system: one stylesheet, one running head, one colophon on every page
 - **Searchable reader** for finding names or meanings quickly
 - **Reading pagination** in sets of 11 names for slower devotional pacing
-- **Expandable name cards** for short meanings and longer notes
+- **Devanagari first** — the reader server-renders its first set of eleven with Devanagari, IAST and meaning, so the text is readable without JavaScript
+- **Night reading** on every page — a button in the running head, a pre-paint script so the choice never flashes, and a warm ink-black token set (not an inversion)
 - **Static names reference pages** at `/names/` for SEO, sharing, and no-JavaScript access
 - **Individual name pages** at `/names/<slug>/` with Devanagari, IAST, alternate spellings, meaning, and full elaboration
 - **Head-term guides** for [108 names](https://1000namesofmakali.com/108-names-of-kali/), [1,008 names](https://1000namesofmakali.com/1008-names-of-kali/), [PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/), [lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/), and [benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/)
 - **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.57 MB) with the Maa Adya Mahakali devotional image on the cover
 - **Generated sitemap** covering every URL, plus structured data (`Article`, `DefinedTerm`, `Book`, `FAQPage`, `BreadcrumbList`)
-- **Sister-site styling** — every page except the interactive landing page uses the visual system of [Jai Khyapa Parampara](https://jaikhyapaparampara.com/): the same temple palette, Crimson Text + Philosopher typography, and header/footer chrome
+- **Crimson Pro + Tiro Devanagari Sanskrit** typography, with the same paper, ink and cinnabar tokens in both themes
 - **Mobile-first interface** with large touch targets and resilient text wrapping
-- **Devotional visual system** documented in `PRODUCT.md`, `DESIGN.md`, and `DESIGN.json`
+- **Design system documented in `design-demos/POTHI-SYSTEM.md`** (supersedes `PRODUCT.md`, `DESIGN.md` and `DESIGN.json`)
 - **Offline/cache support** through a service worker
 - **Validation baseline** with unit tests, Playwright smoke tests, accessibility checks, visual snapshots, and performance budgets
 - **Static deployment** suitable for Cloudflare Pages or any static host
@@ -201,20 +203,32 @@ See [`docs/validation-baseline.md`](docs/validation-baseline.md) for the test po
 
 ## Design System
 
-The current visual direction is documented in:
+The site uses **The Pothi**, a paper-on-desk devotional reading system. It is documented in:
 
-- [`PRODUCT.md`](PRODUCT.md) — users, purpose, brand personality, anti-references, principles
-- [`DESIGN.md`](DESIGN.md) — design-system narrative and tokens
-- [`DESIGN.json`](DESIGN.json) — machine-readable sidecar for design tooling
+- [`design-demos/POTHI-SYSTEM.md`](design-demos/POTHI-SYSTEM.md) — tokens, page-by-page mapping, technical notes, risks
+- [`design-demos/NIGHT-MODE.md`](design-demos/NIGHT-MODE.md) — the night-reading token table and control
+- [`design-demos/direction-approved.md`](design-demos/direction-approved.md) — what was approved, in the client's words
+- [`design-demos/dir-2.html`](design-demos/dir-2.html), [`pothi-name-page.html`](design-demos/pothi-name-page.html), [`pothi-range-page.html`](design-demos/pothi-range-page.html) — the approved prototypes
 
-Core design principles:
+`PRODUCT.md`, `DESIGN.md` and `DESIGN.json` describe the previous "Midnight Shrine" direction and are kept for history only. Do not build against them.
 
-- Reverent reading first
-- Mobile clarity is non-negotiable
-- Dark shrine atmosphere, not generic dark SaaS
-- Crimson is sacred emphasis, not decoration everywhere
-- Gold is blessing and guidance, not sparkle
-- No decorative glassmorphism, gradient text, or AI-slop card grids
+Implementation:
+
+| Concern | Where |
+| --- | --- |
+| Tokens, type, components, both themes | `public/pothi.css` (the only stylesheet) |
+| Night-reading control | `public/pothi-theme.js` + the inline pre-paint script in each `<head>` |
+| Running head, colophon, fore-edge | `src/components/` |
+| Shared head, SEO, schema | `src/layouts/ReferenceLayout.astro` |
+| Reader script (sets, search, selection) | `public/app.js` |
+
+Core design rules:
+
+- The Devanagari is the hero on every page; the IAST sits under it in cinnabar italic
+- One accent (cinnabar) per screen, never as a gradient
+- Night mode is the same paper after dark — a second token set, never an inversion
+- Every page opens with the same running head and closes with the same colophon
+- No cards, no pills, no emoji, no uppercase micro-labels, no glow
 
 ---
 

@@ -1,0 +1,44 @@
+---
+// The Pothi running head: brand, site nav, night-reading control.
+// Every page opens with this and closes with Colophon.astro — that is what
+// makes the site read as one book.
+const path = Astro.url.pathname;
+
+const navItems = [
+	{ label: 'Names', href: '/names/' },
+	{ label: '108 names', href: '/108-names-of-kali/' },
+	{ label: '1008 names', href: '/1008-names-of-kali/' },
+	{ label: 'PDF', href: '/kali-sahasranama-pdf/' },
+	{ label: 'Lyrics', href: '/kali-sahasranama-lyrics/' },
+	{ label: 'Benefits', href: '/kali-sahasranama-benefits/' },
+	{ label: 'About', href: '/about/' },
+];
+
+function isCurrent(href) {
+	if (href === '/names/') return path === '/names/' || path.startsWith('/names/');
+	return path === href || path.startsWith(href);
+}
+---
+
+<header class="bar">
+	<a class="brand" href="/" translate="no">
+		<span class="dev" lang="sa">आद्या महाकाली सहस्रनाम</span>
+		<span class="lat">Maa Ādya Mahākālī</span>
+	</a>
+	<nav aria-label="Site">
+		{navItems.map((item) => (
+			<a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+				{item.label}
+			</a>
+		))}
+	</nav>
+	<button
+		class="theme"
+		type="button"
+		data-theme-toggle
+		aria-pressed="false"
+		aria-label="Switch to night reading"
+	>
+		<span class="sw" aria-hidden="true"></span><span class="lbl">Night</span>
+	</button>
+</header>

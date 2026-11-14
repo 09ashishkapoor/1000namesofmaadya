@@ -1,5 +1,6 @@
 ---
 import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+import ForeEdge from '../../components/ForeEdge.astro';
 
 import { getStaticNamesData } from '../../lib/staticNames.js';
 
@@ -44,6 +45,10 @@ const hubSchema = {
     }
   ]
 };
+
+const DEVANAGARI_DIGITS = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+const devanagariNumerals = (value) => String(value).replace(/\d/g, (digit) => DEVANAGARI_DIGITS[Number(digit)]).replace(/-/g, '–');
+const enDash = (value) => String(value).replace(/-/g, '–');
 ---
 
 <ReferenceLayout
@@ -51,65 +56,94 @@ const hubSchema = {
 	description={hub.description}
 	canonical={hub.canonical}
 	schema={hubSchema}
+	colophonLabel="The Pothi, names hub"
 >
-<nav class="breadcrumbs" aria-label="Breadcrumb">
-				<ol>
-					<li><a href="/">Home</a></li>
-					<li><span aria-current="page">Names hub</span></li>
-				</ol>
-			</nav>
-<p class="page-kicker">Static study hub</p>
-      <h1>Adya Mahakali Names Hub</h1>
+	<ForeEdge current={-1} total={ranges.length} />
 
-      <figure class="page-figure">
-        <img
-          src="/MaaAdyaKali_5.webp"
-          alt="Statue of Maa Adya Mahakali with a trident, skull garland, and red hibiscus flowers"
-          width="1920"
-          height="1080"
-          loading="lazy"
-          decoding="async"
-        />
-        <figcaption>Maa Adya Mahakali — devotional image used on this site.</figcaption>
-      </figure>
+	<nav class="breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/">Home</a></li>
+			<li><span aria-current="page">Names hub</span></li>
+		</ol>
+	</nav>
 
-      <section class="hero-panel">
-        <p class="intro">Use this static hub to browse all <strong>{totalCount}</strong> Adya Mahakali names by range. Each section page lists its entries with one-line and detailed English meanings, and every name links to its own reference page with Devanagari, transliteration, alternate spellings, and meaning.</p>
-        <nav class="page-nav" aria-label="Hub navigation">
-          <ul>
-            <li><a href="/">Open the interactive homepage reader</a></li>
-            <li><a href="/kali-sahasranama-pdf/">Download the free PDF editions</a></li>
-            <li><a href="/sources/">Read sources and editorial notes</a></li>
-            <li><a href="/108-names-of-kali/">108 names of Maa Kali</a></li>
-            <li><a href="/1008-names-of-kali/">1,008 vs 1,072 names</a></li>
-            <li><a href="/kali-sahasranama-lyrics/">Kali Sahasranama lyrics</a></li>
-            <li><a href="/kali-sahasranama-benefits/">Kali Sahasranama benefits</a></li>
-          </ul>
-        </nav>
-      </section>
+	<p class="page-kicker">Static study hub · {totalCount.toLocaleString('en-US')} names in {ranges.length} ranges</p>
+	<h1>Adya Mahakali Names Hub</h1>
 
-      <section class="ranges-panel" aria-labelledby="ranges-heading">
-        <div class="section-heading">
-          <p class="section-kicker">Directory</p>
-          <h2 id="ranges-heading">Browse by name ranges</h2>
-        </div>
-        <ol class="range-list">
-          {ranges.map((range) => (
-            <li>
-              <a href={range.path}>{range.heading}</a>
-              <div>Starts with {range.firstName.english} and ends with {range.lastName.english}.</div>
-            </li>
-          ))}
-        </ol>
-      </section>
+	<nav class="rtabs" aria-label="Name ranges" style="margin-top:clamp(18px,2.4vw,26px)">
+		{ranges.map((range) => (
+			<a href={range.path}>
+				{enDash(range.label)}
+			</a>
+		))}
+	</nav>
 
-      <section class="source-notes" aria-labelledby="hub-source-notes-heading">
-        <h2 id="hub-source-notes-heading">Sources and notes</h2>
-        <p>This project compiles devotional source material and explanatory meaning notes for spiritual study and chanting support.</p>
-        <p>Primary public references used during compilation include:</p>
-        <ul>
-          <li><a href="https://sanskritdocuments.org/" rel="noopener noreferrer">SanskritDocuments.org</a></li>
-        </ul>
-        <p>If you notice an inaccuracy, please review the open-source repository or contact the maintainer through the links on the homepage.</p>
-      </section>
+	<figure class="page-figure" style="margin-top:clamp(22px,3vw,34px)">
+		<img
+			src="/MaaAdyaKali_5.webp"
+			alt="Statue of Maa Adya Mahakali with a trident, skull garland, and red hibiscus flowers"
+			width="1920"
+			height="1080"
+			loading="lazy"
+			decoding="async"
+		/>
+		<figcaption>Maa Adya Mahakali — devotional image used on this site.</figcaption>
+	</figure>
+
+	<section class="hero-panel" style="margin-top:clamp(22px,3vw,34px)">
+		<p class="intro">
+			Use this static hub to browse all <strong>{totalCount}</strong> Adya Mahakali names by range. Each section page
+			lists its entries with one-line and detailed English meanings, and every name links to its own reference page
+			with Devanagari, transliteration, alternate spellings, and meaning.
+		</p>
+		<nav class="page-nav" aria-label="Hub navigation">
+			<ul>
+				<li><a href="/">Open the interactive homepage reader</a></li>
+				<li><a href="/kali-sahasranama-pdf/">Download the free PDF editions</a></li>
+				<li><a href="/sources/">Read sources and editorial notes</a></li>
+				<li><a href="/108-names-of-kali/">108 names of Maa Kali</a></li>
+				<li><a href="/1008-names-of-kali/">1,008 vs 1,072 names</a></li>
+				<li><a href="/kali-sahasranama-lyrics/">Kali Sahasranama lyrics</a></li>
+				<li><a href="/kali-sahasranama-benefits/">Kali Sahasranama benefits</a></li>
+			</ul>
+		</nav>
+	</section>
+
+	<section class="ranges-panel" aria-labelledby="ranges-heading">
+		<div class="sechead" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:0 0 6px;flex-wrap:wrap">
+			<h2 class="sec" id="ranges-heading" style="border:0;margin:0;flex:1">
+				<span class="n" lang="sa">पाठ</span>Browse by name ranges
+			</h2>
+			<span
+				class="meta"
+				style="font-family:var(--serif);font-size:12.5px;font-variant:all-small-caps;letter-spacing:.12em;color:var(--ash)"
+				>Devanagari · IAST · meaning</span
+			>
+		</div>
+		<ol class="range-list">
+			{ranges.map((range) => (
+				<li>
+					<a class="tl" href={range.path}>
+						<span class="t" lang="sa">{devanagariNumerals(range.label)}</span>
+						<span class="d"></span>
+						<span class="p">{range.count} names</span>
+					</a>
+					<div>
+						<a class="range-heading" href={range.path}>{range.heading}</a> — Starts with {range.firstName.english} and
+						ends with {range.lastName.english}.
+					</div>
+				</li>
+			))}
+		</ol>
+	</section>
+
+	<section class="source-notes" aria-labelledby="hub-source-notes-heading">
+		<h2 id="hub-source-notes-heading">Sources and notes</h2>
+		<p>This project compiles devotional source material and explanatory meaning notes for spiritual study and chanting support.</p>
+		<p>Primary public references used during compilation include:</p>
+		<ul>
+			<li><a href="https://sanskritdocuments.org/" rel="noopener noreferrer">SanskritDocuments.org</a></li>
+		</ul>
+		<p>If you notice an inaccuracy, please review the open-source repository or contact the maintainer through the links on the homepage.</p>
+	</section>
 </ReferenceLayout>

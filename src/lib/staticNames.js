@@ -107,15 +107,23 @@ export function getStaticNamesData() {
 
 	const manifest = loadDataManifest();
 	const mapping = loadNameMapping();
-	const pageSlugByNumber = new Map(
-		mapping.rows.map((row) => [Number(row.number), row.page_slug ?? null]),
+	const mappingByNumber = new Map(
+		mapping.rows.map((row) => [Number(row.number), row]),
 	);
 	const allEntries = manifest.files
 		.flatMap((fileName) => loadChunkFile(fileName))
-		.map((entry) => ({
-			...enrichEntry(entry),
-			page_slug: pageSlugByNumber.get(Number(entry.index)) ?? null,
-		}))
+		.map((entry) => {
+			const mappingRow = mappingByNumber.get(Number(entry.index));
+			return {
+				...enrichEntry(entry),
+				page_slug: mappingRow?.page_slug ?? null,
+				// The spelling mapping already carries the Devanagari and IAST forms;
+				// the data chunks only carry the English side.
+				devanagari: mappingRow?.devanagari ?? null,
+				iast: mappingRow?.iast ?? null,
+				spelling_common: mappingRow?.spelling_common ?? null,
+			};
+		})
 		.sort((a, b) => a.index - b.index);
 
 	const rangeSize = 100;

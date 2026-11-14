@@ -11,6 +11,17 @@ async function blockExternalTelemetry(page) {
 	}
 }
 
+async function stubServiceWorker(page) {
+	await page.addInitScript(() => {
+		if (!navigator.serviceWorker) return;
+		navigator.serviceWorker.register = () =>
+			Promise.resolve({
+				unregister: () => Promise.resolve(true),
+				update: () => Promise.resolve(),
+			});
+	});
+}
+
 async function waitForFonts(page) {
 	await page.evaluate(async () => {
 		if (document.fonts && document.fonts.ready) {
@@ -35,21 +46,25 @@ async function disableMotionForStableTests(page) {
 
 async function gotoHome(page) {
 	await blockExternalTelemetry(page);
+	await stubServiceWorker(page);
 	await page.goto("/", { waitUntil: "load" });
 	await disableMotionForStableTests(page);
-	await expect(page.locator("#names-grid .name-card").first()).toBeVisible();
+	// The left leaf is hidden on phones, where the two-column index takes over.
+	await expect(page.locator("#toc button:visible, #m-list button:visible").first()).toBeVisible();
+	await expect(page.locator("#page .page-name")).not.toBeEmpty();
 	await waitForFonts(page);
 }
 
-async function openNamesExplorer(page) {
+async function openReader(page) {
 	await gotoHome(page);
-	await page.locator("#explore-btn").click();
-	await expect(page.locator("#names-section")).toBeInViewport();
+	await page.locator(".cover-copy a.open").click();
+	await expect(page.locator("#read")).toBeInViewport();
 }
 
 module.exports = {
 	blockExternalTelemetry,
 	gotoHome,
-	openNamesExplorer,
+	openReader,
+	stubServiceWorker,
 	waitForFonts,
 };

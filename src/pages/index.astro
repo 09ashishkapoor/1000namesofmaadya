@@ -1,663 +1,696 @@
 ---
-// Adya Mahakali Sahasranama - Astro page
+// Adya Mahakali Sahasranama — the reader.
+// The first set of eleven is rendered at build time from src/data/name-mapping.json
+// (Devanagari, IAST, common spelling, page slug) joined with the meaning data in
+// public/data_chunk_1.json, so the sacred text is in the HTML with no extra network cost.
+// public/data_chunk_*.json stays the source for the remaining sets.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { getStaticNamesData } from '../lib/staticNames.js';
+import { getStaticNamesData, getNameMapping } from '../lib/staticNames.js';
+import ForeEdge from '../components/ForeEdge.astro';
+import RunningHead from '../components/RunningHead.astro';
+import Colophon from '../components/Colophon.astro';
 
-const { ranges } = getStaticNamesData();
+const { ranges, totalCount } = getStaticNamesData();
 
-const packageJson = JSON.parse(
-    readFileSync(join(process.cwd(), 'package.json'), 'utf8')
-);
-const versionJson = JSON.parse(
-    readFileSync(join(process.cwd(), 'public', 'version.json'), 'utf8')
-);
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
+const versionJson = JSON.parse(readFileSync(join(process.cwd(), 'public', 'version.json'), 'utf8'));
 const siteVersion = versionJson.version || '1.0';
 const lastUpdatedDisplay = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
 }).format(new Date());
 const assetVersion = encodeURIComponent(packageJson.version || '1');
 function versionedAsset(path) {
-    return `${path}?v=${assetVersion}`;
+	return `${path}?v=${assetVersion}`;
 }
 
+const SET_SIZE = 11;
+const TOTAL_SETS = Math.ceil(totalCount / SET_SIZE); // 98
+const PRINTED_PAGES = 68;
+
+const mapping = getNameMapping();
+const mappingByNumber = new Map(mapping.rows.map((row) => [Number(row.number), row]));
 const firstChunkEntries = JSON.parse(
-    readFileSync(join(process.cwd(), 'public', 'data_chunk_1.json'), 'utf8')
+	readFileSync(join(process.cwd(), 'public', 'data_chunk_1.json'), 'utf8'),
 );
-const dataManifest = JSON.parse(
-    readFileSync(join(process.cwd(), 'public', 'data_manifest.json'), 'utf8')
-);
-const firstPageEntries = firstChunkEntries.slice(0, 11);
-const initialNamesPayload = {
-    entries: firstPageEntries,
-    totalEntries: dataManifest.total,
-    totalChunks: dataManifest.chunks,
-    chunkSize: dataManifest.chunk_size
+
+function shorten(text, limit = 640) {
+	if (typeof text !== 'string') return '';
+	if (text.length <= limit) return text;
+	return `${text.slice(0, limit).replace(/[\s,;:]\S*$/, '')}…`;
+}
+
+// The first set of eleven: spelling forms from the mapping, meaning from the chunk.
+const firstSet = firstChunkEntries.slice(0, SET_SIZE).map((entry) => {
+	const row = mappingByNumber.get(Number(entry.index));
+	return {
+		number: Number(entry.index),
+		dev: row?.devanagari ?? '',
+		iast: row?.iast ?? '',
+		common: row?.spelling_common ?? entry.english_name,
+		slug: row?.page_slug ?? null,
+		one: entry.english_one_line,
+		elab: shorten(entry.english_elaboration),
+	};
+});
+const leadName = firstSet[0];
+const firstRangeLabel = `${firstSet[0].number}–${firstSet[firstSet.length - 1].number}`;
+
+const readerBoot = {
+	setSize: SET_SIZE,
+	totalSets: TOTAL_SETS,
+	totalCount,
+	names: firstSet,
 };
+
+const fontHref =
+	'https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Serif+Devanagari:wght@400;600&display=swap';
+
+const whyReasons = [
+	{
+		title: 'Protection',
+		text: 'Many devotees turn to the Sahasranama as a steadying practice that helps them feel held, guarded, and less shaken by inner or outer disturbance.',
+	},
+	{
+		title: 'Facing the Inner Obstacles',
+		text: 'The recitation is often understood as a way of meeting anger, greed, attachment, pride, and confusion with more honesty and discipline.',
+	},
+	{
+		title: 'Less Fear, More Steadiness',
+		text: 'Returning to the names can calm the mind, soften fear, and make room for a more grounded kind of courage.',
+	},
+	{
+		title: 'Grace',
+		text: 'For many readers, regular practice is a way of opening themselves to grace, clarity, and a quieter sense of guidance.',
+	},
+	{
+		title: 'Awakening',
+		text: 'Over time, the repetition can deepen attention and devotion, making spiritual practice feel more inward, alive, and continuous.',
+	},
+];
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <!-- Google tag (gtag.js) - Deferred to avoid blocking FCP/LCP -->
-        <script is:inline>
-            // Minimal inline config to defer gtag loading
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {'analytics_storage': 'granted'});
-        </script>
-        <!-- Load gtag asynchronously after page interactive (not render-blocking) -->
-        <script is:inline>
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    loadGoogleAnalytics();
-                });
-            } else {
-                loadGoogleAnalytics();
-            }
+	<head>
+		<meta charset="UTF-8" />
+		<!-- Google tag (gtag.js) - Deferred to avoid blocking FCP/LCP -->
+		<script is:inline>
+			// Minimal inline config to defer gtag loading
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('consent', 'default', { analytics_storage: 'granted' });
+		</script>
+		<!-- Load gtag asynchronously after page interactive (not render-blocking) -->
+		<script is:inline>
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', function () {
+					loadGoogleAnalytics();
+				});
+			} else {
+				loadGoogleAnalytics();
+			}
 
-            function loadGoogleAnalytics() {
-                const script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RZK1GR4K8H';
-                document.head.appendChild(script);
+			function loadGoogleAnalytics() {
+				const script = document.createElement('script');
+				script.async = true;
+				script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RZK1GR4K8H';
+				document.head.appendChild(script);
 
-                // Config gtag after script loads
-                script.onload = function() {
-                    gtag('config', 'G-RZK1GR4K8H', {'send_page_view': true});
-                };
-            }
-        </script>
-    <script is:inline>
-        document.documentElement.lang = 'en';
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				// Config gtag after script loads
+				script.onload = function () {
+					gtag('config', 'G-RZK1GR4K8H', { send_page_view: true });
+				};
+			}
+		</script>
+		<script is:inline>
+			document.documentElement.lang = 'en';
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Description (Optimized for "1000 names of Maa Kali" / Kali Sahasranama queries) -->
-    <meta name="description" content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF — a searchable Kali Sahasranama index.">
+		<!-- SEO Description (Optimized for "1000 names of Maa Kali" / Kali Sahasranama queries) -->
+		<meta
+			name="description"
+			content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF — a searchable Kali Sahasranama index."
+		/>
 
+		<!-- Canonical URL (Crucial for SEO ranking) -->
+		<link rel="canonical" href="https://1000namesofmakali.com/" />
 
-    <!-- Canonical URL (Crucial for SEO ranking) -->
-    <link rel="canonical" href="https://1000namesofmakali.com/">
+		<!-- Mobile App Settings -->
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama" />
+		<meta name="author" content="Kaliputra Ashish" />
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
 
-    <!-- Mobile App Settings -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama">
-    <meta name="author" content="Kaliputra Ashish">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<!-- Open Graph / Social Media (Optimized for search) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_IN" />
 
-    <!-- Open Graph / Social Media (Optimized for search) -->
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="en_IN">
+		<meta
+			property="og:title"
+			content="1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali"
+		/>
+		<meta
+			property="og:description"
+			content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF — a searchable Kali Sahasranama index."
+		/>
+		<meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta property="og:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali" />
+		<meta property="og:url" content="https://1000namesofmakali.com/" />
+		<meta property="og:site_name" content="Adya Mahakali 1000 Names" />
 
-    <meta property="og:title" content="1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali">
-    <meta property="og:description" content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF — a searchable Kali Sahasranama index.">
-    <meta property="og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp">
-    <meta property="og:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali">
-    <meta property="og:url" content="https://1000namesofmakali.com/">
-    <meta property="og:site_name" content="Adya Mahakali 1000 Names">
+		<!-- Twitter Card (Optimized) -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali"
+		/>
+		<meta
+			name="twitter:description"
+			content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF."
+		/>
+		<meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp" />
+		<meta name="twitter:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali" />
 
-    <!-- Twitter Card (Optimized) -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali">
-    <meta name="twitter:description" content="Read all 1,072 names of Maa Kali with English meanings, Devanagari, and a free PDF.">
-    <meta name="twitter:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp">
-    <meta name="twitter:image:alt" content="Maa Adya Mahakali - Divine Goddess Kali">
+		<!-- Structured Data (JSON-LD) - Enhanced for SEO -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebPage",
+				"@id": "https://1000namesofmakali.com/#webpage",
+				"name": "Adya Mahakali 1000 Names - Complete Sahasranama",
+				"alternateName": "Maa Ādya Mahākālī Sahasranāma",
+				"description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. Discover all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and devotional context. Searchable and reference-ready for chanting, study, or spiritual practice.",
+				"url": "https://1000namesofmakali.com/",
+				"hasPart": {
+					"@type": "CollectionPage",
+					"@id": "https://1000namesofmakali.com/names/#webpage",
+					"name": "Adya Mahakali Names Reference Hub",
+					"url": "https://1000namesofmakali.com/names/"
+				},
+				"inLanguage": "en",
+				"isAccessibleForFree": true,
+				"about": {
+					"@type": "Thing",
+					"name": "Adya Mahakali Sahasranama",
+					"description": "The 1000 names of Goddess Adya Mahakali"
+				},
+				"mainEntity": {
+					"@type": "CollectionPage",
+					"@id": "https://1000namesofmakali.com/#collection",
+					"name": "Adya Mahakali 1000 Names Collection",
+					"description": "Complete collection of 1000+ names of Adya Mahakali with meanings"
+				},
+				"publisher": {
+					"@type": "Person",
+					"@id": "https://1000namesofmakali.com/#publisher",
+					"name": "Kaliputra Ashish",
+					"url": "https://1000namesofmakali.com/",
+					"sameAs": [
+						"https://github.com/09ashishkapoor",
+						"https://www.instagram.com/ashishkaliputra"
+					]
+				},
+				"image": {
+					"@type": "ImageObject",
+					"url": "https://1000namesofmakali.com/MaaAdyaKali_5.webp",
+					"width": 1200,
+					"height": 630,
+					"caption": "Maa Adya Mahakali - Divine Goddess Kali"
+				}
+			}
+		</script>
 
-    <!-- Structured Data (JSON-LD) - Enhanced for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@id": "https://1000namesofmakali.com/#webpage",
-      "name": "Adya Mahakali 1000 Names - Complete Sahasranama",
-      "alternateName": "Maa Ādya Mahākālī Sahasranāma",
-      "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English. Discover all 1000+ sacred names of Maa Adya Mahakali with translations, elaborations, and devotional context. Searchable and reference-ready for chanting, study, or spiritual practice.",
-      "url": "https://1000namesofmakali.com/",
-      "hasPart": {
-        "@type": "CollectionPage",
-        "@id": "https://1000namesofmakali.com/names/#webpage",
-        "name": "Adya Mahakali Names Reference Hub",
-        "url": "https://1000namesofmakali.com/names/"
-      },
-      "inLanguage": "en",
-      "isAccessibleForFree": true,
-      "about": {
-        "@type": "Thing",
-        "name": "Adya Mahakali Sahasranama",
-        "description": "The 1000 names of Goddess Adya Mahakali"
-      },
-      "mainEntity": {
-        "@type": "CollectionPage",
-        "@id": "https://1000namesofmakali.com/#collection",
-        "name": "Adya Mahakali 1000 Names Collection",
-        "description": "Complete collection of 1000+ names of Adya Mahakali with meanings"
-      },
-      "publisher": {
-        "@type": "Person",
-        "@id": "https://1000namesofmakali.com/#publisher",
-        "name": "Kaliputra Ashish",
-        "url": "https://1000namesofmakali.com/",
-        "sameAs": [
-          "https://github.com/09ashishkapoor",
-          "https://www.instagram.com/ashishkaliputra"
-        ]
-      },
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://1000namesofmakali.com/MaaAdyaKali_5.webp",
-        "width": 1200,
-        "height": 630,
-        "caption": "Maa Adya Mahakali - Divine Goddess Kali"
-      }
-    }
-    </script>
+		<!-- Website structured data including SearchAction to help Google show site search results -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"@id": "https://1000namesofmakali.com/#website",
+				"name": "Adya Mahakali 1000 Names",
+				"alternateName": "Maa Adya Mahakali Sahasranama",
+				"url": "https://1000namesofmakali.com/",
+				"inLanguage": "en",
+				"description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": {
+						"@type": "EntryPoint",
+						"urlTemplate": "https://1000namesofmakali.com/?q={search_term_string}"
+					},
+					"query-input": {
+						"@type": "PropertyValueSpecification",
+						"valueRequired": true,
+						"valueName": "search_term_string"
+					}
+				}
+			}
+		</script>
 
-    <!-- Website structured data including SearchAction to help Google show site search results -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://1000namesofmakali.com/#website",
-        "name": "Adya Mahakali 1000 Names",
-        "alternateName": "Maa Adya Mahakali Sahasranama",
-        "url": "https://1000namesofmakali.com/",
-        "inLanguage": "en",
-        "description": "Complete Adya Mahakali 1000 Names (Sahasranama) with detailed meanings in English",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://1000namesofmakali.com/?q={search_term_string}"
-            },
-            "query-input": {
-                "@type": "PropertyValueSpecification",
-                "valueRequired": true,
-                "valueName": "search_term_string"
-            }
-        }
-    }
-    </script>
+		<!-- CollectionPage Schema for the names collection -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "CollectionPage",
+				"@id": "https://1000namesofmakali.com/#collection",
+				"name": "Adya Mahakali 1000 Names Collection",
+				"description": "Complete collection of 1000+ sacred names of Maa Adya Mahakali with English translations and elaborations",
+				"url": "https://1000namesofmakali.com/",
+				"isPartOf": {
+					"@id": "https://1000namesofmakali.com/#website"
+				},
+				"mainEntity": {
+					"@type": "ItemList",
+					"name": "Adya Mahakali Sahasranama Names",
+					"description": "List of 1000+ names of Adya Mahakali",
+					"numberOfItems": 1072
+				}
+			}
+		</script>
 
-    <!-- CollectionPage Schema for the names collection -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "@id": "https://1000namesofmakali.com/#collection",
-      "name": "Adya Mahakali 1000 Names Collection",
-      "description": "Complete collection of 1000+ sacred names of Maa Adya Mahakali with English translations and elaborations",
-      "url": "https://1000namesofmakali.com/",
-      "isPartOf": {
-        "@id": "https://1000namesofmakali.com/#website"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "name": "Adya Mahakali Sahasranama Names",
-        "description": "List of 1000+ names of Adya Mahakali",
-        "numberOfItems": 1072
-      }
-    }
-    </script>
+		<!-- FAQ Schema to help with featured snippets (Bilingual) -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				"@id": "https://1000namesofmakali.com/#faq",
+				"isPartOf": {
+					"@id": "https://1000namesofmakali.com/#webpage"
+				},
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "What is Adya Mahakali 1000 Names?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Adya Mahakali 1000 Names, also called Adya Mahakali Sahasranama, is a devotional collection of sacred names of Goddess Adya Mahakali with English meanings for chanting, study, and spiritual reflection."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How many names are in Adya Mahakali Sahasranama?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "This site presents 1,072 names of Maa Adya Mahakali. Each entry includes a one-line English meaning and a longer explanatory note."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Where can I find Adya Mahakali 1000 names with meanings?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "You can read the interactive homepage reader or use the static names reference hub at https://1000namesofmakali.com/names/, which links to crawlable range pages for the full collection."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What is the meaning of Adya Mahakali Sahasranama?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Sahasranama means 'thousand names.' In this context it refers to devotional names that describe the forms, qualities, and spiritual attributes of Maa Adya Mahakali."
+						}
+					}
+				]
+			}
+		</script>
 
-    <!-- FAQ Schema to help with featured snippets (Bilingual) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": "https://1000namesofmakali.com/#faq",
-      "isPartOf": {
-        "@id": "https://1000namesofmakali.com/#webpage"
-      },
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "What is Adya Mahakali 1000 Names?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Adya Mahakali 1000 Names, also called Adya Mahakali Sahasranama, is a devotional collection of sacred names of Goddess Adya Mahakali with English meanings for chanting, study, and spiritual reflection."
-        }
-      }, {
-        "@type": "Question",
-        "name": "How many names are in Adya Mahakali Sahasranama?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This site presents 1,072 names of Maa Adya Mahakali. Each entry includes a one-line English meaning and a longer explanatory note."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Where can I find Adya Mahakali 1000 names with meanings?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can read the interactive homepage reader or use the static names reference hub at https://1000namesofmakali.com/names/, which links to crawlable range pages for the full collection."
-        }
-      }, {
-        "@type": "Question",
-        "name": "What is the meaning of Adya Mahakali Sahasranama?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sahasranama means 'thousand names.' In this context it refers to devotional names that describe the forms, qualities, and spiritual attributes of Maa Adya Mahakali."
-        }
-      }]
-    }
-    </script>
+		<link rel="icon" type="image/webp" href="/MaaAdyaKali_5.webp" />
+		<link rel="apple-touch-icon" href="/MaaAdyaKali_5.webp" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary" />
 
+		<!-- Site Name near Favicon -->
+		<meta name="application-name" content="Adya Mahakali Sahasranama" />
+		<meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama" />
 
-    <link rel="icon" type="image/webp" href="/MaaAdyaKali_5.webp">
-    <link rel="apple-touch-icon" href="/MaaAdyaKali_5.webp">
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs text summary">
+		<!-- Additional SEO Meta Tags -->
+		<meta name="geo.region" content="IN" />
+		<meta name="geo.placename" content="India" />
+		<meta name="language" content="English" />
+		<meta name="coverage" content="Worldwide" />
+		<meta name="distribution" content="Global" />
+		<meta name="rating" content="General" />
+		<meta name="revisit-after" content="7 days" />
 
-    <!-- Site Name near Favicon -->
-    <meta name="application-name" content="Adya Mahakali Sahasranama">
-    <meta name="apple-mobile-web-app-title" content="Adya Mahakali Sahasranama">
+		<!-- Page Title: Optimized for "1000 names of Maa Kali" / Kali Sahasranama queries -->
+		<title>1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali</title>
 
-    <!-- Additional SEO Meta Tags -->
-    <meta name="geo.region" content="IN">
-    <meta name="geo.placename" content="India">
-    <meta name="language" content="English">
-    <meta name="coverage" content="Worldwide">
-    <meta name="distribution" content="Global">
-    <meta name="rating" content="General">
-    <meta name="revisit-after" content="7 days">
+		<!-- Preload critical resources (only small manifest, not full 13MB file) -->
+		<link rel="preload" href={versionedAsset('/data_manifest.json')} as="fetch" crossorigin="anonymous" />
+		<!-- Preload the frontispiece to improve LCP -->
+		<link rel="preload" href="/MaaAdyaKali_5.webp" as="image" />
 
-    <!-- Page Title: Optimized for "1000 names of Maa Kali" / Kali Sahasranama queries -->
-    <title>1000 Names of Maa Kali (Kali Sahasranama) with Meanings | Adya Mahakali</title>
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#faf3e3" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#1a1410" media="(prefers-color-scheme: dark)" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preload" href={fontHref} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+		<noscript><link href={fontHref} rel="stylesheet" /></noscript>
+		<link rel="stylesheet" href={versionedAsset('/pothi.css')} />
 
-    <!-- Preload critical resources (only small manifest, not full 13MB file) -->
-    <link rel="preload" href={versionedAsset('/data_manifest.json')} as="fetch" crossorigin="anonymous">
-    <!-- Preload hero image to improve LCP (background image used in critical area) -->
-    <link rel="preload" href="/maadya-bg-1111-landscape.webp" as="image" media="(min-width: 641px)">
-    <link rel="preload" href="/maadya-bg-1111-portrait.webp" as="image" media="(max-width: 640px)">
+		<!-- Night reading: apply the stored choice before first paint (no flash) -->
+		<script is:inline>
+			(function () {
+				try {
+					var t = localStorage.getItem('pothi-theme');
+					if (!t)
+						t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+					if (t === 'night') document.documentElement.dataset.theme = 'night';
+				} catch (e) {}
+			})();
+		</script>
+	</head>
+	<body>
+		<a class="skip-link" href="#read">Skip to the reader</a>
+		<ForeEdge current={0} total={TOTAL_SETS} />
+		<RunningHead />
 
-    <!-- Load stylesheet non-blocking: preload + onload pattern with noscript fallback -->
-    <link rel="preload" href={versionedAsset('/styles.min.css')} as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href={versionedAsset('/styles.min.css')}></noscript>
+		<main>
+			<!-- Cover: duotone frontispiece + title page -->
+			<section class="cover" id="top">
+				<div class="frontis">
+					<img
+						src="/MaaAdyaKali_5.webp"
+						alt="Maa Ādya Mahākālī, statue with hibiscus flowers and a lit diya"
+						width="1920"
+						height="1080"
+						fetchpriority="high"
+						decoding="async"
+					/>
+					<span class="plate">Frontispiece · Maa Ādya Mahākālī</span>
+				</div>
+				<div class="cover-copy">
+					<p class="kicker">The Sahasranāma, printed as a book</p>
+					<h1>
+						<span class="lt" lang="sa">आद्या महाकाली</span>
+						<span class="lt" lang="sa">सहस्रनाम</span>
+						<span class="lat-title">Maa Ādya Mahākālī Sahasranāma</span>
+					</h1>
+					<div class="stats-row">
+						<div><b>1,072</b>names</div>
+						<div><b>{TOTAL_SETS}</b>sets of eleven</div>
+						<div><b>{PRINTED_PAGES}</b>printed pages</div>
+					</div>
+					<p class="lede">
+						The text is arranged in sets of eleven so it is easier to read slowly. Open the book anywhere; the
+						names are read as they are written, with the <em>transliteration and meaning</em> beside them.
+					</p>
+					<a class="open" href="#read">Open the book <span class="ar" aria-hidden="true">→</span></a>
+					<p class="small">
+						A free <a href="/kali-sahasranama-pdf/">printable edition</a> is also available.
+					</p>
+				</div>
+			</section>
 
-    <!-- Inline critical CSS for above-the-fold content -->
-    <style is:global>
-    /* Critical CSS - with font fallbacks to prevent FOIT (Flash of Invisible Text) */
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background-color:#0a0a0a;background-image:url('/maadya-bg-1111-landscape.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;color:#f5f5f5;line-height:1.6;margin:0;padding:0;min-height:100vh;position:relative}
-    body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('/maadya-bg-1111-landscape.webp');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-2}
-    @media (max-width:640px){body{background-image:url('/maadya-bg-1111-portrait.webp')}body::before{background-image:url('/maadya-bg-1111-portrait.webp'),url('/maadya-bg-1111-portrait.webp');background-size:contain,cover;background-position:center,center;background-repeat:no-repeat,no-repeat}}
-    body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.28);z-index:-1}
-    .landing-section{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:transparent}
-    .landing-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.58);pointer-events:none;z-index:1}
-    .landing-content{position:relative;z-index:10;text-align:center;max-width:min(92vw,900px);margin:0 auto}
-    .main-title{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:clamp(2rem,7vw,4.5rem);font-weight:700;margin-bottom:1rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;animation:titleFadeIn 1.2s ease-out}
-    .title-line-main{display:block;font-size:1em;font-weight:760;color:#f5f5f5;letter-spacing:.01em;position:relative;text-shadow:0 2px 14px rgba(25,5,8,.86),0 0 18px rgba(220,20,60,.22);will-change:auto}
-    .title-line-sub{display:block;font-size:.75em;font-weight:600;font-style:italic;letter-spacing:.1em;color:#ffd700;filter:drop-shadow(0 2px 8px rgba(38,24,5,.7));margin-top:.3rem;position:relative;text-shadow:0 1px 10px rgba(255,215,0,.24);will-change:auto}
-    @media (prefers-reduced-motion: reduce) {
-      .title-line-main, .title-line-sub { animation: none; }
-    }
-    @keyframes titleFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+			<!-- The spread: set list on the left leaf, the open name on the right -->
+			<section class="reader" id="read">
+				<div class="spread-head">
+					<span lang="sa">आद्या महाकाली सहस्रनाम</span>
+					<span
+						>Set <b id="head-set">01</b> of {TOTAL_SETS} · names <b id="head-range">{firstRangeLabel}</b> of
+						{totalCount.toLocaleString('en-US')}</span
+					>
+				</div>
 
-    /* Vanilla JS Navigation Buttons */
-    .hero-reference-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 .15rem;margin-top:1rem;color:#ffd700;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(214,172,71,0.48);text-shadow:0 1px 8px rgba(20,10,0,0.72)}
-    .nav-button{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.2);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1),opacity 0.3s cubic-bezier(0.4,0,0.2,1),box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);color:#f5f5f5;opacity:1;transform:scale(1);will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
-    .nav-button.nav-up{background:linear-gradient(135deg,#dc143c 0%,#8b0000 100%);box-shadow:0 4px 18px rgba(80,10,24,0.46),0 0 24px rgba(150,18,45,0.18)}
-    .nav-button.nav-down{background:linear-gradient(135deg,#ffd700 0%,#8b0000 100%);box-shadow:0 4px 18px rgba(83,44,8,0.42),0 0 24px rgba(191,115,31,0.18)}
-    .nav-button:hover{transform:scale(1.04);box-shadow:0 6px 24px rgba(0,0,0,0.36),0 0 28px rgba(0,0,0,0.2)}
-    .nav-button.nav-up:hover{box-shadow:0 6px 24px rgba(80,10,24,0.55),0 0 30px rgba(150,18,45,0.24)}
-    .nav-button.nav-down:hover{box-shadow:0 6px 24px rgba(83,44,8,0.52),0 0 30px rgba(191,115,31,0.24)}
-    .nav-button:active{transform:scale(0.95)}
-    .nav-button.hidden{opacity:0;transform:scale(0);pointer-events:none}
-    .nav-button svg{width:24px;height:24px;stroke-width:2.5}
-    @media(max-width:640px){.nav-button{width:52px;height:52px;bottom:20px;right:20px}.nav-button svg{width:22px;height:22px}}
-    @media(min-width:641px) and (max-width:1024px){.nav-button{width:54px;height:54px}}
-    .nav-button{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;animation:fadeScaleIn 0.3s cubic-bezier(0.4,0,0.2,1)}
-    @keyframes fadeScaleIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-    </style>
-</head>
-<body>
+				<div class="spread">
+					<div class="mindex">
+						<div class="mfind">
+							<svg viewBox="0 0 24 24" aria-hidden="true"
+								><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg
+							>
+							<input
+								id="mq"
+								type="search"
+								placeholder="find a name or meaning"
+								autocomplete="off"
+								aria-label="Search this set"
+							/>
+							<span class="mc" id="m-count" role="status" aria-live="polite">11 names</span>
+						</div>
+						<ol class="mlist" id="m-list">
+							{firstSet.map((name, index) => (
+								<li data-search={`${name.dev} ${name.iast} ${name.common} ${name.one}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}>
+									<button
+										type="button"
+										data-index={index}
+										aria-current={index === 0 ? 'true' : 'false'}
+										aria-label={`Name ${name.number}: ${name.common}`}
+									>
+										<span class="n">{String(name.number).padStart(2, '0')}</span>
+										<span>
+											<span class="w" lang="sa">{name.dev}</span>
+											<span class="i">{name.iast}</span>
+										</span>
+									</button>
+								</li>
+							))}
+						</ol>
+					</div>
 
-    <!-- Landing Page Section -->
-    <main>
-    <section id="landing-page" class="landing-section" itemscope itemtype="https://schema.org/WebPage">
-        <div class="landing-overlay"></div>
+					<div class="leaf-left">
+						<div class="leaf-head">
+							<h2><span lang="sa">पाठ</span> · this set</h2>
+							<span id="list-count">{firstSet.length} names</span>
+						</div>
+						<div class="find">
+							<svg viewBox="0 0 24 24" aria-hidden="true"
+								><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg
+							>
+							<input
+								id="q"
+								type="search"
+								placeholder="find a name or meaning"
+								autocomplete="off"
+								aria-label="Search this set"
+							/>
+							<span class="count" id="find-count" role="status" aria-live="polite"></span>
+						</div>
+						<ul class="toc" id="toc">
+							{firstSet.map((name, index) => (
+								<li data-search={`${name.dev} ${name.iast} ${name.common} ${name.one}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}>
+									<button type="button" data-index={index} aria-current={index === 0 ? 'true' : 'false'}>
+										<span class="n">{String(name.number).padStart(2, '0')}</span>
+										<span>
+											<span class="w" lang="sa">{name.dev}</span>
+											<span class="i">{name.iast}</span>
+										</span>
+									</button>
+								</li>
+							))}
+						</ul>
+						<div class="foot">
+							<span>Page <b id="foot-page">1</b> of the set</span><span>{TOTAL_SETS} sets</span>
+						</div>
+					</div>
 
-        <!-- Landing Content -->
-        <div class="landing-content">
-            <h1 class="main-title">
-                <span class="title-line-main">Adya Mahakali 1000 Names</span>
-                <span class="title-line-sub">Sahasranāma</span>
-            </h1>
+					<div class="leaf-right" id="page" aria-live="polite">
+						<div class="page-eyebrow">
+							<span>Name {String(leadName.number).padStart(2, '0')} of {totalCount.toLocaleString('en-US')}</span>
+							<span><span lang="sa">अर्थ</span> · meaning</span>
+						</div>
+						<h2 class="page-name" lang="sa">{leadName.dev}</h2>
+						<p class="page-iast">{leadName.iast}</p>
+						<p class="page-one">{leadName.one}</p>
+						<div class="page-rule"></div>
+						<p class="page-elab">{leadName.elab}</p>
+						<div class="page-foot">
+							<a class="u src" href={leadName.slug ? `/names/${leadName.slug}/` : '/names/'}>Read the full note</a>
+							<span class="folio">{String(leadName.number).padStart(2, '0')}</span>
+						</div>
+					</div>
+				</div>
 
-            <p class="title-description">
-                Adya Mahakali 1000 Names is a searchable reading with English meanings
-            </p>
+				<div class="turn">
+					<button id="prev" type="button" disabled>← previous set</button>
+					<span class="mid">set <b id="set-no">01</b> / {TOTAL_SETS}</span>
+					<button id="next" type="button">next set →</button>
+				</div>
 
-            <div class="landing-hero-actions">
-                <button id="explore-btn" class="explore-button">
-                    <span>Start Reading</span>
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <polyline points="19 12 12 19 5 12"></polyline>
-                    </svg>
-                </button>
-                <button id="learn-btn" class="learn-button">
-                    <span>About the Sahasranama</span>
-                </button>
-            </div>
-            <p class="hero-reference-note">
-                <a href="/names/" class="hero-reference-link">Browse static names reference pages</a>
-            </p>
-        </div>
-    </section>
+				<div class="reader-status" id="reader-status" role="status" aria-live="polite"></div>
+			</section>
 
-    <!-- Names Explorer Section -->
-    <section id="names-section" class="names-section">
-        <div class="names-overlay"></div>
+			<!-- Why readers return -->
+			<section class="essay" id="why">
+				<div class="essay-inner">
+					<div>
+						<h2 lang="sa">क्यों</h2>
+						<p class="h-sub">Why Readers Return to the Sahasranama</p>
+						<p class="h-sub">A short introduction to the text and to the reasons many people recite it.</p>
+					</div>
+					<div class="essay-body">
+						<h3>Who is Maa Adya Mahakali?</h3>
+						<p>
+							<strong>Maa Adya Mahakali</strong> is revered as the primordial source: the first, original power from
+							which creation unfolds. In this form she is linked with time, change, and the full cycle of arising,
+							sustaining, and dissolving.
+						</p>
+						<p>
+							As Mahakali, she stands beyond ordinary limits and is remembered as the force that cuts through
+							ignorance, ego, and fear. For devotees, that makes her both fierce and intimate: a presence approached
+							for truth, courage, and surrender.
+						</p>
+						<h3>Why People Chant</h3>
+						<p>
+							For many devotees, the Sahasranama is recited as prayer, remembrance, and steady practice. The names
+							are a way of drawing closer to Maa Adya and returning the mind to devotion.
+						</p>
+						<ol class="reasons">
+							{whyReasons.map((reason) => (
+								<li>
+									<h3>{reason.title}</h3>
+									<p>{reason.text}</p>
+								</li>
+							))}
+						</ol>
+					</div>
+				</div>
+			</section>
 
-        <div class="container">
-            <header class="names-header">
-                <h2 class="section-title">Read, Search, and Sit with Each Name</h2>
-                <p class="section-subtitle">
-                    Move through the names at your own pace, search by word or meaning, and open any entry for a fuller explanation.
-                </p>
-            </header>
+			<!-- Contents of the shorter roads -->
+			<section class="contents" id="contents">
+				<h2 lang="sa">मार्ग</h2>
+				<p class="h-sub">Contents of the shorter roads</p>
+				<div class="toc-lines">
+					<a class="tl" href="/108-names-of-kali/"
+						><span class="t">108 names of Maa Kali</span><span class="d"></span><span class="p">practice set</span></a
+					>
+					<a class="tl" href="/1008-names-of-kali/"
+						><span class="t">1,008 or 1,072?</span><span class="d"></span><span class="p">the counts</span></a
+					>
+					<a class="tl" href="/kali-sahasranama-pdf/"
+						><span class="t">The printed edition</span><span class="d"></span><span class="p">68 pages</span></a
+					>
+					<a class="tl" href="/kali-sahasranama-lyrics/"
+						><span class="t">Chant order</span><span class="d"></span><span class="p">how it is read</span></a
+					>
+					<a class="tl" href="/kali-sahasranama-benefits/"
+						><span class="t">Benefits of the practice</span><span class="d"></span><span class="p"
+							>devotional framing</span
+						></a
+					>
+					<a class="tl" href="/sources/"
+						><span class="t">Sources &amp; corrections</span><span class="d"></span><span class="p">editorial</span></a
+					>
+				</div>
+			</section>
 
-            <div class="reading-mode-intro">
-                <h3 class="reading-mode-title">Begin the Sahasranama</h3>
-                <p class="reading-mode-text">The text is arranged in sets of 11 so it is easier to read slowly. Open any card when you want the short meaning and the longer note.</p>
-            </div>
+			<!-- PDF editions -->
+			<section class="page promo" id="pdf">
+				<div class="narrow">
+					<div class="panel">
+						<p class="page-kicker">Digital Library</p>
+						<h2>Download the PDF Editions</h2>
+						<p class="promo-lede">
+							If you want an offline copy, the same text on this site is also available as free PDF editions. They
+							include the full set of names with English meanings and elaborations in a format that is easier to
+							save, share, or print.
+						</p>
+						<ul class="promo-grid">
+							<li><strong>Free to download</strong> — No registration required</li>
+							<li>
+								<strong>Direct PDF download</strong> —
+								<a
+									href="https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_V4.pdf"
+									target="_blank"
+									rel="noopener noreferrer">English PDF</a
+								>
+							</li>
+							<li><strong>Full set included</strong> — All 1000+ names with meanings</li>
+							<li><strong>Easy to keep offline</strong> — Read without a connection</li>
+							<li><strong>Formatted for printing</strong> — Ready for home or temple use</li>
+						</ul>
+						<p class="promo-cta">
+							<a class="open" href="/kali-sahasranama-pdf/"
+								>Open the free PDF download page <span class="ar" aria-hidden="true">→</span></a
+							>
+						</p>
+						<p class="panel-note"><em>Hosted by Khyapa Parampara for readers who want an offline copy</em></p>
+					</div>
+				</div>
+			</section>
 
-            <!-- Controls -->
-            <div class="controls-panel">
-                <div class="controls-top-row">
-                    <button id="search-toggle-btn" class="btn-secondary search-toggle-btn" type="button" aria-expanded="false" aria-controls="search-panel">Open Search</button>
+			<!-- FAQ: the same answers as the FAQPage structured data -->
+			<section class="page" id="faq">
+				<div class="narrow">
+					<p class="page-kicker">Quick answers</p>
+					<h2>Adya Mahakali Sahasranama FAQ</h2>
+					<p class="promo-lede">
+						Short answers for readers and search engines, with the same information visible on the page as the
+						structured data.
+					</p>
+					<div class="faq-list">
+						<div class="faq-item">
+							<h3>What is Adya Mahakali 1000 Names?</h3>
+							<p>
+								Adya Mahakali 1000 Names, also called Adya Mahakali Sahasranama, is a devotional collection of
+								sacred names of Goddess Adya Mahakali with English meanings for chanting, study, and spiritual
+								reflection.
+							</p>
+						</div>
+						<div class="faq-item">
+							<h3>How many names are in this Adya Mahakali Sahasranama?</h3>
+							<p>
+								This site presents 1,072 names of Maa Adya Mahakali. Each entry includes a one-line English meaning
+								and a longer explanatory note.
+							</p>
+						</div>
+						<div class="faq-item">
+							<h3>Where can I browse all names with meanings?</h3>
+							<p>
+								You can read the interactive homepage reader or use the <a href="/names/"
+									>static names reference hub</a
+								>, which links to crawlable range pages for the full collection.
+							</p>
+						</div>
+						<div class="faq-item">
+							<h3>What does Sahasranama mean?</h3>
+							<p>
+								Sahasranama means “thousand names.” In this context it refers to devotional names that describe
+								the forms, qualities, and spiritual attributes of Maa Adya Mahakali.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 
-                </div>
+		<Colophon version={siteVersion} lastUpdated={lastUpdatedDisplay} ranges={ranges} label="The Pothi, reader" />
 
-                <div id="search-panel" class="search-panel mobile-collapsed">
-                    <div class="search-box">
-                        <svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        <input type="text" id="search-input" placeholder="Search by name or meaning..." autocomplete="off" aria-label="Search sacred names">
-                    </div>
-
-                    <div class="filters-row">
-                        <button id="clear-btn" class="btn-secondary" disabled>Clear</button>
-                    </div>
-
-                    <div class="stats-display" id="stats-display" role="status">
-                        📿 Showing all <strong>1072</strong> names of <strong>Maa Adya Mahakali</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Loading State -->
-            <div id="loading-state" class="loading-state hidden">
-                <div class="loader"></div>
-                <p id="loading-message">Loading names...</p>
-            </div>
-
-            <!-- Error State -->
-            <div id="error-state" class="error-state hidden" role="alert">
-                <div class="error-icon">⚠️</div>
-                <h3>Could not load the names</h3>
-                <p id="error-message"></p>
-                <button id="retry-btn" class="btn-secondary" type="button">Try loading again</button>
-            </div>
-
-            <!-- Names Grid -->
-            <div id="names-grid" class="names-grid" data-prerendered="true">
-                {firstPageEntries.map((entry, index) => (
-                    <div
-                        class="name-card visible"
-                        data-prerendered="true"
-                        style={`animation-delay: ${(index % 11) * 0.05}s`}
-                    >
-                        <div class="card-header">
-                            <span class="card-index">#{entry.index}</span>
-                        </div>
-
-                        <p class="card-name">{entry.english_name}</p>
-
-                        <button
-                            class="toggle-btn"
-                            data-index={entry.index}
-                            data-prerendered="true"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls={`elaboration-${entry.index}`}
-                        >
-                            <span class="toggle-btn-label">Read More</span>
-                            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-
-                        <div class="elaboration" data-index={entry.index} id={`elaboration-${entry.index}`} aria-hidden="true">
-                            <div class="elaboration-content" tabindex="-1">
-                                <p class="card-meaning">{entry.english_one_line}</p>
-                                <div class="elaboration-copy">{entry.english_elaboration}</div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div class="load-more-container reading-pagination">
-                <button id="prev-page-btn" class="btn-secondary hidden" type="button">Previous 11</button>
-                <div id="reading-progress" class="reading-progress" aria-live="polite">Showing <strong>1</strong>-<strong>11</strong> of <strong>{dataManifest.total}</strong></div>
-                <button id="next-page-btn" class="btn-primary" type="button">Next 11</button>
-            </div>
-
-            <!-- eBook Download Promo Section -->
-            <section class="ebook-promo-section">
-                <div class="ebook-promo-container">
-                    <div class="ebook-promo-card">
-                        <div class="ebook-promo-header">
-                            <span class="ebook-promo-badge">📖 Digital Library</span>
-                            <h3 class="ebook-promo-title">Download the PDF Editions</h3>
-                        </div>
-                        <p class="ebook-promo-text">
-                            If you want an offline copy, the same text on this site is also available as free PDF editions.
-                            They include the full set of names with English meanings and elaborations in a format that is easier to save, share, or print.
-                        </p>
-                        <ul class="ebook-features">
-                            <li>📥 <strong>Free to download</strong>: No registration required</li>
-                            <li>📄 <strong>Direct PDF download</strong>: <a href="https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_V4.pdf" target="_blank" rel="noopener noreferrer">English PDF</a></li>
-                            <li>🌐 <strong>Full set included</strong>: All 1000+ names with meanings</li>
-                            <li>🔖 <strong>Easy to keep offline</strong>: Read without a connection</li>
-                            <li>🖨️ <strong>Formatted for printing</strong>: Ready for home or temple use</li>
-                        </ul>
-                        <a href="/kali-sahasranama-pdf/" class="ebook-cta-btn">
-                            Open the free PDF download page
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                        <p class="ebook-promo-footer">
-                            <em>Hosted by Khyapa Parampara for readers who want an offline copy</em>
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about-section" class="about-section">
-        <div class="container about-container">
-            <div class="landing-description about-intro-block">
-                <p class="description-text">
-                    Search the names, read the short meanings, and open the longer explanations when you want to stay with a name a little longer.
-                </p>
-
-                <div class="significance-box">
-                    <div class="significance-header">
-                        <svg class="significance-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                        <h2 class="significance-title">Why people recite it</h2>
-                    </div>
-                    <p class="significance-text">
-                        For many devotees, the Sahasranama is recited as prayer, remembrance, and steady practice. The names are a way of drawing closer to Maa Adya and returning the mind to devotion.
-                    </p>
-                </div>
-            </div>
-
-            <div class="dedication-section about-dedication">
-                <p class="dedication-text">
-                    Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong>
-                </p>
-                <p class="dedication-mantra">
-                    Om Shri Gurubhyo Namaha, Jai Khyapa Parampara <span title="Namaste">🙏</span>
-                </p>
-            </div>
-
-            <header class="about-section-header">
-                <h2 class="about-section-title">Why Readers Return to the Sahasranama</h2>
-                <p class="about-section-subtitle">A short introduction to the text and to the reasons many people recite it.</p>
-            </header>
-
-            <div class="about-article-stack">
-                <article class="devotional-article devotional-article--crimson">
-                    <h3 class="devotional-article-title">Who is Maa Adya Mahakali?</h3>
-                    <p class="devotional-article-text">
-                        <strong>Maa Adya Mahakali</strong> is revered as the primordial source: the first, original power from which creation unfolds. In this form she is linked with time, change, and the full cycle of arising, sustaining, and dissolving.
-                    </p>
-                    <p class="devotional-article-text devotional-article-text--last">
-                        As Mahakali, she stands beyond ordinary limits and is remembered as the force that cuts through ignorance, ego, and fear. For devotees, that makes her both fierce and intimate: a presence approached for truth, courage, and surrender.
-                    </p>
-                </article>
-
-                <article class="devotional-article devotional-article--gold">
-                    <h3 class="devotional-article-title">Why People Chant</h3>
-                    <div class="benefit-list">
-                        <div class="benefit-item">
-                            <span class="benefit-icon">✨</span>
-                            <div>
-                                <h4 class="benefit-title">Protection</h4>
-                                <p class="benefit-text">Many devotees turn to the Sahasranama as a steadying practice that helps them feel held, guarded, and less shaken by inner or outer disturbance.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <span class="benefit-icon">🔥</span>
-                            <div>
-                                <h4 class="benefit-title">Facing the Inner Obstacles</h4>
-                                <p class="benefit-text">The recitation is often understood as a way of meeting anger, greed, attachment, pride, and confusion with more honesty and discipline.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <span class="benefit-icon">🕉️</span>
-                            <div>
-                                <h4 class="benefit-title">Less Fear, More Steadiness</h4>
-                                <p class="benefit-text">Returning to the names can calm the mind, soften fear, and make room for a more grounded kind of courage.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <span class="benefit-icon">🌟</span>
-                            <div>
-                                <h4 class="benefit-title">Grace</h4>
-                                <p class="benefit-text">For many readers, regular practice is a way of opening themselves to grace, clarity, and a quieter sense of guidance.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <span class="benefit-icon">💫</span>
-                            <div>
-                                <h4 class="benefit-title">Awakening</h4>
-                                <p class="benefit-text">Over time, the repetition can deepen attention and devotion, making spiritual practice feel more inward, alive, and continuous.</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <section class="faq-section" aria-labelledby="faq-heading">
-                <div class="about-section-header faq-section-header">
-                    <p class="section-kicker">Quick answers</p>
-                    <h2 id="faq-heading" class="about-section-title">Adya Mahakali Sahasranama FAQ</h2>
-                    <p class="about-section-subtitle">Short answers for readers and search engines, with the same information visible on the page as the structured data.</p>
-                </div>
-                <div class="faq-list">
-                    <article class="faq-item">
-                        <h3>What is Adya Mahakali 1000 Names?</h3>
-                        <p>Adya Mahakali 1000 Names, also called Adya Mahakali Sahasranama, is a devotional collection of sacred names of Goddess Adya Mahakali with English meanings for chanting, study, and spiritual reflection.</p>
-                    </article>
-                    <article class="faq-item">
-                        <h3>How many names are in this Adya Mahakali Sahasranama?</h3>
-                        <p>This site presents 1,072 names of Maa Adya Mahakali. Each entry includes a one-line English meaning and a longer explanatory note.</p>
-                    </article>
-                    <article class="faq-item">
-                        <h3>Where can I browse all names with meanings?</h3>
-                        <p>You can read the interactive homepage reader or use the <a href="/names/">static names reference hub</a>, which links to crawlable range pages for the full collection.</p>
-                    </article>
-                    <article class="faq-item">
-                        <h3>What does Sahasranama mean?</h3>
-                        <p>Sahasranama means “thousand names.” In this context it refers to devotional names that describe the forms, qualities, and spiritual attributes of Maa Adya Mahakali.</p>
-                    </article>
-                </div>
-            </section>
-        </div>
-    </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="om-symbol-small">ॐ</div>
-        <div class="footer-text">
-            <a href="https://1000namesofmakali.com/" class="footer-link footer-home-link" aria-label="Adya Mahakali 1000 Names, Home">Adya Mahakali 1000 Names</a><br>
-            Built by <strong>Kaliputra Ashish</strong><br>
-            Dedicated to <strong>Shri Praveen Radhakrishnan</strong> and <strong>Khyapa Parampara</strong><br>
-            <span class="footer-mantra">
-                Jai Ma Krishna<br>
-                Jai Mā Ādya Mahākālī<br>
-                Jai Kālabhairava
-            </span>
-            <div class="footer-social footer-meta-line">
-                Instagram: <a href="https://www.instagram.com/ashishkaliputra" target="_blank" rel="noopener noreferrer" class="footer-link">@ashishkaliputra</a>
-            </div>
-            <div class="footer-repo footer-meta-line">
-                Reference pages: <a href="/names/" class="footer-link">Names hub</a> · <a href="/kali-sahasranama-pdf/" class="footer-link">Free PDFs</a> · <a href="/sources/" class="footer-link">Sources</a>
-            </div>
-            <div class="footer-repo footer-meta-line">
-                Guides: <a href="/108-names-of-kali/" class="footer-link">108 Names</a> · <a href="/1008-names-of-kali/" class="footer-link">1008 Names</a> · <a href="/kali-sahasranama-lyrics/" class="footer-link">Lyrics</a> · <a href="/kali-sahasranama-benefits/" class="footer-link">Benefits</a>
-            </div>
-            <div class="footer-repo footer-meta-line">
-                <a href="/about/" class="footer-link">About</a> · <a href="/contact/" class="footer-link">Contact</a> · <a href="/privacy/" class="footer-link">Privacy</a>
-            </div>
-            <div class="footer-repo footer-meta-line footer-range-links">
-                Browse names by range:
-                {ranges.map((range, index) => (
-                    <span>{index > 0 ? ' · ' : ' '}<a href={range.path} class="footer-link">Names {range.label}</a></span>
-                ))}
-            </div>
-            <div class="footer-repo footer-meta-line">
-                ⭐ Open source on GitHub: <a href="https://github.com/09ashishkapoor/1000namesofmaadya" target="_blank" rel="noopener noreferrer" class="footer-link">View repository</a>
-            </div>
-            <div class="footer-version">
-                Version <span id="version-number">V{siteVersion}</span> | Last Updated: <span id="last-updated">{lastUpdatedDisplay}</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts: Deferred to avoid render-blocking -->
-    <script is:inline define:vars={{ assetVersion, initialNamesPayload }}>
-        window.__ASSET_VERSION__ = assetVersion;
-        window.__INITIAL_NAMES_PAYLOAD__ = initialNamesPayload;
-    </script>
-    <script src={versionedAsset('/translations.js')} defer data-cfasync="false" is:inline></script>
-    <script src={versionedAsset('/navigation.js')} defer data-cfasync="false" is:inline></script>
-    <script type="module" src={versionedAsset('/app.js')} defer data-cfasync="false" is:inline></script>
-    <script is:inline>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js?v=' + encodeURIComponent(window.__ASSET_VERSION__ || ''))
-                .catch(error => {
-                    console.warn('Could not register service worker:', error);
-                });
-        });
-    }
-    </script>
-    </script>
-</body>
+		<!-- Scripts: deferred to avoid render-blocking -->
+		<script is:inline define:vars={{ assetVersion, readerBoot }}>
+			window.__ASSET_VERSION__ = assetVersion;
+			window.__READER_BOOT__ = readerBoot;
+		</script>
+		<script type="module" src={versionedAsset('/app.js')} is:inline></script>
+		<script src="/pothi-theme.js" defer></script>
+		<script is:inline>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker
+						.register('/sw.js?v=' + encodeURIComponent(window.__ASSET_VERSION__ || ''))
+						.catch((error) => {
+							console.warn('Could not register service worker:', error);
+						});
+				});
+			}
+		</script>
+		<script is:inline>
+			(function () {
+				var year = new Date().getFullYear();
+				document.querySelectorAll('[data-current-year]').forEach(function (node) {
+					node.textContent = year;
+				});
+			})();
+		</script>
+	</body>
 </html>

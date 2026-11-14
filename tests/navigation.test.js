@@ -1,178 +1,163 @@
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
+const assert = require("assert");
+const fs = require("fs");
+const path = require("path");
+const vm = require("vm");
 
-function createClassList(initial = []) {
-  const values = new Set(initial);
-  return {
-    add: (...tokens) => tokens.forEach((token) => values.add(token)),
-    remove: (...tokens) => tokens.forEach((token) => values.delete(token)),
-    contains: (token) => values.has(token),
-    toString: () => Array.from(values).join(' ')
-  };
+function read(file) {
+	return fs.readFileSync(path.join(__dirname, "..", file), "utf8");
 }
 
-function createElement(tagName, ownerDocument) {
-  const element = {
-    tagName: tagName.toUpperCase(),
-    ownerDocument,
-    id: '',
-    innerHTML: '',
-    attributes: {},
-    children: [],
-    classList: createClassList(),
-    onclick: null,
-    offsetTop: 0,
-    offsetParent: null,
-    scrollIntoViewCalls: [],
-    set className(value) {
-      this._className = value;
-      this.classList = createClassList(value.split(/\s+/).filter(Boolean));
-    },
-    get className() {
-      return this._className || '';
-    },
-    setAttribute(name, value) {
-      this.attributes[name] = value;
-    },
-    getAttribute(name) {
-      return this.attributes[name];
-    },
-    appendChild(child) {
-      this.children.push(child);
-      if (child.id) ownerDocument.elementsById.set(child.id, child);
-      return child;
-    },
-    scrollIntoView(options) {
-      this.scrollIntoViewCalls.push(options);
-    }
-  };
+/* ---------- the running head markup ---------- */
 
-  return element;
+function testRunningHeadCarriesBrandNavAndControl() {
+	const head = read("src/components/RunningHead.astro");
+	assert.ok(head.includes('class="brand"'), "the running head carries the brand");
+	assert.ok(head.includes('href="/"'), "the brand links home");
+	assert.ok(head.includes('lang="sa"'), "the brand sets the Devanagari title");
+	assert.ok(head.includes('nav aria-label="Site"'), "the site nav is labelled");
+	["/names/", "/108-names-of-kali/", "/1008-names-of-kali/", "/kali-sahasranama-pdf/", "/kali-sahasranama-lyrics/", "/kali-sahasranama-benefits/", "/about/"].forEach(
+		(href) => assert.ok(head.includes(`href: '${href}'`), `the running head keeps the ${href} link`),
+	);
+	assert.ok(head.includes("data-theme-toggle"), "the running head carries the night control");
+	assert.ok(head.includes('aria-pressed="false"'), "the control starts unpressed");
+	assert.ok(head.includes('aria-label="Switch to night reading"'), "the control starts with the day label");
 }
 
-function createEnvironment() {
-  const elementsById = new Map();
-  const listeners = {};
+/* ---------- the shared control ---------- */
 
-  const document = {
-    readyState: 'complete',
-    body: {
-      children: [],
-      appendChild(element) {
-        this.children.push(element);
-        if (element.id) elementsById.set(element.id, element);
-        return element;
-      }
-    },
-    elementsById,
-    createElement(tagName) {
-      return createElement(tagName, document);
-    },
-    getElementById(id) {
-      return elementsById.get(id) || null;
-    },
-    addEventListener(event, handler) {
-      listeners[event] = handler;
-    }
-  };
+function loadTheme({ stored = null, systemDark = false } = {}) {
+	const root = {
+		attributes: {},
+		getAttribute(name) {
+			return this.attributes[name];
+		},
+		setAttribute(name, value) {
+			this.attributes[name] = value;
+		},
+		removeAttribute(name) {
+			delete this.attributes[name];
+		},
+	};
 
-  const namesSection = createElement('section', document);
-  namesSection.id = 'names-section';
-  namesSection.offsetTop = 900;
-  elementsById.set(namesSection.id, namesSection);
+	const button = {
+		attributes: {},
+		label: null,
+		children: { ".lbl": { textContent: "" } },
+		setAttribute(name, value) {
+			this.attributes[name] = value;
+		},
+		querySelector(selector) {
+			return this.children[selector] || null;
+		},
+	};
 
-  const windowListeners = {};
+	const listeners = {};
+	const changeListeners = [];
+	const store = new Map();
+	if (stored !== null) store.set("pothi-theme", stored);
 
-  const context = {
-    console: { log() {}, warn() {}, error() {} },
-    document,
-    getTranslation(_lang, key) {
-      return `english:${key}`;
-    },
-    window: {
-      addEventListener(event, handler) {
-        windowListeners[event] = handler;
-      },
-      requestAnimationFrame(callback) {
-        callback();
-      },
-      scrollToCalls: [],
-      scrollTo(options) {
-        this.scrollToCalls.push(options);
-      },
-      scrollY: 0,
-      innerHeight: 1000
-    },
-    setTimeout(callback) {
-      callback();
-      return 1;
-    },
-    clearTimeout() {}
-  };
+	const mediaQuery = {
+		matches: systemDark,
+		addEventListener(event, handler) {
+			if (event === "change") changeListeners.push(handler);
+		},
+	};
 
-  context.global = context;
-  context.globalThis = context;
-  context.self = context.window;
+	const context = {
+		document: {
+			documentElement: root,
+			addEventListener(event, handler) {
+				listeners[event] = handler;
+			},
+			querySelectorAll() {
+				return [button];
+			},
+		},
+		window: {
+			matchMedia() {
+				return mediaQuery;
+			},
+		},
+		localStorage: {
+			getItem(key) {
+				return store.has(key) ? store.get(key) : null;
+			},
+			setItem(key, value) {
+				store.set(key, value);
+			},
+		},
+		console: { log() {}, warn() {} },
+	};
+	context.global = context;
+	context.globalThis = context;
 
-  return { context, document, namesSection, windowListeners };
+	vm.runInNewContext(read("public/pothi-theme.js"), context, { filename: "pothi-theme.js" });
+
+	function click() {
+		listeners.click({
+			target: {
+				closest(selector) {
+					return selector === "[data-theme-toggle]" ? button : null;
+				},
+			},
+		});
+	}
+
+	return { root, button, store, changeListeners, mediaQuery, click };
 }
 
-function runNavigationScript(env) {
-  const scriptPath = path.join(__dirname, '..', 'public', 'navigation.js');
-  const source = fs.readFileSync(scriptPath, 'utf8');
-  vm.runInNewContext(source, env.context, { filename: 'navigation.js' });
+function testControlStartsFromTheDayLabel() {
+	const { button } = loadTheme();
+	assert.strictEqual(button.attributes["aria-pressed"], "false");
+	assert.strictEqual(button.attributes["aria-label"], "Switch to night reading");
+	assert.strictEqual(button.children[".lbl"].textContent, "Night");
 }
 
-function testInitialButtonCreation() {
-  const env = createEnvironment();
-  runNavigationScript(env);
+function testControlTogglesAndPersists() {
+	const theme = loadTheme();
+	theme.click();
+	assert.strictEqual(theme.root.attributes["data-theme"], "night", "a click switches to night");
+	assert.strictEqual(theme.store.get("pothi-theme"), "night", "the choice is remembered");
+	assert.strictEqual(theme.button.attributes["aria-pressed"], "true");
+	assert.strictEqual(theme.button.attributes["aria-label"], "Switch to day reading");
+	assert.strictEqual(theme.button.children[".lbl"].textContent, "Day");
 
-  const upButton = env.document.getElementById('nav-up-button');
-  const downButton = env.document.getElementById('nav-down-button');
-
-  assert.ok(upButton, 'creates the up button');
-  assert.ok(downButton, 'creates the down button');
-  assert.strictEqual(upButton.getAttribute('aria-label'), 'english:navigation.backToTop');
-  assert.strictEqual(upButton.getAttribute('title'), 'english:navigation.backToTopTitle');
-  assert.strictEqual(downButton.getAttribute('aria-label'), 'english:navigation.goToNames');
-  assert.strictEqual(downButton.getAttribute('title'), 'english:navigation.goToNamesTitle');
-  assert.ok(upButton.classList.contains('hidden'), 'up button starts hidden near top');
-  assert.ok(!downButton.classList.contains('hidden'), 'down button is visible near top');
+	theme.click();
+	assert.strictEqual(theme.root.attributes["data-theme"], undefined, "a second click returns to day");
+	assert.strictEqual(theme.store.get("pothi-theme"), "day");
 }
 
-function testUpdateNavigationTextKeepsEnglishLabels() {
-  const env = createEnvironment();
-  runNavigationScript(env);
+function testControlFollowsTheSystemUntilAnExplicitChoice() {
+	const theme = loadTheme({ systemDark: false });
+	assert.strictEqual(theme.changeListeners.length, 1, "the control listens for system changes");
+	theme.mediaQuery.matches = true;
+	theme.changeListeners[0]({ matches: true });
+	assert.strictEqual(theme.root.attributes["data-theme"], "night", "an unset preference follows the system");
+	assert.strictEqual(theme.store.get("pothi-theme"), undefined, "following the system does not write a preference");
 
-  env.context.window.updateNavigationText();
-
-  const upButton = env.document.getElementById('nav-up-button');
-  const downButton = env.document.getElementById('nav-down-button');
-
-  assert.strictEqual(upButton.getAttribute('aria-label'), 'english:navigation.backToTop');
-  assert.strictEqual(downButton.getAttribute('aria-label'), 'english:navigation.goToNames');
+	const chosen = loadTheme({ stored: "day", systemDark: true });
+	chosen.changeListeners[0]({ matches: true });
+	assert.strictEqual(chosen.root.attributes["data-theme"], undefined, "an explicit choice wins over the system");
 }
 
-function testButtonActionsRemainBound() {
-  const env = createEnvironment();
-  runNavigationScript(env);
+/* ---------- the pre-paint script ---------- */
 
-  const upButton = env.document.getElementById('nav-up-button');
-  const downButton = env.document.getElementById('nav-down-button');
-
-  upButton.onclick();
-  downButton.onclick();
-
-  assert.strictEqual(env.context.window.scrollToCalls[0].top, 0);
-  assert.strictEqual(env.context.window.scrollToCalls[0].behavior, 'smooth');
-  assert.strictEqual(env.namesSection.scrollIntoViewCalls[0].behavior, 'smooth');
-  assert.strictEqual(env.namesSection.scrollIntoViewCalls[0].block, 'start');
+function testPrePaintScriptRunsBeforeBody() {
+	["src/layouts/ReferenceLayout.astro", "src/pages/index.astro"].forEach((file) => {
+		const source = read(file);
+		const headEnd = source.indexOf("</head>");
+		const script = source.indexOf("localStorage.getItem('pothi-theme')");
+		const body = source.indexOf("<body>");
+		assert.ok(script !== -1, `${file} applies the stored theme inline`);
+		assert.ok(script < headEnd, `${file} applies the stored theme inside <head>`);
+		assert.ok(script < body, `${file} applies the stored theme before the body paints`);
+	});
 }
 
-testInitialButtonCreation();
-testUpdateNavigationTextKeepsEnglishLabels();
-testButtonActionsRemainBound();
+testRunningHeadCarriesBrandNavAndControl();
+testControlStartsFromTheDayLabel();
+testControlTogglesAndPersists();
+testControlFollowsTheSystemUntilAnExplicitChoice();
+testPrePaintScriptRunsBeforeBody();
 
-console.log('navigation.js regression tests passed');
+console.log("navigation.js regression tests passed");

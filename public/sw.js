@@ -1,16 +1,14 @@
 const CACHE_PREFIX = "adya-shell-";
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const CORE_ASSETS = [
 	"/",
 	"/names/",
 	"/MaaAdyaKali_5.webp",
-	"/maadya-bg-1111-landscape.webp",
-	"/maadya-bg-1111-portrait.webp",
-	"/styles.min.css",
-	"/navigation.js",
-	"/translations.js",
-	"/search.js",
+	"/pothi.css",
+	"/pothi-theme.js",
+	"/app.js",
+	"/name-spine.json",
 	"/data_manifest.json",
 	"/data_chunk_1.json",
 ];

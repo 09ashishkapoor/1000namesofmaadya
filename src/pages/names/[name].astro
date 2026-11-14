@@ -1,5 +1,6 @@
 ---
 import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+import ForeEdge from '../../components/ForeEdge.astro';
 
 import { getStaticNamesData } from '../../lib/staticNames.js';
 
@@ -154,95 +155,150 @@ const pageSchema = {
 	schema={pageSchema}
 	prevUrl={previousPage ? `${siteUrl}/names/${previousPage.slug}/` : null}
 	nextUrl={nextPage ? `${siteUrl}/names/${nextPage.slug}/` : null}
+	colophonLabel="The Pothi, name page"
 >
-<nav class="breadcrumbs" aria-label="Breadcrumb">
-				<ol>
-					<li><a href="/">Home</a></li>
-					<li><a href="/names/">Names hub</a></li>
-					<li><a href={primaryRange.path}>{primaryRange.label}</a></li>
-					<li><span aria-current="page">{page.spelling_common}</span></li>
-				</ol>
-			</nav>
+	<ForeEdge current={primaryRange.rangeNumber - 1} total={primaryRange.totalRanges} />
 
-			<header class="name-header">
-				<p class="page-kicker">Sahasranama {kickerLabel} of the 1,072 names</p>
-				<h1>{page.spelling_common}</h1>
-				<p class="name-sanskrit" lang="sa">{page.devanagari}</p>
-				<p class="name-iast"><em>{page.iast}</em></p>
-			</header>
+	<nav class="breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/">Home</a></li>
+			<li><a href="/names/">Names hub</a></li>
+			<li><a href={primaryRange.path}>{primaryRange.label}</a></li>
+			<li><span aria-current="page">{page.spelling_common}</span></li>
+		</ol>
+	</nav>
 
-			<section class="hero-panel name-summary" aria-labelledby="summary-heading">
-				<h2 id="summary-heading">What {page.spelling_common} means</h2>
-				<p class="intro">
-					<strong>{page.spelling_common}</strong> is {numbersLabel} in the <strong>Adya Mahakali Sahasranama</strong>,
-					the 1,072-name devotional text to Maa Kali. {primaryOccurrence.entry.english_one_line}
-				</p>
-				<div class="spelling-block">
-					<h3>Also spelled</h3>
-					<ul class="spelling-list">
-						{alsoSpelled.map((variant) => <li>{variant}</li>)}
-						<li class="spelling-source">Source transliteration: <span>{page.spelling_site}</span></li>
-					</ul>
-					<p class="spelling-note">
+	<p class="page-kicker">Sahasranama {kickerLabel} of the 1,072 names</p>
+	<h1 class="dev-title" lang="sa">{page.devanagari}</h1>
+	<p class="iast-title">{page.iast}</p>
+	<p class="common-title">Also written {page.spelling_common}</p>
+
+	<div class="sheet" style="margin-top:clamp(22px,3vw,36px)">
+		<span class="folio" aria-hidden="true">
+			{primaryOccurrence.number}
+		</span>
+		<section class="panel" aria-labelledby="means" style="margin-top:0">
+			<h2 class="sec" id="means"><span class="n" lang="sa">अर्थ</span>What {page.spelling_common} means</h2>
+			<div class="panel-grid">
+				<div>
+					<p class="prose lede" style="max-width:none;margin:0 0 16px">
+						<strong>{page.spelling_common}</strong> is {numbersLabel} in the <strong
+							>Adya Mahakali Sahasranama</strong
+						>, the 1,072-name devotional text to Maa Kali. {primaryOccurrence.entry.english_one_line}
+					</p>
+					<p class="panel-note">
 						Sanskrit names travel into English in several romanizations. This page keeps the common spelling,
 						the IAST form, and the source transliteration together so the same name is discoverable under each
 						spelling readers use.
 					</p>
 				</div>
-			</section>
-
-			<div class="entries-stack name-entries">
-				{occurrences.map((occurrence) => (
-					<article class="entry name-occurrence" id={`name-${occurrence.number}`}>
-						<h2>
-							{isRepeated
-								? `Name ${occurrence.number}: ${occurrence.entry.english_name}`
-								: 'Meaning and elaboration'}
-						</h2>
-						<p><strong>Meaning:</strong> {occurrence.entry.english_one_line}</p>
-						<h3>Elaboration</h3>
-						{occurrence.entry.english_elaboration_paragraphs.map((paragraph) => (
-							<p>{paragraph}</p>
-						))}
-						<p class="entry-meta">
-							Position {occurrence.number} of {totalNames} ·
-							<a href={occurrence.range.path}>Browse range {occurrence.range.label}</a>
-						</p>
-					</article>
-				))}
+				<dl class="spellings">
+					<dt>Devanagari</dt>
+					<dd lang="sa">{page.devanagari}</dd>
+					<dt>IAST</dt>
+					<dd>{page.iast}</dd>
+					<dt>Common spelling</dt>
+					<dd>{page.spelling_common}</dd>
+					{
+						alsoSpelled.length > 0 && (
+							<>
+								<dt>Also spelled</dt>
+								<dd>{alsoSpelled.join(', ')}</dd>
+							</>
+						)
+					}
+					<dt>Source form</dt>
+					<dd class="src">{page.spelling_site}</dd>
+				</dl>
 			</div>
+		</section>
+	</div>
 
-			<nav class="page-nav name-pagination" aria-label="Name page navigation">
-				<ul>
-					{previousPage && (
-						<li>
-							<a href={`/names/${previousPage.slug}/`}>← Previous name: {previousPage.spelling_common}</a>
-						</li>
+	<section aria-labelledby="elab" style="margin-top:clamp(30px,4vw,52px)">
+		<h2 class="sec" id="elab"><span class="n" lang="sa">विवरण</span>Meaning and elaboration</h2>
+		{
+			occurrences.map((occurrence) => (
+				<div class="prose">
+					{isRepeated && (
+						<h3 class="dev-sec" id={`name-${occurrence.number}`}>
+							Name {occurrence.number}: {occurrence.entry.english_name}
+						</h3>
 					)}
-					{nextPage && (
-						<li>
-							<a href={`/names/${nextPage.slug}/`}>Next name: {nextPage.spelling_common} →</a>
-						</li>
-					)}
-					<li><a href={primaryRange.path}>All names in range {primaryRange.label}</a></li>
-					<li><a href="/names/">All 1,072 names</a></li>
-					<li><a href="/kali-sahasranama-pdf/">PDF edition</a></li>
-					<li><a href="/108-names-of-kali/">108 names guide</a></li>
-					<li><a href="/">Interactive reader</a></li>
-				</ul>
-			</nav>
+					<p class="entry-meaning">Meaning — {occurrence.entry.english_one_line}</p>
+					{occurrence.entry.english_elaboration_paragraphs.map((paragraph, index) => (
+						<p class={index === 0 ? 'lede drop' : undefined}>{paragraph}</p>
+					))}
+					<p class="entry-meta">
+						Position {occurrence.number} of {totalNames} ·{' '}
+						<a class="u" href={occurrence.range.path}>Browse range {occurrence.range.label}</a>
+					</p>
+				</div>
+			))
+		}
+	</section>
 
-			<section class="source-notes" aria-labelledby="name-source-heading">
-				<h2 id="name-source-heading">Text and sources</h2>
-				<p>
-					The name list follows the Adya Mahakali Sahasranama as compiled for this project. The English meaning
-					and elaboration are interpretive notes for devotional study, not a translation of a single critical
-					edition.
-				</p>
-				<p><a href="/sources/">Read the editorial method and source notes →</a></p>
-				<p>
-					<a href="/about/">About the author</a> · <a href="/contact/">Contact and corrections</a> ·
-					<a href="/privacy/">Privacy policy</a>
-				</p>
-			</section>
+	<nav class="pager" aria-label="Name navigation" style="margin-top:clamp(30px,4vw,48px)">
+		{
+			previousPage ? (
+				<a href={`/names/${previousPage.slug}/`}>
+					<span class="lab">← Previous name · position {previousPage.primaryNumber}</span>
+					<span class="dev" lang="sa">{previousPage.devanagari}</span>
+					<span class="iast">{previousPage.iast}</span>
+				</a>
+			) : (
+				<span></span>
+			)
+		}
+		{
+			nextPage ? (
+				<a href={`/names/${nextPage.slug}/`}>
+					<span class="lab">Next name · position {nextPage.primaryNumber} →</span>
+					<span class="dev" lang="sa">{nextPage.devanagari}</span>
+					<span class="iast">{nextPage.iast}</span>
+				</a>
+			) : (
+				<span></span>
+			)
+		}
+	</nav>
+
+	<div class="seealso" style="margin-top:clamp(28px,3.4vw,44px)">
+		<a class="tl" href={primaryRange.path}
+			><span class="t">All names in range {primaryRange.label}</span><span class="d"></span><span class="p"
+				>range</span
+			></a
+		>
+		<a class="tl" href="/names/"
+			><span class="t">All 1,072 names</span><span class="d"></span><span class="p">hub</span></a
+		>
+		<a class="tl" href="/kali-sahasranama-pdf/"
+			><span class="t">PDF edition</span><span class="d"></span><span class="p">68 pages</span></a
+		>
+		<a class="tl" href="/108-names-of-kali/"
+			><span class="t">108 names guide</span><span class="d"></span><span class="p">practice set</span></a
+		>
+		<a class="tl" href="/"><span class="t">The reader</span><span class="d"></span><span class="p"
+				>sets of eleven</span
+			></a
+		>
+		<a class="tl" href="/sources/"
+			><span class="t">Sources &amp; corrections</span><span class="d"></span><span class="p">editorial</span></a
+		>
+	</div>
+
+	<section class="panel" aria-labelledby="sources" style="margin-top:clamp(28px,3.4vw,44px)">
+		<h2 class="sec" id="sources"><span class="n" lang="sa">स्रोत</span>Text and sources</h2>
+		<p class="prose" style="font-size:16px;margin:0 0 12px">
+			The name list follows the Adya Mahakali Sahasranama as compiled for this project. The English meaning and
+			elaboration are interpretive notes for devotional study, not a translation of a single critical edition.
+		</p>
+		<p style="font-size:16px;margin:0 0 8px">
+			<a class="u" href="/sources/">Read the editorial method and source notes →</a>
+		</p>
+		<p style="font-size:15px;color:var(--ash);margin:0">
+			<a class="u" href="/about/">About the author</a> ·
+			<a class="u" href="/contact/">Contact and corrections</a> ·
+			<a class="u" href="/privacy/">Privacy policy</a>
+		</p>
+	</section>
 </ReferenceLayout>

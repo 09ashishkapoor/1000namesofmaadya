@@ -2,443 +2,271 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 
+const ROOT = path.join(__dirname, "..");
+
 function read(file) {
-	return fs.readFileSync(path.join(__dirname, "..", file), "utf8");
+	return fs.readFileSync(path.join(ROOT, file), "utf8");
 }
 
-const pageSource = read("src/pages/index.astro");
+function walk(dir, extensions) {
+	const absolute = path.join(ROOT, dir);
+	if (!fs.existsSync(absolute)) return [];
+	return fs.readdirSync(absolute, { withFileTypes: true }).flatMap((entry) => {
+		const entryPath = path.join(absolute, entry.name);
+		if (entry.isDirectory()) return walk(path.join(dir, entry.name), extensions);
+		return entry.isFile() && extensions.some((extension) => entry.name.endsWith(extension))
+			? [entryPath]
+			: [];
+	});
+}
+
+const layout = read("src/layouts/ReferenceLayout.astro");
+const readerPage = read("src/pages/index.astro");
+const namePage = read("src/pages/names/[name].astro");
+const rangePage = read("src/pages/names/[range].astro");
+const hubPage = read("src/pages/names/index.astro");
+const runningHead = read("src/components/RunningHead.astro");
+const colophon = read("src/components/Colophon.astro");
 const appJs = read("public/app.js");
-const stylesCss = read("public/styles.css");
-const translationsJs = read("public/translations.js");
+const pothiCss = read("public/pothi.css");
+const themeJs = read("public/pothi-theme.js");
 const headersFile = read("public/_headers");
 const sitemapXml = read("public/sitemap.xml").replace(/\r\n/g, "\n");
 const serviceWorkerJs = read("public/sw.js");
+
+const astroPages = walk("src/pages", [".astro"]);
+const astroSources = [...astroPages, ...walk("src/layouts", [".astro"]), ...walk("src/components", [".astro"])].map(
+	(file) => fs.readFileSync(file, "utf8"),
+);
 
 function assertIncludes(text, snippet, message) {
 	assert.ok(text.includes(snippet), message);
 }
 
-function collectAstroFiles(dir) {
-	if (!fs.existsSync(dir)) return [];
-	return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-		const entryPath = path.join(dir, entry.name);
-		if (entry.isDirectory()) return collectAstroFiles(entryPath);
-		return entry.isFile() && entry.name.endsWith(".astro") ? [entryPath] : [];
+/* ---------- one stylesheet ---------- */
+
+function testLegacyStylesheetsAreGone() {
+	["public/styles.css", "public/styles.min.css", "public/reference.css"].forEach((file) => {
+		assert.ok(!fs.existsSync(path.join(ROOT, file)), `${file} should be removed from the build`);
+	});
+	astroSources.forEach((source) => {
+		assert.ok(!source.includes("reference.css"), "no template should link the old reference.css");
+		assert.ok(!source.includes("styles.min.css"), "no template should link the old styles.min.css");
 	});
 }
 
-function testFooterVersionIsBuildRendered() {
-	assertIncludes(
-		pageSource,
-		"V{siteVersion}",
-		"footer version should be rendered from version.json at build time",
-	);
-	assertIncludes(
-		pageSource,
-		"{lastUpdatedDisplay}",
-		"footer last-updated date should be rendered at build time",
-	);
+function testSingleStylesheetIsLinked() {
+	assertIncludes(layout, 'href="/pothi.css"', "the shared layout links the one Pothi stylesheet");
+	assertIncludes(readerPage, "versionedAsset('/pothi.css')", "the reader links the same stylesheet");
+	assertIncludes(pothiCss, "--cinnabar:", "the stylesheet carries the approved tokens");
+	assertIncludes(pothiCss, ':root[data-theme="night"]', "the stylesheet carries the night token set");
+}
+
+/* ---------- night reading on every template ---------- */
+
+function testNightReadingIsOnEveryTemplate() {
+	assertIncludes(layout, "<RunningHead />", "the shared layout renders the head that carries the control");
+	assertIncludes(runningHead, "data-theme-toggle", "the running head component carries the night control");
+	assertIncludes(layout, "localStorage.getItem('pothi-theme')", "the layout applies the stored theme before paint");
+	assertIncludes(readerPage, "localStorage.getItem('pothi-theme')", "the reader applies the stored theme before paint");
+	assertIncludes(layout, 'src="/pothi-theme.js"', "the layout loads the shared control script");
+	assertIncludes(readerPage, 'src="/pothi-theme.js"', "the reader loads the shared control script");
+	assertIncludes(themeJs, "localStorage.setItem", "the control remembers an explicit choice");
+	assertIncludes(themeJs, "prefers-color-scheme: dark", "the control follows the system while unset");
+	assertIncludes(themeJs, "aria-pressed", "the control exposes aria-pressed");
+	assertIncludes(pothiCss, "@media print", "print restores the day tokens");
+}
+
+/* ---------- shared chrome ---------- */
+
+function testEveryPageOpensAndClosesTheSameBook() {
+	assertIncludes(layout, "<RunningHead />", "the shared layout renders the running head");
+	assertIncludes(layout, "<Colophon", "the shared layout renders the colophon");
+	assertIncludes(readerPage, "<RunningHead />", "the reader renders the running head");
+	assertIncludes(readerPage, "<Colophon", "the reader renders the colophon");
+	assertIncludes(colophon, "V{version}", "the colophon renders the version at build time");
+	assertIncludes(colophon, "{lastUpdated}", "the colophon renders the last-updated date at build time");
+	assert.ok(!colophon.includes("V1.21.0"), "the stale hardcoded version is gone");
+}
+
+function testGuideAndTextPagesUseTheSharedLayout() {
+	const required = [
+		"108-names-of-kali",
+		"1008-names-of-kali",
+		"kali-sahasranama-pdf",
+		"kali-sahasranama-lyrics",
+		"kali-sahasranama-benefits",
+		"about",
+		"contact",
+		"privacy",
+		"sources",
+	];
+	required.forEach((slug) => {
+		const source = read(`src/pages/${slug}/index.astro`);
+		assertIncludes(source, "ReferenceLayout", `${slug} renders through the shared layout`);
+	});
+}
+
+/* ---------- the reader: eleven names, server-rendered ---------- */
+
+function testReaderServerRendersItsFirstSet() {
+	assertIncludes(readerPage, "getNameMapping()", "the reader reads spelling forms from the name mapping");
+	assertIncludes(readerPage, "firstChunkEntries.slice(0, SET_SIZE)", "the first eleven meanings are read at build time");
+	assertIncludes(readerPage, "row?.devanagari", "the reader renders Devanagari from the mapping");
+	assertIncludes(readerPage, "row?.iast", "the reader renders IAST from the mapping");
+	assertIncludes(readerPage, "window.__READER_BOOT__ = readerBoot", "the first set is handed to the client");
+	assertIncludes(readerPage, 'lang="sa"', "Devanagari is marked as Sanskrit");
+	assert.ok(!readerPage.includes("name-card"), "the old card grid is gone");
+	assert.ok(!readerPage.includes("data-prerendered"), "the old prerender marker is gone");
+}
+
+function testReaderScriptKeepsTheContracts() {
+	assertIncludes(appJs, "function getAssetUrl", "asset URLs stay versioned");
+	assertIncludes(appJs, "function normalize", "search stays accent-insensitive");
+	assertIncludes(appJs, "function describeFailure", "network failures still explain themselves");
+	assertIncludes(appJs, "navigator.onLine === false", "offline is still detected");
+	assertIncludes(appJs, "reader-status", "the reader announces loading and failure");
+	assertIncludes(appJs, "'/name-spine.json'", "the remainder of the names comes from the committed data");
+	assert.ok(!appJs.includes("innerHTML"), "the reader never injects markup into the page");
+}
+
+function testReaderSourceHasNoStrayScriptTag() {
 	assert.ok(
-		!pageSource.includes("V1.21.0"),
-		"stale hardcoded footer version should be gone",
-	);
-	assertIncludes(
-		serviceWorkerJs,
-		'url.pathname === "/version.json"',
-		"service worker should never cache version.json",
+		!/<\/script>\s*<\/script>/.test(readerPage),
+		"no stray </script> closes a script that was never opened",
 	);
 }
 
-function testHeroCtasExist() {
-	assertIncludes(pageSource, 'id="explore-btn"', "primary CTA should exist");
-	assertIncludes(pageSource, 'id="learn-btn"', "secondary CTA should exist");
+/* ---------- name / range / hub ---------- */
+
+function testNamePageUsesTheSystem() {
+	assertIncludes(namePage, 'class="dev-title"', "the Devanagari name is the page title");
+	assertIncludes(namePage, 'class="iast-title"', "IAST sits under the Devanagari");
+	assertIncludes(namePage, 'class="common-title"', "the common spelling stays visible");
+	assertIncludes(namePage, 'class="spellings"', "the spelling table is present");
+	assertIncludes(namePage, 'class="pager"', "the name pager is present");
+	assertIncludes(namePage, 'class="seealso"', "the see-also list is present");
+	assertIncludes(namePage, "getStaticPaths", "name pages are statically generated");
 }
 
-function testAboutSectionComesAfterNamesSection() {
-	const namesIndex = pageSource.indexOf('id="names-section"');
-	const aboutIndex = pageSource.indexOf('id="about-section"');
-	assert.ok(
-		namesIndex !== -1 && aboutIndex !== -1,
-		"names and about sections should exist",
-	);
-	assert.ok(
-		aboutIndex > namesIndex,
-		"about section should come after names section",
-	);
+function testRangePageRendersStaticRows() {
+	assertIncludes(rangePage, "getStaticPaths", "range pages expose static paths");
+	assertIncludes(rangePage, 'class="rtabs"', "range tabs are present");
+	assertIncludes(rangePage, 'class="nrow"', "rows use the dense index component");
+	assertIncludes(rangePage, "id={`name-${entry.index}`}", "rows keep the anchors the ItemList schema points at");
+	assertIncludes(rangePage, "itemListElement", "the ItemList structured data is preserved");
+	assertIncludes(rangePage, "entry.devanagari", "rows carry Devanagari");
+	assertIncludes(rangePage, "entry.iast", "rows carry IAST");
 }
 
-function testReadingModeControlsExist() {
-	assertIncludes(
-		pageSource,
-		'id="search-toggle-btn"',
-		"search toggle should exist",
-	);
-	assertIncludes(
-		pageSource,
-		'id="prev-page-btn"',
-		"previous page button should exist",
-	);
-	assertIncludes(
-		pageSource,
-		'id="next-page-btn"',
-		"next page button should exist",
-	);
-	assertIncludes(
-		pageSource,
-		'id="reading-progress"',
-		"reading progress element should exist",
-	);
-	assertIncludes(
-		pageSource,
-		'id="retry-btn"',
-		"retry button should exist in the error state",
-	);
-	assertIncludes(
-		pageSource,
-		'id="loading-message"',
-		"loading state should expose a dedicated message target",
-	);
+function testHubListsTheRanges() {
+	assertIncludes(hubPage, 'class="range-list"', "the hub lists the eleven ranges");
+	assertIncludes(hubPage, "range.firstName.english", "each range keeps its first name");
+	assertIncludes(hubPage, "range.lastName.english", "each range keeps its last name");
 }
 
-function testPrerenderedFirstPageStructureExists() {
-	assertIncludes(
-		pageSource,
-		"window.__INITIAL_NAMES_PAYLOAD__ = initialNamesPayload;",
-		"initial names bootstrap should be exposed to the client",
-	);
-	assertIncludes(
-		pageSource,
-		'data-prerendered="true"',
-		"first page cards should be prerendered in the Astro HTML",
-	);
-	assertIncludes(
-		pageSource,
-		"firstPageEntries.map((entry, index) => (",
-		"first 11 names should be rendered at build time",
-	);
-	assertIncludes(
-		pageSource,
-		'id="loading-state" class="loading-state hidden"',
-		"loading state should stay hidden when the prerendered first page exists",
-	);
-	assertIncludes(
-		pageSource,
-		"document.documentElement.lang = 'en';",
-		"first-paint language hint should set English before body content renders",
-	);
+/* ---------- accessibility floor ---------- */
+
+function testAccessibilityFloor() {
+	assertIncludes(pothiCss, "@media (prefers-reduced-motion: reduce)", "reduced motion is honoured");
+	assertIncludes(pothiCss, ":focus-visible", "focus rings are visible");
+	assertIncludes(pothiCss, "min-height: 44px", "controls meet the 44px target");
+	assertIncludes(pothiCss, "font-size: 17.5px", "phones get the 17.5px floor");
+	assert.ok(!pothiCss.includes("text-transform: uppercase"), "no uppercase micro-labels");
+	astroSources.forEach((source) => {
+		assert.ok(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(source), "no emoji in page markup");
+	});
+	assert.ok(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(appJs), "no emoji in the reader script");
 }
 
-function testAppHooksExist() {
-	assertIncludes(
-		appJs,
-		"function scrollToAbout()",
-		"learn CTA handler should exist",
-	);
-	assertIncludes(
-		appJs,
-		"function goToPreviousPage()",
-		"previous page handler should exist",
-	);
-	assertIncludes(
-		appJs,
-		"function goToNextPage()",
-		"next page handler should exist",
-	);
-	assertIncludes(
-		appJs,
-		"function updatePagination()",
-		"pagination updater should exist",
-	);
-	assertIncludes(
-		appJs,
-		"function toggleSearchPanel()",
-		"search toggle handler should exist",
-	);
-}
+/* ---------- assets, service worker, headers, sitemap ---------- */
 
-function testCollapsedReadingModeMarkup() {
-	assertIncludes(
-		appJs,
-		"detailMarkup",
-		"detail markup should be built lazily inside expanded content",
-	);
-	assert.ok(
-		!appJs.includes(
-			'<p class="card-meaning">${oneLine}</p>\n      \n      <button',
-		),
-		"meaning should not render before the reveal button",
-	);
-}
-
-function testStylesSupportMobileSearchAndPagination() {
-	assertIncludes(
-		stylesCss,
-		".search-panel.mobile-collapsed",
-		"mobile search collapse styles should exist",
-	);
-	assertIncludes(
-		stylesCss,
-		".reading-pagination",
-		"reading pagination styles should exist",
-	);
-}
-
-function testReducedMotionCriticalCssIsValid() {
-	assertIncludes(
-		pageSource,
-		"@media (prefers-reduced-motion: reduce)",
-		"critical CSS should honor prefers-reduced-motion with a valid media query",
-	);
-	assert.ok(
-		!pageSource.includes("@prefers-reduced-motion"),
-		"critical CSS should not contain an invalid reduced-motion at-rule",
-	);
-}
-
-function testElaborationContentDoesNotTrapMobileReading() {
-	assertIncludes(
-		stylesCss,
-		".elaboration.expanded .elaboration-content",
-		"expanded elaboration content styles should exist",
-	);
-	assert.ok(
-		!stylesCss.includes("max-height: 500px;"),
-		"expanded elaboration content should not be capped to an internal 500px scroll area",
-	);
-	assert.ok(
-		!stylesCss.includes("overflow-y: auto;"),
-		"expanded elaboration content should not require nested vertical scrolling",
-	);
-}
-
-function testVersionedStaticAssetsExist() {
-	assertIncludes(
-		pageSource,
-		"const assetVersion = encodeURIComponent(packageJson.version || '1');",
-		"Astro page should create a stable app-version asset version",
-	);
-	assertIncludes(
-		pageSource,
-		"window.__ASSET_VERSION__ = assetVersion;",
-		"asset version should be exposed to client scripts",
-	);
-	assertIncludes(
-		pageSource,
-		"src={versionedAsset('/app.js')}",
-		"app script should be cache-busted",
-	);
-	assertIncludes(
-		pageSource,
-		"src={versionedAsset('/navigation.js')}",
-		"navigation script should be cache-busted",
-	);
-	assertIncludes(
-		pageSource,
-		"src={versionedAsset('/translations.js')}",
-		"translations script should be cache-busted",
-	);
-	assertIncludes(
-		pageSource,
-		"href={versionedAsset('/styles.min.css')}",
-		"stylesheet should be cache-busted",
-	);
-}
-
-function testJsonFetchesUseVersionedUrls() {
-	assertIncludes(
-		appJs,
-		"function getAssetUrl(path)",
-		"app should centralize versioned asset URLs",
-	);
-	assert.ok(
-		appJs.includes("getAssetUrl('/data_manifest.json')") ||
-			appJs.includes('getAssetUrl("/data_manifest.json")'),
-		"manifest fetch should be cache-busted",
-	);
-	assertIncludes(
-		appJs,
-		"getAssetUrl(`/data_chunk_${chunkNum}.json`)",
-		"chunk fetches should be cache-busted",
-	);
-	assert.ok(
-		appJs.includes("getAssetUrl('/search.js')") ||
-			appJs.includes('getAssetUrl("/search.js")'),
-		"search logic should load lazily on first search intent",
-	);
-	assertIncludes(
-		appJs,
-		"importModuleWithRetry",
-		"lazy search loading should use the same retry wrapper as JSON fetches",
-	);
-	assertIncludes(
-		appJs,
-		"withTimeout(() => import(url), timeoutMs)",
-		"lazy search loading should have an explicit timeout guard",
-	);
-	assertIncludes(
-		appJs,
-		"announceRetryProgress",
-		"network retries should expose progressive status updates",
-	);
-	assertIncludes(
-		appJs,
-		"usePrerenderedPageOne",
-		"app should track whether prerendered page-one DOM can be adopted",
-	);
-	assertIncludes(
-		appJs,
-		"function getTotalAvailableCount()",
-		"pagination should account for deferred full-data loading",
-	);
-	assert.ok(
-		!appJs.includes("requestIdleCallback(() => preloadRemainingChunks())"),
-		"remaining chunks should not eagerly preload on idle",
-	);
-}
-
-function testServiceWorkerOfflineShellExists() {
-	assertIncludes(
-		pageSource,
-		"navigator.serviceWorker.register('/sw.js?v=' + encodeURIComponent(window.__ASSET_VERSION__ || ''))",
-		"page should register the offline service worker",
-	);
-	assertIncludes(
-		serviceWorkerJs,
-		"/data_chunk_1.json",
-		"service worker should cache the first names chunk for offline reading",
-	);
-	assertIncludes(
-		serviceWorkerJs,
-		"/data_manifest.json",
-		"service worker should cache the manifest for offline pagination metadata",
-	);
-	assertIncludes(
-		serviceWorkerJs,
-		'self.addEventListener("fetch"',
-		"service worker should intercept same-origin fetches",
-	);
+function testVersionedAssetsAndOfflineShell() {
+	assertIncludes(readerPage, "const assetVersion = encodeURIComponent(packageJson.version || '1');", "assets stay versioned");
+	assertIncludes(readerPage, "window.__ASSET_VERSION__ = assetVersion;", "the version reaches the client");
+	assertIncludes(readerPage, "src={versionedAsset('/app.js')}", "app.js is cache-busted");
+	assertIncludes(readerPage, "href={versionedAsset('/pothi.css')}", "the stylesheet is cache-busted");
+	assertIncludes(readerPage, "navigator.serviceWorker", "the offline shell is still registered");
+	assertIncludes(readerPage, "/sw.js?v=", "the service worker is registered with the asset version");
+	assertIncludes(serviceWorkerJs, "/data_chunk_1.json", "the service worker caches the first names chunk");
+	assertIncludes(serviceWorkerJs, "/data_manifest.json", "the service worker caches the manifest");
+	assertIncludes(serviceWorkerJs, "/pothi.css", "the service worker caches the one stylesheet");
+	assertIncludes(serviceWorkerJs, 'self.addEventListener("fetch"', "the service worker intercepts fetches");
+	assertIncludes(serviceWorkerJs, 'url.pathname === "/version.json"', "version.json is never cached");
 }
 
 function testHeadersDoNotMarkMutableAssetsImmutable() {
-	assertIncludes(
-		headersFile,
-		"/app.js",
-		"headers should define app.js caching",
-	);
-	assertIncludes(
-		headersFile,
-		"/translations.js",
-		"headers should define translations.js caching",
+	assertIncludes(headersFile, "/app.js", "headers define app.js caching");
+	assertIncludes(headersFile, "/pothi.css", "headers define the stylesheet caching");
+	assert.ok(
+		!headersFile.includes("/app.js\n  Cache-Control: public, max-age=2592000, immutable"),
+		"app.js should not be immutable",
 	);
 	assert.ok(
-		!headersFile.includes(
-			"/app.js\n  Cache-Control: public, max-age=2592000, immutable",
-		),
-		"app.js should no longer be immutable",
-	);
-	assert.ok(
-		!headersFile.includes(
-			"/data_manifest.json\n  Cache-Control: public, max-age=2592000, immutable",
-		),
-		"data manifest should no longer be immutable",
-	);
-}
-
-function testTranslationsExist() {
-	["backToTop", "backToTopTitle", "goToNames", "goToNamesTitle"].forEach(
-		(key) =>
-			assertIncludes(
-				translationsJs,
-				key,
-				`translation key ${key} should exist`,
-			),
-	);
-}
-
-function testHomepageLinksStaticNamesHub() {
-	assertIncludes(
-		pageSource,
-		'href="/names/"',
-		"homepage should visibly link to the static names hub",
-	);
-}
-
-function testStaticNamesPagesExposeSeoMarkers() {
-	const namesPagesDir = path.join(__dirname, "..", "src", "pages", "names");
-	const layoutFiles = collectAstroFiles(path.join(__dirname, "..", "src", "layouts"));
-	const namesFiles = collectAstroFiles(namesPagesDir);
-	assert.ok(
-		namesFiles.length > 0,
-		"names static pages should exist under src/pages/names",
-	);
-	assert.ok(
-		layoutFiles.length > 0,
-		"reference layout should define shared head/chrome markup",
-	);
-
-	const namesSource = [...namesFiles, ...layoutFiles]
-		.map((file) => fs.readFileSync(file, "utf8"))
-		.join("\n");
-	assertIncludes(
-		namesSource,
-		"getStaticPaths",
-		"names pages should expose static range paths",
-	);
-	assertIncludes(
-		namesSource,
-		'<link rel="canonical"',
-		"names pages should define canonical URLs",
-	);
-	assertIncludes(
-		namesSource,
-		'<meta name="description"',
-		"names pages should define description metadata",
-	);
-	assert.ok(
-		namesSource.includes("application/ld+json") ||
-			namesSource.includes("@type': 'ItemList'"),
-		"names pages should include structured data markers for static listings",
+		!headersFile.includes("/data_manifest.json\n  Cache-Control: public, max-age=2592000, immutable"),
+		"the data manifest should not be immutable",
 	);
 }
 
 function testSitemapIncludesStaticNamesUrls() {
-	const expectedStaticUrls = [
+	[
 		"https://1000namesofmakali.com/names/",
 		"https://1000namesofmakali.com/names/1-100/",
 		"https://1000namesofmakali.com/names/1001-1072/",
-	];
-	expectedStaticUrls.forEach((url) => {
-		assertIncludes(
-			sitemapXml,
-			`<loc>${url}</loc>`,
-			`sitemap should include ${url}`,
-		);
+	].forEach((url) => {
+		assertIncludes(sitemapXml, `<loc>${url}</loc>`, `sitemap should include ${url}`);
 		assert.ok(
-			sitemapXml.includes(
-				`<loc>${url}</loc>\n    <lastmod>2026-04-26</lastmod>`,
-			),
+			sitemapXml.includes(`<loc>${url}</loc>\n    <lastmod>2026-04-26</lastmod>`),
 			`sitemap should mark ${url} with 2026-04-26 lastmod`,
 		);
 	});
 }
 
-testHeroCtasExist();
-testAboutSectionComesAfterNamesSection();
-testReadingModeControlsExist();
-testPrerenderedFirstPageStructureExists();
-testAppHooksExist();
-testCollapsedReadingModeMarkup();
-testStylesSupportMobileSearchAndPagination();
-testReducedMotionCriticalCssIsValid();
-testElaborationContentDoesNotTrapMobileReading();
-testVersionedStaticAssetsExist();
-testFooterVersionIsBuildRendered();
-testJsonFetchesUseVersionedUrls();
-testServiceWorkerOfflineShellExists();
+function testStaticNamesPagesExposeSeoMarkers() {
+	const namesSource = [layout, namePage, rangePage, hubPage].join("\n");
+	assertIncludes(namesSource, "getStaticPaths", "names pages expose static paths");
+	assertIncludes(namesSource, 'rel="canonical"', "names pages define canonical URLs");
+	assertIncludes(namesSource, 'name="description"', "names pages define description metadata");
+	assert.ok(
+		namesSource.includes("application/ld+json") || namesSource.includes("@type': 'ItemList'"),
+		"names pages include structured data",
+	);
+}
+
+/* ---------- the derived spine cannot drift ---------- */
+
+function testNameSpineMatchesTheMapping() {
+	const mapping = JSON.parse(read("src/data/name-mapping.json"));
+	const spine = JSON.parse(read("public/name-spine.json"));
+	assert.strictEqual(spine.count, mapping.rows.length, "the spine covers every name");
+	assert.deepStrictEqual(
+		spine.names.map((row) => row[0]),
+		mapping.rows.map((row) => Number(row.number)),
+		"the spine keeps the same positions",
+	);
+	const first = spine.names[0];
+	const firstRow = mapping.rows[0];
+	assert.strictEqual(first[1], firstRow.devanagari, "Devanagari matches the mapping");
+	assert.strictEqual(first[2], firstRow.iast, "IAST matches the mapping");
+	assert.strictEqual(first[3], firstRow.page_slug, "the slug matches the mapping");
+}
+
+testLegacyStylesheetsAreGone();
+testSingleStylesheetIsLinked();
+testNightReadingIsOnEveryTemplate();
+testEveryPageOpensAndClosesTheSameBook();
+testGuideAndTextPagesUseTheSharedLayout();
+testReaderServerRendersItsFirstSet();
+testReaderScriptKeepsTheContracts();
+testReaderSourceHasNoStrayScriptTag();
+testNamePageUsesTheSystem();
+testRangePageRendersStaticRows();
+testHubListsTheRanges();
+testAccessibilityFloor();
+testVersionedAssetsAndOfflineShell();
 testHeadersDoNotMarkMutableAssetsImmutable();
-testTranslationsExist();
-testHomepageLinksStaticNamesHub();
-testStaticNamesPagesExposeSeoMarkers();
 testSitemapIncludesStaticNamesUrls();
+testStaticNamesPagesExposeSeoMarkers();
+testNameSpineMatchesTheMapping();
 
 console.log("ux structure tests passed");
