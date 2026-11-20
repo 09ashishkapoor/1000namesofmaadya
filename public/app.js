@@ -9,6 +9,11 @@
      /name-spine.json      the Devanagari, IAST and page slug for all 1,072 names
      /data_chunk_N.json    the English one-line meaning and the longer note
    Both are fetched only when the reader turns a page, and cached after that.
+
+   Search is different from paging: both search boxes look across all 1,072
+   names, not just the open set. They use /search-index.json, a small index of
+   the searchable fields (spellings, variants, one-line meaning, slug) that is
+   fetched once on first use and kept in memory.
    ========================================================================== */
 (function () {
   'use strict';
@@ -23,6 +28,7 @@
   var TOTAL_CHUNKS = Math.ceil(TOTAL_COUNT / CHUNK_SIZE);
   var ELAB_LIMIT = 640;
   var FETCH_TIMEOUT_MS = 12000;
+  var SEARCH_INDEX_PATH = '/search-index.json';
 
   var state = {
     setIndex: 0,
@@ -32,6 +38,12 @@
     chunks: new Map(),
     loading: false,
     error: null,
+    // Global search
+    searchIndex: null,
+    searchIndexPromise: null,
+    searchMode: false,
+    searchQuery: '',
+    searchToken: 0,
   };
 
   var elements = {};
@@ -91,6 +103,11 @@
     return String(value).length < 2 ? '0' + value : String(value);
   }
 
+  function currentNumber() {
+    var name = state.names[state.current] || state.names[0];
+    return name ? name.number : -1;
+  }
+
   function withTimeout(promise, ms) {
     return new Promise(function (resolve, reject) {
       var timer = setTimeout(function () {
@@ -128,6 +145,11 @@
     elements.status.classList.toggle('is-error', Boolean(isError));
   }
 
+  function setCounts(text) {
+    if (elements.findCount) elements.findCount.textContent = text;
+    if (elements.mCount) elements.mCount.textContent = text;
+  }
+
   /* ---------- data ---------- */
 
   function loadJson(path) {
@@ -158,6 +180,55 @@
       });
       state.chunks.set(chunkNumber, map);
       return map;
+    });
+  }
+
+  // Turn the build-time rows into searchable entries. A row is:
+  // [number, devanagari, iast, common, meaning, slug, variants]
+  function parseSearchIndex(rows) {
+    return (rows || []).map(function (row) {
+      var name = {
+        number: Number(row[0]),
+        dev: row[1] || '',
+        iast: row[2] || '',
+        common: row[3] || row[2] || '',
+        one: row[4] || '',
+        slug: row[5] || null,
+      };
+      var variants = row[6] || [];
+      var blob = normalize(
+        [name.dev, name.iast, name.common, name.one].concat(variants).join(' ')
+      );
+      return { name: name, blob: blob };
+    });
+  }
+
+  function ensureSearchIndex() {
+    if (state.searchIndex) return Promise.resolve(state.searchIndex);
+    if (state.searchIndexPromise) return state.searchIndexPromise;
+    state.searchIndexPromise = loadJson(SEARCH_INDEX_PATH)
+      .then(function (rows) {
+        state.searchIndex = parseSearchIndex(rows);
+        return state.searchIndex;
+      })
+      .catch(function (error) {
+        state.searchIndexPromise = null;
+        throw error;
+      });
+    return state.searchIndexPromise;
+  }
+
+  // A numeric query matches the start of a name's ordinal ("4" -> 4, 40s, 400s).
+  // Otherwise every character-normalized query is a substring of the blob.
+  function globalMatches(entries, query) {
+    var needle = normalize(query).trim();
+    if (!needle) return [];
+    var numeric = /^\d+$/.test(needle);
+    return (entries || []).filter(function (entry) {
+      if (numeric) return String(entry.name.number).indexOf(needle) === 0;
+      return entry.blob.indexOf(needle) !== -1;
+    }).map(function (entry) {
+      return entry.name;
     });
   }
 
@@ -228,7 +299,7 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('data-index', String(index));
-    button.setAttribute('aria-current', index === state.current ? 'true' : 'false');
+    button.setAttribute('aria-current', name.number === currentNumber() ? 'true' : 'false');
     if (variant === 'mobile') button.setAttribute('aria-label', 'Name ' + name.number + ': ' + name.common);
 
     var number = document.createElement('span');
@@ -251,25 +322,32 @@
     return button;
   }
 
-  function renderList() {
+  // Render either the open set (default) or a list of global search results.
+  // Rows always carry data-number so a click can find the name in the loaded
+  // set, or turn to the set that holds it when the result is outside the set.
+  function renderList(names) {
     if (!elements.toc || !elements.mlist) return;
+    var list = names || state.names;
     while (elements.toc.firstChild) elements.toc.removeChild(elements.toc.firstChild);
     while (elements.mlist.firstChild) elements.mlist.removeChild(elements.mlist.firstChild);
 
-    state.names.forEach(function (name, index) {
+    list.forEach(function (name, index) {
       var row = document.createElement('li');
       row.setAttribute('data-search', searchBlob(name));
+      row.setAttribute('data-number', String(name.number));
       row.appendChild(buildButton(name, index, 'desktop'));
       elements.toc.appendChild(row);
 
       var mobileRow = document.createElement('li');
       mobileRow.setAttribute('data-search', searchBlob(name));
+      mobileRow.setAttribute('data-number', String(name.number));
       mobileRow.appendChild(buildButton(name, index, 'mobile'));
       elements.mlist.appendChild(mobileRow);
     });
 
     if (elements.listCount) {
-      elements.listCount.textContent = state.names.length + ' names';
+      elements.listCount.textContent =
+        list.length + (state.searchMode ? ' match' + (list.length === 1 ? '' : 'es') : ' names');
     }
   }
 
@@ -293,10 +371,12 @@
 
   function selectButtons() {
     if (!elements.toc) return;
+    var current = currentNumber();
     [elements.toc, elements.mlist].forEach(function (list) {
       if (!list) return;
       Array.prototype.forEach.call(list.querySelectorAll('button[data-index]'), function (button) {
-        var isCurrent = Number(button.getAttribute('data-index')) === state.current;
+        var row = button.parentNode;
+        var isCurrent = row && Number(row.getAttribute('data-number')) === current;
         button.setAttribute('aria-current', isCurrent ? 'true' : 'false');
       });
     });
@@ -320,54 +400,63 @@
     renderPage();
   }
 
-  function applyFilter(input, list, counter, emptyMessage) {
-    var query = normalize((input && input.value) || '').trim();
-    var shown = 0;
-    var total = 0;
-    Array.prototype.forEach.call(list.querySelectorAll('li[data-search]'), function (row) {
-      total += 1;
-      var hit = !query || row.getAttribute('data-search').indexOf(query) !== -1;
-      row.classList.toggle('is-hidden', !hit);
-      if (hit) shown += 1;
+  function indexOfNumber(number) {
+    for (var i = 0; i < state.names.length; i += 1) {
+      if (state.names[i].number === number) return i;
+    }
+    return -1;
+  }
+
+  // Leave search mode and show the open set again.
+  function exitSearch() {
+    state.searchToken += 1;
+    state.searchMode = false;
+    state.searchQuery = '';
+    if (elements.q) elements.q.value = '';
+    if (elements.mq) elements.mq.value = '';
+    renderList();
+    setCounts(state.names.length + ' names');
+    setStatus('', false);
+  }
+
+  // Both boxes search the whole book. The one being typed into drives the
+  // query; the other is kept in step so the two leaves never disagree.
+  function handleSearch(input) {
+    if (!input) return;
+    var raw = (input.value || '').trim();
+    var query = normalize(raw);
+    var token = ++state.searchToken;
+
+    [elements.q, elements.mq].forEach(function (other) {
+      if (other && other !== input && other.value !== raw) other.value = raw;
     });
-    if (counter) {
-      counter.textContent = query ? shown + '/' + total : total + ' names';
+
+    if (!query) {
+      exitSearch();
+      return;
     }
-    var none = list.querySelector('.none');
-    if (none) none.classList.toggle('on', Boolean(query) && shown === 0);
-    if (emptyMessage) {
-      // Always rewrite the status, so clearing the query removes a stale message.
-      setStatus(query && shown === 0 ? emptyMessage : '', false);
-    }
-    return { shown: shown, query: query };
+
+    setStatus('Searching all ' + TOTAL_COUNT.toLocaleString('en-US') + ' names…', false);
+    ensureSearchIndex().then(function (index) {
+      if (token !== state.searchToken) return;
+      var results = globalMatches(index, query);
+      state.searchMode = true;
+      state.searchQuery = query;
+      renderList(results);
+      setCounts(results.length + ' of ' + TOTAL_COUNT.toLocaleString('en-US'));
+      setStatus(
+        results.length
+          ? results.length + ' match' + (results.length === 1 ? '' : 'es') + ' across all ' + TOTAL_COUNT.toLocaleString('en-US') + ' names.'
+          : 'No name matches that search.',
+        false
+      );
+    }).catch(function (error) {
+      if (token !== state.searchToken) return;
+      setStatus(describeFailure(error), true);
+    });
   }
 
-  function filterDesktop() {
-    applyFilter(elements.q, elements.toc, elements.findCount, 'No name in this set matches that search.');
-    // Keep the open name visible when the filter hides it.
-    var active = elements.toc.querySelector('button[aria-current="true"]');
-    if (active) {
-      var row = active.parentNode;
-      if (row && row.classList.contains('is-hidden')) {
-        var firstVisible = elements.toc.querySelector('li[data-search]:not(.is-hidden) button');
-        if (firstVisible) selectName(Number(firstVisible.getAttribute('data-index')));
-      }
-    }
-  }
-
-  function filterMobile() {
-    applyFilter(elements.mq, elements.mlist, elements.mCount, 'No name in this set matches that search.');
-    var active = elements.mlist.querySelector('button[aria-current="true"]');
-    if (active) {
-      var row = active.parentNode;
-      if (row && row.classList.contains('is-hidden')) {
-        var firstVisible = elements.mlist.querySelector('li[data-search]:not(.is-hidden) button');
-        if (firstVisible) selectName(Number(firstVisible.getAttribute('data-index')));
-      }
-    }
-  }
-
-  function goToSet(nextIndex) {
+  function goToSet(nextIndex, openNumber) {
     if (state.loading) return;
     if (nextIndex < 0 || nextIndex >= TOTAL_SETS) return;
     if (nextIndex === state.setIndex) return;
@@ -381,15 +470,12 @@
       .then(function (names) {
         state.setIndex = nextIndex;
         state.names = names;
-        state.current = 0;
-        if (elements.q) elements.q.value = '';
-        if (elements.mq) elements.mq.value = '';
-        if (elements.findCount) elements.findCount.textContent = '';
+        var openIndex = openNumber == null ? 0 : indexOfNumber(Number(openNumber));
+        state.current = openIndex < 0 ? 0 : openIndex;
         state.loading = false;
-        renderList();
+        exitSearch();
         renderChrome();
         renderPage();
-        setStatus('', false);
       })
       .catch(function (error) {
         state.loading = false;
@@ -403,7 +489,16 @@
     list.addEventListener('click', function (event) {
       var button = event.target.closest ? event.target.closest('button[data-index]') : null;
       if (!button) return;
-      selectName(Number(button.getAttribute('data-index')));
+      var row = button.parentNode;
+      var number = Number(row && row.getAttribute('data-number'));
+      var index = indexOfNumber(number);
+      if (index < 0) {
+        // A search result from another set: turn there and open the name.
+        var targetSet = Math.floor((number - 1) / SET_SIZE);
+        if (targetSet >= 0 && targetSet < TOTAL_SETS) goToSet(targetSet, number);
+        return;
+      }
+      selectName(index);
       if (mobile && window.matchMedia && window.matchMedia('(max-width: 1080px)').matches) {
         if (elements.page && elements.page.scrollIntoView) {
           elements.page.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -415,14 +510,16 @@
   function start() {
     collectElements();
     renderChrome();
+    renderList();
+    setCounts(state.names.length + ' names');
     renderPage();
     if (state.names.length < SET_SIZE) {
       if (elements.next) elements.next.disabled = true;
     }
     bindList(elements.toc, false);
     bindList(elements.mlist, true);
-    if (elements.q) elements.q.addEventListener('input', filterDesktop);
-    if (elements.mq) elements.mq.addEventListener('input', filterMobile);
+    if (elements.q) elements.q.addEventListener('input', function () { handleSearch(elements.q); });
+    if (elements.mq) elements.mq.addEventListener('input', function () { handleSearch(elements.mq); });
     if (elements.prev) {
       elements.prev.addEventListener('click', function () {
         goToSet(state.setIndex - 1);
@@ -432,6 +529,15 @@
       elements.next.addEventListener('click', function () {
         goToSet(state.setIndex + 1);
       });
+    }
+
+    // Support /?q=... from the site's SearchAction structured data.
+    if (window.location && typeof URLSearchParams !== 'undefined') {
+      var deepQuery = new URLSearchParams(window.location.search || '').get('q');
+      if (deepQuery) {
+        if (elements.q) elements.q.value = deepQuery;
+        handleSearch(elements.q || elements.mq);
+      }
     }
   }
 
@@ -450,6 +556,11 @@
     shorten: shorten,
     pad: pad,
     describeFailure: describeFailure,
+    parseSearchIndex: parseSearchIndex,
+    globalMatches: globalMatches,
+    ensureSearchIndex: ensureSearchIndex,
+    handleSearch: handleSearch,
+    exitSearch: exitSearch,
     buildSetNames: buildSetNames,
     rangeForSet: rangeForSet,
     goToSet: goToSet,

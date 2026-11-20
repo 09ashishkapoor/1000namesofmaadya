@@ -48,31 +48,51 @@ test("choosing a name opens it on the right leaf", async ({ page }) => {
 	await expect(page.locator('#toc li button[aria-current="true"]')).toHaveCount(1);
 });
 
-test("search narrows the set, is accent-insensitive, and clears back", async ({ page }) => {
+test("search spans the whole book, is accent-insensitive, and clears back", async ({ page }) => {
 	await openReader(page);
 
 	const search = page.locator("#q");
 	await search.fill("kali");
-	await expect(page.locator("#find-count")).toHaveText(/^\d+\/11$/);
+	await expect(page.locator("#find-count")).toHaveText(/^\d+ of 1,072$/);
 
-	const visible = page.locator("#toc li:not(.is-hidden)");
-	expect(await visible.count()).toBeGreaterThan(0);
-	expect(await visible.count()).toBeLessThan(11);
+	const results = page.locator("#toc li");
+	// The whole book holds eight matches, including names far past the open set.
+	await expect(results).toHaveCount(8);
+	await expect(page.locator('#toc li[data-number="776"]')).toHaveCount(1);
 
 	// "kali" must reach the Devanagari / IAST row for Kālī (position 2).
-	await expect(page.locator("#toc li").nth(1)).not.toHaveClass(/is-hidden/);
-	await expect(page.locator("#toc li").nth(1)).toContainText("Kālī");
+	await expect(page.locator('#toc li[data-number="2"] .i')).toHaveText("Kālī");
 
 	await search.fill("");
-	await expect(page.locator("#toc li:not(.is-hidden)")).toHaveCount(11);
+	await expect(results).toHaveCount(11);
+	await expect(page.locator("#find-count")).toHaveText("11 names");
+});
+
+test("search finds a name beyond the first set and opens it", async ({ page }) => {
+	await openReader(page);
+
+	const search = page.locator("#q");
+	await search.fill("Varṇa Japa Mālā Vidhāyinī");
+	await expect(page.locator("#find-count")).toHaveText("1 of 1,072");
+
+	const result = page.locator("#toc li").first();
+	await expect(result).toContainText("1072");
+	await result.locator("button").click();
+
+	await expect(page.locator("#head-set")).toHaveText("98");
+	await expect(page.locator("#head-range")).toHaveText("1068–1072");
+	await expect(page.locator("#page .page-name")).toHaveText("वर्ण जप माला विधायिनी");
+	await expect(page.locator("#toc li")).toHaveCount(5); // names 1068–1072
+	await expect(search).toHaveValue("");
 });
 
 test("search shows a recoverable empty state", async ({ page }) => {
 	await openReader(page);
 	await page.locator("#q").fill("zzznomatch");
-	await expect(page.locator("#reader-status")).toContainText("No name in this set matches");
+	await expect(page.locator("#reader-status")).toContainText("No name matches that search");
+	await expect(page.locator("#toc li")).toHaveCount(0);
 	await page.locator("#q").fill("");
-	await expect(page.locator("#toc li:not(.is-hidden)")).toHaveCount(11);
+	await expect(page.locator("#toc li")).toHaveCount(11);
 	await expect(page.locator("#reader-status")).toBeEmpty();
 });
 
@@ -149,11 +169,12 @@ test.describe("phone reader", () => {
 		await expect(page.locator("#page .page-name")).toHaveText(SECOND_NAME);
 	});
 
-	test("the phone search filters the set", async ({ page }) => {
+	test("the phone search spans the whole book", async ({ page }) => {
 		await openReader(page);
-		await page.locator("#mq").fill("bhadra");
-		await expect(page.locator("#m-list li:not(.is-hidden)")).toHaveCount(1);
-		await expect(page.locator("#m-count")).toHaveText("1/11");
+		await page.locator("#mq").fill("Varṇa Japa Mālā Vidhāyinī");
+		await expect(page.locator("#m-count")).toHaveText("1 of 1,072");
+		await expect(page.locator("#m-list li")).toHaveCount(1);
+		await expect(page.locator("#m-list li")).toContainText("1072");
 	});
 });
 

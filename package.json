@@ -12,9 +12,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node seo/build-sitemap.mjs",
+    "prebuild": "node seo/build-sitemap.mjs && node scripts/build-search-index.js",
     "build": "astro build",
     "build:sitemap": "node seo/build-sitemap.mjs",
+    "build:search-index": "node scripts/build-search-index.js",
     "preview": "astro preview",
     "test": "npm run test:unit",
     "test:unit": "node tests/app.test.js && node tests/navigation.test.js && node tests/search.test.js && node tests/ux-structure.test.js",

@@ -114,9 +114,35 @@ function testReaderExposesBothSearchInputs() {
 	const page = fs.readFileSync(path.join(__dirname, "..", "src", "pages", "index.astro"), "utf8");
 	assert.ok(page.includes('id="q"'), "the reading leaf carries a search input");
 	assert.ok(page.includes('id="mq"'), "the phone index carries a search input");
-	assert.ok(page.includes('aria-label="Search this set"'), "both inputs are labelled");
+	assert.ok(page.includes('aria-label="Search all 1,072 names"'), "both inputs are labelled for the whole book");
+	assert.ok(page.includes('placeholder="find any name or meaning"'), "both inputs advertise global search");
 	assert.ok(page.includes('role="status"'), "result counts are announced");
 	assert.ok(page.includes("normalize('NFD')"), "server-rendered rows carry a normalized search blob");
+}
+
+function testSearchIndexCoversAllNames() {
+	const index = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "public", "search-index.json"), "utf8"));
+	assert.strictEqual(index.length, 1072, "the index carries every name in the book");
+	index.forEach((row, offset) => {
+		assert.strictEqual(row[0], offset + 1, "indices stay in canonical order");
+		assert.ok(row[1] && row[2] && row[3] && row[4], "each row has Devanagari, IAST, spelling and meaning");
+	});
+}
+
+function testGlobalSearchReachesTheWholeRange() {
+	const index = reader.parseSearchIndex(
+		JSON.parse(fs.readFileSync(path.join(__dirname, "..", "public", "search-index.json"), "utf8")),
+	);
+	const find = (query) => reader.globalMatches(index, query).map((name) => name.number);
+
+	// The last name in the book is far past the eleven server-rendered rows.
+	assert.ok(find("Varṇa Japa Mālā Vidhāyinī").includes(1072), "a late name is found by its accented IAST");
+	assert.ok(find("varna japa mala").includes(1072), "a late name is found without diacritics");
+	assert.ok(find("वर्ण जप माला विधायिनी").includes(1072), "a late name is found by Devanagari");
+	assert.ok(find("rosary of japa").includes(1072), "a late name is found by its meaning");
+	assert.ok(find("1072").includes(1072), "a name can be found by its ordinal");
+	assert.ok(find("Smasana Kalika").includes(1), "a known spelling variant is searchable");
+	assert.ok(find("not-a-real-name-shmashana").length === 0, "a nonsense query finds nothing");
 }
 
 testAsciiQueryFindsDiacritics();
@@ -125,5 +151,7 @@ testSearchReachesTheMeaning();
 testDevanagariQueryMatches();
 testEmptyQueryMatchesEverything();
 testReaderExposesBothSearchInputs();
+testSearchIndexCoversAllNames();
+testGlobalSearchReachesTheWholeRange();
 
 console.log("search.js regression tests passed");
