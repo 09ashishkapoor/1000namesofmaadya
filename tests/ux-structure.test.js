@@ -251,6 +251,23 @@ function testNameSpineMatchesTheMapping() {
 	assert.strictEqual(first[3], firstRow.page_slug, "the slug matches the mapping");
 }
 
+function testSocialShareCard() {
+	const card = path.join(ROOT, "public", "og-share.jpg");
+	assert.ok(fs.existsSync(card), "a JPG social card is committed for link previews");
+	assert.ok(fs.statSync(card).size > 1000, "the social card is a real image");
+	[readerPage, layout].forEach((source, index) => {
+		const label = index === 0 ? "the reader" : "the shared layout";
+		assertIncludes(source, "og-share.jpg", `${label} points social previews at the JPG card`);
+		assert.ok(
+			!source.includes('og:image" content="https://1000namesofmakali.com/MaaAdyaKali_5.webp'),
+			`${label} does not use the WebP photo for previews`,
+		);
+		assertIncludes(source, 'og:image:type" content="image/jpeg"', `${label} declares the image type`);
+		assertIncludes(source, 'og:image:width" content="1200"', `${label} declares the card width`);
+		assertIncludes(source, 'og:image:height" content="630"', `${label} declares the card height`);
+	});
+}
+
 testLegacyStylesheetsAreGone();
 testSingleStylesheetIsLinked();
 testNightReadingIsOnEveryTemplate();
@@ -268,5 +285,6 @@ testHeadersDoNotMarkMutableAssetsImmutable();
 testSitemapIncludesStaticNamesUrls();
 testStaticNamesPagesExposeSeoMarkers();
 testNameSpineMatchesTheMapping();
+testSocialShareCard();
 
 console.log("ux structure tests passed");
