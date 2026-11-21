@@ -37,6 +37,10 @@ Blogspot post with one-line glosses**. "People also ask" confirms the intent: *�
   1 favourite**, published 2025-12-16 (verified from the page's `InteractionCounter`).
 - **PDF:** `https://files.jaikhyapaparampara.com/AdyaMahakali_1000names_ebook_Final_Hindi.pdf` — **28,782,260
   bytes**, served through Cloudflare (`cf-cache-status: HIT`) from R2 (`khepa-library-files` bucket).
+- **Tracked download clicks, last 90 days** (the site's own `/dl/` counter, per owner):
+  `AdyaMahakali_1000names_ebook_Final_V4.pdf` **46** · `..._Final_Hindi.pdf` **12**.
+  The Hindi file is linked from one English page only, yet pulls **26% of the English official edition's
+  clicks** — demand exists, the asset is simply buried and 28 MB heavy.
 
 ## 3. Decision: `/hi/` on the main domain, hub-first
 
@@ -67,24 +71,42 @@ name pages — and they also give 1,072 long-tail targets ("<नाम> का �
 
 ## 5. Technical requirements
 
-- `lang="hi"` on Hindi pages; Devanagari titles and descriptions; `og:locale` `hi_IN` (English stays `en_US`).
-- `hreflang` pairs: `en` ↔ `hi`, `x-default` → English. Self-referencing canonical on each language page.
+### The language switch must be a link, not a toggle
+
+A `theme`-style switch (JS changing text in place) would give Google **one** URL with two languages and no
+way to rank the Hindi content. The switch is therefore two URLs and a link between them:
+
+- Placement: in `RunningHead.astro`, immediately left of the Night control (`EN | हिं`), same quiet chrome.
+- Each language has its own URL (`/…/` and `/hi/…/`), its own `<html lang>`, self-referencing canonical.
+- The switch is an `<a>` to the counterpart in the other language, with `hreflang` on the link.
+  - Name page exists in Hindi → `/names/<slug>/` ↔ `/hi/names/<slug>/`.
+  - No counterpart yet → link to the other language's home (never to a 404).
+- No language state in `localStorage`; the URL is the state. (The theme stays JS — that is a preference, not
+  content.)
+- Head: `<link rel="alternate" hreflang="en" …>`, `hreflang="hi"`, `x-default` → English; `og:locale`
+  `hi_IN` on Hindi pages, English stays `en_US`.
+
+Pages are unique: distinct URLs, distinct language, distinct (originally written) content. Shared templates
+are fine — this is not the duplicate-content case the `1008namesofmakali.com` mirror was.
+
 - A Hindi sitemap section (`/sitemap-hi.xml` or one sitemap with both), submitted in GSC.
 - Reuse The Pothi components; the Devanagari type already exists (Tiro Devanagari Sanskrit / Noto Serif
   Devanagari). No new design system.
 - Data pipeline: parse the recovered text into JSON keyed by the existing `src/data/name-mapping.json` slugs,
   validate 1,072 entries, then render. Do not hand-edit 22k lines.
 
-## 6. Measurement (and the PDF-count gap)
+## 6. Measurement
 
-- GSC: filter `Page contains /hi/`; track impressions, clicks, position separately from English.
-- **The Hindi PDF's download count is not measurable with the Cloudflare CLI.** Verified 2026-11-21:
-  `wrangler 4.86.0` is authenticated but exposes no analytics commands; R2 has no per-object counters; the
-  OAuth token scopes (`user`, `offline_access`, `k2.read`) do not include analytics. The dashboard's R2
-  metrics are aggregate operations, not per-file.
-  If a number is wanted: (a) a tiny Worker in front of the PDF that increments a counter (R2/KV), or
-  (b) Cloudflare Logpush. Otherwise archive.org's **1,191 views** is the only per-item figure we have.
-- Add UTM-free internal links; track via GSC only.
+**The `/dl/` counter is the PDF source of truth.** The site routes PDF links through `/dl/` and already counts
+clicks per file: `AdyaMahakali_1000names_ebook_Final_V4.pdf` 46 and `..._Final_Hindi.pdf` 12 in the last 90
+days. That is the number to watch — it counts clicks, not completed downloads.
+
+Cloudflare cannot add a second, per-object count: `wrangler` has no analytics commands, R2 has no per-object
+counters, and the OAuth token scopes do not include analytics. If completion tracking is ever needed, put a
+Worker in front of the file. Do not build that now.
+
+- GSC: filter `Page contains /hi/`; track impressions, clicks and position separately from English.
+- Compare Hindi `/dl/` clicks before and after the `/hi/` launch (12/90d is the baseline).
 
 ## 7. Non-goals
 
