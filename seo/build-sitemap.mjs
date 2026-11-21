@@ -7,8 +7,12 @@
 // lastmod must describe when the CONTENT changed, not when the build ran.
 // Stamping `new Date()` on ~1,000 URLs tells Google every page changed on every
 // deploy, which trains it to distrust the sitemap. Dates are read from git
-// instead (the last commit touching the page's source), with a fixed fallback
-// for environments without history (shallow clones, tarball builds).
+// instead (the last commit touching the page's source).
+//
+// Hosts like Cloudflare Pages build from a depth-1 clone, where git reports the
+// tip commit date for every path — today's date on every deploy. So a shallow
+// clone is deepened once before dates are read; if that is impossible the build
+// falls back to a fixed content date rather than silently stamping "today".
 
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -26,19 +30,65 @@ const FALLBACK_LASTMOD = "2026-04-26";
 
 const dateCache = new Map();
 
+function git(args) {
+	return execFileSync("git", args, {
+		cwd: ROOT,
+		encoding: "utf8",
+		stdio: ["ignore", "pipe", "ignore"],
+	}).trim();
+}
+
+let historyState = null; // null until checked, then "full" or "unavailable"
+
+/**
+ * Shallow clones report the tip commit for every path, which would put today's
+ * date on every URL. Fetch the full history once so per-path dates are real.
+ */
+function ensureFullHistory() {
+	if (historyState) return;
+	try {
+		if (git(["rev-parse", "--is-shallow-repository"]) !== "true") {
+			historyState = "full";
+			return;
+		}
+		// No remote returns exit 0 without fetching, so the result is checked
+		// again below instead of trusting the exit code.
+		execFileSync("git", ["fetch", "--unshallow", "--quiet"], {
+			cwd: ROOT,
+			stdio: "ignore",
+			timeout: 120_000,
+		});
+	} catch {
+		historyState = "unavailable";
+		console.warn("sitemap: no usable git history; using fallback lastmod dates");
+		return;
+	}
+
+	if (git(["rev-parse", "--is-shallow-repository"]) === "true") {
+		historyState = "unavailable";
+		console.warn("sitemap: still a shallow clone; using fallback lastmod dates");
+		return;
+	}
+
+	historyState = "full";
+	console.log("sitemap: deepened shallow clone to read real lastmod dates");
+}
+
 /** Last commit date (YYYY-MM-DD) that touched any of the given repo paths. */
 function gitLastmod(paths) {
 	const key = paths.join("|");
 	if (dateCache.has(key)) return dateCache.get(key);
 
+	ensureFullHistory();
+	if (historyState !== "full") {
+		dateCache.set(key, FALLBACK_LASTMOD);
+		return FALLBACK_LASTMOD;
+	}
+
 	let latest = "";
 	for (const path of paths) {
 		try {
-			const date = execFileSync("git", ["log", "-1", "--format=%cs", "--", path], {
-				cwd: ROOT,
-				encoding: "utf8",
-				stdio: ["ignore", "pipe", "ignore"],
-			}).trim();
+			const date = git(["log", "-1", "--format=%cs", "--", path]);
 			if (date > latest) latest = date;
 		} catch {
 			// No git, no history, or the path is untracked: use the fallback.
