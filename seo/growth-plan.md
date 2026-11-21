@@ -362,14 +362,9 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 
 ## 10. Open questions
 
-1. **Hindi — bring it back?** The content exists. Git history holds the full Hindi elaborations:
-   `mahakali1000nameswebsite/mahakali_sahasranama(1000)_HINDI_withelaborations.txt` (~4.7M chars) and
-   `..._CompleteReference.txt` (~4.4M chars), both deleted in `7eb337d`; the on-site language toggle was removed
-   in `98a786d` ("English-only support"). Owner has the raw data as well.
-   **Recommendation: hub first, not 1,072 pages.** Add `/hi/` + 11 range pages (+ optionally the first 100 names)
-   with `lang="hi"`, `hreflang` pairs and Hindi titles, and expand only the names that earn impressions. Full
-   Hindi would add ~1,084 URLs to a site that already has 933 waiting — at ~1.6 discovery fetches/day that is
-   years of backlog, not a launch.
+1. **Hindi** — decided separately in [`hindi-plan.md`](hindi-plan.md): `/hi/` on this domain, hub-first,
+   not a new domain. The SERP was verified as shallow (2011 Blogspot is the strongest competitor) and the
+   Hindi elaborations are recoverable from `7eb337d`. Do not fold Hindi work into this plan.
 2. `1008namesofmakali.com` — **resolved 2026-11-21:** it is ours and is a full duplicate deployment, not a
    redirect. Task C5 collapses it with a 301.
 3. Do we want Bing Webmaster Tools + IndexNow as a second crawl channel?
