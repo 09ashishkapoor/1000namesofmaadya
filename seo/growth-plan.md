@@ -88,11 +88,40 @@ Notes:
 
 - Google still serves the **pre-change home title** (`…with Meanings`); the home page had not been recrawled
   since 16 Nov when this was captured. Re-check after the next crawl.
-- 72% of GSC clicks are India, so a US SERP understates the India position. Re-check with `&gl=in` before
-  drawing conclusions (task D3).
+- 72% of GSC clicks are India, so a US SERP understates the India position. The India ground truth is in the
+  next section — it comes from Search Console's country filter, not a VPN.
 - `adya kali sahasranama` is the **only** query where the site is visible. It ranks #2 while the string
   "Adya Kali" appears **zero** times on the site — the rank comes from proximity, not an exact match.
   That is what A1/A2 fix.
+
+### India — Search Console ground truth (3 months, 2026-11-21)
+
+Search Console has the India data directly, so **no VPN is needed** for it: Performance → Country = India,
+then filter `Query contains "kali sahasranama"`. Screenshot:
+`docs/screenshots/serp/07-gsc-india-kali-sahasranama.png`.
+
+India totals: **199 clicks / 2.53K impressions / 7.9% CTR / avg position 8.4** across 166 queries.
+
+| Query (India, containing "kali sahasranama") | Clicks | Impr. | CTR | Pos |
+|---|---|---|---|---|
+| adya kali sahasranama | 44 | 108 | 40.7% | 2.3 |
+| adya kali sahasranamavali | 24 | 41 | 58.5% | 1.1 |
+| kali sahasranama benefits | 4 | 46 | 8.7% | 5.5 |
+| kali sahasranama with meaning | 2 | 11 | 18.2% | 7.7 |
+| benefits of kali sahasranama | 0 | 9 | 0% | 4.8 |
+| kali sahasranama meaning | 0 | 4 | — | 9.8 |
+| **kali sahasranama** | **0** | **4** | **0%** | **26.3** |
+| kali sahasranamavali | 0 | 1 | — | 34.0 |
+| mahakali sahasranama | 1 | 3 | 33.3% | 42.3 |
+
+Reading: the bare head term is **page 3 at best** in India — 4 impressions in 90 days, position 26.3, zero
+clicks. The brand pair (#2.3 / #1.1) carries 68 of these 75 clicks. `benefits of kali sahasranama` sits at 4.8
+with 9 impressions and 0 clicks — a CTR/AI-Overview problem, not a ranking problem. This confirms the §1
+decision: there is no near-miss on the head term worth optimising.
+
+**VPN:** Mullvad has no India endpoint (50 countries; nearest APAC are Singapore, Malaysia, Indonesia,
+Thailand, Hong Kong). A VPN therefore cannot produce an India IP here; use GSC's country filter for data and
+`&gl=in` if a visual India SERP is ever needed.
 
 ---
 
@@ -220,10 +249,10 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
   top 5 queries, any new "Crawled – not indexed".
   *Acceptance:* checklist present; no automation required.
 
-- **D3 — India SERP snapshot.**
-  Repeat the five §2 SERP queries with `&gl=in` (72% of clicks are India), save screenshots to
-  `docs/screenshots/serp/in/`, and note the position of `1000namesofmakali.com` beside the US figures.
-  *Acceptance:* five screenshots + a short table in `seo/snapshot.md`.
+- **D3 — India visual SERP (optional).**
+  The India numbers are already captured from GSC (§2). A visual pass is optional: repeat the five queries with
+  `&gl=in`, save to `docs/screenshots/serp/in/`, and check whether Google's India render matches GSC.
+  *Acceptance:* five screenshots, or an explicit "not needed — GSC covers it" note.
 
 ### Lane E — Verification (single agent, runs last)
 
@@ -282,6 +311,7 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 | 2026-11-21 | Baseline captured | see §2 |
 | 2026-11-21 | US SERP snapshot | see §2 — only `adya kali sahasranama` (#2) is visible; head terms absent from page 1; screenshots in `docs/screenshots/serp/` |
 | 2026-11-21 | Owner decision: cannibalisation | Out of scope. Sister sites are complementary; no consolidation. |
+| 2026-11-21 | India ground truth (GSC) | bare `kali sahasranama` = position 26.3, 4 impressions/90d; brand pair = 68 of 75 clicks |
 | | C2 redirect/canonical anomalies | _pending_ |
 | | Indexing requests | _pending_ |
 | | India SERP snapshot (D3) | _pending_ |
