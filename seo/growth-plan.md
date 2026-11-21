@@ -71,6 +71,31 @@ Sitemap submitted 2026-11-07, last read 2026-11-18, status Success, 1,061 URLs d
 **Links:** 52 external total — `1008namesofmakali.com` 43, `reddit.com` 6, `jaikhyaparampara.com` 3.
 **Internal structure:** home 24 unique links · hub 23 · range page ~123 (100 names + prev/next) · name page 15.
 
+### Crawl health — 2026-11-21 (GSC Crawl stats, updated 19 Nov)
+
+Screenshot: `docs/screenshots/serp/08-gsc-crawl-stats.png`.
+
+| Metric | Value |
+|---|---|
+| Crawl requests, 90 days | **747** (~8/day) |
+| By purpose | **Refresh 81% · Discovery 19%** |
+| By response | 200: 94% · 301: 6% |
+| By file type | HTML 53% · JS 16% · JSON 13% · CSS 10% · other 6% |
+| Hosts | apex 585 · **www 162 (all 301) = 22% of crawl budget** |
+| Response time / status | 146 ms · no host problems |
+
+The 90-day chart shows a burst around **8–11 Nov** (peak ≈120 requests in a day) then a fall-off to single
+digits, near zero by 17–19 Nov. Page indexing has been flat at **124 indexed / 944 not** since the 15 Nov
+stamp.
+
+**Verdict: not blocked — starved.** Technically healthy (94% 200s, 146 ms, sitemap Success, no errors), but
+only ~19% of requests were *discovery*, i.e. roughly **140 new URLs fetched in 90 days (~1.5/day)**. At that
+rate the 933 discovered pages need ~18 months just to be fetched once. Measurable waste: 22% of the budget
+goes to www→apex 301s, and 29% to JS+JSON subresources.
+
+This is why Lane C exists: no title or schema change fixes a crawl that is this rationed. Links and internal
+discovery are the only levers that move the ceiling.
+
 ### SERP snapshot — 2026-11-21 (US, non-personalized)
 
 Captured in Chrome with `pws=0` and `gl=us` (Google footer: "Results are not personalized", Atlanta IP).
@@ -211,6 +236,12 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
 
 ### Lane C — Crawl and links (one agent; owns `seo/`, `README.md`, measurement)
 
+- **C0 — Crawl-waste audit.**
+  Confirm where the 22% www→apex 301 budget goes (who still links `www.`) and what drives 29% JS+JSON
+  fetches (likely the service-worker precache of `data_chunk_*.json`). Make no change that risks offline
+  behaviour; write a short note with a recommendation.
+  *Acceptance:* one paragraph in `seo/snapshot.md` + any safe, tested change.
+
 - **C1 — Hub deep links.**
   `src/pages/names/index.astro` *(coordinate with B1 — same file, same agent)*
   The hub currently links only the 11 ranges. Add a "Start here" block linking 10 representative name pages
@@ -312,6 +343,7 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 | 2026-11-21 | US SERP snapshot | see §2 — only `adya kali sahasranama` (#2) is visible; head terms absent from page 1; screenshots in `docs/screenshots/serp/` |
 | 2026-11-21 | Owner decision: cannibalisation | Out of scope. Sister sites are complementary; no consolidation. |
 | 2026-11-21 | India ground truth (GSC) | bare `kali sahasranama` = position 26.3, 4 impressions/90d; brand pair = 68 of 75 clicks |
+| 2026-11-21 | Crawl health | 747 requests/90d, 19% discovery, 81% refresh; ~1.5 new URLs/day → 933 pages ≈ 18 months at this rate |
 | | C2 redirect/canonical anomalies | _pending_ |
 | | Indexing requests | _pending_ |
 | | India SERP snapshot (D3) | _pending_ |
