@@ -25,6 +25,13 @@ of authority. We cannot out-authority them, and a visitor who wants the chant te
 The bottleneck is **indexation**, not keyword choice. Every task below is judged on whether it helps
 Google crawl, index, or click.
 
+**Depth is the differentiator, not another domain.** The 1,039 name pages with English meanings are the
+asset no competitor — and no sister site — replicates at this granularity. The owner's sister sites
+(`kakaradikalisahasranama.com`, `kaliputra.com`, `1008namesofmakali.com`) are complementary and rich in
+their own right. **Cross-site cannibalisation is explicitly out of scope** (owner decision, 2026-11-21):
+do not propose merging, canonicalising, consolidating or de-indexing a sister site. If two of our pages
+rank for the same query, that is acceptable — improve ours, don't tear down theirs.
+
 ---
 
 ## 2. Baseline (Google Search Console, pulled 2026-11-21)
@@ -64,6 +71,29 @@ Sitemap submitted 2026-11-07, last read 2026-11-18, status Success, 1,061 URLs d
 **Links:** 52 external total — `1008namesofmakali.com` 43, `reddit.com` 6, `jaikhyaparampara.com` 3.
 **Internal structure:** home 24 unique links · hub 23 · range page ~123 (100 names + prev/next) · name page 15.
 
+### SERP snapshot — 2026-11-21 (US, non-personalized)
+
+Captured in Chrome with `pws=0` and `gl=us` (Google footer: "Results are not personalized", Atlanta IP).
+Screenshots: `docs/screenshots/serp/`.
+
+| Query | Our position | Winner |
+|---|---|---|
+| `kali sahasranama` | **not in top 20** (page 1 *and* 2 checked) | drikpanchang, astromantra, stotranidhi, redzambala, `kaliputra.com` (#7) |
+| `1000 names of kali` | **not on page 1** | drikpanchang, narasimhaye blog, Scribd, shreemaa, rudranaad |
+| `1000 names of maa kali` | **not on page 1** | drikpanchang, narasimhaye, Scribd, vitalcoaching |
+| `adya kali sahasranama` | **#2** ✅ | `kaliputra.com` #1 |
+| `kali sahasranama benefits` | **not on page 1** | Quora, then `kakaradikalisahasranama.com` #3 |
+
+Notes:
+
+- Google still serves the **pre-change home title** (`…with Meanings`); the home page had not been recrawled
+  since 16 Nov when this was captured. Re-check after the next crawl.
+- 72% of GSC clicks are India, so a US SERP understates the India position. Re-check with `&gl=in` before
+  drawing conclusions (task D3).
+- `adya kali sahasranama` is the **only** query where the site is visible. It ranks #2 while the string
+  "Adya Kali" appears **zero** times on the site — the rank comes from proximity, not an exact match.
+  That is what A1/A2 fix.
+
 ---
 
 ## 3. Definition of done (whole project)
@@ -91,18 +121,25 @@ Format: **ID — what — files — acceptance.** Effort is rough agent-time.
 
 ### Lane A — Brand moat (one agent; owns `src/pages/index.astro`, `src/pages/kali-sahasranama-lyrics/index.astro`)
 
+**Start here.** A1 + A2 are the first fixes in the project: they are small, they touch the only query the
+site is visible for, and they harden a #2 position that currently rests on proximity rather than an exact
+match. The site says "Adya Mahakali" everywhere (12,859 mentions) and **"Adya Kali" nowhere (0)**.
+
 - **A1 — Schema alternate names.**
   `src/pages/index.astro`
-  Add to the existing `WebPage` and `WebSite` JSON-LD:
-  `"alternateName": ["Adya Kali", "Adya Kali Sahasranama", "Adya Kali Sahasranamavali", "Maa Adya Mahakali Sahasranama"]`.
-  *Acceptance:* JSON-LD parses; `alternateName` present in both blocks; visible page unchanged; build passes.
-  *Why:* we rank #2.5 for "adya kali sahasranama" while the string "Adya Kali" appears **zero** times on the site — the rank is proximity, not match.
+  Change `alternateName` from a string to an array on **both** the `WebPage` and `WebSite` JSON-LD blocks:
+  `["Maa Ādya Mahākālī Sahasranāma", "Adya Kali Sahasranama", "Adya Kali Sahasranamavali", "Maa Adya Mahakali Sahasranama"]`
+  (keep the existing IAST/spelling entries; add "Adya Kali …").
+  *Acceptance:* both blocks parse; `alternateName` is an array containing `Adya Kali Sahasranama`;
+  visible page unchanged; build passes.
 
 - **A2 — Visible "also known as" line.**
   `src/pages/index.astro`
-  Add one sentence near the hero (not in the `<h1>`): "Also known as Adya Kali Sahasranama or the Kali Sahasranamavali."
-  Keep the Devanagari/IAST H1 untouched.
-  *Acceptance:* phrase appears once in body HTML; H1 unchanged; no layout shift at 375/1440 (screenshot).
+  Add one sentence in the cover copy, outside the `<h1>`:
+  "Also known as **Adya Kali Sahasranama**, the **Adya Kali Sahasranamavali**, or the 1,000 names of Maa Kali."
+  Use the existing `.small` class (no stylesheet change). Keep the Devanagari/IAST H1 untouched.
+  *Acceptance:* the phrase "Adya Kali" appears in rendered body HTML; H1 unchanged; no layout break at
+  375/1440 (screenshot).
 
 - **A3 — Sahasranamavali coverage.**
   `src/pages/kali-sahasranama-lyrics/index.astro`
@@ -183,6 +220,11 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
   top 5 queries, any new "Crawled – not indexed".
   *Acceptance:* checklist present; no automation required.
 
+- **D3 — India SERP snapshot.**
+  Repeat the five §2 SERP queries with `&gl=in` (72% of clicks are India), save screenshots to
+  `docs/screenshots/serp/in/`, and note the position of `1000namesofmakali.com` beside the US figures.
+  *Acceptance:* five screenshots + a short table in `seo/snapshot.md`.
+
 ### Lane E — Verification (single agent, runs last)
 
 - **E1 — Full verification.**
@@ -238,11 +280,14 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 | Date | Item | Result |
 |---|---|---|
 | 2026-11-21 | Baseline captured | see §2 |
+| 2026-11-21 | US SERP snapshot | see §2 — only `adya kali sahasranama` (#2) is visible; head terms absent from page 1; screenshots in `docs/screenshots/serp/` |
+| 2026-11-21 | Owner decision: cannibalisation | Out of scope. Sister sites are complementary; no consolidation. |
 | | C2 redirect/canonical anomalies | _pending_ |
 | | Indexing requests | _pending_ |
+| | India SERP snapshot (D3) | _pending_ |
 
 ## 10. Open questions
 
 1. Hindi edition on-site or keep pointing at archive.org? (Decides whether `kali sahasranama in hindi` is in scope.)
-2. Is `1008namesofmakali.com` ours and safe to cross-link deliberately? (43 existing links look templated.)
+2. `1008namesofmakali.com` — assume ours (43 links) and safe to cross-link deliberately? Confirm anchor text only.
 3. Do we want Bing Webmaster Tools + IndexNow as a second crawl channel?
