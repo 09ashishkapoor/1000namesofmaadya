@@ -269,6 +269,18 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
   `/names/shmashana-kalika/`. Max 10/day; log date in Appendix B.
   *Acceptance:* 8 requests logged.
 
+- **C5 — Collapse the `1008namesofmakali.com` mirror into this domain.**
+  Verified 2026-11-21: `1008namesofmakali.com` is a **second deployment of this same site** — every path returns
+  200 with a cross-domain canonical to `1000namesofmakali.com`, and unknown paths still 404. It is not a
+  redirect and sends no traffic; it publishes ~1,063 duplicate URLs. Add a Cloudflare **301 for
+  `https://1008namesofmakali.com/*` → `https://1000namesofmakali.com/$1`** (Bulk Redirect or Redirect Rule at
+  the zone), then confirm a spot check: `/names/kali/` → 301 → 200 on the main domain.
+  *Acceptance:* whole-domain 301 live; no `canonical`-only duplicates left; GSC shows the 1008 URLs dropping
+  out over the following weeks. **Keep the domain registered and redirecting — do not delete it and do not let
+  it lapse.** It renews March 2027; put it on auto-renew. An expired `1008namesofmakali.com` is a brand and
+  squatting risk (someone else can host a look-alike next to our brand), and it currently costs nothing but
+  the renewal fee once it is a redirect.
+
 ### Lane D — Measurement (one agent, read-only + docs)
 
 - **D1 — Snapshot script.**
@@ -350,6 +362,14 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 
 ## 10. Open questions
 
-1. Hindi edition on-site or keep pointing at archive.org? (Decides whether `kali sahasranama in hindi` is in scope.)
-2. `1008namesofmakali.com` — assume ours (43 links) and safe to cross-link deliberately? Confirm anchor text only.
+1. **Hindi — bring it back?** The content exists. Git history holds the full Hindi elaborations:
+   `mahakali1000nameswebsite/mahakali_sahasranama(1000)_HINDI_withelaborations.txt` (~4.7M chars) and
+   `..._CompleteReference.txt` (~4.4M chars), both deleted in `7eb337d`; the on-site language toggle was removed
+   in `98a786d` ("English-only support"). Owner has the raw data as well.
+   **Recommendation: hub first, not 1,072 pages.** Add `/hi/` + 11 range pages (+ optionally the first 100 names)
+   with `lang="hi"`, `hreflang` pairs and Hindi titles, and expand only the names that earn impressions. Full
+   Hindi would add ~1,084 URLs to a site that already has 933 waiting — at ~1.6 discovery fetches/day that is
+   years of backlog, not a launch.
+2. `1008namesofmakali.com` — **resolved 2026-11-21:** it is ours and is a full duplicate deployment, not a
+   redirect. Task C5 collapses it with a 301.
 3. Do we want Bing Webmaster Tools + IndexNow as a second crawl channel?
