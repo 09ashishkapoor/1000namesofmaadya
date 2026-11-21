@@ -180,7 +180,7 @@ test.describe("phone reader", () => {
 
 test.describe("no horizontal scroll", () => {
 	for (const width of [320, 375, 1440]) {
-		for (const path of ["/", "/names/kali/", "/names/1-100/", "/names/", "/108-names-of-kali/", "/about/"]) {
+		for (const path of ["/", "/names/kali/", "/names/1-100/", "/names/", "/108-names-of-kali/", "/about/", "/colophon/"]) {
 			test(`${path} at ${width}px`, async ({ page }) => {
 				await page.setViewportSize({ width, height: 900 });
 				await blockExternalTelemetry(page);
@@ -192,4 +192,35 @@ test.describe("no horizontal scroll", () => {
 			});
 		}
 	}
+});
+
+test("favicons are real images, not an HTML fallback", async ({ page, request }) => {
+	await page.goto("/", { waitUntil: "load" });
+
+	// Chromium, Safari and the Google favicon crawler reject WebP icons, so the
+	// head must point at ICO/PNG and those files must exist (a missing asset
+	// used to come back as the homepage HTML, which reads as a broken icon).
+	await expect(page.locator('link[rel="icon"][href="/favicon-48.png"]')).toHaveCount(1);
+	await expect(page.locator('link[rel="icon"][href="/favicon.ico"]')).toHaveCount(1);
+	await expect(page.locator('link[rel="apple-touch-icon"][href="/apple-touch-icon.png"]')).toHaveCount(1);
+	await expect(page.locator('link[rel="manifest"][href="/site.webmanifest"]')).toHaveCount(1);
+	await expect(page.locator('link[rel="icon"][type="image/webp"]')).toHaveCount(0);
+
+	for (const asset of ["/favicon.ico", "/favicon-48.png", "/apple-touch-icon.png", "/site.webmanifest"]) {
+		const response = await request.get(asset);
+		expect(response.status(), asset).toBe(200);
+		expect(String(response.headers()["content-type"]), asset).not.toContain("text/html");
+	}
+});
+
+test("an unknown URL answers with the real 404 page", async ({ page, request }) => {
+	// A 200 homepage for a missing path is a soft 404: crawlers cannot tell a
+	// miss from a hit, and missing assets looked like valid pages.
+	const response = await request.get("/this-page-does-not-exist/");
+	expect(response.status()).toBe(404);
+
+	await page.goto("/this-page-does-not-exist/");
+	await expect(page.locator("h1")).toHaveText("This page is not in the pothi");
+	await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex,follow");
+	await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 });

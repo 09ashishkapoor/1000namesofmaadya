@@ -85,7 +85,7 @@ function buildRangeMetadata(entries, rangeNumber, totalRanges) {
 		count: entries.length,
 		label: `${start}-${end}`,
 		title: `Adya Mahakali Names ${start}-${end} | 1000 Names of Maa Kali`,
-		description: `Read Adya Mahakali Sahasranama names ${start}-${end}, from ${first.english_name} to ${last.english_name}, with English meanings and elaborations.`,
+		description: `Read Adya Mahakali Sahasranama names ${start}-${end}, from ${first.english_name} to ${last.english_name}, with English meanings.`,
 		heading: `Adya Mahakali Names ${start}-${end}`,
 		firstName: {
 			index: first.index,

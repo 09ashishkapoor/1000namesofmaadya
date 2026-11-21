@@ -97,6 +97,7 @@ function testGuideAndTextPagesUseTheSharedLayout() {
 		"kali-sahasranama-lyrics",
 		"kali-sahasranama-benefits",
 		"about",
+		"colophon",
 		"contact",
 		"privacy",
 		"sources",
@@ -268,6 +269,36 @@ function testSocialShareCard() {
 	});
 }
 
+function testSeoHygiene() {
+	// One author spelling, one locale, one robots policy across the templates.
+	assertIncludes(layout, 'name="author" content="Kaliputra Ashish"', "the layout names the author consistently");
+	assertIncludes(readerPage, 'name="author" content="Kaliputra Ashish"', "the reader names the author consistently");
+	astroSources.forEach((source) => {
+		assert.ok(!source.includes("KaliPutra-Ashish"), "no template should use the old author casing");
+	});
+	assertIncludes(layout, 'og:locale" content="en_US"', "the layout declares the US English locale");
+	assertIncludes(readerPage, 'og:locale" content="en_US"', "the reader declares the same locale");
+	assert.ok(!/og:locale"\s+content="en_IN"/.test(layout + readerPage), "the locale must not drift per page");
+	assertIncludes(layout, "max-video-preview:-1", "the layout uses the same robots policy as the reader");
+
+	// Unknown URLs need a real 404 document, or Pages answers them with the
+	// homepage at 200 (soft 404s) and crawlers cannot tell a miss from a hit.
+	const notFoundPage = read("src/pages/404.astro");
+	assertIncludes(notFoundPage, "ReferenceLayout", "the 404 page uses the shared layout");
+	assertIncludes(notFoundPage, 'robots="noindex,follow"', "the 404 page asks not to be indexed");
+
+	// lastmod must come from git history, never from the build clock.
+	const sitemapBuilder = read("seo/build-sitemap.mjs");
+	assert.ok(
+		!/lastmod[^\n]*new Date\s*\(/.test(sitemapBuilder),
+		"the sitemap must not stamp every URL with the build date",
+	);
+	assert.ok(
+		sitemapBuilder.includes("gitLastmod"),
+		"sitemap lastmod should be read from git history",
+	);
+}
+
 testLegacyStylesheetsAreGone();
 testSingleStylesheetIsLinked();
 testNightReadingIsOnEveryTemplate();
@@ -286,5 +317,6 @@ testSitemapIncludesStaticNamesUrls();
 testStaticNamesPagesExposeSeoMarkers();
 testNameSpineMatchesTheMapping();
 testSocialShareCard();
+testSeoHygiene();
 
 console.log("ux structure tests passed");

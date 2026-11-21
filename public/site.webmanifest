@@ -1,0 +1,13 @@
+{
+	"name": "Adya Mahakali 1000 Names",
+	"short_name": "Adya Mahakali",
+	"description": "The 1,072 names of Maa Adya Mahakali (Kali Sahasranama) with English meanings, Devanagari, and a free PDF.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#faf3e3",
+	"theme_color": "#faf3e3",
+	"icons": [
+		{ "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+		{ "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+	]
+}

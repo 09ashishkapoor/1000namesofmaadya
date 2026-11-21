@@ -1,0 +1,160 @@
+---
+// The production notes for the book: what edition this is, how the text and
+// type were set, how the site is built, who it is credited to, and the terms
+// it is shared under. Linked from the colophon footer on every page.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+
+const siteUrl = 'https://1000namesofmakali.com';
+const canonical = `${siteUrl}/colophon/`;
+const title = 'Colophon | Adya Mahakali 1000 Names';
+const description =
+	'How this edition of the Adya Mahakali Sahasranama was made: its text, typography, production, credits, and free-sharing terms.';
+
+const versionJson = JSON.parse(
+	readFileSync(join(process.cwd(), 'public', 'version.json'), 'utf8'),
+);
+const version = versionJson.version || '1.0';
+const builtOn = new Intl.DateTimeFormat('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+	timeZone: 'UTC',
+}).format(new Date(`${versionJson.buildDate || '2026-01-01'}T00:00:00Z`));
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical}#webpage`,
+			name: title,
+			description,
+			url: canonical,
+			inLanguage: 'en',
+			isPartOf: { '@id': `${siteUrl}/#website` },
+		},
+		{
+			'@type': 'BreadcrumbList',
+			'@id': `${canonical}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+				{ '@type': 'ListItem', position: 2, name: 'Colophon', item: canonical },
+			],
+		},
+	],
+};
+---
+
+<ReferenceLayout title={title} description={description} canonical={canonical} schema={schema}>
+	<nav class="breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/">Home</a></li>
+			<li><span aria-current="page">Colophon</span></li>
+		</ol>
+	</nav>
+
+	<p class="page-kicker">Production notes</p>
+	<h1>Colophon</h1>
+
+	<section class="hero-panel">
+		<p class="intro">
+			This page records how this edition of the Adya Mahakali Sahasranama was made: the edition itself,
+			the text, the type, the production, the people it is dedicated to, and the terms it is shared under.
+		</p>
+		<nav class="page-nav" aria-label="Colophon navigation">
+			<ul>
+				<li><a href="/names/">All 1,072 names</a></li>
+				<li><a href="/sources/">Sources and editorial notes</a></li>
+				<li><a href="/about/">About the project</a></li>
+			</ul>
+		</nav>
+	</section>
+
+	<section class="source-notes">
+		<h2>Edition</h2>
+		<p>
+			1,072 numbered names of Maa Ādya Mahākālī, presented as one book. Each name has a canonical page
+			carrying its Devanagari, IAST transliteration, common English spelling, source transliteration, a
+			one-line meaning, and a longer explanatory note. Names that repeat in the recension share one page
+			that lists every occurrence, so no occurrence is merged away.
+		</p>
+		<p>
+			The web edition is 1,039 name pages, 11 range pages, a searchable reader on the home page, and the
+			guide pages. Version V{version} · built {builtOn}.
+		</p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Text</h2>
+		<p>
+			The Devanagari and source transliteration are compiled from the devotional source material
+			acknowledged on the <a href="/sources/">sources page</a>, including
+			<a href="https://sanskritdocuments.org/" rel="noopener noreferrer">SanskritDocuments.org</a>. The
+			source is cited and linked, not republished. The English meanings and elaborations are this
+			edition's own devotional study notes, not a translation of a single critical edition.
+		</p>
+		<p>
+			Spelling and transliteration are kept consistent across the project, and the name mapping is
+			generated from the project data rather than hand-maintained per page.
+		</p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Typography and design</h2>
+		<p>
+			The Devanagari is set in Tiro Devanagari Sanskrit with Noto Serif Devanagari as fallback; the Latin
+			text in Crimson Pro. The layout follows The Pothi: a duotone frontispiece, a measured reading
+			column, running heads, folios, a cream paper ground, and cinnabar accents, with a night-reading
+			theme for long sessions.
+		</p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Production</h2>
+		<p>
+			The site is static HTML generated with Astro and hand-written CSS. There is no client-side
+			framework, no accounts, and no paywall. Search runs on a prebuilt index; the reader and the names
+			hub are server-rendered, so the text is readable without JavaScript. A service worker keeps the
+			shell available offline.
+		</p>
+		<p>
+			The printable edition is a 68-page PDF generated from the same data, so a corrected spelling or
+			meaning flows through to the online pages and the download. The favicon set is generated from a
+			single square master by <code>scripts/make-favicons.py</code>.
+		</p>
+		<p>
+			The interactive home page loads Google Analytics for aggregate usage only; the reference pages do
+			not carry separate tracking. See <a href="/privacy/">privacy</a>.
+		</p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Credits</h2>
+		<p>
+			Compiled and maintained by <strong>Kaliputra Ashish</strong>, and dedicated to
+			<strong>Shri Praveen Radhakrishnan</strong> and the <strong>Khyapa Parampara</strong>.
+		</p>
+		<p>
+			Icon and frontispiece art derive from the deity photograph credited in the source image as
+			<em>Tryst With Kaali — Praveen Radhakrishnan</em>; it remains with its credited owner.
+		</p>
+		<p><a href="/about/">About the project and author →</a></p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Rights and reuse</h2>
+		<p>
+			Free to read, print, and share. You may quote or adapt this edition for devotional or study use if
+			you credit <strong>Adya Mahakali 1000 Names</strong> and link to the relevant canonical page.
+		</p>
+		<p>
+			The site's source code is released under the
+			<a href="https://github.com/09ashishkapoor/1000namesofmaadya/blob/main/LICENSE" rel="noopener noreferrer"
+				>MIT License</a
+			>. The deity photograph and other third-party images are excluded from that license and remain
+			with their credited owners. All knowledge is forever free to share.
+		</p>
+	</section>
+</ReferenceLayout>

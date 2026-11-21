@@ -1,0 +1,49 @@
+---
+// Served for any unknown URL. Cloudflare Pages picks up dist/404.html and
+// returns it with a real 404 status, which stops missing pages/assets from
+// being answered with the homepage at 200 (a soft 404).
+import ReferenceLayout from '../layouts/ReferenceLayout.astro';
+
+const title = 'Page Not Found | Adya Mahakali 1000 Names';
+const description =
+	'That page is not in the pothi. Read the 1,000 names of Maa Kali, browse the names index, or download the free Kali Sahasranama PDF.';
+---
+
+<ReferenceLayout
+	title={title}
+	description={description}
+	robots="noindex,follow"
+	ogType="website"
+	colophonLabel="The Pothi"
+>
+	<nav class="breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/">Home</a></li>
+			<li><span aria-current="page">Page not found</span></li>
+		</ol>
+	</nav>
+
+	<p class="page-kicker">404</p>
+	<h1>This page is not in the pothi</h1>
+
+	<section class="hero-panel">
+		<p class="intro">
+			The address you followed does not exist — it may have been renamed, or the link may have a typo. The
+			names themselves are all still here.
+		</p>
+	</section>
+
+	<section class="source-notes">
+		<h2>Where to go next</h2>
+		<ul>
+			<li><a href="/">Read the names</a> — the full 1,072-name reader, with search.</li>
+			<li><a href="/names/">Browse the names index</a> — every name in one crawlable list.</li>
+			<li><a href="/kali-sahasranama-pdf/">Download the free PDF</a> — the printable English edition.</li>
+			<li><a href="/about/">About the project</a> — sources, method, and the author.</li>
+		</ul>
+		<p>
+			If a link on this site sent you here, please report it on the
+			<a href="/contact/">contact page</a> so it can be fixed.
+		</p>
+	</section>
+</ReferenceLayout>

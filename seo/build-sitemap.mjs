@@ -3,7 +3,14 @@
 //
 // Keep the legacy static entries byte-identical to the previous sitemap so the
 // existing structure tests keep validating dates/priorities.
+//
+// lastmod must describe when the CONTENT changed, not when the build ran.
+// Stamping `new Date()` on ~1,000 URLs tells Google every page changed on every
+// deploy, which trains it to distrust the sitemap. Dates are read from git
+// instead (the last commit touching the page's source), with a fixed fallback
+// for environments without history (shallow clones, tarball builds).
 
+import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -12,6 +19,36 @@ const SITE_URL = "https://1000namesofmakali.com";
 const MANIFEST_PATH = join(ROOT, "public", "data_manifest.json");
 const MAPPING_PATH = join(ROOT, "src", "data", "name-mapping.json");
 const SITEMAP_PATH = join(ROOT, "public", "sitemap.xml");
+
+// Used when git history is unavailable. Must stay a real content date, never
+// "today", so repeated builds produce identical output.
+const FALLBACK_LASTMOD = "2026-04-26";
+
+const dateCache = new Map();
+
+/** Last commit date (YYYY-MM-DD) that touched any of the given repo paths. */
+function gitLastmod(paths) {
+	const key = paths.join("|");
+	if (dateCache.has(key)) return dateCache.get(key);
+
+	let latest = "";
+	for (const path of paths) {
+		try {
+			const date = execFileSync("git", ["log", "-1", "--format=%cs", "--", path], {
+				cwd: ROOT,
+				encoding: "utf8",
+				stdio: ["ignore", "pipe", "ignore"],
+			}).trim();
+			if (date > latest) latest = date;
+		} catch {
+			// No git, no history, or the path is untracked: use the fallback.
+		}
+	}
+
+	const result = latest || FALLBACK_LASTMOD;
+	dateCache.set(key, result);
+	return result;
+}
 
 function staticEntries() {
 	const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
@@ -41,13 +78,14 @@ function staticEntries() {
 		"/kali-sahasranama-lyrics/",
 		"/kali-sahasranama-benefits/",
 		"/about/",
+		"/colophon/",
 		"/contact/",
 		"/privacy/",
 	];
 	for (const path of landingPages) {
 		entries.push({
 			loc: `${SITE_URL}${path}`,
-			lastmod: new Date().toISOString().slice(0, 10),
+			lastmod: gitLastmod([`src/pages${path}index.astro`]),
 			changefreq: "monthly",
 			priority: "0.9",
 		});
@@ -58,7 +96,8 @@ function staticEntries() {
 
 function nameEntries() {
 	const mapping = JSON.parse(readFileSync(MAPPING_PATH, "utf8"));
-	const lastmod = new Date().toISOString().slice(0, 10);
+	// Every name page is rendered from the same template, from the same data.
+	const lastmod = gitLastmod(["src/pages/names/[name].astro", "src/data/name-mapping.json"]);
 
 	return mapping.pageGroups.map((group) => ({
 		loc: `${SITE_URL}/names/${group.slug}/`,
