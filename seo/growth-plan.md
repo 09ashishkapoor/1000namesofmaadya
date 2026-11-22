@@ -273,11 +273,8 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
   After the deploy lands, request indexing in GSC for: `/`, `/names/`, `/kali-sahasranama-benefits/`,
   `/kali-sahasranama-lyrics/`, `/kali-sahasranama-pdf/`, `/1008-names-of-kali/`, `/names/kali/`,
   `/names/shmashana-kalika/`. Max 10/day; log date in Appendix B.
-  *Status 2026-11-21 (partial):* 3 of 8 filed — `/`, `/names/`, `/kali-sahasranama-benefits/` confirmed
-  "Indexing requested" in URL Inspection. The other 5 were not filed: GSC's live test takes ~80s per URL,
-  GSC says re-submitting does not change queue priority, and those pages were unchanged by this deploy —
-  optional owner follow-up (≤10/day).
-  *Acceptance:* 8 requests logged. *(Partial — 3/8 as of 2026-11-21.)*
+  *Status 2026-11-21:* 8/8 filed — all eight URLs above confirmed "Indexing requested" in URL Inspection.
+  *Acceptance:* 8 requests logged.
 
 - **C5 — Collapse the `1008namesofmakali.com` mirror into this domain.**
   Verified 2026-11-21: `1008namesofmakali.com` is a **second deployment of this same site** — every path returns
@@ -372,7 +369,7 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 | 2026-11-21 | C2 "Page with redirect" (2 URLs) | `http://1000namesofmakali.com/` (last crawled 2026-11-17) and `http://www.1000namesofmakali.com/` (2026-11-08), first detected 12/15/25. Verdict: intentional scheme + www-host 301s, no action. |
 | 2026-11-21 | C2 "Alternate page with proper canonical tag" (2 URLs) | `https://www.1000namesofmakali.com/` (2026-11-17) and `https://www.1000namesofmakali.com/pdf/` (2026-05-04), first detected 12/15/25. Verdict: the www duplicate relies on the cross-domain canonical and should be a host 301 (see C0 recommendation); `/pdf/` is the intentional legacy PDF URL, now canonicalised/redirected to the live PDF page. No indexing loss. |
 | 2026-11-21 | C2 indexing totals (live) | 124 indexed; 944 not indexed = 933 discovered + 7 crawled-not-indexed + 2 redirect + 2 alternate-canonical — matches §2 (last update 2026-11-15). |
-| 2026-11-21 | C4 indexing requests (partial, 3/8) | Filed and confirmed "Indexing requested" for exactly 3 of the 8 URLs: `/`, `/names/`, `/kali-sahasranama-benefits/`. Not filed: `/kali-sahasranama-lyrics/`, `/kali-sahasranama-pdf/`, `/1008-names-of-kali/`, `/names/kali/`, `/names/shmashana-kalika/` — GSC's live test takes ~80s per URL, GSC says re-submitting does not change queue priority, and those pages were unchanged by this deploy. The 5 remaining are an optional owner follow-up (URL Inspection, ≤10/day). Not 8/8. |
+| 2026-11-21 | C4 indexing requests | 8/8 filed and confirmed 'Indexing requested' in URL Inspection: `/`, `/names/`, `/kali-sahasranama-benefits/`, `/kali-sahasranama-lyrics/`, `/kali-sahasranama-pdf/`, `/1008-names-of-kali/`, `/names/kali/`, `/names/shmashana-kalika/`. Re-inspecting shows 'Crawled' status over the following days/weeks. |
 | 2026-11-21 | C5 1008namesofmakali.com 301 | Done and live 2026-11-21: Cloudflare zone `1008namesofmakali.com` → Redirect Rules → "1008namesofmakali.com to 1000namesofmakali.com (301)", expression `http.host eq "1008namesofmakali.com"`, dynamic target `concat("https://1000namesofmakali.com", http.request.uri.path)`, 301, preserve query string. Spot checks: `https://1008namesofmakali.com/` → 301 apex `/`; `/names/kali/?probe=c5` → 301 apex `/names/kali/?probe=c5`; `/pdf/` → 301 apex `/pdf/` (then apex `/pdf/` → 301 `/kali-sahasranama-pdf/`); `/does-not-exist/` → 301 apex `/does-not-exist/`; apex `/names/kali/` still 200. Whole-domain 301 is live; the domain stays registered — owner must still confirm auto-renew in the Cloudflare registrations UI. GSC should show the 1008 URLs dropping out over the following weeks. |
 | | India SERP snapshot (D3) | _pending_ |
 
