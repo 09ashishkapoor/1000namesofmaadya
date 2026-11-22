@@ -194,6 +194,42 @@ test.describe("no horizontal scroll", () => {
 	}
 });
 
+test.describe("the running head holds together", () => {
+	// The head used to overflow between 760px and ~890px (the night control was
+	// pushed off-screen and the page scrolled sideways), and below 760px the
+	// absolutely positioned night control sat on top of the last nav links.
+	// Landscape phones (844px) and small tablets (768px) hit the first case.
+	for (const width of [320, 360, 390, 412, 768, 844, 900, 901, 1280]) {
+		test(`no overlap or sideways scroll at ${width}px`, async ({ page }) => {
+			await page.setViewportSize({ width, height: 900 });
+			await blockExternalTelemetry(page);
+			await page.goto("/", { waitUntil: "load" });
+
+			const layout = await page.evaluate(() => {
+				const rect = (element) => element.getBoundingClientRect();
+				const overlap = (a, b) =>
+					Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+					Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+				const theme = rect(document.querySelector(".theme"));
+				const links = [...document.querySelectorAll(".bar nav a")].filter(
+					(link) => getComputedStyle(link).display !== "none",
+				);
+				return {
+					overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+					themeOutside: theme.right > window.innerWidth + 1 || theme.left < -1,
+					overlaps: links.filter((link) => overlap(rect(link), theme) > 0).length,
+					rows: new Set(links.map((link) => Math.round(rect(link).top))).size,
+				};
+			});
+
+			expect(layout.overflow, "the page scrolls sideways").toBeLessThanOrEqual(1);
+			expect(layout.themeOutside, "the night control is off-screen").toBe(false);
+			expect(layout.overlaps, "nav links sit under the night control").toBe(0);
+			expect(layout.rows, "the nav wraps onto more than one row").toBe(1);
+		});
+	}
+});
+
 test("favicons are real images, not an HTML fallback", async ({ page, request }) => {
 	await page.goto("/", { waitUntil: "load" });
 

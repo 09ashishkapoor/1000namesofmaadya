@@ -668,14 +668,25 @@ footer.colophon .fine { font-size: 12px; color: var(--ash); font-style: italic; 
   .panel-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 760px) {
-  body { font-size: 17.5px; }
-  .bar { padding: 12px 18px 6px; flex-wrap: wrap; row-gap: 0; position: relative; }
-  .bar nav { width: 100%; justify-content: flex-end; gap: 18px; font-size: 12px; border-top: 1px solid var(--rule-soft); margin-top: 4px; }
-  .bar nav a { display: inline-flex; align-items: center; min-height: 44px; }
+/* The desktop running head needs ~890px for brand + seven nav items + the
+   night control. Below that it is laid out as two rows: brand and control on
+   the first, nav across the second, so neither the control nor the page can
+   be pushed off-screen (phones in landscape, small tablets).  */
+@media (max-width: 900px) {
+  .bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; padding: 12px 18px 6px; }
+  .brand { grid-column: 1; grid-row: 1; min-width: 0; }
   .brand .dev { font-size: 15px; white-space: nowrap; }
   .brand .lat { display: none; }
-  .theme { position: absolute; right: 18px; top: 8px; margin: 0; border-left: 0; padding-left: 0; min-height: 44px; }
+  .theme { position: static; margin: 0; border-left: 0; padding-left: 0; grid-column: 2; grid-row: 1; justify-self: end; }
+  .bar nav {
+    grid-column: 1 / -1; grid-row: 2; width: 100%; justify-content: flex-end; flex-wrap: wrap;
+    gap: 0 18px; font-size: 12px; border-top: 1px solid var(--rule-soft); margin-top: 4px;
+  }
+  .bar nav a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+@media (max-width: 760px) {
+  body { font-size: 17.5px; }
   .rtabs { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .rtabs a { flex: 0 0 auto; min-width: 76px; padding: 12px 10px; border-left: 0; }
   .breadcrumbs, .crumbs { padding-top: 14px; }
@@ -722,11 +733,20 @@ footer.colophon .fine { font-size: 12px; color: var(--ash); font-style: italic; 
   footer.colophon .links { gap: 8px 16px; }
 }
 
-@media (max-width: 400px) {
-  .bar nav { flex-wrap: wrap; row-gap: 0; }
+/* Below ~500px the seven nav labels cannot share one line at a readable size;
+   the two longest (1008 names, PDF) step out of the head there — both are still
+   linked from the hub, the homepage contents and the colophon. */
+@media (max-width: 500px) {
   .bar nav a:nth-child(3),
   .bar nav a:nth-child(4) { display: none; }
+}
+
+@media (max-width: 400px) {
   .brand .dev { font-size: 14px; }
+}
+
+@media (max-width: 360px) {
+  .bar nav { gap: 0 12px; font-size: 11.5px; letter-spacing: .08em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
