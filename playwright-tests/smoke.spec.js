@@ -204,6 +204,9 @@ test.describe("the running head holds together", () => {
 			await page.setViewportSize({ width, height: 900 });
 			await blockExternalTelemetry(page);
 			await page.goto("/", { waitUntil: "load" });
+			// Measure with the webfont settled: before the swap the fallback serif
+			// is wide enough to wrap the nav on a 320px screen for a frame.
+			await page.evaluate(() => document.fonts.ready);
 
 			const layout = await page.evaluate(() => {
 				const rect = (element) => element.getBoundingClientRect();
