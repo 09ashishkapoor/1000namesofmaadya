@@ -98,5 +98,5 @@ cannot be changed from this repository. No spam: link only where it genuinely he
 | `1008namesofmakali.com` cross-link | pending — owner dashboard | Check whether the 43 GSC links are boilerplate or a real cross-link; if boilerplate, add one descriptive link to the `/names/` hub. The whole-domain 301 is task C5. |
 | 1–2 genuine Reddit/forum answers (r/Shaktism, r/hinduism) | pending — owner dashboard | Answer one real question about Kali names or meanings, then link the specific name page it helps (e.g. `/names/kali/`), never the home page or a bare link. |
 
-Use `https://1000namesofmakali.com/...` (apex, no `www`) in every new external link — it matches the
-canonical domain the site's 301 already enforces and keeps the www→apex crawl redirect (C0) from growing.
+Use `https://1000namesofmakali.com/...` (apex, no `www`) in every new external link — that keeps it on the
+canonical domain and avoids adding a 301 hop now that the www→apex redirect is live (C0).
