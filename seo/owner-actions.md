@@ -82,3 +82,21 @@ rebuildable with `node seo/build-print-pdf.mjs` (needs Chrome/Edge).
 - Rich Results Test on a name page: `Article`, `DefinedTerm`, `BreadcrumbList`; on the PDF page:
   `Book`, `FAQPage`.
 - Mobile-friendly / Core Web Vitals check on the names hub and a name page after deploy.
+
+## 7. Lane C link checklist (2026-11-21)
+
+One row per C3 item from [`growth-plan.md`](growth-plan.md). **Done** means the repo change is in this
+branch and goes live on the next push. **Pending — owner dashboard** means it needs an external login and
+cannot be changed from this repository. No spam: link only where it genuinely helps a reader.
+
+| Item | Status | Exact action |
+|---|---|---|
+| GitHub README links the names hub | **done** — repo change, live after the next push | The Features bullet for static names pages now links `https://1000namesofmakali.com/names/` with the anchor "1,000 names of Maa Kali". |
+| archive.org item descriptions (English + Hindi) | pending — owner dashboard | Edit both items (`adya-mahakali-sahasranama-kaliputraashish`, `adya-mahakali-sahasranama-in-Hindi-kaliputraashish`) and add one sentence naming the companion site `https://1000namesofmakali.com/names/` with the anchor "1,000 names of Maa Kali". |
+| Instagram bio (`@ashishkaliputra`) | pending — owner dashboard | Put `https://1000namesofmakali.com/names/` in the bio link. |
+| `jaikhyapaparampara.com` | pending — owner dashboard (sister site) | On the pages that already link this project (3 GSC links), add one contextual link to `https://1000namesofmakali.com/names/` with a descriptive anchor. |
+| `1008namesofmakali.com` cross-link | pending — owner dashboard | Check whether the 43 GSC links are boilerplate or a real cross-link; if boilerplate, add one descriptive link to the `/names/` hub. The whole-domain 301 is task C5. |
+| 1–2 genuine Reddit/forum answers (r/Shaktism, r/hinduism) | pending — owner dashboard | Answer one real question about Kali names or meanings, then link the specific name page it helps (e.g. `/names/kali/`), never the home page or a bare link. |
+
+Use `https://1000namesofmakali.com/...` (apex, no `www`) in every new external link — it matches the
+canonical domain the site's 301 already enforces and keeps the www→apex crawl redirect (C0) from growing.
