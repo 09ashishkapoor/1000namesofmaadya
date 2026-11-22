@@ -1,0 +1,5 @@
+# The performance budget in playwright-tests/performance.spec.js measures
+# dist/pothi.css in bytes. Checkout EOL conversion must not change that number:
+# keep the stylesheet LF in every working tree so the test measures the CSS that
+# is authored, not the platform's line endings.
+public/pothi.css text eol=lf

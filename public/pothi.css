@@ -668,10 +668,8 @@ footer.colophon .fine { font-size: 12px; color: var(--ash); font-style: italic; 
   .panel-grid { grid-template-columns: 1fr; }
 }
 
-/* The desktop running head needs ~890px for brand + seven nav items + the
-   night control. Below that it is laid out as two rows: brand and control on
-   the first, nav across the second, so neither the control nor the page can
-   be pushed off-screen (phones in landscape, small tablets).  */
+/* Below ~890px the head becomes two rows (brand + night control, then nav) so
+   nothing is pushed off-screen on landscape phones or small tablets. */
 @media (max-width: 900px) {
   .bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; padding: 12px 18px 6px; }
   .brand { grid-column: 1; grid-row: 1; min-width: 0; }
@@ -733,8 +731,7 @@ footer.colophon .fine { font-size: 12px; color: var(--ash); font-style: italic; 
   footer.colophon .links { gap: 8px 16px; }
 }
 
-/* Below ~500px the seven nav labels cannot share one line at a readable size;
-   the two longest (1008 names, PDF) step out of the head there — both are still
+/* Below ~500px the two longest labels step out of the head; both are still
    linked from the hub, the homepage contents and the colophon. */
 @media (max-width: 500px) {
   .bar nav a:nth-child(3),
