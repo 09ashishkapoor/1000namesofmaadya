@@ -28,7 +28,7 @@ The site is static, fast, searchable, and open source. It requires no backend AP
 - **Reading pagination** in sets of 11 names for slower devotional pacing
 - **Devanagari first** — the reader server-renders its first set of eleven with Devanagari, IAST and meaning, so the text is readable without JavaScript
 - **Night reading** on every page — a button in the running head, a pre-paint script so the choice never flashes, and a warm ink-black token set (not an inversion)
-- **Static names reference pages** at `/names/` for SEO, sharing, and no-JavaScript access
+- **Static names reference pages** for all [1,000 names of Maa Kali](https://1000namesofmakali.com/names/) — the hub plus range and per-name pages for SEO, sharing, and no-JavaScript access
 - **Individual name pages** at `/names/<slug>/` with Devanagari, IAST, alternate spellings, meaning, and full elaboration
 - **Head-term guides** for [108 names](https://1000namesofmakali.com/108-names-of-kali/), [1,008 names](https://1000namesofmakali.com/1008-names-of-kali/), [PDF](https://1000namesofmakali.com/kali-sahasranama-pdf/), [lyrics](https://1000namesofmakali.com/kali-sahasranama-lyrics/), and [benefits](https://1000namesofmakali.com/kali-sahasranama-benefits/)
 - **Printable PDF edition** generated from the site data (68 pages, Devanagari + English, 2.57 MB) with the Maa Adya Mahakali devotional image on the cover
