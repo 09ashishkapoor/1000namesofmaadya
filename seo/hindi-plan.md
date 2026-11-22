@@ -6,6 +6,11 @@
 This is the decision and build brief for bringing the Hindi meanings back. It is written to be picked up
 cold by a later session.
 
+**Scope boundary — independent of the English plan.** [`growth-plan.md`](growth-plan.md) covers English SEO
+and does not wait for Hindi; this project does not wait for the English crawl work. Do not merge the two
+backlogs. Shared surfaces only: one Astro repo, the `/hi/` URL prefix, the running head (language switch),
+and the `1008namesofmakali.com` 301 recorded as English task C5.
+
 ---
 
 ## 1. The claim, tested

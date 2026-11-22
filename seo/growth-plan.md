@@ -5,6 +5,12 @@
 This is the working plan for the next phase of SEO. It is written to be picked up cold — by a new
 chat, a subagent, or a swarm — without the conversation that produced it.
 
+**Scope boundary — English only.** Hindi is a separate project in [`hindi-plan.md`](hindi-plan.md) with its
+own decision, tasks and rollout. Do not add Hindi tasks to these lanes, and do not block any lane below on
+Hindi. The only shared surfaces are the Astro build, the `/hi/` URL prefix, and the `1008namesofmakali.com`
+301 (task C5, which keeps that domain available should Hindi ever need its own brand). An English page may
+still link the Hindi PDF — that is an English-page task.
+
 ---
 
 ## 1. The decision
