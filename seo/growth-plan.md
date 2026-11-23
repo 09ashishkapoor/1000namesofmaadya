@@ -284,7 +284,8 @@ Each task: keep title ≤60 chars and description ≤160; keep existing canonica
   the zone), then confirm a spot check: `/names/kali/` → 301 → 200 on the main domain.
   *Acceptance:* whole-domain 301 live; no `canonical`-only duplicates left; GSC shows the 1008 URLs dropping
   out over the following weeks. **Keep the domain registered and redirecting — do not delete it and do not let
-  it lapse.** It renews March 2027; put it on auto-renew. An expired `1008namesofmakali.com` is a brand and
+  it lapse.** It renews March 2027; put it on auto-renew. (Auto-renew confirmed 2026-11-23.) An expired
+  `1008namesofmakali.com` is a brand and
   squatting risk (someone else can host a look-alike next to our brand), and it currently costs nothing but
   the renewal fee once it is a redirect.
 
@@ -370,7 +371,7 @@ persistent task if needed. Reports used: Performance (Web, 3 months / 28 days), 
 | 2026-11-21 | C2 "Alternate page with proper canonical tag" (2 URLs) | `https://www.1000namesofmakali.com/` (2026-11-17) and `https://www.1000namesofmakali.com/pdf/` (2026-05-04), first detected 12/15/25. Verdict: the www duplicate relies on the cross-domain canonical and should be a host 301 (see C0 recommendation); `/pdf/` is the intentional legacy PDF URL, now canonicalised/redirected to the live PDF page. No indexing loss. |
 | 2026-11-21 | C2 indexing totals (live) | 124 indexed; 944 not indexed = 933 discovered + 7 crawled-not-indexed + 2 redirect + 2 alternate-canonical — matches §2 (last update 2026-11-15). |
 | 2026-11-21 | C4 indexing requests | 8/8 filed and confirmed 'Indexing requested' in URL Inspection: `/`, `/names/`, `/kali-sahasranama-benefits/`, `/kali-sahasranama-lyrics/`, `/kali-sahasranama-pdf/`, `/1008-names-of-kali/`, `/names/kali/`, `/names/shmashana-kalika/`. Re-inspecting shows 'Crawled' status over the following days/weeks. |
-| 2026-11-21 | C5 1008namesofmakali.com 301 | Done and live 2026-11-21: Cloudflare zone `1008namesofmakali.com` → Redirect Rules → "1008namesofmakali.com to 1000namesofmakali.com (301)", expression `http.host eq "1008namesofmakali.com"`, dynamic target `concat("https://1000namesofmakali.com", http.request.uri.path)`, 301, preserve query string. Spot checks: `https://1008namesofmakali.com/` → 301 apex `/`; `/names/kali/?probe=c5` → 301 apex `/names/kali/?probe=c5`; `/pdf/` → 301 apex `/pdf/` (then apex `/pdf/` → 301 `/kali-sahasranama-pdf/`); `/does-not-exist/` → 301 apex `/does-not-exist/`; apex `/names/kali/` still 200. Whole-domain 301 is live; the domain stays registered — owner must still confirm auto-renew in the Cloudflare registrations UI. GSC should show the 1008 URLs dropping out over the following weeks. |
+| 2026-11-21 | C5 1008namesofmakali.com 301 | Done and live 2026-11-21: Cloudflare zone `1008namesofmakali.com` → Redirect Rules → "1008namesofmakali.com to 1000namesofmakali.com (301)", expression `http.host eq "1008namesofmakali.com"`, dynamic target `concat("https://1000namesofmakali.com", http.request.uri.path)`, 301, preserve query string. Spot checks: `https://1008namesofmakali.com/` → 301 apex `/`; `/names/kali/?probe=c5` → 301 apex `/names/kali/?probe=c5`; `/pdf/` → 301 apex `/pdf/` (then apex `/pdf/` → 301 `/kali-sahasranama-pdf/`); `/does-not-exist/` → 301 apex `/does-not-exist/`; apex `/names/kali/` still 200. Whole-domain 301 is live; the domain stays registered — auto-renew confirmed ON 2026-11-23 (expires 2027-03-27). GSC should show the 1008 URLs dropping out over the following weeks. |
 | | India SERP snapshot (D3) | _pending_ |
 
 ## 10. Open questions
