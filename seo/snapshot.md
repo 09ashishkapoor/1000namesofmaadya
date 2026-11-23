@@ -45,8 +45,8 @@ The remaining work is verification: re-probe `https://www.1000namesofmakali.com/
 apex, watch GSC move the www URL out of "Alternate page with proper canonical tag", and check that the
 `1008namesofmakali.com` URLs drop out after Google's next crawl. Keep `public/_redirects` for the path
 redirects that do work (e.g. `/pdf/` → `/kali-sahasranama-pdf/`); a repo file cannot enforce the host
-rule on the www custom domain. The owner must also confirm the `1008namesofmakali.com` domain is on
-auto-renew in the Cloudflare registrations UI — keep it registered and redirecting. For JS+JSON, leave
+rule on the www custom domain. `1008namesofmakali.com` is on auto-renew (confirmed 2026-11-23; expires
+2027-03-27) — keep it registered and redirecting. For JS+JSON, leave
 offline behaviour alone — no change to `sw.js`, its `CORE_ASSETS`, or the `/sw.js` registration, and no
 new dependencies. A future optional win is to serve the home page's already server-rendered first set of
 names without the `app.js` JSON fetches (drop the `data_manifest.json` preload or defer the fetch until
